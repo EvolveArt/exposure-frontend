@@ -133,53 +133,34 @@ const DesktopNav = () => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-  return (
-    <Link
-      href={href}
-      role={"group"}
-      display={"block"}
-      p={2}
-      rounded={"md"}
-      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-    >
-      <Stack direction={"row"} align={"center"}>
-        <Box>
-          <Text
-            transition={"all .3s ease"}
-            _groupHover={{ color: "pink.400" }}
-            fontWeight={500}
-          >
-            {label}
-          </Text>
-          <Text fontSize={"sm"}>{subLabel}</Text>
-        </Box>
-        <Flex
-          transition={"all .3s ease"}
-          transform={"translateX(-10px)"}
-          opacity={0}
-          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-          justify={"flex-end"}
-          align={"center"}
-          flex={1}
-        >
-          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
-        </Flex>
-      </Stack>
-    </Link>
-  );
-};
-
 const MobileNav = () => {
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
+      paddingTop={"80px"}
     >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
+      <Button
+        fontSize={"sm"}
+        fontWeight={600}
+        fontFamily={"Inter"}
+        color={"white"}
+        bg={"#000"}
+        borderRadius="0px"
+        width={"200px"}
+        height={"46px"}
+        style={{ marginInlineStart: "0px" }}
+        _hover={{
+          opacity: "0.6",
+        }}
+      >
+        Connect Wallet
+        <Image src={wallet} paddingLeft="8px"></Image>
+      </Button>
     </Stack>
   );
 };
@@ -200,8 +181,11 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         }}
       >
         <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
+          fontFamily={"Inter"}
+          fontWeight="600"
+          letterSpacing={"1px"}
+          fontSize="14px"
+          color={"#000"}
         >
           {label}
         </Text>
@@ -217,17 +201,19 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
       </Flex>
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-        <Stack
-          mt={2}
-          pl={4}
-          borderLeft={1}
-          borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
-          align={"start"}
-        >
+        <Stack mt={2} pl={4} align={"start"}>
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
+              <Link
+                fontFamily={"Inter"}
+                fontWeight="600"
+                letterSpacing={"1px"}
+                fontSize="14px"
+                color={"#000"}
+                key={child.label}
+                py={2}
+                href={child.href}
+              >
                 {child.label}
               </Link>
             ))}
