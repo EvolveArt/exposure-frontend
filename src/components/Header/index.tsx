@@ -8,20 +8,12 @@ import {
   Collapse,
   Icon,
   Link,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
   Image,
 } from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import logo from "../../assets/imgs/logo.png";
 import wallet from "../../assets/imgs/wallet.png";
 import styles from "./styles.module.scss";
@@ -54,8 +46,6 @@ export default function Header() {
               fontFamily={"heading"}
               color={useColorModeValue("gray.800", "white")}
               src={logo}
-              height={"35px"}
-              width={"178px"}
             ></Image>
           </Flex>
           <IconButton
@@ -73,8 +63,6 @@ export default function Header() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
             src={logo}
-            height={"30px"}
-            width={"148px"}
           ></Image>
         </Flex>
 
@@ -116,7 +104,6 @@ export default function Header() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
 
   return (
