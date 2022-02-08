@@ -31,7 +31,8 @@ const arrivalPage = (arrival: {
     <Flex
       width={"80%"}
       height={"90vh"}
-      flexDirection={"row"}
+      flexDirection={{ base: "column", md: "row" }}
+      justifyContent="center"
       paddingTop={"85px"}
       margin="auto"
       gridGap={"24px"}
@@ -42,7 +43,7 @@ const arrivalPage = (arrival: {
         justifyContent="end"
         alignItems="center"
         style={{
-          borderImage: "url('/images/line.png') 30",
+          borderImageSource: "url('/images/plus.png')",
         }}
       >
         <Image src={arrival.image}></Image>
@@ -131,7 +132,7 @@ const arrivalPage = (arrival: {
             <span style={{ fontWeight: "800" }}>{arrival.releaseHour} GMT</span>
           </Text>
         </Flex>
-        <Flex border={"1px solid #000"} width="fit-content">
+        <Flex border={"1px solid #000"} width="100%">
           <Button
             fontSize={"sm"}
             fontWeight={600}
@@ -139,7 +140,7 @@ const arrivalPage = (arrival: {
             color={"white"}
             bg={"#000"}
             borderRadius="0px"
-            width={"550px"}
+            width={"100%"}
             height={"64px"}
             style={{ marginInlineStart: "unset" }}
             _hover={{
