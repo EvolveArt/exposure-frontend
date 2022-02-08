@@ -42,10 +42,22 @@ export default function Header() {
         width={"100vw"}
       >
         <Flex
-          flex={{ base: 1, md: "auto" }}
+          flex={{ base: "unset", md: "auto" }}
           ml={{ base: -2 }}
           display={{ base: "flex", md: "none" }}
+          width={{ base: "100%", md: "unset" }}
+          margin={{ base: "auto", md: "unset" }}
         >
+          <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+            <Image
+              textAlign={useBreakpointValue({ base: "center", md: "left" })}
+              fontFamily={"heading"}
+              color={useColorModeValue("gray.800", "white")}
+              src={logo}
+              height={"35px"}
+              width={"178px"}
+            ></Image>
+          </Flex>
           <IconButton
             onClick={onToggle}
             icon={
@@ -61,8 +73,8 @@ export default function Header() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
             src={logo}
-            height={"35px"}
-            width={"178px"}
+            height={"30px"}
+            width={"148px"}
           ></Image>
         </Flex>
 
@@ -139,7 +151,7 @@ const MobileNav = () => {
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
-      paddingTop={"80px"}
+      paddingTop={"83px"}
     >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
