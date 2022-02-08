@@ -1,0 +1,14 @@
+.dropContainer {
+  border: 2px solid #eee;
+}
+
+.imageContainer {
+  border-bottom: 2px solid #eee;
+}
+
+.dropContainer:hover {
+  border: 2px solid #000;
+}
+.dropContainer:hover .imageContainer {
+  border-bottom: 2px solid #000;
+}

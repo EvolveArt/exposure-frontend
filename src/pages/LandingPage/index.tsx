@@ -1,4 +1,13 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Link,
+  StylesProvider,
+  Text,
+} from "@chakra-ui/react";
+import styles from "./styles.module.scss";
 import React from "react";
 import Header from "../../components/Header";
 import agenda from "../../assets/imgs/agenda.png";
@@ -9,6 +18,7 @@ import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
 import arrow from "../../assets/imgs/arrow.png";
 import arrowContainer from "../../assets/imgs/arrowContainer.png";
+import dropWrapper from "../../assets/imgs/dropWrapper.png";
 
 const arrival = {
   title: "Touching Strangers",
@@ -20,6 +30,26 @@ const arrival = {
   releaseDate: "18/02/2022",
   releaseHour: "16:00",
 };
+const drops = [
+  {
+    image: "/images/strangers.png",
+    title: "Moments from the road",
+    author: "Sam Horrin",
+    number: "139",
+  },
+  {
+    image: "/images/strangers.png",
+    title: "Moments from the road",
+    author: "Sam Horrin",
+    number: "139",
+  },
+  {
+    image: "/images/strangers.png",
+    title: "Moments from the road",
+    author: "Sam Horrin",
+    number: "139",
+  },
+];
 
 const arrivalPage = (arrival: {
   title: string;
@@ -270,12 +300,70 @@ const arrivalPage = (arrival: {
   );
 };
 
+const latestDrops = (
+  key: any,
+  drops: {
+    image: string;
+    title: string;
+    author: string;
+    number: string;
+  }
+) => {
+  return (
+    <Flex
+      height="510px"
+      width={{ base: "100%", md: "calc(33.33% - 16px)" }}
+      flexDir={"column"}
+      borderRadius={"2px"}
+      className={styles.dropContainer}
+    >
+      <Flex
+        width="100%"
+        position="relative"
+        paddingBottom="100%"
+        boxSizing="border-box"
+        className={styles.imageContainer}
+      >
+        <Image
+          src={drops.image}
+          position="absolute"
+          top="0"
+          left="0"
+          width="100%"
+          height="100%"
+          backgroundSize="contain"
+          objectFit="contain"
+          border="0"
+          padding="8px"
+        ></Image>
+      </Flex>
+      <Flex flexDirection={"column"} paddingLeft="8px" gridGap={"8px"}>
+        <Text
+          fontStyle="normal"
+          fontWeight="600"
+          fontSize="20px"
+          lineHeight="35px"
+          paddingTop="19px"
+        >
+          {drops.title}
+        </Text>
+        <Text fontWeight="normal" fontSize="14px" lineHeight="28px">
+          By {drops.author}
+        </Text>
+        <Text fontSize="12px" lineHeight="18px">
+          <span style={{ fontWeight: "bold" }}>{drops.number} </span>photos
+        </Text>
+      </Flex>
+    </Flex>
+  );
+};
+
 const LandingPage = () => {
   return (
     <div>
       <Header />
       {arrivalPage(arrival)}
-      <Box position={"relative"} paddingBottom="56px">
+      <Box paddingBottom="112px">
         <Flex
           width={{ base: "90%", lg: "80%" }}
           height="fit-content"
@@ -285,6 +373,7 @@ const LandingPage = () => {
           zIndex="1"
           borderLeft="1px solid #aaa"
           paddingLeft={"16px"}
+          position={"relative"}
         >
           <Text
             fontFamily="Inter"
@@ -302,8 +391,95 @@ const LandingPage = () => {
             justo, sodales. Massa gravida non eget id diam. Porttitor hac diam
             nibh diam in fringilla. Rutrum consequat vitae sapien et est. Sit.
           </Text>
+          <Image
+            display={{ base: "none", md: "unset" }}
+            src={addIcon}
+            opacity="0.1"
+            width={"27px"}
+            position="absolute"
+            bottom={"-60px"}
+            right="0px"
+          ></Image>
+          <Image
+            display={{ base: "none", md: "unset" }}
+            src={addIcon}
+            opacity="0.1"
+            width={"27px"}
+            position="absolute"
+            bottom={"-60px"}
+            left="0px"
+          ></Image>
         </Flex>
       </Box>
+      <Flex
+        width={{ base: "90%", lg: "80%" }}
+        height="fit-content"
+        flexDirection="column"
+        margin="auto"
+        gridGap={"8px"}
+        zIndex="1"
+        position={"relative"}
+      >
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"-60px"}
+          right="-10px"
+        ></Image>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"-60px"}
+          left="0px"
+        ></Image>
+        <Flex
+          position="relative"
+          marginRight={"auto"}
+          width={{ base: "88vw", lg: "80vw" }}
+        >
+          <Image
+            src={dropWrapper}
+            position="absolute"
+            transform="translateX(-6px)"
+            zIndex={"-1"}
+            height="60px"
+          />
+          <Text
+            fontFamily="Inter"
+            fontStyle="normal"
+            fontWeight="bold"
+            fontSize="30px"
+            lineHeight="56px"
+            paddingBottom={"32px"}
+            marginLeft="10px"
+          >
+            Latest Drop
+          </Text>
+          <Link
+            textDecoration={"underline"}
+            position="absolute"
+            right="0"
+            top="15px"
+            display={{ base: "none", md: "unset" }}
+          >
+            View all collections
+          </Link>
+        </Flex>
+        <Flex
+          width={{ base: "unset", lg: "80vw" }}
+          flexDirection={{ base: "column", md: "row" }}
+          gridGap="24px"
+          flexWrap={"wrap"}
+        >
+          {drops.map((drop, key) => latestDrops(key, drop))}
+        </Flex>
+      </Flex>
     </div>
   );
 };
