@@ -32,6 +32,7 @@ export default function Header() {
         align={"center"}
         position="fixed"
         width={"100vw"}
+        zIndex="2"
       >
         <Flex
           flex={{ base: "unset", md: "auto" }}
@@ -50,6 +51,7 @@ export default function Header() {
           </Flex>
           <IconButton
             onClick={onToggle}
+            margin="auto"
             icon={
               isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
             }

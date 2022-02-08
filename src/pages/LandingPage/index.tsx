@@ -5,6 +5,8 @@ import agenda from "../../assets/imgs/agenda.png";
 import available from "../../assets/imgs/available.png";
 import ether from "../../assets/imgs/ether.png";
 import mintType from "../../assets/imgs/mintType.png";
+import addIcon from "../../assets/imgs/plus.png";
+import ticon from "../../assets/imgs/t.png";
 
 const arrival = {
   title: "Touching Strangers",
@@ -29,32 +31,116 @@ const arrivalPage = (arrival: {
 }) => {
   return (
     <Flex
-      width={"80%"}
+      width={{ base: "90%", lg: "80%" }}
       minHeight={"90vh"}
       flexDirection={{ base: "column", md: "row" }}
       justifyContent="center"
       alignItems={"center"}
-      paddingTop={{ base: "150px", md: "85px" }}
+      paddingTop={"85px"}
       margin="auto"
       gridGap={"24px"}
+      zIndex="1"
+      paddingBottom={"100px"}
     >
       <Flex
-        width={{ base: "100%", md: "calc(50% - 12px)" }}
-        height="100%"
-        justifyContent="end"
+        width={{ base: "100%", md: "calc(60% - 12px)", lg: "calc(50% - 12px)" }}
+        height={{ base: "fit-content", md: "80vh" }}
+        paddingTop={{ base: "50px", md: "unset" }}
+        paddingBottom={{ base: "50px", md: "unset" }}
+        justifyContent={{ base: "center", md: "end" }}
         alignItems="center"
-        style={{
-          borderImageSource: "url('/images/plus.png')",
-        }}
+        position="relative"
       >
         <Image src={arrival.image}></Image>
+        <Image
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          top={"0"}
+          left="0"
+        ></Image>
+        <Image
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          top={"0"}
+          right={{ base: "0", md: "-35px" }}
+        ></Image>
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"0"}
+          right="0"
+        ></Image>
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={ticon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          top={"14px"}
+          right="50%"
+          left="50%"
+        ></Image>
+        <Image
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"0"}
+          left="0"
+        ></Image>
       </Flex>
       <Flex
         flexDirection={"column"}
-        width={{ base: "100%", md: "calc(50% - 12px)" }}
-        height="100%"
+        width={{ base: "100%", md: "calc(40% - 12px)", lg: "calc(50% - 12px)" }}
+        height={{ base: "fit-content", md: "80vh" }}
         justifyContent="center"
+        position="relative"
+        paddingBottom={{ base: "50px", md: "unset" }}
       >
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          top={"0"}
+          right="0px"
+        ></Image>
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"0"}
+          left="0px"
+        ></Image>
+        <Image
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"0"}
+          right="0px"
+        ></Image>
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={ticon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          transform={"rotate(180deg)"}
+          bottom={"14px"}
+          right="50%"
+          left="50%"
+        ></Image>
         <Text
           fontFamily="Inter"
           fontStyle="normal"
@@ -69,7 +155,7 @@ const arrivalPage = (arrival: {
           fontFamily="Inter"
           fontStyle="normal"
           fontWeight="normal"
-          fontSize="16px"
+          fontSize={"16px"}
           lineHeight="28px"
           paddingBottom={"58px"}
         >
