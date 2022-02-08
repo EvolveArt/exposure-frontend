@@ -30,15 +30,16 @@ const arrivalPage = (arrival: {
   return (
     <Flex
       width={"80%"}
-      height={"90vh"}
+      minHeight={"90vh"}
       flexDirection={{ base: "column", md: "row" }}
       justifyContent="center"
-      paddingTop={"85px"}
+      alignItems={"center"}
+      paddingTop={{ base: "150px", md: "85px" }}
       margin="auto"
       gridGap={"24px"}
     >
       <Flex
-        width={"calc(50% - 12px)"}
+        width={{ base: "100%", md: "calc(50% - 12px)" }}
         height="100%"
         justifyContent="end"
         alignItems="center"
@@ -50,7 +51,7 @@ const arrivalPage = (arrival: {
       </Flex>
       <Flex
         flexDirection={"column"}
-        width={"calc(50% - 12px)"}
+        width={{ base: "100%", md: "calc(50% - 12px)" }}
         height="100%"
         justifyContent="center"
       >
