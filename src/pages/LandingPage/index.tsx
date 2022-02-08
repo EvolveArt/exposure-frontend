@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import Header from "../../components/Header";
 import agenda from "../../assets/imgs/agenda.png";
@@ -275,6 +275,35 @@ const LandingPage = () => {
     <div>
       <Header />
       {arrivalPage(arrival)}
+      <Box position={"relative"} paddingBottom="56px">
+        <Flex
+          width={{ base: "90%", lg: "80%" }}
+          height="fit-content"
+          flexDirection="column"
+          margin="auto"
+          gridGap={"8px"}
+          zIndex="1"
+          borderLeft="1px solid #aaa"
+          paddingLeft={"16px"}
+        >
+          <Text
+            fontFamily="Inter"
+            fontStyle="normal"
+            fontWeight="bold"
+            fontSize="30px"
+            lineHeight="56px"
+          >
+            About Curated Drop
+          </Text>
+          <Text textAlign={"justify"}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et tellus
+            id mauris in. Adipiscing enim, augue sapien mattis vestibulum.
+            Fermentum sapien viverra fusce vitae, quam a. Turpis phasellus duis
+            justo, sodales. Massa gravida non eget id diam. Porttitor hac diam
+            nibh diam in fringilla. Rutrum consequat vitae sapien et est. Sit.
+          </Text>
+        </Flex>
+      </Box>
     </div>
   );
 };
