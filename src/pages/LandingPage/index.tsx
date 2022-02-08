@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Link,
-  StylesProvider,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
 import React from "react";
 import Header from "../../components/Header";
@@ -19,6 +11,7 @@ import ticon from "../../assets/imgs/t.png";
 import arrow from "../../assets/imgs/arrow.png";
 import arrowContainer from "../../assets/imgs/arrowContainer.png";
 import dropWrapper from "../../assets/imgs/dropWrapper.png";
+import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 
 const arrival = {
   title: "Touching Strangers",
@@ -48,6 +41,28 @@ const drops = [
     title: "Moments from the road",
     author: "Sam Horrin",
     number: "139",
+  },
+];
+const artists = [
+  {
+    image: "/images/artist.png",
+    name: "John Doe",
+    number: "3",
+  },
+  {
+    image: "/images/artist.png",
+    name: "John Doe",
+    number: "3",
+  },
+  {
+    image: "/images/artist.png",
+    name: "John Doe",
+    number: "3",
+  },
+  {
+    image: "/images/artist.png",
+    name: "John Doe",
+    number: "3",
   },
 ];
 
@@ -311,8 +326,8 @@ const latestDrops = (
 ) => {
   return (
     <Flex
-      height="510px"
-      width={{ base: "100%", md: "calc(33.33% - 16px)" }}
+      minHeight={{ base: "410px", lg: "520px" }}
+      width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
       flexDir={"column"}
       borderRadius={"2px"}
       className={styles.dropContainer}
@@ -337,7 +352,12 @@ const latestDrops = (
           padding="8px"
         ></Image>
       </Flex>
-      <Flex flexDirection={"column"} paddingLeft="8px" gridGap={"8px"}>
+      <Flex
+        flexDirection={"column"}
+        paddingLeft="8px"
+        gridGap={"8px"}
+        paddingBottom="8px"
+      >
         <Text
           fontStyle="normal"
           fontWeight="600"
@@ -354,6 +374,32 @@ const latestDrops = (
           <span style={{ fontWeight: "bold" }}>{drops.number} </span>photos
         </Text>
       </Flex>
+    </Flex>
+  );
+};
+
+const artistsSection = (
+  key: any,
+  artists: {
+    image: string;
+    name: string;
+    number: string;
+  }
+) => {
+  return (
+    <Flex
+      flexDirection={"column"}
+      paddingRight="12px"
+      paddingLeft={"12px"}
+      className={styles.artistComponent}
+    >
+      <Image src={artists.image}></Image>
+      <Text fontWeight="600" fontSize="20px" lineHeight="35px">
+        {artists.name}
+      </Text>
+      <Text fontSize="12px" lineHeight="18px">
+        <span style={{ fontWeight: "bold" }}>{artists.number}</span> Collections
+      </Text>
     </Flex>
   );
 };
@@ -476,9 +522,78 @@ const LandingPage = () => {
           flexDirection={{ base: "column", md: "row" }}
           gridGap="24px"
           flexWrap={"wrap"}
+          alignItems="center"
+          justifyContent={"center"}
         >
           {drops.map((drop, key) => latestDrops(key, drop))}
         </Flex>
+      </Flex>
+      <Flex
+        position="relative"
+        marginRight={"auto"}
+        width={{ base: "88vw", lg: "80vw" }}
+        margin="auto"
+        marginTop={"100px"}
+      >
+        <Image
+          src={artistWrapper}
+          position="absolute"
+          transform="translate3d(-2px,3px,0px)"
+          zIndex={"-1"}
+          height="50px"
+        />
+        <Text
+          fontFamily="Inter"
+          fontStyle="normal"
+          fontWeight="bold"
+          fontSize="30px"
+          lineHeight="56px"
+          paddingBottom={"32px"}
+          marginLeft="10px"
+        >
+          Artists
+        </Text>
+        <Link
+          textDecoration={"underline"}
+          position="absolute"
+          right="0"
+          top="15px"
+          display={{ base: "none", md: "unset" }}
+        >
+          View all artists
+        </Link>
+      </Flex>
+      <Flex
+        width={{ base: "90%", lg: "80%" }}
+        height="fit-content"
+        flexDirection="row"
+        margin="auto"
+        paddingBottom="56px"
+        position={"relative"}
+        overflowX="scroll"
+        overflowY={"hidden"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"-60px"}
+          right="-10px"
+        ></Image>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"-60px"}
+          left="0px"
+        ></Image>
+        <Flex>{artists.map((artist, key) => artistsSection(key, artist))}</Flex>
       </Flex>
     </div>
   );

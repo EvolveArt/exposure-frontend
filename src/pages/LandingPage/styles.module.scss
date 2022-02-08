@@ -12,3 +12,11 @@
 .dropContainer:hover .imageContainer {
   border-bottom: 2px solid #000;
 }
+.artistComponent {
+  border-right: 1px solid #ddd;
+  width: 262px !important;
+  height: 303px !important;
+  &:last-child {
+    border-right: unset;
+  }
+}
