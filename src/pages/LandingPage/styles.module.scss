@@ -14,8 +14,27 @@
 }
 .artistComponent {
   border-right: 1px solid #ddd;
-  width: 262px !important;
-  height: 303px !important;
+  min-width: 262px;
+  height: fit-content;
+  &:last-child {
+    border-right: unset;
+  }
+}
+
+.panelBody {
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+.itemsList {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.moreItem {
+  border-right: 1px solid #ddd;
   &:last-child {
     border-right: unset;
   }

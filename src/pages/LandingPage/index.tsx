@@ -12,6 +12,7 @@ import arrow from "../../assets/imgs/arrow.png";
 import arrowContainer from "../../assets/imgs/arrowContainer.png";
 import dropWrapper from "../../assets/imgs/dropWrapper.png";
 import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+import Footer from "../../components/Footer";
 
 const arrival = {
   title: "Touching Strangers",
@@ -378,14 +379,11 @@ const latestDrops = (
   );
 };
 
-const artistsSection = (
-  key: any,
-  artists: {
-    image: string;
-    name: string;
-    number: string;
-  }
-) => {
+const artistsSection = (artists: {
+  image: string;
+  name: string;
+  number: string;
+}) => {
   return (
     <Flex
       flexDirection={"column"}
@@ -563,25 +561,28 @@ const LandingPage = () => {
           View all artists
         </Link>
       </Flex>
-      <Flex
-        width={{ base: "90%", lg: "80%" }}
-        height="fit-content"
-        flexDirection="row"
-        margin="auto"
-        paddingBottom="56px"
+      <Box
         position={"relative"}
-        overflowX="scroll"
-        overflowY={"hidden"}
-        justifyContent={"center"}
-        alignItems={"center"}
+        width={{ base: "90%", lg: "80%" }}
+        margin="auto"
+        paddingBottom={"50px"}
       >
+        <div className={styles.panelBody}>
+          <div className={styles.itemsList}>
+            {artists.map((item, idx) => (
+              <div key={idx} className={styles.moreItem}>
+                {artistsSection(item)}
+              </div>
+            ))}
+          </div>
+        </div>
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
           opacity="0.1"
           width={"27px"}
           position="absolute"
-          bottom={"-60px"}
+          bottom={"0px"}
           right="-10px"
         ></Image>
         <Image
@@ -590,11 +591,21 @@ const LandingPage = () => {
           opacity="0.1"
           width={"27px"}
           position="absolute"
-          bottom={"-60px"}
+          bottom={"0px"}
+          right="50%"
+          left="50%"
+        ></Image>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          bottom={"0"}
           left="0px"
         ></Image>
-        <Flex>{artists.map((artist, key) => artistsSection(key, artist))}</Flex>
-      </Flex>
+      </Box>
+      <Footer />
     </div>
   );
 };
