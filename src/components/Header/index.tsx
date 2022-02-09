@@ -32,7 +32,7 @@ export default function Header() {
         align={"center"}
         position="fixed"
         width={"100vw"}
-        zIndex="2"
+        zIndex="3"
       >
         <Flex
           flex={{ base: "unset", md: "auto" }}
@@ -98,7 +98,17 @@ export default function Header() {
         </Stack>
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse
+        style={{
+          marginTop: "0!important",
+          position: "fixed",
+          zIndex: "2",
+          width: "100vw",
+          height: "100vh!important",
+        }}
+        in={isOpen}
+        animateOpacity
+      >
         <MobileNav />
       </Collapse>
     </Box>
@@ -141,6 +151,7 @@ const MobileNav = () => {
       p={4}
       display={{ md: "none" }}
       paddingTop={"83px"}
+      height="100vh"
     >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
@@ -201,7 +212,13 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         )}
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
+      <Collapse
+        in={isOpen}
+        animateOpacity
+        style={{
+          marginTop: "0!important",
+        }}
+      >
         <Stack mt={2} pl={4} align={"start"}>
           {children &&
             children.map((child) => (
