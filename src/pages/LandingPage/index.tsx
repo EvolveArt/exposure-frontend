@@ -13,6 +13,8 @@ import arrowContainer from "../../assets/imgs/arrowContainer.png";
 import dropWrapper from "../../assets/imgs/dropWrapper.png";
 import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import Footer from "../../components/Footer";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 const arrival = {
   title: "Touching Strangers",
@@ -91,7 +93,6 @@ const arrivalPage = (arrival: {
         gridGap={"24px"}
         zIndex="1"
         paddingBottom={"100px"}
-        position="relative"
       >
         <Flex
           width={{
@@ -106,7 +107,9 @@ const arrivalPage = (arrival: {
           alignItems="center"
           position="relative"
         >
-          <Image src={arrival.image}></Image>
+          <Zoom>
+            <Image src={arrival.image}></Image>
+          </Zoom>
           <Image
             src={addIcon}
             opacity="0.1"
@@ -116,7 +119,6 @@ const arrivalPage = (arrival: {
             left="0"
           ></Image>
           <Image
-            display={{ base: "unset", md: "none" }}
             src={addIcon}
             opacity="0.1"
             width={"27px"}
@@ -301,16 +303,6 @@ const arrivalPage = (arrival: {
             </Button>
           </Flex>
         </Flex>
-        <Image
-          display={{ base: "none", md: "unset" }}
-          src={addIcon}
-          opacity="0.1"
-          width={"27px"}
-          position="absolute"
-          top={"83px"}
-          right={"50%"}
-          left="50%"
-        ></Image>
       </Flex>
       <Flex
         justifyContent={"center"}
