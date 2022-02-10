@@ -54,7 +54,8 @@ const TopPage = (collection: {
         <Flex
           width={{
             base: "100%",
-            md: "calc(40% - 12px)",
+            md: "calc(50% - 12px)",
+            lg: "calc(40% - 12px)",
           }}
           height={{ base: "fit-content", md: "80vh" }}
           paddingTop={{ base: "50px", md: "unset" }}
@@ -113,7 +114,8 @@ const TopPage = (collection: {
           flexDirection={"column"}
           width={{
             base: "100%",
-            md: "calc(60% - 12px)",
+            md: "calc(50% - 12px)",
+            lg: "calc(60% - 12px)",
           }}
           height={{ base: "fit-content", md: "80vh" }}
           justifyContent="center"
