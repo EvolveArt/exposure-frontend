@@ -24,6 +24,7 @@ const arrival = {
   releaseDate: "18/02/2022",
   releaseHour: "16:00",
 };
+
 const drops = [
   {
     image: "/images/strangers.png",
@@ -90,6 +91,7 @@ const arrivalPage = (arrival: {
         gridGap={"24px"}
         zIndex="1"
         paddingBottom={"100px"}
+        position="relative"
       >
         <Flex
           width={{
@@ -114,6 +116,7 @@ const arrivalPage = (arrival: {
             left="0"
           ></Image>
           <Image
+            display={{ base: "unset", md: "none" }}
             src={addIcon}
             opacity="0.1"
             width={"27px"}
@@ -298,6 +301,16 @@ const arrivalPage = (arrival: {
             </Button>
           </Flex>
         </Flex>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          opacity="0.1"
+          width={"27px"}
+          position="absolute"
+          top={"83px"}
+          right={"50%"}
+          left="50%"
+        ></Image>
       </Flex>
       <Flex
         justifyContent={"center"}
