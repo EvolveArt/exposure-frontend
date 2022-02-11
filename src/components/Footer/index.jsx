@@ -30,7 +30,9 @@ const Footer = () => {
             height={{ base: "fit-content", md: "103px" }}
             width="100%"
           >
-            <Image src={logo} width="220px" height="57px"></Image>
+            <Link href="/#">
+              <Image src={logo} width="220px" height="57px"></Image>
+            </Link>
             <Flex
               paddingTop={{ base: "32px", md: "unset" }}
               marginLeft={{ base: "unset", md: "auto" }}

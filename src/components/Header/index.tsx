@@ -13,6 +13,8 @@ import {
   useDisclosure,
   Image,
 } from "@chakra-ui/react";
+import { Link as ReachLink } from "@reach/router";
+
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import logo from "../../assets/imgs/logo.png";
 import wallet from "../../assets/imgs/wallet.png";
@@ -42,12 +44,14 @@ export default function Header() {
           margin={{ base: "auto", md: "unset" }}
         >
           <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-            <Image
-              textAlign={useBreakpointValue({ base: "center", md: "left" })}
-              fontFamily={"heading"}
-              color={useColorModeValue("gray.800", "white")}
-              src={logo}
-            ></Image>
+            <Link href="/#">
+              <Image
+                textAlign={useBreakpointValue({ base: "center", md: "left" })}
+                fontFamily={"heading"}
+                color={useColorModeValue("gray.800", "white")}
+                src={logo}
+              ></Image>
+            </Link>
           </Flex>
           <IconButton
             onClick={onToggle}
@@ -60,12 +64,14 @@ export default function Header() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Image
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
-            color={useColorModeValue("gray.800", "white")}
-            src={logo}
-          ></Image>
+          <Link href="/#">
+            <Image
+              textAlign={useBreakpointValue({ base: "center", md: "left" })}
+              fontFamily={"heading"}
+              color={useColorModeValue("gray.800", "white")}
+              src={logo}
+            ></Image>
+          </Link>
         </Flex>
 
         <Stack

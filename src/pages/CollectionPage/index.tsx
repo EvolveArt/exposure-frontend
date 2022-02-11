@@ -1,4 +1,14 @@
-import { Button, Flex, Image, Text, Link } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Image,
+  Text,
+  Link,
+  useRadio,
+  useRadioGroup,
+  Box,
+  HStack,
+} from "@chakra-ui/react";
 import React from "react";
 
 import addIcon from "../../assets/imgs/plus.png";
@@ -6,8 +16,11 @@ import ticon from "../../assets/imgs/t.png";
 import mintType from "../../assets/imgs/mintType.png";
 import agenda from "../../assets/imgs/agenda.png";
 import available from "../../assets/imgs/available.png";
+import largeGrid from "../../assets/imgs/largegrid.png";
+import smallGrid from "../../assets/imgs/smallgrid.png";
 import ether from "../../assets/imgs/ether.png";
 import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const collection = {
   title: "Touching Strangers",
@@ -88,7 +101,7 @@ const TopPage = (collection: {
             opacity="0.1"
             width={"27px"}
             position="absolute"
-            bottom={"0"}
+            bottom={"-65px"}
             right="0"
           ></Image>
           <Image
@@ -146,7 +159,7 @@ const TopPage = (collection: {
             opacity="0.1"
             width={"27px"}
             position="absolute"
-            bottom={"0"}
+            bottom={{ base: "0", md: "-65px" }}
             right="0px"
           ></Image>
           <Image
@@ -289,15 +302,119 @@ const TopPage = (collection: {
           left="50%"
         ></Image>
       </Flex>
+      <Flex
+        width={{ base: "90%", lg: "80%" }}
+        flexDirection="column"
+        justifyContent="center"
+        alignItems={"center"}
+        margin="auto"
+        zIndex="1"
+        border="solid 2px #000"
+      >
+        <Text
+          fontWeight="800"
+          fontSize={{ base: "30px", md: "40px" }}
+          lineHeight={{ base: "40px", md: "53px" }}
+          textAlign={"center"}
+          paddingTop="25px"
+          paddingLeft="32px"
+          paddingRight={"32px"}
+          paddingBottom="20px"
+        >
+          {collection.citation}
+        </Text>
+        <Text paddingBottom={"25px"} fontSize="16px" lineHeight={"28px"}>
+          {collection.author}
+        </Text>
+      </Flex>
     </>
   );
 };
 
+// 1. Create a component that consumes the `useRadio` hook
+function RadioCard(props: any) {
+  const { getInputProps, getCheckboxProps } = useRadio(props);
+
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
+
+  return (
+    <Box as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        cursor="pointer"
+        borderWidth="1px"
+        borderRadius="md"
+        boxShadow="md"
+        _checked={{
+          bg: "unset",
+          color: "unset",
+          borderColor: "none",
+        }}
+        _focus={{
+          boxShadow: "outline",
+          opacity: "0.5",
+        }}
+        px={5}
+        py={3}
+      >
+        {props.children}
+      </Box>
+    </Box>
+  );
+}
+
 const CollectionPage = () => {
+  const options = [largeGrid, smallGrid];
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "framework",
+    defaultValue: "react",
+    onChange: console.log,
+  });
+
+  const group = getRootProps();
   return (
     <div>
       <Header />
       {TopPage(collection)}
+      <Flex
+        position="relative"
+        margin={"auto"}
+        width={{ base: "88vw", lg: "80vw" }}
+        marginTop="90px"
+      >
+        <Text
+          fontFamily="Inter"
+          fontStyle="normal"
+          fontWeight="bold"
+          fontSize="30px"
+          lineHeight="56px"
+          paddingBottom={"32px"}
+          marginLeft="10px"
+        >
+          Available photographs
+        </Text>
+        <HStack
+          {...group}
+          position="absolute"
+          right="0"
+          top="15px"
+          display={{ base: "none", md: "flex" }}
+          flexDirection="row"
+        >
+          {options.map((value) => {
+            const radio = getRadioProps({ value });
+            return (
+              <RadioCard key={value} {...radio}>
+                <Image src={value}></Image>
+              </RadioCard>
+            );
+          })}
+        </HStack>
+      </Flex>
+      <Footer />
     </div>
   );
 };
