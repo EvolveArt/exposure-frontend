@@ -1,19 +1,72 @@
 .link {
-  position: relative;
+	position: relative;
 }
 .link:after {
-  background: none repeat scroll 0 0 transparent;
-  bottom: 0;
-  content: "";
-  display: block;
-  height: 1px;
-  left: 50%;
-  position: absolute;
-  background: #000;
-  transition: width 0.3s ease 0s, left 0.3s ease 0s;
-  width: 0;
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 1px;
+	left: 50%;
+	position: absolute;
+	background: #000;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
 }
 .link:hover:after {
-  width: 100%;
-  left: 0;
+	width: 100%;
+	left: 0;
+}
+
+.account {
+	display: flex;
+	align-items: center;
+}
+
+.avatar {
+	width: 32px !important;
+	height: 32px !important;
+	border-radius: 50% !important;
+	margin-right: 12px;
+	overflow: hidden;
+}
+
+.profile {
+	margin-right: 4px;
+}
+
+.address {
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 16px;
+	position: relative;
+}
+// .address::before {
+// 	content: attr(data-title);
+// 	background: linear-gradient(
+// 		93deg,
+// 		rgba(109, 186, 252, 1) 0%,
+// 		rgba(255, 107, 199, 1) 100%
+// 	);
+// 	position: absolute;
+// 	height: 20px;
+// 	top: 0;
+// 	right: 0;
+// 	left: 0;
+// 	width: 0;
+// 	transition: all 0.3s ease-in-out;
+// 	-webkit-background-clip: text;
+// 	-webkit-text-fill-color: transparent;
+// }
+
+// .address:hover::before {
+// 	width: 100%;
+// }
+
+.network {
+	margin-top: 4px;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 14px;
+	opacity: 0.6;
 }

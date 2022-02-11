@@ -1,0 +1,131 @@
+.formGroup {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.priceWrapper {
+  display: flex;
+}
+
+.formLabel {
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  color: var(--color-text);
+  margin-bottom: 11px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.formInputCont {
+  height: 50px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  border: 1px solid var(--border-box);
+  background-color: var(--color-box);
+
+  &.focused {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.formGroupDates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.formInput {
+  width: 100%;
+  height: 50px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.usdPrice {
+  min-width: 80px;
+  height: 50px;
+  border-left: 1px solid var(--border-box);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.select {
+  margin: 2px;
+  width: 140px !important;
+  outline: none !important;
+  height: 44px !important;
+  border-radius: 50px !important;
+  border: 1px solid var(--border-box) !important;
+  box-sizing: border-box !important;
+  font-size: 16px !important;
+  padding-right: 12px !important;
+  background-color: var(--color-box);
+  box-shadow: none !important;
+  color: var(--color-text) !important;
+}
+
+.selectedToken,
+.token {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+
+.token {
+  width: 138px;
+  padding: 5px 15px;
+  background-color: var(--color-page-background);
+
+  &:hover {
+    background-color: var(--color-box);
+  }
+}
+
+.tokenIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.tokenSymbol {
+  margin-left: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  color: var(--color-text);
+}
+
+@media only screen and (max-width: 600px) {
+  .priceWrapper {
+    flex-direction: row;
+  }
+  .formInputCont {
+    flex-direction: column;
+    height: 120px;
+    margin-top: 10px;
+  }
+  .formGroupDates {
+    display: block;
+  }
+  .select {
+    margin-bottom: 10px;
+  }
+}

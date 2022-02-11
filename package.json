@@ -7,6 +7,7 @@
     "@chakra-ui/react": "^1.8.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@sushiswap/sdk": "4.1.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.8.3",
@@ -14,16 +15,34 @@
     "@types/node": "^12.20.43",
     "@types/react": "^16.14.23",
     "@types/react-dom": "^16.9.14",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/walletconnect-connector": "^6.2.10",
+    "@web3-react/walletlink-connector": "^6.2.11",
+    "classnames": "^2.3.1",
+    "ethers": "^5.0.32",
     "framer-motion": "^4.1.17",
+    "jazzicon": "^1.5.0",
     "react": "^17.0.2",
+    "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
     "react-icons": "^3.11.0",
     "react-medium-image-zoom": "^4.3.5",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "redux": "^4.1.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1",
     "sass": "^1.49.7",
     "typescript": "^4.5.5",
-    "web-vitals": "^0.2.4"
+    "util": "^0.12.4",
+    "web-vitals": "^0.2.4",
+    "webpack-manifest-plugin": "2.0.4",
+    "workbox-webpack-plugin": "4.3.1",
+    "react-app-polyfill": "^1.0.2",
+    "erc721": "^5.2.0",
+    "camelcase": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,5 +64,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/redux-logger": "^3.0.9",
+    "buffer": "^6.0.3"
   }
 }
