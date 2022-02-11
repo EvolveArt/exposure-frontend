@@ -1,4 +1,4 @@
-export default {
+const errors = {
   '-32700':
     'Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text!',
   '-32600': 'The JSON sent is not a valid Request object!',
@@ -18,3 +18,5 @@ export default {
   '4900': 'The provider is disconnected from all chains!',
   '4901': 'The provider is disconnected from the specified chain!',
 };
+
+export default errors;

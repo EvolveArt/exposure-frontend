@@ -42,4 +42,5 @@ export const walletlink = new WalletLinkConnector({
 export const walletconnect = new WalletConnectConnector({
 	rpc: { 1: process.env.REACT_APP_NETWORK_RPC || "" },
 	chainId: 1,
+	qrcode: true,
 });

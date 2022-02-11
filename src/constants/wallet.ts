@@ -1,7 +1,8 @@
 // import COINBASE_ICON_URL from 'assets/svgs/coinbase.svg';
 import METAMASK_ICON_URL from 'assets/imgs/metamask.png';
 import WALLETCONNECT_ICON from 'assets/imgs/walletconnect.png';
-import { injected, walletconnect } from '../connectors';
+import COINBASE_ICON from 'assets/svgs/coinbase.svg';
+import { injected, walletconnect, walletlink } from '../connectors';
 
 export const SUPPORTED_WALLETS: any = {
   METAMASK: {
@@ -14,4 +15,9 @@ export const SUPPORTED_WALLETS: any = {
     name: 'WalletConnect',
     icon: WALLETCONNECT_ICON,
   },
+  COINBASE_WALLET: {
+    connector: walletlink,
+    name: 'Coinbase Wallet',
+    icon: COINBASE_ICON
+  }
 };

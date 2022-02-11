@@ -2,6 +2,7 @@ import { AbstractConnector } from "@web3-react/abstract-connector";
 import invariant from "tiny-invariant";
 
 class RequestError extends Error {
+	// eslint-disable-next-line no-useless-constructor
 	constructor(message) {
 		super(message);
 	}

@@ -17,7 +17,7 @@ const Option = ({ onClick = null, header, icon, active = false }: any) => {
 			onClick={onClick}
 			className={cx(styles.option, active && styles.active)}>
 			<div className={styles.header}>{header}</div>
-			<img src={icon} className={styles.icon} />
+			<img src={icon} className={styles.icon} alt='option-icon' />
 		</div>
 	);
 };
@@ -36,6 +36,7 @@ const ConnectWalletModal = ({ visible, onClose }: any) => {
 		) {
 			onClose();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [active, error, connector, visible, activePrevious, connectorPrevious]);
 
 	const tryActivation = async (connector: any) => {
@@ -50,6 +51,7 @@ const ConnectWalletModal = ({ visible, onClose }: any) => {
 
 		conn &&
 			activate(conn, undefined, true).catch((error) => {
+				console.log(error);
 				if (error instanceof UnsupportedChainIdError) {
 					activate(conn); // a little janky...can't use setError because the connector isn't set
 				}

@@ -30,7 +30,7 @@ export default function Web3ReactManager({ children }) {
 	useInactiveListener(!triedEager);
 
 	// handle delayed loader state
-	const [showLoader, setShowLoader] = useState(false);
+	const [, setShowLoader] = useState(false);
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setShowLoader(true);
@@ -40,7 +40,7 @@ export default function Web3ReactManager({ children }) {
 			clearTimeout(timeout);
 		};
 	}, []);
-	console.log(showLoader);
+	// console.log(showLoader);
 
 	// on page load, do nothing until we've tried to connect to the injected connector
 	if (!triedEager) {

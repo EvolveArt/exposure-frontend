@@ -11,6 +11,7 @@ const Identicon = ({ account, size, ...rest }) => {
 				Jazzicon(size || 16, parseInt(account.slice(2, 10), 16))
 			);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [account]);
 
 	return <div ref={ref} {...rest} />;

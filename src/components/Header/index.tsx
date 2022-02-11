@@ -1,3 +1,4 @@
+import React from "react";
 import {
 	Box,
 	Flex,
@@ -22,6 +23,7 @@ import styles from "./styles.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import ModalActions from "actions/modal.actions";
 import ConnectWalletModal from "components/ConnectWalletModal";
+// eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
 import { useEffect, useState } from "react";
 import { useApi } from "api";
@@ -95,6 +97,7 @@ export default function Header() {
 		} else {
 			handleSignOut();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [account, chainId]);
 
 	return (

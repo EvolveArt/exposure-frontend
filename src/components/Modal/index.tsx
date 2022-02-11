@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import cx from "classnames";
 
 import closeIcon from "assets/svgs/close.svg";
@@ -31,6 +31,7 @@ const Modal = ({
 						<img
 							src={closeIcon}
 							style={{ filter: "invert(var(--color-logo))" }}
+							alt='close-icon'
 						/>
 					</div>
 				</div>
