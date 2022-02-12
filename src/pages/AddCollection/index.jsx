@@ -328,9 +328,7 @@ const AddCollection = () => {
                       style={{ width: "25px", margin: "auto" }}
                       alt="AddImage"
                     />
-                    <div className={styles.uploadInner}>
-                      Ajouter image de Collection
-                    </div>
+                    <div className={styles.uploadInner}>Ajouter une image</div>
                   </div>
                 </div>
               )}
