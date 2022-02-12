@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import CollectionPage from "./pages/CollectionPage";
 import AddArtist from "pages/AddArtist";
+import AddCollecion from "pages/AddCollection";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -13,6 +14,7 @@ export const App = () => (
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/collection" component={CollectionPage} />
         <Route exact path="/addartist" component={AddArtist} />
+        <Route exact path="/addcollection" component={AddCollecion} />
       </Switch>
     </Router>
   </ChakraProvider>
