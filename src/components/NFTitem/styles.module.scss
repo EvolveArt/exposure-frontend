@@ -1,0 +1,41 @@
+.dropContainer {
+  border: 2px solid #eee;
+}
+
+.imageContainer {
+  border-bottom: 2px solid #eee;
+}
+
+.dropContainer:hover {
+  border: 2px solid #000;
+}
+.dropContainer:hover .imageContainer {
+  border-bottom: 2px solid #000;
+}
+.artistComponent {
+  border-right: 1px solid #ddd;
+  min-width: 262px;
+  height: fit-content;
+  &:last-child {
+    border-right: unset;
+  }
+}
+
+.panelBody {
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+.itemsList {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.moreItem {
+  border-right: 1px solid #ddd;
+  &:last-child {
+    border-right: unset;
+  }
+}

@@ -90,9 +90,11 @@ const ConnectWalletModal = ({ visible, onClose }: any) => {
           <div className={styles.text}>
             Please connect to {isMainnet ? "Ethereum" : "Rinkeby"}.
           </div>
-          <div className={styles.switchBtn} onClick={deactivate}>
-            Disconnect
-          </div>
+          <Flex border={"2px solid #000"} width="100%" marginBottom={"20px"}>
+            <div className={styles.switchBtn} onClick={deactivate}>
+              Disconnect
+            </div>
+          </Flex>
         </div>
       );
     }
@@ -102,9 +104,16 @@ const ConnectWalletModal = ({ visible, onClose }: any) => {
   return (
     <Modal
       visible={visible}
-      title={error instanceof UnsupportedChainIdError ? "Wrong Network" : ""}
-      secondTitle={"Let's get started!"}
-      desc={"Connect with one of our available wallet providers."}
+      secondTitle={
+        error instanceof UnsupportedChainIdError
+          ? "Wrong Network"
+          : "Let's get started!"
+      }
+      desc={
+        error instanceof UnsupportedChainIdError
+          ? ""
+          : "Connect with one of our available wallet providers."
+      }
       onClose={onClose}
       small
     >

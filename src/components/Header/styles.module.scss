@@ -1,45 +1,60 @@
 .link {
-	position: relative;
+  position: relative;
 }
 .link:after {
-	background: none repeat scroll 0 0 transparent;
-	bottom: 0;
-	content: "";
-	display: block;
-	height: 1px;
-	left: 50%;
-	position: absolute;
-	background: #000;
-	transition: width 0.3s ease 0s, left 0.3s ease 0s;
-	width: 0;
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 1px;
+  left: 50%;
+  position: absolute;
+  background: #000;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
 }
 .link:hover:after {
-	width: 100%;
-	left: 0;
+  width: 100%;
+  left: 0;
 }
 
 .account {
-	display: flex;
-	align-items: center;
-}
-
-.avatar {
-	width: 32px !important;
-	height: 32px !important;
-	border-radius: 50% !important;
-	margin-right: 12px;
-	overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  height: 46px;
+  width: 200px;
+  padding: 13px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 24px;
 }
 
 .profile {
-	margin-right: 4px;
+  margin-right: 4px;
+  color: #fff;
+  text-align: center;
 }
 
 .address {
-	font-weight: 700;
-	font-size: 16px;
-	line-height: 16px;
-	position: relative;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  position: relative;
+}
+
+.dropElt {
+  width: 80%;
+  height: 64px;
+  border-bottom: 1px solid #bbb;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
 }
 // .address::before {
 // 	content: attr(data-title);
@@ -64,9 +79,9 @@
 // }
 
 .network {
-	margin-top: 4px;
-	font-weight: 600;
-	font-size: 14px;
-	line-height: 14px;
-	opacity: 0.6;
+  margin-top: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 14px;
+  opacity: 0.6;
 }

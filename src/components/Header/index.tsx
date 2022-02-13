@@ -33,6 +33,9 @@ import AuthActions from "actions/auth.actions";
 import { useWeb3React } from "@web3-react/core";
 import { NETWORK_LABEL } from "constants/networks";
 import { shortenAddress } from "utils";
+import down from "../../assets/imgs/down.png";
+import disc from "../../assets/imgs/disconnect.png";
+import profile from "../../assets/imgs/account.png";
 import Identicon from "components/Identicon";
 
 export default function Header() {
@@ -160,69 +163,77 @@ export default function Header() {
         >
           <Flex display={{ base: "none", md: "flex" }}>
             <DesktopNav />
-          </Flex>
-          {account ? (
-            <div
-              className={cx(styles.account, styles.menuUser)}
-              // onClick={handleProfileMenuOpen}
-            >
-              {loading ? (
-                <Skeleton
-                  className={styles.avatar}
-                  style={{ background: "black" }}
-                />
-              ) : (
-                <Identicon
-                  account={account}
-                  size={36}
-                  className={styles.avatar}
-                />
-              )}
-              <div className={styles.profile}>
-                <div
-                  className={styles.address}
-                  data-title={shortenAddress(account)}
-                >
-                  {loading ? (
-                    <Skeleton width={60} style={{ background: "black" }} />
-                  ) : (
-                    shortenAddress(account)
-                  )}
+            {account ? (
+              <div
+                className={cx(styles.account, styles.menuUser)}
+                onClick={onToggle}
+              >
+                <div className={styles.profile}>
+                  <div
+                    className={styles.address}
+                    data-title={shortenAddress(account)}
+                  >
+                    {loading ? (
+                      <Skeleton width={60} style={{ background: "black" }} />
+                    ) : (
+                      shortenAddress(account)
+                    )}
+                  </div>
+                  <div className={styles.network}>
+                    {loading ? (
+                      <Skeleton width={60} style={{ background: "black" }} />
+                    ) : (
+                      NETWORK_LABEL[chainId || 1]
+                    )}
+                  </div>
                 </div>
-                <div className={styles.network}>
-                  {loading ? (
-                    <Skeleton width={60} style={{ background: "black" }} />
-                  ) : (
-                    NETWORK_LABEL[chainId || 1]
-                  )}
-                </div>
+                <Image src={down} marginLeft="auto" />
+                <Collapse in={isOpen} animateOpacity>
+                  <Box
+                    color="#000"
+                    width={"200px"}
+                    mt="4"
+                    bg="#fff"
+                    border="2px solid #000"
+                    shadow="md"
+                    position="absolute"
+                    right={"32px"}
+                    top="53px"
+                    zIndex={"100"}
+                  >
+                    <div className={styles.dropElt}>
+                      <Image src={profile} paddingRight="15px" />
+                      My account
+                    </div>
+                    <div className={styles.dropElt}>
+                      <Image src={disc} paddingRight="15px" />
+                      Disconnect
+                    </div>
+                  </Box>
+                </Collapse>
               </div>
-
-              {/* <ExpandMore
-								className={cx(styles.expand, isMenuOpen && styles.expanded)}
-							/> */}
-            </div>
-          ) : (
-            <Button
-              display={{ base: "none", md: "inline-flex" }}
-              fontSize={"sm"}
-              fontWeight={600}
-              fontFamily={"Inter"}
-              color={"white"}
-              bg={"#000"}
-              borderRadius="0px"
-              width={"200px"}
-              height={"46px"}
-              style={{ marginInlineStart: "40px" }}
-              _hover={{
-                opacity: "0.6",
-              }}
-              onClick={handleConnectWallet}
-            >
-              Connect Wallet
-              <Image src={wallet} paddingLeft="8px"></Image>
-            </Button>
-          )}
+            ) : (
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                fontFamily={"Inter"}
+                color={"white"}
+                bg={"#000"}
+                borderRadius="0px"
+                width={"200px"}
+                height={"46px"}
+                style={{ marginInlineStart: "40px" }}
+                _hover={{
+                  opacity: "0.6",
+                }}
+                onClick={handleConnectWallet}
+              >
+                Connect Wallet
+                <Image src={wallet} paddingLeft="8px"></Image>
+              </Button>
+            )}
+          </Flex>
         </Stack>
       </Flex>
 
@@ -278,6 +289,71 @@ const DesktopNav = () => {
 };
 
 const MobileNav = () => {
+  const { account, chainId, deactivate } = useWeb3React();
+
+  const { isOpen, onToggle } = useDisclosure();
+  const dispatch = useDispatch();
+
+  const { getAuthToken, getAccountDetails } = useApi();
+
+  const [loading, setLoading] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleConnectWallet = () => {
+    dispatch(ModalActions.showConnectWalletModal());
+  };
+
+  const { connectWalletModalVisible } = useSelector(
+    (state: RootState) => state.Modal
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const isMenuOpen = Boolean(anchorEl);
+
+  const login = async () => {
+    try {
+      setLoading(true);
+      const token = await getAuthToken(account);
+      // const isModerator = await getIsModerator(account);
+
+      dispatch(WalletConnectActions.connectWallet(token, false));
+      dispatch(AuthActions.fetchStart());
+      try {
+        const { data } = await getAccountDetails(token);
+        dispatch(AuthActions.fetchSuccess(data));
+      } catch {
+        dispatch(AuthActions.fetchFailed());
+      }
+      setLoading(false);
+    } catch {
+      setLoading(false);
+    }
+  };
+
+  const init = () => {
+    login();
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    deactivate();
+    dispatch(WalletConnectActions.disconnectWallet());
+    dispatch(AuthActions.signOut());
+    handleMenuClose();
+  };
+
+  useEffect(() => {
+    if (account) {
+      init();
+    } else {
+      handleSignOut();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account, chainId]);
+
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
@@ -289,23 +365,73 @@ const MobileNav = () => {
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
-      <Button
-        fontSize={"sm"}
-        fontWeight={600}
-        fontFamily={"Inter"}
-        color={"white"}
-        bg={"#000"}
-        borderRadius="0px"
-        width={"200px"}
-        height={"46px"}
-        style={{ marginInlineStart: "0px" }}
-        _hover={{
-          opacity: "0.6",
-        }}
-      >
-        Connect Wallet
-        <Image src={wallet} paddingLeft="8px"></Image>
-      </Button>
+      {account ? (
+        <div className={cx(styles.account, styles.menuUser)} onClick={onToggle}>
+          <div className={styles.profile}>
+            <div
+              className={styles.address}
+              data-title={shortenAddress(account)}
+            >
+              {loading ? (
+                <Skeleton width={60} style={{ background: "black" }} />
+              ) : (
+                shortenAddress(account)
+              )}
+            </div>
+            <div className={styles.network}>
+              {loading ? (
+                <Skeleton width={60} style={{ background: "black" }} />
+              ) : (
+                NETWORK_LABEL[chainId || 1]
+              )}
+            </div>
+          </div>
+          <Image src={down} marginLeft="auto" />
+          <Collapse in={isOpen} animateOpacity>
+            <Box
+              color="#000"
+              width={"200px"}
+              mt="4"
+              bg="#fff"
+              border="2px solid #000"
+              shadow="md"
+              position="absolute"
+              left={"16px"}
+              top="300px"
+              zIndex={"100"}
+            >
+              <div className={styles.dropElt}>
+                <Image src={profile} paddingRight="15px" />
+                My account
+              </div>
+              <div className={styles.dropElt}>
+                <Image src={disc} paddingRight="15px" />
+                Disconnect
+              </div>
+            </Box>
+          </Collapse>
+        </div>
+      ) : (
+        <Button
+          display={{ base: "none", md: "inline-flex" }}
+          fontSize={"sm"}
+          fontWeight={600}
+          fontFamily={"Inter"}
+          color={"white"}
+          bg={"#000"}
+          borderRadius="0px"
+          width={"200px"}
+          height={"46px"}
+          style={{ marginInlineStart: "40px" }}
+          _hover={{
+            opacity: "0.6",
+          }}
+          onClick={handleConnectWallet}
+        >
+          Connect Wallet
+          <Image src={wallet} paddingLeft="8px"></Image>
+        </Button>
+      )}
     </Stack>
   );
 };
