@@ -28,6 +28,7 @@
   justify-content: center;
   align-items: center;
   margin-left: 24px;
+  cursor: pointer;
 }
 
 .profile {
@@ -46,7 +47,6 @@
 .dropElt {
   width: 80%;
   height: 64px;
-  border-bottom: 1px solid #bbb;
   margin: auto;
   display: flex;
   align-items: center;
@@ -55,6 +55,11 @@
   font-weight: bold;
   font-size: 16px;
   line-height: 20px;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 }
 // .address::before {
 // 	content: attr(data-title);
