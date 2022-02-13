@@ -1,16 +1,14 @@
 .option {
   width: 100%;
-  height: 48px;
+  height: 64px;
   padding: 0 16px;
-  border: 1px solid var(--border-box);
-  background-color: var(--color-box);
-  margin-bottom: 16px;
-  border-radius: 50px;
+  border-radius: 2px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  transition: transform ease 300ms;
 
   &:last-child {
     margin-bottom: 0;
@@ -18,7 +16,9 @@
 
   &:hover {
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
+    transform: translate3d(4px, 4px, 0px);
+    color: #fff;
+    background-color: #000;
   }
 
   &.active {
@@ -29,7 +29,7 @@
 .header {
   font-weight: 500;
   font-size: 16px;
-  color: var(--color-text);
+  color: inherit;
 }
 
 .icon {
