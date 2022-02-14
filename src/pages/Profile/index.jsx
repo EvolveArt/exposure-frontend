@@ -1,20 +1,17 @@
+import React from "react";
 import {
   Box,
   Flex,
   HStack,
   Image,
-  Link,
   Text,
   useRadio,
   useRadioGroup,
 } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import React from "react";
-import styles from "./styles.module.scss";
 import { useParams } from "react-router-dom";
 import { shortenAddress } from "utils";
-import toast from "utils/toast";
 
 import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
@@ -34,20 +31,10 @@ function RadioCard(props) {
       <Box
         {...checkbox}
         cursor="pointer"
-        borderWidth="1px"
-        borderRadius="md"
-        boxShadow="md"
         _checked={{
-          bg: "unset",
-          color: "unset",
-          borderColor: "none",
+          filter: "brightness(0) saturate(100%)",
         }}
-        _focus={{
-          boxShadow: "outline",
-          opacity: "0.5",
-        }}
-        px={5}
-        py={3}
+        padding="5px"
       >
         {props.children}
       </Box>
@@ -197,7 +184,10 @@ const Profile = () => {
             const radio = getRadioProps({ value });
             return (
               <RadioCard key={value} {...radio}>
-                <Image src={value}></Image>
+                <Image
+                  src={value}
+                  filter="brightness(0) saturate(100%) invert(79%) sepia(0%) saturate(1169%) hue-rotate(47deg) brightness(93%) contrast(90%)"
+                ></Image>
               </RadioCard>
             );
           })}
