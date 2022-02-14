@@ -331,7 +331,6 @@ const TopPage = (collection: {
   );
 };
 
-// 1. Create a component that consumes the `useRadio` hook
 function RadioCard(props: any) {
   const { getInputProps, getCheckboxProps } = useRadio(props);
 

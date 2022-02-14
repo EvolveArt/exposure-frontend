@@ -191,30 +191,32 @@ export default function Header() {
                 </div>
                 <Image src={down} marginLeft="auto" />
                 <Collapse in={isOpen} animateOpacity>
-                  <Box
-                    color="#000"
-                    width={"200px"}
-                    mt="4"
-                    bg="#fff"
-                    border="2px solid #000"
-                    shadow="md"
-                    position="absolute"
-                    right={"32px"}
-                    top="53px"
-                    zIndex={"100"}
-                  >
-                    <div
-                      className={styles.dropElt}
-                      style={{ borderBottom: "1px solid #bbb" }}
+                  <Link href={`/profile/${account}`}>
+                    <Box
+                      color="#000"
+                      width={"200px"}
+                      mt="4"
+                      bg="#fff"
+                      border="2px solid #000"
+                      shadow="md"
+                      position="absolute"
+                      right={"32px"}
+                      top="53px"
+                      zIndex={"100"}
                     >
-                      <Image src={profile} paddingRight="15px" />
-                      My account
-                    </div>
-                    <div className={styles.dropElt} onClick={deactivate}>
-                      <Image src={disc} paddingRight="15px" />
-                      Disconnect
-                    </div>
-                  </Box>
+                      <div
+                        className={styles.dropElt}
+                        style={{ borderBottom: "1px solid #bbb" }}
+                      >
+                        <Image src={profile} paddingRight="15px" />
+                        My account
+                      </div>
+                      <div className={styles.dropElt} onClick={deactivate}>
+                        <Image src={disc} paddingRight="15px" />
+                        Disconnect
+                      </div>
+                    </Box>
+                  </Link>
                 </Collapse>
               </div>
             ) : (
