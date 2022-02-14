@@ -62,5 +62,17 @@ export const useApi = () => {
     return res.data;
   }
 
-  return { getAuthToken, getAccountDetails, postArtist, getNonce, apiUrl }
+  const getAllArtists = async () => {
+    const res = await axios({
+      method: 'GET',
+      url: `${apiUrl}/artist/fetchAllArtists`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    return res.data;
+  }
+
+  return { getAuthToken, getAccountDetails, postArtist, getNonce, apiUrl, getAllArtists }
 }

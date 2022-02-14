@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import cx from "classnames";
 import Header from "components/Header";
@@ -9,6 +9,7 @@ import closeIcon from "assets/svgs/close.svg";
 import Select from "react-dropdown-select";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
+import { useApi } from "api";
 
 const AddCollection = () => {
 	const [logo, setLogo] = useState(null);
@@ -30,10 +31,31 @@ const AddCollection = () => {
 	const [instagram, setInstagram] = useState("");
 	const [instagramError, setInstagramError] = useState(null);
 
+	const { getAllArtists } = useApi();
+
+	const [artists, setArtists] = useState([]);
+	const [selected, setSelected] = useState(null);
+
 	const removeImage = () => {
 		setLogo(null);
 	};
 	const inputRef = useRef(null);
+
+	useEffect(() => {
+		const updateArtists = async () => {
+			const _artists = await getAllArtists();
+			setArtists(_artists.data);
+			console.log(_artists);
+		};
+		updateArtists();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		if (artists?.length) {
+			setSelected([artists[0]]);
+		}
+	}, [artists]);
 
 	const handleFileSelect = (e) => {
 		if (e.target.files.length > 0) {
@@ -156,56 +178,57 @@ const AddCollection = () => {
 						{nameError && <div className={styles.error}>{nameError}</div>}
 					</div>
 				</div>
-				{/* <div className={styles.formGroup}>
-          <div className={styles.inputGroup} />
-          <div className={styles.inputTitle}>Artiste</div>
-          <div className={styles.inputWrapper} />
-          <Select
-            options={artists}
-            disabled={isMinting}
-            values={selected}
-            onChange={([col]) => {
-              setSelected([col]);
-              setNft(col.erc721Address);
-              setType(col.type);
-            }}
-            className={styles.select}
-            placeholder="Choose Artist"
-            itemRenderer={({ item, methods }) => (
-              <div
-                key={item.erc721Address}
-                className={styles.collectionInput}
-                onClick={() => {
-                  methods.clearAll();
-                  methods.addItem(item);
-                }}
-              >
-                <img
-                  src={`https://cloudflare-ipfs.com/ipfs/${item.logoImageHash}`}
-                  className={styles.collectionLogo}
-                />
-                <div className={styles.collectionName}>
-                  {item.collectionName}
-                </div>
-              </div>
-            )}
-            contentRenderer={({ props: { values } }) =>
-              values.length > 0 ? (
-                <div className={styles.collection}>
-                  <img
-                    src={`https://cloudflare-ipfs.com/ipfs/${values[0].logoImageHash}`}
-                    className={styles.collectionLogo}
-                  />
-                  <div className={styles.collectionName}>
-                    {values[0].collectionName}
-                  </div>
-                </div>
-              ) : (
-                <div className={styles.collection} />
-              )
-            }
-          />
-        </div> */}
+				<div className={styles.formGroup}>
+					<div className={styles.inputGroup} />
+					<div className={styles.inputTitle}>Artiste</div>
+					<div className={styles.inputWrapper} />
+					<Select
+						options={artists}
+						// disabled={isMinting}
+						values={selected}
+						onChange={([col]) => {
+							setSelected([col]);
+							// setNft(col.erc721Address);
+							// setType(col.type);
+						}}
+						className={styles.select}
+						placeholder='Choose Artist'
+						itemRenderer={({ item, methods }) => (
+							<div
+								key={item._id}
+								className={styles.collectionInput}
+								onClick={() => {
+									methods.clearAll();
+									methods.addItem(item);
+								}}>
+								<img
+									src={`https://cloudflare-ipfs.com/ipfs/${item.imageHash}`}
+									alt='artist-img'
+									className={styles.collectionLogo}
+								/>
+								<div className={styles.collectionName}>
+									{item.firstname + " " + item.lastname}
+								</div>
+							</div>
+						)}
+						contentRenderer={({ props: { values } }) =>
+							values?.length > 0 ? (
+								<div className={styles.collection}>
+									<img
+										src={`https://cloudflare-ipfs.com/ipfs/${values[0].imageHash}`}
+										className={styles.collectionLogo}
+										alt='artist-img'
+									/>
+									<div className={styles.collectionName}>
+										{values[0].firstname + " " + values[0].lastname}
+									</div>
+								</div>
+							) : (
+								<div className={styles.collection} />
+							)
+						}
+					/>
+				</div>
 				<div className={styles.inputGroup}>
 					<div className={styles.inputTitle}>Description</div>
 					<div className={styles.inputWrapper}>
