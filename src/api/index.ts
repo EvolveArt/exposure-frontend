@@ -1,4 +1,6 @@
 import axios from 'axios';
+// eslint-disable-next-line
+import Artist from 'interfaces';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -35,5 +37,30 @@ export const useApi = () => {
     return res.data;
   };
 
-  return { getAuthToken, getAccountDetails }
+  const getNonce = async (address: string, authToken: string | null | undefined) => {
+    const res = await axios({
+      method: 'get',
+      url: `${apiUrl}/account/nonce/${address}`,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  };
+
+  const postArtist = async (artist: Artist, authToken: string | null | undefined) => {
+    const res = await axios({
+      method: 'POST',
+      url: `${apiUrl}/artist/artistDetails`,
+      data: JSON.stringify(artist),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+
+    return res.data;
+  }
+
+  return { getAuthToken, getAccountDetails, postArtist, getNonce, apiUrl }
 }
