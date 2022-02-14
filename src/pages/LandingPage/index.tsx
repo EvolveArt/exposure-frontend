@@ -16,6 +16,7 @@ import Footer from "../../components/Footer";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import NftItem from "components/NFTitem";
+import ArtistCard from "components/ArtistCard";
 
 const arrival = {
   title: "Touching Strangers",
@@ -322,29 +323,6 @@ const arrivalPage = (arrival: {
   );
 };
 
-const artistsSection = (artists: {
-  image: string;
-  name: string;
-  number: string;
-}) => {
-  return (
-    <Flex
-      flexDirection={"column"}
-      paddingRight="12px"
-      paddingLeft={"12px"}
-      className={styles.artistComponent}
-    >
-      <Image src={artists.image}></Image>
-      <Text fontWeight="600" fontSize="20px" lineHeight="35px">
-        {artists.name}
-      </Text>
-      <Text fontSize="12px" lineHeight="18px">
-        <span style={{ fontWeight: "bold" }}>{artists.number}</span> Collections
-      </Text>
-    </Flex>
-  );
-};
-
 const LandingPage = () => {
   return (
     <div>
@@ -515,7 +493,7 @@ const LandingPage = () => {
           <div className={styles.itemsList}>
             {artists.map((item, idx) => (
               <div key={idx} className={styles.moreItem}>
-                {artistsSection(item)}
+                {ArtistCard(item)}
               </div>
             ))}
           </div>
