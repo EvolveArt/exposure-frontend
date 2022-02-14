@@ -7,6 +7,7 @@ import CollectionPage from "./pages/CollectionPage";
 import AddArtist from "pages/AddArtist";
 import AddCollecion from "pages/AddCollection";
 import Profile from "pages/Profile";
+import Artists from "pages/Artists";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -14,6 +15,7 @@ export const App = () => (
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/collection" component={CollectionPage} />
+        <Route exact path="/artists" component={Artists} />
         <Route exact path="/addartist" component={AddArtist} />
         <Route exact path="/addcollection" component={AddCollecion} />
         <Route exact path="/profile/:uid" component={Profile} />

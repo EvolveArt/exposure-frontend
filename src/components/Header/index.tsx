@@ -191,18 +191,24 @@ export default function Header() {
                 </div>
                 <Image src={down} marginLeft="auto" />
                 <Collapse in={isOpen} animateOpacity>
-                  <Link href={`/profile/${account}`}>
-                    <Box
-                      color="#000"
-                      width={"200px"}
-                      mt="4"
-                      bg="#fff"
-                      border="2px solid #000"
-                      shadow="md"
-                      position="absolute"
-                      right={"32px"}
-                      top="53px"
-                      zIndex={"100"}
+                  <Box
+                    color="#000"
+                    width={"200px"}
+                    mt="4"
+                    bg="#fff"
+                    border="2px solid #000"
+                    shadow="md"
+                    position="absolute"
+                    right={"32px"}
+                    top="53px"
+                    zIndex={"100"}
+                  >
+                    <Link
+                      href={`/profile/${account}`}
+                      _hover={{
+                        textDecoration: "none",
+                        color: "linkHoverColor",
+                      }}
                     >
                       <div
                         className={styles.dropElt}
@@ -211,12 +217,12 @@ export default function Header() {
                         <Image src={profile} paddingRight="15px" />
                         My account
                       </div>
-                      <div className={styles.dropElt} onClick={deactivate}>
-                        <Image src={disc} paddingRight="15px" />
-                        Disconnect
-                      </div>
-                    </Box>
-                  </Link>
+                    </Link>
+                    <div className={styles.dropElt} onClick={deactivate}>
+                      <Image src={disc} paddingRight="15px" />
+                      Disconnect
+                    </div>
+                  </Box>
                 </Collapse>
               </div>
             ) : (
@@ -407,10 +413,19 @@ const MobileNav = () => {
               top="300px"
               zIndex={"100"}
             >
-              <div className={styles.dropElt}>
-                <Image src={profile} paddingRight="15px" />
-                My account
-              </div>
+              <Link
+                href={`/profile/${account}`}
+                color={"#000"}
+                _hover={{
+                  textDecoration: "none",
+                  color: "linkHoverColor",
+                }}
+              >
+                <div className={styles.dropElt}>
+                  <Image src={profile} paddingRight="15px" />
+                  My account
+                </div>
+              </Link>
               <div className={styles.dropElt} onClick={deactivate}>
                 <Image src={disc} paddingRight="15px" />
                 Disconnect
@@ -517,7 +532,7 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Artists",
-    href: "#",
+    href: "/artists",
   },
   {
     label: "Collections",
