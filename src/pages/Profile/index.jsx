@@ -34,20 +34,10 @@ function RadioCard(props) {
 			<Box
 				{...checkbox}
 				cursor='pointer'
-				borderWidth='1px'
-				borderRadius='md'
-				boxShadow='md'
 				_checked={{
-					bg: "unset",
-					color: "unset",
-					borderColor: "none",
+					filter: "brightness(0) saturate(100%)",
 				}}
-				_focus={{
-					boxShadow: "outline",
-					opacity: "0.5",
-				}}
-				px={5}
-				py={3}>
+				padding='5px'>
 				{props.children}
 			</Box>
 		</Box>
@@ -184,7 +174,9 @@ const Profile = () => {
 						const radio = getRadioProps({ value });
 						return (
 							<RadioCard key={value} {...radio}>
-								<Image src={value}></Image>
+								<Image
+									src={value}
+									filter='brightness(0) saturate(100%) invert(79%) sepia(0%) saturate(1169%) hue-rotate(47deg) brightness(93%) contrast(90%)'></Image>
 							</RadioCard>
 						);
 					})}
