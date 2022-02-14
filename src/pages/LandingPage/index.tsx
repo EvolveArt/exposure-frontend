@@ -350,6 +350,7 @@ const LandingPage = () => {
     <div>
       <Header />
       {arrivalPage(arrival)}
+
       <Box paddingBottom="112px">
         <Flex
           width={{ base: "90%", lg: "80%" }}
