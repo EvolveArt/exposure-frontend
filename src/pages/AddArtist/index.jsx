@@ -10,7 +10,7 @@ import { ethers } from "ethers";
 import { useApi } from "api";
 import { useSelector } from "react-redux";
 import { useWeb3React } from "@web3-react/core";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import toast from "utils/toast";
 import { getSigner } from "contracts";
 import { ClipLoader } from "react-spinners";
@@ -31,7 +31,7 @@ const AddArtist = () => {
 	const [instagramError, setInstagramError] = useState(null);
 	const [adding, setAdding] = useState(false);
 
-	const history = useHistory();
+	// const history = useHistory();
 
 	const { account, library } = useWeb3React();
 	const { apiUrl, getNonce } = useApi();
