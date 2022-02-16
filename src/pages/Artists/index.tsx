@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
 import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+import Footer from "components/Footer";
 
 const Artists = () => {
   const [artists, setArtists] = useState([]);
@@ -144,6 +145,7 @@ const Artists = () => {
           />
         ))}
       </Flex>
+      <Footer />
     </div>
   );
 };
