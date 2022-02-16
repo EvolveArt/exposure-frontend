@@ -49,6 +49,7 @@ const drops = [
     number: "139",
   },
 ];
+
 const artists = [
   {
     image: "/images/artist.png",
@@ -323,6 +324,29 @@ const arrivalPage = (arrival: {
   );
 };
 
+const ArtistsLanding = (artists: {
+  image: string;
+  name: string;
+  number: string;
+}) => {
+  return (
+    <Flex
+      flexDirection={"column"}
+      paddingRight="12px"
+      paddingLeft={"12px"}
+      className={styles.artistComponent}
+    >
+      <Image src={artists.image} width="262px" maxWidth={"unset"}></Image>
+      <Text fontWeight="600" fontSize="20px" lineHeight="35px">
+        {artists.name}
+      </Text>
+      <Text fontSize="12px" lineHeight="18px">
+        <span style={{ fontWeight: "bold" }}>{artists.number}</span> Collections
+      </Text>
+    </Flex>
+  );
+};
+
 const LandingPage = () => {
   return (
     <div>
@@ -493,7 +517,7 @@ const LandingPage = () => {
           <div className={styles.itemsList}>
             {artists.map((item, idx) => (
               <div key={idx} className={styles.moreItem}>
-                {ArtistCard(item)}
+                {ArtistsLanding(item)}
               </div>
             ))}
           </div>
