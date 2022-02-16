@@ -8,6 +8,7 @@ import AddArtist from "pages/AddArtist";
 import AddCollecion from "pages/AddCollection";
 import Profile from "pages/Profile";
 import Artists from "pages/Artists";
+import QA from "pages/Q&A";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -19,6 +20,7 @@ export const App = () => (
         <Route exact path="/addartist" component={AddArtist} />
         <Route exact path="/addcollection" component={AddCollecion} />
         <Route exact path="/profile/:uid" component={Profile} />
+        <Route exact path="/QA" component={QA} />
       </Switch>
     </Router>
   </ChakraProvider>

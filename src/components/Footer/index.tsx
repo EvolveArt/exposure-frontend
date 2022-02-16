@@ -75,6 +75,7 @@ const Footer = () => {
                 fontSize="14px"
                 lineHeight="28px"
                 letterSpacing={"1px"}
+                href={"/QA"}
               >
                 Q&A
               </Link>
