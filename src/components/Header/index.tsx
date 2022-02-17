@@ -536,7 +536,7 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: "Collections",
-    href: "#",
+    href: "/exploreCollection",
   },
   {
     label: "Q&A",

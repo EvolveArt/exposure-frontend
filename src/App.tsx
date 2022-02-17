@@ -10,6 +10,7 @@ import Profile from "pages/Profile";
 import Artists from "pages/Artists";
 import QA from "pages/Q&A";
 import Search from "pages/Search";
+import ExploreCollection from "pages/ExploreCollection";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -23,6 +24,7 @@ export const App = () => (
         <Route exact path="/profile/:uid" component={Profile} />
         <Route exact path="/QA" component={QA} />
         <Route exact path="/search" component={Search} />
+        <Route exact path="/exploreCollection" component={ExploreCollection} />
       </Switch>
     </Router>
   </ChakraProvider>
