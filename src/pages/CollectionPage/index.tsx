@@ -221,12 +221,12 @@ const TopPage = (collection: Collection | null) => {
 							paddingBottom={"35px"}>
 							Release date -{" "}
 							<span style={{ fontWeight: "800" }}>
-								{collection?.releaseDate}
+								{new Date(collection?.releaseDate || "").toLocaleDateString()}
 							</span>{" "}
-							at{" "}
+							{/* at{" "}
 							<span style={{ fontWeight: "800" }}>
 								{collection?.releaseDate} GMT
-							</span>
+							</span> */}
 						</Text>
 					</Flex>
 					<Flex border={"1px solid #000"} width='100%'>
