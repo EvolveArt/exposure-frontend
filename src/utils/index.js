@@ -107,3 +107,7 @@ export const calculateGasMargin = (value) => {
 		.mul(ethers.BigNumber.from(10000).add(ethers.BigNumber.from(1000)))
 		.div(ethers.BigNumber.from(10000));
 };
+
+export const formatName = (artist) => {
+	return artist?.firstname + " " + artist?.lastname;
+};

@@ -140,10 +140,10 @@ const AddCollection = () => {
 	const clipImage = (image, clipX, clipY, clipWidth, clipHeight, cb) => {
 		// const CANVAS_SIZE = 128;
 		const canvas = document.createElement("canvas");
-		canvas.width = 240;
-		canvas.height = 280;
+		canvas.width = 1280;
+		canvas.height = 720;
 		const ctx = canvas.getContext("2d");
-		ctx.drawImage(image, clipX, clipY, clipWidth, clipHeight, 0, 0, 240, 280);
+		ctx.drawImage(image, clipX, clipY, clipWidth, clipHeight, 0, 0, 1280, 720);
 		cb(canvas.toDataURL());
 	};
 
