@@ -498,7 +498,7 @@ const AddCollection = () => {
 							transform: "translate3d(4px,4px,0px)",
 						}}
 						onClick={handleAddCollection}>
-						Add Collection
+						{adding ? "Adding.." : "Add Collection"}
 					</Button>
 				</Flex>
 			</Flex>
