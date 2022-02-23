@@ -19,6 +19,7 @@ const ArtistCard = (artists: {
         <Image
           src={getRandomIPFS(`ipfs://${artists.image}`)}
           width={"262px"}
+          height={"262px"}
           maxWidth={"unset"}
         ></Image>
         <Text fontWeight="600" fontSize="20px" lineHeight="35px">

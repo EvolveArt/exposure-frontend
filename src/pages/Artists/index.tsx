@@ -137,13 +137,15 @@ const Artists = () => {
             Artists
           </Text>
         </Flex>
-        {artists.map((artist: any) => (
-          <ArtistCard
-            image={artist.imageHash}
-            name={artist.firstname + " " + artist.lastname}
-            number={0}
-          />
-        ))}
+        <Flex width={"100%"} flexWrap="wrap">
+          {artists.map((artist: any) => (
+            <ArtistCard
+              image={artist.imageHash}
+              name={artist.firstname + " " + artist.lastname}
+              number={0}
+            />
+          ))}
+        </Flex>
       </Flex>
       <Footer />
     </div>
