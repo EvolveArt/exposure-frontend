@@ -17,6 +17,9 @@
   width: 100%;
   box-sizing: border-box;
   overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .itemsList {
@@ -29,5 +32,13 @@
   border-right: 1px solid #ddd;
   &:last-child {
     border-right: unset;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .panelBody {
+    display: unset;
+    justify-content: unset;
+    align-items: unset;
   }
 }
