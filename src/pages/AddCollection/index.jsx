@@ -11,14 +11,22 @@ import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import { useApi } from "api";
 import "./styles.css";
+import { ethers } from "ethers";
+import toast from "utils/toast";
+import axios from "axios";
+import { useWeb3React } from "@web3-react/core";
+import { useSelector } from "react-redux";
+import { getSigner } from "contracts";
 
 const AddCollection = () => {
 	const [logo, setLogo] = useState(null);
+	const [photo, setPhoto] = useState(null);
 	const [name, setName] = useState("");
+	const [adding, setAdding] = useState(false);
 	const [nameError, setNameError] = useState(null);
 	const [description, setDescription] = useState("");
 	const [descriptionError, setDescriptionError] = useState(null);
-	const [wallet, setWallet] = useState("");
+	const [maxMintPerWallet, setMaxMintPerWallet] = useState(1);
 	const [walletError, setWalletError] = useState(null);
 	const [mint, setMint] = useState("");
 	const [mintError, setMintError] = useState(null);
@@ -32,15 +40,19 @@ const AddCollection = () => {
 	const [instagram, setInstagram] = useState("");
 	const [instagramError, setInstagramError] = useState(null);
 
-	const { getAllArtists } = useApi();
+	const { getAllArtists, apiUrl, getNonce } = useApi();
 
 	const [artists, setArtists] = useState([]);
 	const [selected, setSelected] = useState(null);
+
+	const { account, library } = useWeb3React();
+	const { authToken } = useSelector((state) => state.ConnectWallet);
 
 	const removeImage = () => {
 		setLogo(null);
 	};
 	const inputRef = useRef(null);
+	const inputPhotoRef = useRef(null);
 
 	useEffect(() => {
 		const updateArtists = async () => {
@@ -71,6 +83,20 @@ const AddCollection = () => {
 		}
 	};
 
+	const handlePhotoSelect = (e) => {
+		if (e.target.files.length > 0) {
+			const file = e.target.files[0];
+
+			const reader = new FileReader();
+
+			reader.onload = function(e) {
+				setPhoto(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		}
+	};
+
 	const validateName = () => {
 		if (name.length === 0) {
 			setNameError("This field can't be blank");
@@ -87,9 +113,9 @@ const AddCollection = () => {
 		}
 	};
 
-	const validateWallet = () => {
-		if (wallet.length !== 42) {
-			setWalletError("Wrong size of address");
+	const validateMaxMintPerWallet = () => {
+		if (maxMintPerWallet > 200) {
+			setWalletError("Max Mint Per wallet too high.");
 		} else {
 			setWalletError("");
 		}
@@ -109,6 +135,106 @@ const AddCollection = () => {
 		} else {
 			setInstagramError("");
 		}
+	};
+
+	const clipImage = (image, clipX, clipY, clipWidth, clipHeight, cb) => {
+		// const CANVAS_SIZE = 128;
+		const canvas = document.createElement("canvas");
+		canvas.width = 1280;
+		canvas.height = 720;
+		const ctx = canvas.getContext("2d");
+		ctx.drawImage(image, clipX, clipY, clipWidth, clipHeight, 0, 0, 1280, 720);
+		cb(canvas.toDataURL());
+	};
+
+	const handleAddCollection = async () => {
+		if (adding) return;
+
+		setAdding(true);
+
+		const img = new Image();
+		img.onload = function() {
+			const w = this.width;
+			const h = this.height;
+			const size = Math.min(w, h);
+			const x = (w - size) / 2;
+			const y = (h - size) / 2;
+			clipImage(img, x, y, size, size, async (logodata) => {
+				try {
+					const { data: nonce } = await getNonce(account, authToken);
+
+					let signature;
+					let signatureAddress;
+
+					try {
+						const signer = await getSigner(library);
+						const msg = `Approve Signature on Exposure with nonce ${nonce}`;
+
+						signature = await signer.signMessage(msg);
+						signatureAddress = ethers.utils.verifyMessage(msg, signature);
+					} catch (err) {
+						toast(
+							"error",
+							"You need to sign the message to be able to add a collection."
+						);
+						setAdding(false);
+						return;
+					}
+
+					const formData = new FormData();
+					formData.append("name", name);
+					formData.append("imgData", logodata);
+					const result = await axios({
+						method: "post",
+						url: `${apiUrl}/ipfs/uploadCollectionImage2Server`,
+						data: formData,
+						headers: {
+							"Content-Type": "multipart/form-data",
+							Authorization: `Bearer ${authToken}`,
+						},
+					});
+
+					const imageHash = result.data.data;
+					const data = {
+						collectionName: name,
+						teasingDate: teasingTime,
+						releaseDate: dropTime,
+						mintPrice: mint,
+						maxMintPerWallet,
+						mintMode: 0,
+						description,
+						artists,
+						logoImageHash: imageHash,
+						signature,
+						signatureAddress,
+					};
+
+					await axios({
+						method: "post",
+						url: `${apiUrl}/collection/collectionDetails`,
+						data: JSON.stringify(data),
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${authToken}`,
+						},
+					});
+
+					toast(
+						"success",
+						"Collection added!",
+						"The collection has successfuly been added to Exposure."
+					);
+
+					setAdding(false);
+
+					// history.push("/");
+				} catch (e) {
+					console.log("Error: ", e);
+					setAdding(false);
+				}
+			});
+		};
+		img.src = logo;
 	};
 
 	return (
@@ -257,13 +383,14 @@ const AddCollection = () => {
 					<div className={styles.inputWrapper}>
 						<input
 							className={cx(styles.input, walletError && styles.hasError)}
-							maxLength={42}
+							max={200}
 							placeholder='Wallet Address'
-							value={wallet}
-							onChange={(e) => setWallet(e.target.value)}
-							onBlur={validateWallet}
+							value={maxMintPerWallet}
+							onChange={(e) => setMaxMintPerWallet(e.target.valueAsNumber)}
+							onBlur={validateMaxMintPerWallet}
+							type='number'
 						/>
-						<div className={styles.lengthIndicator}>{wallet.length}/42</div>
+						<div className={styles.lengthIndicator}>{maxMintPerWallet}/200</div>
 						{walletError && <div className={styles.error}>{walletError}</div>}
 					</div>
 				</div>
@@ -323,9 +450,9 @@ const AddCollection = () => {
 				<div className={styles.inputGroup}>
 					<div className={styles.inputWrapper}>
 						<div className={styles.logoUploadBox}>
-							{logo ? (
+							{photo ? (
 								<>
-									<img src={logo} alt='Collection Logo' />
+									<img src={photo} alt='collection-photograph' />
 									<div className={styles.removeOverlay}>
 										<div className={styles.removeIcon} onClick={removeImage}>
 											<img src={closeIcon} alt='CloseIcon' />
@@ -335,13 +462,13 @@ const AddCollection = () => {
 							) : (
 								<div
 									className={styles.uploadOverlay}
-									onClick={() => inputRef.current?.click()}>
+									onClick={() => inputPhotoRef.current?.click()}>
 									<input
-										ref={inputRef}
+										ref={inputPhotoRef}
 										type='file'
 										accept='image/*'
 										hidden
-										onChange={handleFileSelect}
+										onChange={handlePhotoSelect}
 									/>
 									<div className={styles.upload}>
 										<img
@@ -369,8 +496,9 @@ const AddCollection = () => {
 						style={{ marginInlineStart: "unset" }}
 						_hover={{
 							transform: "translate3d(4px,4px,0px)",
-						}}>
-						Add Artist
+						}}
+						onClick={handleAddCollection}>
+						Add Collection
 					</Button>
 				</Flex>
 			</Flex>

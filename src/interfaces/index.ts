@@ -1,4 +1,4 @@
-interface Artist {
+export interface Artist {
   address: string,
   firstname: string,
   lastname: string,
@@ -8,4 +8,16 @@ interface Artist {
   imageHash: string
 }
 
-export default Artist;
+export interface Collection {
+  collectionName: string,
+  artists: Artist[],
+  description: string,
+  logoImageHash: string,
+  totalSupply: number,
+  teasingDate: string,
+  releaseDate: string,
+  mintPrice: number,
+  maxMintPerWallet: number,
+  minted: number,
+  mintMode: string
+}

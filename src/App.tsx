@@ -13,19 +13,23 @@ import Search from "pages/Search";
 import ExploreCollection from "pages/ExploreCollection";
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Router>
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/collection" component={CollectionPage} />
-        <Route exact path="/artists" component={Artists} />
-        <Route exact path="/addartist" component={AddArtist} />
-        <Route exact path="/addcollection" component={AddCollection} />
-        <Route exact path="/profile/:uid" component={Profile} />
-        <Route exact path="/QA" component={QA} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/exploreCollection" component={ExploreCollection} />
-      </Switch>
-    </Router>
-  </ChakraProvider>
+	<ChakraProvider theme={theme}>
+		<Router>
+			<Switch>
+				<Route exact path='/' component={LandingPage} />
+				<Route
+					exact
+					path='/collection/:collection'
+					component={CollectionPage}
+				/>
+				<Route exact path='/artists' component={Artists} />
+				<Route exact path='/addartist' component={AddArtist} />
+				<Route exact path='/addcollection' component={AddCollection} />
+				<Route exact path='/profile/:uid' component={Profile} />
+				<Route exact path='/QA' component={QA} />
+				<Route exact path='/search' component={Search} />
+				<Route exact path='/exploreCollection' component={ExploreCollection} />
+			</Switch>
+		</Router>
+	</ChakraProvider>
 );

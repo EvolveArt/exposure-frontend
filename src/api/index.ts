@@ -1,6 +1,6 @@
 import axios from 'axios';
 // eslint-disable-next-line
-import Artist from 'interfaces';
+import { Artist } from 'interfaces';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -74,5 +74,30 @@ export const useApi = () => {
     return res.data;
   }
 
-  return { getAuthToken, getAccountDetails, postArtist, getNonce, apiUrl, getAllArtists }
+  const getAllCollections = async () => {
+    const res = await axios({
+      method: 'GET',
+      url: `${apiUrl}/collection/fetchAllCollections`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    return res.data;
+  }
+
+  const getCollectionInfo = async (collectionName: string) => {
+    const res = await axios({
+      method: 'POST',
+      url: `${apiUrl}/collection/getCollectionInfo`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: { collectionName },
+    })
+
+    return res.data;
+  }
+
+  return { getAuthToken, getAccountDetails, postArtist, getNonce, apiUrl, getAllArtists, getAllCollections, getCollectionInfo }
 }
