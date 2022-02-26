@@ -105,7 +105,12 @@ const WaitingPage = () => {
           bottom={"-20px"}
           left="0"
         ></Image>
-        <Image src={logo} height="48px" width={"220px"} />
+        <Image
+          src={logo}
+          height="48px"
+          width={"220px"}
+          marginTop={{ base: "20px", md: "unset" }}
+        />
         <Text color={"white"} fontFamily="Inter" letterSpacing={"1px"}>
           Coming Soon
         </Text>
