@@ -109,7 +109,7 @@ const WaitingPage = () => {
           src={logo}
           height="48px"
           width={"220px"}
-          marginTop={{ base: "20px", md: "unset" }}
+          marginTop={{ base: "50px", md: "unset" }}
         />
         <Text color={"white"} fontFamily="Inter" letterSpacing={"1px"}>
           Coming Soon
