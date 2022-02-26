@@ -10,26 +10,28 @@ import Profile from "pages/Profile";
 import Artists from "pages/Artists";
 import QA from "pages/Q&A";
 import Search from "pages/Search";
+import ArtistPage from "pages/ArtistPage";
 import ExploreCollection from "pages/ExploreCollection";
 
 export const App = () => (
-	<ChakraProvider theme={theme}>
-		<Router>
-			<Switch>
-				<Route exact path='/' component={LandingPage} />
-				<Route
-					exact
-					path='/collection/:collection'
-					component={CollectionPage}
-				/>
-				<Route exact path='/artists' component={Artists} />
-				<Route exact path='/addartist' component={AddArtist} />
-				<Route exact path='/addcollection' component={AddCollection} />
-				<Route exact path='/profile/:uid' component={Profile} />
-				<Route exact path='/QA' component={QA} />
-				<Route exact path='/search' component={Search} />
-				<Route exact path='/exploreCollection' component={ExploreCollection} />
-			</Switch>
-		</Router>
-	</ChakraProvider>
+  <ChakraProvider theme={theme}>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route
+          exact
+          path="/collection/:collection"
+          component={CollectionPage}
+        />
+        <Route exact path="/artists" component={Artists} />
+        <Route exact path="/addartist" component={AddArtist} />
+        <Route exact path="/addcollection" component={AddCollection} />
+        <Route exact path="/profile/:uid" component={Profile} />
+        <Route exact path="/QA" component={QA} />
+        <Route exact path="/search" component={Search} />
+        <Route exact path="/exploreCollection" component={ExploreCollection} />
+        <Route exact path="/artist/:name" component={ArtistPage} />
+      </Switch>
+    </Router>
+  </ChakraProvider>
 );
