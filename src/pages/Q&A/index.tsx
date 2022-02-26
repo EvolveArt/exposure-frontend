@@ -138,7 +138,7 @@ const QA = () => {
           opacity="0.1"
           width={"27px"}
           position="absolute"
-          top={"114px"}
+          top={"100px"}
           left="0"
           right="0"
           marginLeft="auto"
