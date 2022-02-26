@@ -17,12 +17,17 @@ import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
 import { getSigner } from "contracts";
+import { ClipLoader } from "react-spinners";
+import { formatName } from "utils";
+// import { kebabCase } from "lodash";
 
 const AddCollection = () => {
 	const [logo, setLogo] = useState(null);
-	const [photo, setPhoto] = useState(null);
+	const [metadataHash, setMetadataHash] = useState(null);
+	const [photos, setPhotos] = useState(null);
 	const [name, setName] = useState("");
 	const [adding, setAdding] = useState(false);
+	const [uploading, setUploading] = useState(false);
 	const [nameError, setNameError] = useState(null);
 	const [description, setDescription] = useState("");
 	const [descriptionError, setDescriptionError] = useState(null);
@@ -37,8 +42,6 @@ const AddCollection = () => {
 		new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 	);
 	const [now, setNow] = useState(new Date());
-	const [instagram, setInstagram] = useState("");
-	const [instagramError, setInstagramError] = useState(null);
 
 	const { getAllArtists, apiUrl, getNonce } = useApi();
 
@@ -48,9 +51,34 @@ const AddCollection = () => {
 	const { account, library } = useWeb3React();
 	const { authToken } = useSelector((state) => state.ConnectWallet);
 
-	const removeImage = () => {
-		setLogo(null);
+	const generateMetadata = async (
+		_name,
+		_description,
+		_image,
+		_artist,
+		_collection
+	) => {
+		// Upload image on ipfs
+		let ipfsHash = await uploadOnIPFS(_image);
+
+		let tempMetadata = {
+			name: _name,
+			description: _description,
+			external_url: "https://exposure.art",
+			image: `ipfs://${ipfsHash}`,
+			attributes: [
+				{ trait_type: "Artist", value: _artist },
+				{ trait_type: "Collection", value: _collection },
+			],
+		};
+
+		return tempMetadata;
 	};
+
+	const removeImage = () => {
+		setPhotos(null);
+	};
+
 	const inputRef = useRef(null);
 	const inputPhotoRef = useRef(null);
 
@@ -83,17 +111,68 @@ const AddCollection = () => {
 		}
 	};
 
-	const handlePhotoSelect = (e) => {
+	const handlePhotoSelect = async (e) => {
 		if (e.target.files.length > 0) {
-			const file = e.target.files[0];
+			// Convert the FileList into an array and iterate
+			let files = Array.from(e.target.files).map((file) => {
+				// Define a new file reader
+				let reader = new FileReader();
 
-			const reader = new FileReader();
+				// Create a new promise
+				return new Promise((resolve) => {
+					// Resolve the promise after reading file
+					reader.onload = () =>
+						resolve({
+							file,
+							name: file.name.replace(/\.[^/.]+$/, ""),
+							src: reader.result,
+						});
 
-			reader.onload = function(e) {
-				setPhoto(e.target.result);
-			};
+					// Reade the file as a data URL
+					reader.readAsDataURL(file);
+				});
+			});
 
-			reader.readAsDataURL(file);
+			// At this point you'll have an array of results
+			let res = await Promise.all(files);
+			setPhotos(res);
+		}
+	};
+
+	const generateMetadataAndUpload = async () => {
+		if (uploading) return;
+		setUploading(true);
+
+		try {
+			let metadatas = [];
+			for (const photo of photos) {
+				const metadata = await generateMetadata(
+					photo.name,
+					description,
+					photo.file,
+					formatName(selected[0]),
+					name
+				);
+				metadatas.push(metadata);
+			}
+			console.log(JSON.stringify(metadatas));
+			const result = await axios({
+				method: "post",
+				url: `${apiUrl}/ipfs/uploadMetadata2Server`,
+				data: JSON.stringify(metadatas),
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${authToken}`,
+				},
+			});
+
+			const imageHash = result.data.data;
+			setMetadataHash(imageHash);
+
+			setUploading(false);
+		} catch (e) {
+			console.error(e);
+			setUploading(false);
 		}
 	};
 
@@ -126,14 +205,6 @@ const AddCollection = () => {
 			setMintError("This field can't be blank");
 		} else {
 			setMintError("");
-		}
-	};
-
-	const validateInstagram = () => {
-		if (instagram.length === 0) {
-			setInstagramError("This field can't be blank");
-		} else {
-			setInstagramError("");
 		}
 	};
 
@@ -235,6 +306,33 @@ const AddCollection = () => {
 			});
 		};
 		img.src = logo;
+	};
+
+	const uploadOnIPFS = async (_file) => {
+		// initialize the form data
+		const formData = new FormData();
+
+		// append the file form data to
+		formData.append("file", _file);
+		console.log(_file);
+
+		// call the keys from .env
+		const API_KEY = process.env.REACT_APP_PINATA_API_KEY;
+		const API_SECRET = process.env.REACT_APP_PINATA_SECRET_API_KEY;
+
+		// the endpoint needed to upload the file
+		const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+
+		const response = await axios.post(url, formData, {
+			maxContentLength: "Infinity",
+			headers: {
+				"Content-Type": `multipart/form-data;boundary=${formData._boundary}`,
+				pinata_api_key: API_KEY,
+				pinata_secret_api_key: API_SECRET,
+			},
+		});
+
+		return response.data.IpfsHash;
 	};
 
 	return (
@@ -450,9 +548,9 @@ const AddCollection = () => {
 				<div className={styles.inputGroup}>
 					<div className={styles.inputWrapper}>
 						<div className={styles.logoUploadBox}>
-							{photo ? (
+							{photos ? (
 								<>
-									<img src={photo} alt='collection-photograph' />
+									<img src={photos[0].src} alt='collection-photograph' />
 									<div className={styles.removeOverlay}>
 										<div className={styles.removeIcon} onClick={removeImage}>
 											<img src={closeIcon} alt='CloseIcon' />
@@ -469,6 +567,7 @@ const AddCollection = () => {
 										accept='image/*'
 										hidden
 										onChange={handlePhotoSelect}
+										multiple
 									/>
 									<div className={styles.upload}>
 										<img
@@ -481,26 +580,53 @@ const AddCollection = () => {
 								</div>
 							)}
 						</div>
+						{photos && (
+							<Button
+								fontSize={"sm"}
+								fontWeight={600}
+								fontFamily={"Inter"}
+								color={"white"}
+								bg={"#000"}
+								borderRadius='0px'
+								width={"200px"}
+								height={"64px"}
+								mt={5}
+								style={{ marginInlineStart: "unset" }}
+								_hover={{
+									transform: "translate3d(4px,4px,0px)",
+								}}
+								className={cx(uploading && styles.disabled)}
+								onClick={generateMetadataAndUpload}>
+								{uploading ? (
+									<ClipLoader color='#FFF' size={16} />
+								) : (
+									"Generate & Upload"
+								)}
+							</Button>
+						)}
+						{metadataHash && <div>{metadataHash}</div>}
 					</div>
 				</div>
-				<Flex border={"1px solid #000"} width='200px' marginRight={"auto"}>
-					<Button
-						fontSize={"sm"}
-						fontWeight={600}
-						fontFamily={"Inter"}
-						color={"white"}
-						bg={"#000"}
-						borderRadius='0px'
-						width={"200px"}
-						height={"64px"}
-						style={{ marginInlineStart: "unset" }}
-						_hover={{
-							transform: "translate3d(4px,4px,0px)",
-						}}
-						onClick={handleAddCollection}>
-						{adding ? "Adding.." : "Add Collection"}
-					</Button>
-				</Flex>
+				{metadataHash && (
+					<Flex border={"1px solid #000"} width='200px' marginRight={"auto"}>
+						<Button
+							fontSize={"sm"}
+							fontWeight={600}
+							fontFamily={"Inter"}
+							color={"white"}
+							bg={"#000"}
+							borderRadius='0px'
+							width={"200px"}
+							height={"64px"}
+							style={{ marginInlineStart: "unset" }}
+							_hover={{
+								transform: "translate3d(4px,4px,0px)",
+							}}
+							onClick={handleAddCollection}>
+							{adding ? "Adding.." : "Add Collection"}
+						</Button>
+					</Flex>
+				)}
 			</Flex>
 		</>
 	);
