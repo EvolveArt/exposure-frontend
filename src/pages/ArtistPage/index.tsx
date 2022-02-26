@@ -94,8 +94,10 @@ const TopPage = (collection: {
             width={"27px"}
             position="absolute"
             top={"14px"}
-            right="50%"
-            left="50%"
+            left="0"
+            right="0"
+            marginLeft="auto"
+            marginRight="auto"
           ></Image>
           <Image
             src={addIcon}
@@ -153,8 +155,10 @@ const TopPage = (collection: {
             position="absolute"
             transform={"rotate(180deg)"}
             bottom={"14px"}
-            right="50%"
-            left="50%"
+            left="0"
+            right="0"
+            marginLeft="auto"
+            marginRight="auto"
           ></Image>
           <Text
             fontFamily="Inter"
@@ -216,8 +220,10 @@ const TopPage = (collection: {
           width={"27px"}
           position="absolute"
           top={"83px"}
-          right={"50%"}
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
       </Flex>
       <Flex
@@ -296,8 +302,10 @@ const ArtistPage = () => {
           width={"27px"}
           position="absolute"
           top={"114px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           display={{ base: "none", md: "unset" }}
@@ -306,8 +314,10 @@ const ArtistPage = () => {
           width={"27px"}
           position="absolute"
           top={"114px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           display={{ base: "unset", md: "none" }}
@@ -317,8 +327,10 @@ const ArtistPage = () => {
           position="absolute"
           transform={"rotate(180deg)"}
           bottom={"-6px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           display={{ base: "none", md: "unset" }}
@@ -327,8 +339,10 @@ const ArtistPage = () => {
           width={"27px"}
           position="absolute"
           bottom={"-20px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           src={addIcon}

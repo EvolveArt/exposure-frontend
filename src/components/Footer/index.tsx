@@ -118,8 +118,10 @@ const Footer = () => {
             width={"27px"}
             position="absolute"
             bottom={{ base: "40px", md: "-50px" }}
-            right="50%"
-            left="50%"
+            left="0"
+            right="0"
+            marginLeft="auto"
+            marginRight="auto"
             zIndex={"10"}
             filter={"invert(1)"}
           ></Image>

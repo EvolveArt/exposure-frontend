@@ -101,8 +101,10 @@ const Profile = () => {
           width={"27px"}
           position="absolute"
           top={"114px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           display={{ base: "none", md: "unset" }}
@@ -111,8 +113,10 @@ const Profile = () => {
           width={"27px"}
           position="absolute"
           top={"114px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           display={{ base: "unset", md: "none" }}
@@ -122,8 +126,10 @@ const Profile = () => {
           position="absolute"
           transform={"rotate(180deg)"}
           bottom={"-6px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           display={{ base: "none", md: "unset" }}
@@ -132,8 +138,10 @@ const Profile = () => {
           width={"27px"}
           position="absolute"
           bottom={"-20px"}
-          right="50%"
-          left="50%"
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
         ></Image>
         <Image
           src={addIcon}
