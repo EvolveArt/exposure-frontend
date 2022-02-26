@@ -25,7 +25,7 @@ export default () => {
 				return new ethers.Contract(address, abi, provider);
 			}
 		},
-		[chainId]
+		[chainId, library]
 	);
 
 	return { getContract };
