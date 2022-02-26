@@ -130,6 +130,7 @@ export default function Header() {
                 textAlign={useBreakpointValue({ base: "center", md: "left" })}
                 fontFamily={"heading"}
                 color={useColorModeValue("gray.800", "white")}
+                height="38px"
                 src={logo}
               ></Image>
             </Link>
@@ -150,6 +151,7 @@ export default function Header() {
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
               fontFamily={"heading"}
               color={useColorModeValue("gray.800", "white")}
+              height="38px"
               src={logo}
             ></Image>
           </Link>

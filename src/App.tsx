@@ -12,12 +12,13 @@ import QA from "pages/Q&A";
 import Search from "pages/Search";
 import ArtistPage from "pages/ArtistPage";
 import ExploreCollection from "pages/ExploreCollection";
+import WaitingPage from "pages/WaitingPage";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Router>
       <Switch>
-        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/landing" component={LandingPage} />
         <Route
           exact
           path="/collection/:collection"
@@ -31,6 +32,7 @@ export const App = () => (
         <Route exact path="/search" component={Search} />
         <Route exact path="/exploreCollection" component={ExploreCollection} />
         <Route exact path="/artist/:name" component={ArtistPage} />
+        <Route exact path="/" component={WaitingPage} />
       </Switch>
     </Router>
   </ChakraProvider>

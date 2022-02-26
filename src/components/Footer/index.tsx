@@ -27,11 +27,11 @@ const Footer = () => {
             marginLeft="auto"
             paddingTop="45px"
             position={"relative"}
-            height={{ base: "fit-content", md: "103px" }}
+            height={{ base: "fit-content" }}
             width="100%"
           >
             <Link href="/#">
-              <Image src={logo} width="220px" height="57px"></Image>
+              <Image src={logo} height="38px" margin="auto"></Image>
             </Link>
             <Flex
               paddingTop={{ base: "32px", md: "unset" }}
@@ -100,7 +100,7 @@ const Footer = () => {
             paddingBottom={{ base: "110px", md: "unset" }}
           >
             <Image src={instagram} height="30px"></Image>
-            <Image src={twitter} height="23px" margin="auto"></Image>
+            <Image src={twitter} height="30px" margin="auto"></Image>
             <Image src={discord} height="30px"></Image>
           </Flex>
           <Image
