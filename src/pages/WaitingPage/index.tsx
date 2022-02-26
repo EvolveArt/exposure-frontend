@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import logo from "assets/imgs/logoWhite.png";
 import addIcon from "assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text, Link } from "@chakra-ui/react";
 import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
 import instagram from "../../assets/imgs/instagram.png";
@@ -102,9 +102,15 @@ const WaitingPage = () => {
           Coming Soon
         </Text>
         <Flex gridGap={"20px"} width="fit-content" paddingTop={"100px"}>
-          <Image src={instagram} height="30px" />
-          <Image src={twitter} height="30px" margin="auto" />
-          <Image src={discord} height="30px" />
+          <Link href={"https://instagram.com/exposure_art_"}>
+            <Image src={instagram} height="30px" />
+          </Link>
+          <Link href={"https://twitter.com/exposure_art_"}>
+            <Image src={twitter} height="30px" margin="auto" />
+          </Link>
+          <Link href={"https://discord.com/invite/gGfeUXCVWD"}>
+            <Image src={discord} height="30px" />
+          </Link>
         </Flex>
       </Flex>
     </div>
