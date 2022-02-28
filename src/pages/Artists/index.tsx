@@ -17,7 +17,7 @@ const Artists = () => {
     const updateArtists = async () => {
       const _artists = await getAllArtists();
       setArtists(_artists.data);
-      console.log(_artists);
+      // console.log(_artists);
     };
     updateArtists();
     // eslint-disable-next-line react-hooks/exhaustive-deps

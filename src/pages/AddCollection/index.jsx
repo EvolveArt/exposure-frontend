@@ -16,7 +16,7 @@ import toast from "utils/toast";
 import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
-import { getSigner } from "contracts";
+import { getSigner, useExposureContract, useSalesContract } from "contracts";
 import { ClipLoader } from "react-spinners";
 import { formatName } from "utils";
 // import { kebabCase } from "lodash";
@@ -44,6 +44,8 @@ const AddCollection = () => {
 	const [now, setNow] = useState(new Date());
 
 	const { getAllArtists, apiUrl, getNonce } = useApi();
+	const { createDrop, setDropIPFS } = useExposureContract();
+	const { setAuction, createSale } = useSalesContract();
 
 	const [artists, setArtists] = useState([]);
 	const [selected, setSelected] = useState(null);
@@ -86,6 +88,10 @@ const AddCollection = () => {
 	};
 
 	const removeImage = () => {
+		setLogo(null);
+	};
+
+	const removePhotos = () => {
 		setPhotos(null);
 	};
 
@@ -165,7 +171,7 @@ const AddCollection = () => {
 				);
 				metadatas.push(metadata);
 			}
-			console.log(JSON.stringify(metadatas));
+			// console.log(JSON.stringify(metadatas));
 			const result = await axios({
 				method: "post",
 				url: `${apiUrl}/ipfs/uploadMetadata2Server`,
@@ -276,35 +282,86 @@ const AddCollection = () => {
 					});
 
 					const imageHash = result.data.data;
-					const data = {
-						collectionName: name,
-						teasingDate: teasingTime,
-						releaseDate: dropTime,
-						mintPrice: mint,
-						maxMintPerWallet,
-						mintMode: 0,
-						description,
-						artists,
-						logoImageHash: imageHash,
-						signature,
-						signatureAddress,
-					};
 
-					await axios({
-						method: "post",
-						url: `${apiUrl}/collection/collectionDetails`,
-						data: JSON.stringify(data),
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${authToken}`,
-						},
-					});
-
-					toast(
-						"success",
-						"Collection added!",
-						"The collection has successfuly been added to Exposure."
+					const tx = await createDrop(
+						selected[0].address,
+						photos?.length,
+						account
 					);
+					const res = await tx.wait();
+					res.events.map(async (evt) => {
+						if (
+							evt.topics[0] ===
+							"0x01a6d33d95d2560a8c53f00317beb1d0364b3ecf2d43f647d2b4671df27f4f45"
+						) {
+							// Get the Drop ID
+							const _dropId = ethers.utils.hexDataSlice(evt.data, 0);
+							const dropId = ethers.BigNumber.from(_dropId).toNumber();
+
+							// Call setAuction or createSale
+							const _tx =
+								selectedMintType[0] === "Dutch Auction"
+									? await setAuction(
+											dropId,
+											startingPrice,
+											decreasingConstant,
+											auctionStart,
+											auctionPeriod,
+											account
+									  )
+									: await createSale(
+											dropId,
+											mint,
+											saleStart,
+											maxMintPerWallet,
+											account
+									  );
+
+							await _tx.wait();
+
+							// Set the Drop IPFS
+							const __tx = await setDropIPFS(dropId, metadataHash, account);
+							await __tx.wait();
+
+							// Finally add the collection to the DB
+							const data = {
+								dropId,
+								collectionName: name,
+								teasingDate: teasingTime,
+								releaseDate: dropTime,
+								mintPrice: mint,
+								maxMintPerWallet,
+								mintMode: selectedMintType[0] === "Dutch Auction" ? 0 : 1,
+								description,
+								artists,
+								logoImageHash: imageHash,
+								signature,
+								signatureAddress,
+							};
+
+							await axios({
+								method: "post",
+								url: `${apiUrl}/collection/collectionDetails`,
+								data: JSON.stringify(data),
+								headers: {
+									"Content-Type": "application/json",
+									Authorization: `Bearer ${authToken}`,
+								},
+							});
+
+							toast(
+								"success",
+								"Collection added!",
+								"The collection has successfuly been added to Exposure."
+							);
+						} else {
+							toast(
+								"error",
+								"Tx didn't pass!",
+								"The collection was not added to Exposure."
+							);
+						}
+					});
 
 					setAdding(false);
 
@@ -692,7 +749,7 @@ const AddCollection = () => {
 								<>
 									<img src={photos[0].src} alt='collection-photograph' />
 									<div className={styles.removeOverlay}>
-										<div className={styles.removeIcon} onClick={removeImage}>
+										<div className={styles.removeIcon} onClick={removePhotos}>
 											<img src={closeIcon} alt='CloseIcon' />
 										</div>
 									</div>

@@ -360,7 +360,7 @@ const CollectionPage = () => {
   useEffect(() => {
     const fetchCurrentCollection = async () => {
       const _collection: any = await getCollectionInfo(collection);
-      console.log(_collection);
+      // console.log(_collection);
       setCurrentCollection(_collection.data);
     };
 
