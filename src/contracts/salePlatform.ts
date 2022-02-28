@@ -41,6 +41,13 @@ export const useSalesContract = () => {
 		return await contract.createSale(...args, options);
 	};
 
+	const getPrice = async (dropId: number) => {
+		const contract = await getSalesContract();
+		const args = [dropId];
+
+		return await contract.getPrice(...args);
+	};
+
 	const overrideArtistcut = async (
 		dropId: number,
 		cut: number,
@@ -90,7 +97,7 @@ export const useSalesContract = () => {
 		dropId: number,
 		amount: number,
 		value: any,
-		from: string
+		from: string | null | undefined
 	) => {
 		const contract = await getSalesContract();
 		const args = [dropId, amount];
@@ -107,13 +114,14 @@ export const useSalesContract = () => {
 			options
 		);
 		options.gasLimit = calculateGasMargin(gasEstimate);
+		console.log(options);
 		return await contract.purchase(...args, options);
 	};
 
 	const purchaseThroughAuction = async (
 		dropId: number,
 		value: any,
-		from: string
+		from: string | null | undefined
 	) => {
 		const contract = await getSalesContract();
 		const args = [dropId];
@@ -139,5 +147,6 @@ export const useSalesContract = () => {
 		purchaseThroughAuction,
 		setAuction,
 		overrideArtistcut,
+		getPrice,
 	};
 };

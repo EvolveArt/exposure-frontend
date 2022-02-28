@@ -303,7 +303,7 @@ const AddCollection = () => {
 								selectedMintType[0] === "Dutch Auction"
 									? await setAuction(
 											dropId,
-											startingPrice,
+											ethers.utils.parseEther(startingPrice.toString()),
 											decreasingConstant,
 											auctionStart,
 											auctionPeriod,
@@ -311,7 +311,7 @@ const AddCollection = () => {
 									  )
 									: await createSale(
 											dropId,
-											mint,
+											ethers.utils.parseEther(mint.toString()),
 											saleStart,
 											maxMintPerWallet,
 											account
@@ -335,6 +335,7 @@ const AddCollection = () => {
 								description,
 								artists,
 								logoImageHash: imageHash,
+								totalSupply: photos?.length,
 								signature,
 								signatureAddress,
 							};
