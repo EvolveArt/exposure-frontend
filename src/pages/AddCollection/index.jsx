@@ -335,6 +335,7 @@ const AddCollection = () => {
 								description,
 								artists,
 								logoImageHash: imageHash,
+								metadataHash,
 								totalSupply: photos?.length,
 								signature,
 								signatureAddress,
