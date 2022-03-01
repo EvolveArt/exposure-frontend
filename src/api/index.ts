@@ -91,14 +91,14 @@ export const useApi = () => {
 		return res.data;
 	};
 
-	const getCollectionInfo = async (collectionName: string) => {
+	const getCollectionInfo = async (dropId: number) => {
 		const res = await axios({
 			method: "POST",
 			url: `${apiUrl}/collection/getCollectionInfo`,
 			headers: {
 				"Content-Type": "application/json",
 			},
-			data: { collectionName },
+			data: { dropId },
 		});
 
 		return res.data;

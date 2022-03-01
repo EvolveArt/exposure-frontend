@@ -16,7 +16,7 @@ import toast from "utils/toast";
 import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
-import { getSigner } from "contracts";
+import { getSigner, useExposureContract, useSalesContract } from "contracts";
 import { ClipLoader } from "react-spinners";
 import { formatName } from "utils";
 // import { kebabCase } from "lodash";
@@ -32,8 +32,8 @@ const AddCollection = () => {
 	const [description, setDescription] = useState("");
 	const [descriptionError, setDescriptionError] = useState(null);
 	const [maxMintPerWallet, setMaxMintPerWallet] = useState(1);
+
 	const [walletError, setWalletError] = useState(null);
-	const [mint, setMint] = useState("");
 	const [mintError, setMintError] = useState(null);
 	const [teasingTime, setTeasingTime] = useState(
 		new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
@@ -44,12 +44,24 @@ const AddCollection = () => {
 	const [now, setNow] = useState(new Date());
 
 	const { getAllArtists, apiUrl, getNonce } = useApi();
+	const { createDrop, setDropIPFS } = useExposureContract();
+	const { setAuction, createSale } = useSalesContract();
 
 	const [artists, setArtists] = useState([]);
 	const [selected, setSelected] = useState(null);
+	const [selectedMintType, setSelectedMintType] = useState([]);
 
 	const { account, library } = useWeb3React();
 	const { authToken } = useSelector((state) => state.ConnectWallet);
+
+	// DUTCH AUCTION
+	const [startingPrice, setStartingPrice] = useState(0);
+	const [decreasingConstant, setDecreasingConstant] = useState(0);
+	const [auctionStart, setAuctionStart] = useState(0);
+	const [auctionPeriod, setAuctionPeriod] = useState(0);
+	// SALE
+	const [saleStart, setSaleStart] = useState(0);
+	const [mint, setMint] = useState(0);
 
 	const generateMetadata = async (
 		_name,
@@ -76,6 +88,10 @@ const AddCollection = () => {
 	};
 
 	const removeImage = () => {
+		setLogo(null);
+	};
+
+	const removePhotos = () => {
 		setPhotos(null);
 	};
 
@@ -155,7 +171,7 @@ const AddCollection = () => {
 				);
 				metadatas.push(metadata);
 			}
-			console.log(JSON.stringify(metadatas));
+			// console.log(JSON.stringify(metadatas));
 			const result = await axios({
 				method: "post",
 				url: `${apiUrl}/ipfs/uploadMetadata2Server`,
@@ -266,35 +282,88 @@ const AddCollection = () => {
 					});
 
 					const imageHash = result.data.data;
-					const data = {
-						collectionName: name,
-						teasingDate: teasingTime,
-						releaseDate: dropTime,
-						mintPrice: mint,
-						maxMintPerWallet,
-						mintMode: 0,
-						description,
-						artists,
-						logoImageHash: imageHash,
-						signature,
-						signatureAddress,
-					};
 
-					await axios({
-						method: "post",
-						url: `${apiUrl}/collection/collectionDetails`,
-						data: JSON.stringify(data),
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${authToken}`,
-						},
-					});
-
-					toast(
-						"success",
-						"Collection added!",
-						"The collection has successfuly been added to Exposure."
+					const tx = await createDrop(
+						selected[0].address,
+						photos?.length,
+						account
 					);
+					const res = await tx.wait();
+					res.events.map(async (evt) => {
+						if (
+							evt.topics[0] ===
+							"0x01a6d33d95d2560a8c53f00317beb1d0364b3ecf2d43f647d2b4671df27f4f45"
+						) {
+							// Get the Drop ID
+							const _dropId = ethers.utils.hexDataSlice(evt.data, 0);
+							const dropId = ethers.BigNumber.from(_dropId).toNumber();
+
+							// Call setAuction or createSale
+							const _tx =
+								selectedMintType[0] === "Dutch Auction"
+									? await setAuction(
+											dropId,
+											ethers.utils.parseEther(startingPrice.toString()),
+											decreasingConstant,
+											auctionStart,
+											auctionPeriod,
+											account
+									  )
+									: await createSale(
+											dropId,
+											ethers.utils.parseEther(mint.toString()),
+											saleStart,
+											maxMintPerWallet,
+											account
+									  );
+
+							await _tx.wait();
+
+							// Set the Drop IPFS
+							const __tx = await setDropIPFS(dropId, metadataHash, account);
+							await __tx.wait();
+
+							// Finally add the collection to the DB
+							const data = {
+								dropId,
+								collectionName: name,
+								teasingDate: teasingTime,
+								releaseDate: dropTime,
+								mintPrice: mint,
+								maxMintPerWallet,
+								mintMode: selectedMintType[0] === "Dutch Auction" ? 0 : 1,
+								description,
+								artists,
+								logoImageHash: imageHash,
+								metadataHash,
+								totalSupply: photos?.length,
+								signature,
+								signatureAddress,
+							};
+
+							await axios({
+								method: "post",
+								url: `${apiUrl}/collection/collectionDetails`,
+								data: JSON.stringify(data),
+								headers: {
+									"Content-Type": "application/json",
+									Authorization: `Bearer ${authToken}`,
+								},
+							});
+
+							toast(
+								"success",
+								"Collection added!",
+								"The collection has successfuly been added to Exposure."
+							);
+						} else {
+							toast(
+								"error",
+								"Tx didn't pass!",
+								"The collection was not added to Exposure."
+							);
+						}
+					});
 
 					setAdding(false);
 
@@ -454,6 +523,167 @@ const AddCollection = () => {
 					</div>
 				</div>
 				<div className={styles.inputGroup}>
+					<div className={styles.inputTitle}>Mint Type</div>
+					<div className={styles.inputWrapper}>
+						<Select
+							options={["Dutch Auction", "Sale"]}
+							// disabled={isMinting}
+							values={selectedMintType}
+							onChange={([value]) => {
+								setSelectedMintType([value]);
+								// console.log(selectedMintType);
+								// setNft(col.erc721Address);
+								// setType(col.type);
+							}}
+							className={styles.input}
+							placeholder='Choose Mint Type'
+							itemRenderer={({ item, methods }) => (
+								<div
+									key={item}
+									className={styles.collectionInput}
+									onClick={() => {
+										methods.clearAll();
+										methods.addItem(item);
+									}}>
+									<div className={styles.collectionName}>{item}</div>
+								</div>
+							)}
+							contentRenderer={({ props: { values } }) =>
+								values?.length > 0 ? (
+									<div className={styles.collection}>
+										<div className={styles.collectionName}>{values[0]}</div>
+									</div>
+								) : (
+									<div className={styles.collection} />
+								)
+							}
+						/>
+					</div>
+				</div>
+				<div className={styles.inputGroup}>
+					{selectedMintType[0] === "Dutch Auction" && (
+						<>
+							<div className={styles.inputGroup}>
+								<div className={styles.inputTitle}>Prix de depart (ETH)</div>
+								<div className={styles.inputWrapper}>
+									<input
+										className={cx(styles.input, null && styles.hasError)}
+										max={200}
+										placeholder='Prix de depart'
+										value={startingPrice}
+										onChange={(e) => setStartingPrice(e.target.valueAsNumber)}
+										type='number'
+									/>
+									<div className={styles.lengthIndicator}>
+										{startingPrice}/200
+									</div>
+								</div>
+							</div>
+							<div className={styles.inputGroup}>
+								<div className={styles.inputTitle}>
+									Facteur de decroissance (ETH/s)
+								</div>
+								<div className={styles.inputWrapper}>
+									<input
+										className={cx(styles.input, null && styles.hasError)}
+										placeholder='Facteur de decroissance'
+										value={decreasingConstant}
+										onChange={(e) =>
+											setDecreasingConstant(e.target.valueAsNumber)
+										}
+										type='number'
+									/>
+									<div className={styles.lengthIndicator}>
+										{decreasingConstant}/200
+									</div>
+								</div>
+							</div>
+							<div className={styles.inputGroup}>
+								<div className={styles.inputTitle}>
+									Debut de l'enchere (UNIX timestamp)
+								</div>
+								<div className={styles.inputWrapper}>
+									<input
+										className={cx(styles.input, null && styles.hasError)}
+										placeholder='Debut de l"enchere'
+										value={auctionStart}
+										onChange={(e) => setAuctionStart(e.target.valueAsNumber)}
+										type='number'
+									/>
+								</div>
+							</div>
+							<div className={styles.inputGroup}>
+								<div className={styles.inputTitle}>Duree (s)</div>
+								<div className={styles.inputWrapper}>
+									<input
+										className={cx(styles.input, null && styles.hasError)}
+										placeholder='Duree de l"enchere'
+										value={auctionPeriod}
+										onChange={(e) => setAuctionPeriod(e.target.valueAsNumber)}
+										type='number'
+									/>
+								</div>
+							</div>
+						</>
+					)}
+					{selectedMintType[0] === "Sale" && (
+						<>
+							<div className={styles.inputGroup}>
+								<div className={styles.inputTitle}>Prix de la vente (ETH)</div>
+								<div className={styles.inputWrapper}>
+									<input
+										className={cx(styles.input, null && styles.hasError)}
+										max={200}
+										placeholder='Prix de la vente'
+										value={mint}
+										onChange={(e) => setMint(e.target.valueAsNumber)}
+										type='number'
+									/>
+									<div className={styles.lengthIndicator}>{mint}/200</div>
+								</div>
+							</div>
+							<div className={styles.inputGroup}>
+								<div className={styles.inputTitle}>
+									Debut de la vente (UNIX timestamp)
+								</div>
+								<div className={styles.inputWrapper}>
+									<input
+										className={cx(styles.input, null && styles.hasError)}
+										placeholder='Debut de la vente'
+										value={saleStart}
+										onChange={(e) => setSaleStart(e.target.valueAsNumber)}
+										type='number'
+									/>
+								</div>
+							</div>
+							<div className={styles.inputGroup}>
+								<div className={styles.inputTitle}>
+									Nb max de mint par wallet
+								</div>
+								<div className={styles.inputWrapper}>
+									<input
+										className={cx(styles.input, walletError && styles.hasError)}
+										max={200}
+										placeholder='Limite de mint par wallet'
+										value={maxMintPerWallet}
+										onChange={(e) =>
+											setMaxMintPerWallet(e.target.valueAsNumber)
+										}
+										onBlur={validateMaxMintPerWallet}
+										type='number'
+									/>
+									<div className={styles.lengthIndicator}>
+										{maxMintPerWallet}/200
+									</div>
+									{walletError && (
+										<div className={styles.error}>{walletError}</div>
+									)}
+								</div>
+							</div>
+						</>
+					)}
+				</div>
+				<div className={styles.inputGroup}>
 					<div className={styles.inputTitle}>Description</div>
 					<div className={styles.inputWrapper}>
 						<textarea
@@ -474,37 +704,6 @@ const AddCollection = () => {
 						{descriptionError && (
 							<div className={styles.error}>{descriptionError}</div>
 						)}
-					</div>
-				</div>
-				<div className={styles.inputGroup}>
-					<div className={styles.inputTitle}>Nb max de mint par wallet</div>
-					<div className={styles.inputWrapper}>
-						<input
-							className={cx(styles.input, walletError && styles.hasError)}
-							max={200}
-							placeholder='Wallet Address'
-							value={maxMintPerWallet}
-							onChange={(e) => setMaxMintPerWallet(e.target.valueAsNumber)}
-							onBlur={validateMaxMintPerWallet}
-							type='number'
-						/>
-						<div className={styles.lengthIndicator}>{maxMintPerWallet}/200</div>
-						{walletError && <div className={styles.error}>{walletError}</div>}
-					</div>
-				</div>
-				<div className={styles.inputGroup}>
-					<div className={styles.inputTitle}>Prix du Mint</div>
-					<div className={styles.inputWrapper}>
-						<input
-							className={cx(styles.input, mintError && styles.hasError)}
-							maxLength={10}
-							placeholder='Prix du Mint (ETH)'
-							value={mint}
-							onChange={(e) => setMint(e.target.value)}
-							onBlur={validateMint}
-						/>
-						<div className={styles.lengthIndicator}>{mint.length}/10</div>
-						{mintError && <div className={styles.error}>{mintError}</div>}
 					</div>
 				</div>
 				<div className={styles.inputGroup}>
@@ -552,7 +751,7 @@ const AddCollection = () => {
 								<>
 									<img src={photos[0].src} alt='collection-photograph' />
 									<div className={styles.removeOverlay}>
-										<div className={styles.removeIcon} onClick={removeImage}>
+										<div className={styles.removeIcon} onClick={removePhotos}>
 											<img src={closeIcon} alt='CloseIcon' />
 										</div>
 									</div>

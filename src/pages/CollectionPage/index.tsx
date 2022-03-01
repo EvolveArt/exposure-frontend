@@ -26,8 +26,59 @@ import { useApi } from "api";
 // eslint-disable-next-line
 import { Collection } from "interfaces";
 import { formatName, getRandomIPFS } from "utils";
+import { useSalesContract } from "contracts";
+import { useWeb3React } from "@web3-react/core";
+import { ethers } from "ethers";
 
-const TopPage = (collection: Collection | null) => {
+const TopPage = (collection: Collection) => {
+  const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
+  const [minting, setMinting] = useState(false);
+  const [auctionPrice, setAuctionPrice] = useState("");
+  const { account } = useWeb3React();
+
+  const handleMint = async () => {
+    if (minting) return;
+    setMinting(true);
+
+    try {
+      if (collection?.mintMode === 0) {
+        const tx = await purchaseThroughAuction(
+          collection.dropId,
+          ethers.utils.parseEther(collection.mintPrice.toString()),
+          account
+        );
+        await tx.wait();
+      } else {
+        const tx = await purchase(
+          collection.dropId,
+          1,
+          ethers.utils.parseEther(collection.mintPrice.toString()),
+          account
+        );
+        await tx.wait();
+      }
+
+      setMinting(false);
+    } catch (error) {
+      console.error(error);
+      setMinting(false);
+    }
+  };
+
+  const updateAuctionPrice = async () => {
+    if (collection?.dropId === undefined) return;
+    let _currentPrice = await getPrice(collection?.dropId);
+    setAuctionPrice(_currentPrice);
+  };
+
+  useEffect(() => {
+    const _intervalId = setInterval(() => updateAuctionPrice(), 5000);
+
+    return () => clearInterval(_intervalId);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collection?.mintMode]);
+
   return (
     <>
       <Flex
@@ -142,7 +193,7 @@ const TopPage = (collection: Collection | null) => {
             opacity="0.1"
             width={"27px"}
             position="absolute"
-            bottom={{ base: "0", md: "0px" }}
+            bottom={{ base: "0", md: "-65px" }}
             right="0px"
           ></Image>
           <Image
@@ -198,7 +249,7 @@ const TopPage = (collection: Collection | null) => {
               lineHeight="28px"
               paddingBottom={"17px"}
             >
-              {collection?.mintMode}
+              {collection?.mintMode === 0 ? "Dutch Auction" : "Random Mint"}
             </Text>
           </Flex>
           <Flex flexDirection={"row"} gridGap="9px">
@@ -213,7 +264,10 @@ const TopPage = (collection: Collection | null) => {
             >
               Mint price -{" "}
               <span style={{ fontWeight: "800" }}>
-                {collection?.mintPrice} ETH
+                {collection?.mintMode === 0
+                  ? ethers.utils.formatEther(auctionPrice)
+                  : collection?.mintPrice}{" "}
+                ETH
               </span>
             </Text>
           </Flex>
@@ -268,8 +322,9 @@ const TopPage = (collection: Collection | null) => {
               _hover={{
                 transform: "translate3d(4px,4px,0px)",
               }}
+              onClick={handleMint}
             >
-              Mint
+              {minting ? "Minting..." : "Mint"}
             </Button>
           </Flex>
           <Link fontWeight={"700"} margin="auto" paddingTop={"29px"}>
@@ -355,20 +410,20 @@ const CollectionPage = () => {
     onChange: console.log,
   });
 
-  const { collection } = useParams<{ collection: string }>();
+  const { dropId }: any = useParams();
 
   useEffect(() => {
     const fetchCurrentCollection = async () => {
-      const _collection: any = await getCollectionInfo(collection);
-      console.log(_collection);
+      const _collection: any = await getCollectionInfo(dropId);
+      // console.log(_collection);
       setCurrentCollection(_collection.data);
     };
 
-    if (collection?.length > 0) {
+    if (dropId) {
       fetchCurrentCollection();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [collection]);
+  }, [dropId]);
 
   const group = getRootProps();
   return (
