@@ -142,7 +142,7 @@ const TopPage = (collection: Collection | null) => {
             opacity="0.1"
             width={"27px"}
             position="absolute"
-            bottom={{ base: "0", md: "-65px" }}
+            bottom={{ base: "0", md: "0px" }}
             right="0px"
           ></Image>
           <Image
