@@ -53,7 +53,7 @@ const WaitingPage = () => {
           filter="invert(1)"
           width={"27px"}
           position="absolute"
-          top={"114px"}
+          top={"100px"}
           left="0"
           right="0"
           marginLeft="auto"
@@ -78,7 +78,7 @@ const WaitingPage = () => {
           width={"27px"}
           position="absolute"
           transform={"rotate(180deg)"}
-          bottom={"-6px"}
+          bottom={"-20px"}
           left="0"
           right="0"
           marginLeft="auto"
