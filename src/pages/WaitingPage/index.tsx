@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import logo from "assets/imgs/logoWhite.png";
 import addIcon from "assets/imgs/plus.png";
-import ticon from "../../assets/imgs/t.png";
-import { Flex, Image, Text, Link } from "@chakra-ui/react";
+import { Flex, Image, Text, Link, Box } from "@chakra-ui/react";
 import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
 import instagram from "../../assets/imgs/instagram.png";
@@ -50,7 +49,7 @@ const WaitingPage = () => {
         ></Image>
         <Image
           display={{ base: "unset", md: "none" }}
-          src={ticon}
+          src={addIcon}
           filter="invert(1)"
           width={"27px"}
           position="absolute"
@@ -74,7 +73,7 @@ const WaitingPage = () => {
         ></Image>
         <Image
           display={{ base: "unset", md: "none" }}
-          src={ticon}
+          src={addIcon}
           filter="invert(1)"
           width={"27px"}
           position="absolute"
@@ -105,26 +104,39 @@ const WaitingPage = () => {
           bottom={"-20px"}
           left="0"
         ></Image>
-        <Image
-          src={logo}
-          height="48px"
-          width={"220px"}
-          marginTop={{ base: "50px", md: "unset" }}
-        />
-        <Text color={"white"} fontFamily="Inter" letterSpacing={"1px"}>
-          Coming Soon
-        </Text>
-        <Flex gridGap={"20px"} width="fit-content" paddingTop={"100px"}>
-          <Link href={"https://instagram.com/exposure_art_"}>
-            <Image src={instagram} height="30px" />
-          </Link>
-          <Link href={"https://twitter.com/exposure_art_"}>
-            <Image src={twitter} height="30px" margin="auto" />
-          </Link>
-          <Link href={"https://discord.com/invite/gGfeUXCVWD"}>
-            <Image src={discord} height="30px" />
-          </Link>
-        </Flex>
+        <Box paddingTop={"60px"}>
+          <Image
+            src={logo}
+            height="48px"
+            width={"220px"}
+            marginTop={{ base: "50px", md: "unset" }}
+          />
+          <Text
+            color={"white"}
+            fontFamily="Inter"
+            letterSpacing={"1px"}
+            textAlign="center"
+            paddingTop={"20px"}
+          >
+            Coming Soon
+          </Text>
+          <Flex
+            gridGap={"20px"}
+            width="fit-content"
+            paddingTop={"100px"}
+            margin="auto"
+          >
+            <Link href={"https://instagram.com/exposure_art_"}>
+              <Image src={instagram} height="30px" />
+            </Link>
+            <Link href={"https://twitter.com/exposure_art_"}>
+              <Image src={twitter} height="30px" margin="auto" />
+            </Link>
+            <Link href={"https://discord.com/invite/gGfeUXCVWD"}>
+              <Image src={discord} height="30px" />
+            </Link>
+          </Flex>
+        </Box>
       </Flex>
     </div>
   );
