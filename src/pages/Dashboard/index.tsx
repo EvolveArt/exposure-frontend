@@ -370,7 +370,7 @@ const Dashboard = () => {
                   fontSize={{ base: "25px", md: "30px" }}
                   lineHeight={{ base: "20px", sm: "56px" }}
                 >
-                  23 ETH
+                  23 eth
                 </Text>
               </Flex>
               <Flex
