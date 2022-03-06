@@ -19,25 +19,25 @@ import ListCollections from "pages/ListCollections";
 import ListMints from "pages/ListMints";
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Router>
-      <Switch>
-        <Route exact path="/landing" component={LandingPage} />
-        <Route exact path="/collection/:dropId" component={CollectionPage} />
-        <Route exact path="/artists" component={Artists} />
-        <Route exact path="/addartist" component={AddArtist} />
-        <Route exact path="/addcollection" component={AddCollection} />
-        <Route exact path="/profile/:uid" component={Profile} />
-        <Route exact path="/QA" component={QA} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/exploreCollection" component={ExploreCollection} />
-        <Route exact path="/artist/:name" component={ArtistPage} />
-        <Route exact path="/" component={WaitingPage} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/listartists" component={ListArtists} />
-        <Route exact path="/listcollections" component={ListCollections} />
-        <Route exact path="/listmints" component={ListMints} />
-      </Switch>
-    </Router>
-  </ChakraProvider>
+	<ChakraProvider theme={theme}>
+		<Router>
+			<Switch>
+				<Route exact path='/landing' component={LandingPage} />
+				<Route exact path='/collection/:dropId' component={CollectionPage} />
+				<Route exact path='/artists' component={Artists} />
+				<Route exact path='/addartist' component={AddArtist} />
+				<Route exact path='/addcollection' component={AddCollection} />
+				<Route exact path='/profile/:uid' component={Profile} />
+				<Route exact path='/QA' component={QA} />
+				<Route exact path='/search' component={Search} />
+				<Route exact path='/exploreCollection' component={ExploreCollection} />
+				<Route exact path='/artist/:address' component={ArtistPage} />
+				<Route exact path='/' component={WaitingPage} />
+				<Route exact path='/dashboard' component={Dashboard} />
+				<Route exact path='/listartists' component={ListArtists} />
+				<Route exact path='/listcollections' component={ListCollections} />
+				<Route exact path='/listmints' component={ListMints} />
+			</Switch>
+		</Router>
+	</ChakraProvider>
 );

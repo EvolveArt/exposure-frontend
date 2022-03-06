@@ -104,6 +104,19 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const getArtistInfo = async (address: string) => {
+		const res = await axios({
+			method: "POST",
+			url: `${apiUrl}/artist/getArtistInfo`,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			data: { address },
+		});
+
+		return res.data;
+	};
+
 	return {
 		getAuthToken,
 		getAccountDetails,
@@ -113,5 +126,6 @@ export const useApi = () => {
 		getAllArtists,
 		getAllCollections,
 		getCollectionInfo,
+		getArtistInfo,
 	};
 };
