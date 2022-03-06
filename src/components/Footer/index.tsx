@@ -4,7 +4,7 @@ import logo from "../../assets/imgs/logoWhite.png";
 import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
 import instagram from "../../assets/imgs/instagram.png";
-import addIcon from "../../assets/imgs/plus.png";
+import addIcon from "../../assets/imgs/plus1.png";
 
 const Footer = () => {
   return (
@@ -110,16 +110,13 @@ const Footer = () => {
           </Flex>
           <Image
             src={addIcon}
-            opacity="0.8"
             width={"27px"}
             position="absolute"
             bottom={{ base: "40px", md: "-50px" }}
             right="-10px"
-            filter={"invert(1)"}
           ></Image>
           <Image
             src={addIcon}
-            opacity="0.8"
             width={"27px"}
             position="absolute"
             bottom={{ base: "40px", md: "-50px" }}
@@ -128,16 +125,13 @@ const Footer = () => {
             marginLeft="auto"
             marginRight="auto"
             zIndex={"10"}
-            filter={"invert(1)"}
           ></Image>
           <Image
             src={addIcon}
             width={"27px"}
-            opacity="0.8"
             position="absolute"
             bottom={{ base: "40px", md: "-50px" }}
             left="0px"
-            filter={"invert(1)"}
           ></Image>
         </Box>
       </Flex>

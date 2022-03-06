@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import logo from "assets/imgs/logoWhite.png";
-import addIcon from "assets/imgs/plus.png";
+import addIcon from "assets/imgs/plus1.png";
 import { Flex, Image, Text, Link, Box } from "@chakra-ui/react";
 import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
@@ -99,25 +99,38 @@ const WaitingPage = () => {
         <Box paddingTop={"60px"}>
           <Image
             src={logo}
-            height="48px"
-            width={"220px"}
+            height={{ base: "60px", md: "106px" }}
+            width={{ base: "240px", md: "492px" }}
+            margin="auto"
             marginTop={{ base: "50px", md: "unset" }}
           />
           <Text
-            color={"white"}
             fontFamily="Inter"
-            letterSpacing={"1px"}
+            fontStyle="normal"
+            fontWeight="600"
+            fontSize="20px"
+            lineHeight="35px"
+            color={"white"}
             textAlign="center"
-            paddingTop={"20px"}
+            paddingTop={"16px"}
+          >
+            A curated photography platform
+          </Text>
+          <Text
+            fontFamily="Inter"
+            fontStyle="normal"
+            fontWeight="600"
+            fontSize="16px"
+            lineHeight="28px"
+            textAlign="center"
+            letterSpacing="1px"
+            paddingTop={"100px"}
+            paddingBottom="16px"
+            color={"#fff"}
           >
             Coming Soon
           </Text>
-          <Flex
-            gridGap={"20px"}
-            width="fit-content"
-            paddingTop={"100px"}
-            margin="auto"
-          >
+          <Flex gridGap={"20px"} width="fit-content" margin="auto">
             <Link href={"https://instagram.com/exposure_art_"}>
               <Image src={instagram} height="30px" />
             </Link>
