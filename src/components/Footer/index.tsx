@@ -96,12 +96,17 @@ const Footer = () => {
             gridGap={"20px"}
             width="fit-content"
             paddingTop={"90px"}
-            paddingLeft={"25px"}
             paddingBottom={{ base: "110px", md: "unset" }}
           >
-            <Image src={instagram} height="30px"></Image>
-            <Image src={twitter} height="30px" margin="auto"></Image>
-            <Image src={discord} height="30px"></Image>
+            <Link href={"https://instagram.com/exposure_art_"}>
+              <Image src={instagram} height="30px" />
+            </Link>
+            <Link href={"https://twitter.com/exposure_art_"}>
+              <Image src={twitter} height="30px" margin="auto" />
+            </Link>
+            <Link href={"https://discord.com/invite/gGfeUXCVWD"}>
+              <Image src={discord} height="30px" />
+            </Link>
           </Flex>
           <Image
             src={addIcon}
