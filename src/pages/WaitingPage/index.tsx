@@ -25,7 +25,6 @@ const WaitingPage = () => {
       >
         <Image
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           top={"100px"}
@@ -33,7 +32,6 @@ const WaitingPage = () => {
         ></Image>
         <Image
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           top={"100px"}
@@ -41,7 +39,6 @@ const WaitingPage = () => {
         ></Image>
         <Image
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           bottom={"-20px"}
@@ -50,7 +47,6 @@ const WaitingPage = () => {
         <Image
           display={{ base: "unset", md: "none" }}
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           top={"100px"}
@@ -62,7 +58,6 @@ const WaitingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           top={"100px"}
@@ -74,7 +69,6 @@ const WaitingPage = () => {
         <Image
           display={{ base: "unset", md: "none" }}
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           transform={"rotate(180deg)"}
@@ -87,7 +81,6 @@ const WaitingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           bottom={"-20px"}
@@ -98,7 +91,6 @@ const WaitingPage = () => {
         ></Image>
         <Image
           src={addIcon}
-          filter="invert(1)"
           width={"27px"}
           position="absolute"
           bottom={"-20px"}
