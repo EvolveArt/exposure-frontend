@@ -58,9 +58,7 @@ const ListCollections = () => {
             </Button>
           </Link>
         </Flex>
-        <Flex flexWrap={"wrap"} width="100%" gridGap={"24px"}>
-          //MAP COLLECTIONS
-        </Flex>
+        <Flex flexWrap={"wrap"} width="100%" gridGap={"24px"}></Flex>
       </Flex>
       <Footer />
     </div>

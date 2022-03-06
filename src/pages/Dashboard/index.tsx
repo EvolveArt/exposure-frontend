@@ -3,7 +3,7 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import React from "react";
 import styles from "./styles.module.scss";
-import Select from "react-dropdown-select";
+// import Select from "react-dropdown-select";
 import ether from "../../assets/imgs/ether.png";
 
 const Dashboard = () => {

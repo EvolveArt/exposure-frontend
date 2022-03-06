@@ -4,22 +4,22 @@ import Header from "components/Header";
 import React from "react";
 import styles from "./styles.module.scss";
 
-const artistElement = (name: string, email: string) => {
-  return (
-    <Link href="/addartist">
-      <Flex
-        width={"100%"}
-        flexDir="column"
-        gridGap={"20px"}
-        padding="20px"
-        border={"1px solid #000"}
-      >
-        <Text>{name}</Text>
-        <Text>{email}</Text>
-      </Flex>
-    </Link>
-  );
-};
+// const artistElement = (name: string, email: string) => {
+//   return (
+//     <Link href="/addartist">
+//       <Flex
+//         width={"100%"}
+//         flexDir="column"
+//         gridGap={"20px"}
+//         padding="20px"
+//         border={"1px solid #000"}
+//       >
+//         <Text>{name}</Text>
+//         <Text>{email}</Text>
+//       </Flex>
+//     </Link>
+//   );
+// };
 
 const ListArtists = () => {
   return (
@@ -75,9 +75,7 @@ const ListArtists = () => {
             </Button>
           </Link>
         </Flex>
-        <Flex flexWrap={"wrap"} width="100%" gridGap={"24px"}>
-          //MAP ARTISTS
-        </Flex>
+        <Flex flexWrap={"wrap"} width="100%" gridGap={"24px"}></Flex>
       </Flex>
       <Footer />
     </div>

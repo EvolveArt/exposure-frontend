@@ -1,4 +1,4 @@
-import { Button, Flex, Link, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import React from "react";
