@@ -16,6 +16,7 @@ import WaitingPage from "pages/WaitingPage";
 import Dashboard from "pages/Dashboard";
 import ListArtists from "pages/ListArtists";
 import ListCollections from "pages/ListCollections";
+import ListMints from "pages/ListMints";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -35,6 +36,7 @@ export const App = () => (
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/listartists" component={ListArtists} />
         <Route exact path="/listcollections" component={ListCollections} />
+        <Route exact path="/listmints" component={ListMints} />
       </Switch>
     </Router>
   </ChakraProvider>

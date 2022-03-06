@@ -1,0 +1,42 @@
+.mints {
+  margin-top: 40px;
+  max-height: 458px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.history {
+  min-width: 600px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--border-box) !important;
+  background-color: var(--color-box) !important;
+
+  &.heading {
+    height: 38px;
+    border-bottom: none;
+
+    .prix,
+    .artist,
+    .collection,
+    .wallet {
+      color: inherit;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.prix,
+.artist,
+.collection,
+.wallet {
+  flex: 3;
+}
