@@ -9,6 +9,7 @@ import instagram from "../../assets/imgs/instagram.png";
 import { useApi } from "api";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
+// eslint-disable-next-line
 import { Artist } from "interfaces";
 import { formatName, getRandomIPFS } from "utils";
 
