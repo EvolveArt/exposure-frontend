@@ -7,6 +7,7 @@ import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
 import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import Footer from "components/Footer";
+// eslint-disable-next-line
 import { Artist } from "interfaces";
 
 const Artists = () => {
