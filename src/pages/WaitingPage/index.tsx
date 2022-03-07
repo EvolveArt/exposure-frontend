@@ -25,21 +25,21 @@ const WaitingPage = () => {
       >
         <Image
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           top={"100px"}
           left="0"
         ></Image>
         <Image
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           top={"100px"}
           right={{ base: "0", md: "-0px" }}
         ></Image>
         <Image
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           bottom={"-20px"}
           right="0"
@@ -47,7 +47,7 @@ const WaitingPage = () => {
         <Image
           display={{ base: "unset", md: "none" }}
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           top={"100px"}
           left="0"
@@ -58,7 +58,7 @@ const WaitingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           top={"100px"}
           left="0"
@@ -69,7 +69,7 @@ const WaitingPage = () => {
         <Image
           display={{ base: "unset", md: "none" }}
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           transform={"rotate(180deg)"}
           bottom={"-20px"}
@@ -81,7 +81,7 @@ const WaitingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           bottom={"-20px"}
           left="0"
@@ -91,7 +91,7 @@ const WaitingPage = () => {
         ></Image>
         <Image
           src={addIcon}
-          width={"27px"}
+          width={"16px"}
           position="absolute"
           bottom={"-20px"}
           left="0"
