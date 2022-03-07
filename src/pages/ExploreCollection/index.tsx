@@ -6,14 +6,17 @@ import iconCollapse from "assets/imgs/collapse.png";
 import cx from "classnames";
 import Header from "components/Header";
 import { useApi } from "api";
+import NftItem from "components/NFTitem";
+// eslint-disable-next-line
+import { Collection } from "interfaces";
 
 const ExploreCollection = () => {
-	const conRef = useRef();
+	const conRef: any = useRef();
 	const [collapsed, setCollapsed] = useState(false);
 	// eslint-disable-next-line no-unused-vars
-	const [collections, setCollections] = useState([]);
+	const [collections, setCollections] = useState<Collection[]>([]);
 
-	const { ref } = useResizeDetector();
+	const { ref }: any = useResizeDetector();
 
 	const { getAllCollections } = useApi();
 
@@ -53,6 +56,9 @@ const ExploreCollection = () => {
 						className={styles.exploreAll}
 						// onScroll={width > 600 ? handleScroll : null}
 					>
+						{collections.map((collection: Collection) => {
+							return NftItem(collection);
+						})}
 						{/* <CollectionsGrid
 							items={collections}
 							uploading={upFetching}
