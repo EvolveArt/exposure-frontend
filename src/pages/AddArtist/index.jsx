@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import cx from "classnames";
 import Header from "components/Header";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, useToast } from "@chakra-ui/react";
 import addImage from "../../assets/imgs/addImage.png";
 import closeIcon from "assets/svgs/close.svg";
 import axios from "axios";
@@ -11,7 +11,7 @@ import { useApi } from "api";
 import { useSelector } from "react-redux";
 import { useWeb3React } from "@web3-react/core";
 // import { useHistory } from "react-router-dom";
-import toast from "utils/toast";
+// import toast from "utils/toast";
 import { getSigner } from "contracts";
 import { ClipLoader } from "react-spinners";
 import { ADMIN_ADDRESSES } from "constants/index";
@@ -34,6 +34,7 @@ const AddArtist = () => {
 	const [adding, setAdding] = useState(false);
 
 	const history = useHistory();
+	const toast = useToast();
 
 	const { account, library } = useWeb3React();
 	const { apiUrl, getNonce } = useApi();
@@ -161,10 +162,11 @@ const AddArtist = () => {
 						signature = await signer.signMessage(msg);
 						signatureAddress = ethers.utils.verifyMessage(msg, signature);
 					} catch (err) {
-						toast(
-							"error",
-							"You need to sign the message to be able to add an artist."
-						);
+						toast({
+							staus: "error",
+							title:
+								"You need to sign the message to be able to add an artist.",
+						});
 						setAdding(false);
 						return;
 					}
@@ -206,11 +208,11 @@ const AddArtist = () => {
 						},
 					});
 
-					toast(
-						"success",
-						"Artist added!",
-						"The artist has successfuly been added to Exposure."
-					);
+					toast({
+						status: "success",
+						title: "Artist added!",
+						description: "The artist has successfuly been added to Exposure.",
+					});
 
 					setAdding(false);
 

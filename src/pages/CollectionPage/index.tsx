@@ -41,7 +41,7 @@ const TopPage = (collection: Collection) => {
 	const [auctionPrice, setAuctionPrice] = useState("");
 	const { account } = useWeb3React();
 
-	const showToast = useToast();
+	const toast = useToast();
 
 	const handleMint = async () => {
 		if (minting) return;
@@ -64,11 +64,11 @@ const TopPage = (collection: Collection) => {
 				);
 				await tx.wait();
 			}
-			showToast({ status: "success", title: "NFT Minted!" });
+			toast({ status: "success", title: "NFT Minted!" });
 			setMinting(false);
 		} catch (error) {
 			console.error(error);
-			showToast({ status: "error", title: formatError(error) });
+			toast({ status: "error", title: formatError(error) });
 			setMinting(false);
 		}
 	};

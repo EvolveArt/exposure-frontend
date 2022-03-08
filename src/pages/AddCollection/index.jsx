@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import cx from "classnames";
 import Header from "components/Header";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, useToast } from "@chakra-ui/react";
 import addImage from "../../assets/imgs/addImage.png";
 import closeIcon from "assets/svgs/close.svg";
 import Select from "react-dropdown-select";
@@ -12,7 +12,7 @@ import "react-datetime/css/react-datetime.css";
 import { useApi } from "api";
 import "./styles.css";
 import { ethers } from "ethers";
-import toast from "utils/toast";
+// import toast from "utils/toast";
 import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
@@ -66,6 +66,7 @@ const AddCollection = () => {
 	const [mint, setMint] = useState(0);
 
 	const history = useHistory();
+	const toast = useToast();
 
 	const generateMetadata = async (
 		_name,
@@ -272,10 +273,11 @@ const AddCollection = () => {
 						signature = await signer.signMessage(msg);
 						signatureAddress = ethers.utils.verifyMessage(msg, signature);
 					} catch (err) {
-						toast(
-							"error",
-							"You need to sign the message to be able to add a collection."
-						);
+						toast({
+							status: "error",
+							title:
+								"You need to sign the message to be able to add a collection.",
+						});
 						setAdding(false);
 						return;
 					}
@@ -363,17 +365,18 @@ const AddCollection = () => {
 								},
 							});
 
-							toast(
-								"success",
-								"Collection added!",
-								"The collection has successfuly been added to Exposure."
-							);
+							toast({
+								status: "success",
+								title: "Collection added!",
+								description:
+									"The collection has successfuly been added to Exposure.",
+							});
 						} else {
-							toast(
-								"error",
-								"Tx didn't pass!",
-								"The collection was not added to Exposure."
-							);
+							toast({
+								status: "error",
+								title: "Tx didn't pass!",
+								description: "The collection was not added to Exposure.",
+							});
 						}
 					});
 
