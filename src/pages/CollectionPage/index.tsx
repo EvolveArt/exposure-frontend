@@ -9,7 +9,7 @@ import {
 	Box,
 	HStack,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
@@ -31,6 +31,9 @@ import { useSalesContract } from "contracts";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import { useToast } from "@chakra-ui/react";
+import Loader from "react-loader-spinner";
+import SuspenseImg from "components/SuspenseImg";
+import styles from "./styles.module.scss";
 
 const TopPage = (collection: Collection) => {
 	const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
@@ -425,6 +428,24 @@ const CollectionPage = () => {
 					marginLeft='10px'>
 					Available photographs
 				</Text>
+				{[]
+					.fill(0 as never, 0, currentCollection?.totalSupply)
+					.map((elem, index) => {
+						return (
+							<Suspense
+								fallback={
+									<Loader type='Oval' color='rgb(109, 186, 252)' height={32} />
+								}>
+								<SuspenseImg
+									src={getRandomIPFS(
+										`ipfs://${currentCollection?.metadataHash}/${index}.png`
+									)}
+									className={styles.media}
+									alt={`Photo ${index}`}
+								/>
+							</Suspense>
+						);
+					})}
 				<HStack
 					{...group}
 					position='absolute'
