@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import { getSigner, useExposureContract, useSalesContract } from "contracts";
 import { ClipLoader } from "react-spinners";
 import { formatName } from "utils";
+import { ADMIN_ADDRESSES } from "constants/index";
+import { useHistory } from "react-router-dom";
 // import { kebabCase } from "lodash";
 
 const AddCollection = () => {
@@ -63,6 +65,8 @@ const AddCollection = () => {
 	const [saleStart, setSaleStart] = useState(0);
 	const [mint, setMint] = useState(0);
 
+	const history = useHistory();
+
 	const generateMetadata = async (
 		_name,
 		_description,
@@ -106,6 +110,14 @@ const AddCollection = () => {
 		updateArtists();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		if (account && authToken) {
+			if (!ADMIN_ADDRESSES.includes(account.toLowerCase()))
+				history.replace("/");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [account, authToken]);
 
 	useEffect(() => {
 		if (artists?.length) {

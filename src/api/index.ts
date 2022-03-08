@@ -50,6 +50,17 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	// const getIsModerator = async (address: string | null | undefined) => {
+	// 	const { data } = await axios({
+	// 		method: "get",
+	// 		url: `${apiUrl}/mod/isModerator/${address}`,
+	// 	});
+	// 	if (data.status === "success") {
+	// 		return data.data;
+	// 	}
+	// 	return false;
+	// };
+
 	const postArtist = async (
 		artist: Artist,
 		authToken: string | null | undefined
@@ -127,5 +138,6 @@ export const useApi = () => {
 		getAllCollections,
 		getCollectionInfo,
 		getArtistInfo,
+		// getIsModerator,
 	};
 };

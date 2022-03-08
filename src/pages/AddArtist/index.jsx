@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import cx from "classnames";
 import Header from "components/Header";
@@ -14,6 +14,8 @@ import { useWeb3React } from "@web3-react/core";
 import toast from "utils/toast";
 import { getSigner } from "contracts";
 import { ClipLoader } from "react-spinners";
+import { ADMIN_ADDRESSES } from "constants/index";
+import { useHistory } from "react-router-dom";
 
 const AddArtist = () => {
 	const [logo, setLogo] = useState(null);
@@ -31,11 +33,19 @@ const AddArtist = () => {
 	const [instagramError, setInstagramError] = useState(null);
 	const [adding, setAdding] = useState(false);
 
-	// const history = useHistory();
+	const history = useHistory();
 
 	const { account, library } = useWeb3React();
 	const { apiUrl, getNonce } = useApi();
 	const { authToken } = useSelector((state) => state.ConnectWallet);
+
+	useEffect(() => {
+		if (account && authToken) {
+			if (!ADMIN_ADDRESSES.includes(account.toLowerCase()))
+				history.replace("/");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [account, authToken]);
 
 	const removeImage = () => {
 		setLogo(null);
