@@ -287,7 +287,7 @@ const TopPage = (collection: Collection) => {
 							paddingBottom={"35px"}>
 							Release date -{" "}
 							<span style={{ fontWeight: "800" }}>
-								{new Date(collection?.releaseDate || "").toLocaleDateString()}
+								{new Date(collection?.releaseDate || "").toString()}
 							</span>{" "}
 							{/* at{" "}
 							<span style={{ fontWeight: "800" }}>

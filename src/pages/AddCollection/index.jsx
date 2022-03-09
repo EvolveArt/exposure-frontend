@@ -319,14 +319,14 @@ const AddCollection = () => {
 											dropId,
 											ethers.utils.parseEther(startingPrice.toString()),
 											decreasingConstant,
-											auctionStart,
+											Math.floor(dropTime.valueOf() / 1000),
 											auctionPeriod,
 											account
 									  )
 									: await createSale(
 											dropId,
 											ethers.utils.parseEther(mint.toString()),
-											saleStart,
+											Math.floor(dropTime.valueOf() / 1000),
 											maxMintPerWallet,
 											account
 									  );
@@ -613,7 +613,7 @@ const AddCollection = () => {
 									</div>
 								</div>
 							</div>
-							<div className={styles.inputGroup}>
+							{/* <div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>
 									Debut de l'enchere (UNIX timestamp)
 								</div>
@@ -626,7 +626,7 @@ const AddCollection = () => {
 										type='number'
 									/>
 								</div>
-							</div>
+							</div> */}
 							<div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>Duree (s)</div>
 								<div className={styles.inputWrapper}>
@@ -657,7 +657,7 @@ const AddCollection = () => {
 									<div className={styles.lengthIndicator}>{mint}/200</div>
 								</div>
 							</div>
-							<div className={styles.inputGroup}>
+							{/* <div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>
 									Debut de la vente (UNIX timestamp)
 								</div>
@@ -670,7 +670,7 @@ const AddCollection = () => {
 										type='number'
 									/>
 								</div>
-							</div>
+							</div> */}
 							<div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>
 									Nb max de mint par wallet
