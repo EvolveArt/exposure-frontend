@@ -354,7 +354,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 						{collection?.description}
 					</Text>
 					<Text paddingBottom={"25px"} fontSize='16px' lineHeight={"28px"}>
-						{collection.artists && formatName(collection?.artists[0])}
+						{collection?.artists && formatName(collection?.artists[0])}
 					</Text>
 				</Flex>
 			)}

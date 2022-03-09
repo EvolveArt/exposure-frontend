@@ -49,7 +49,7 @@ const NftItem = (collection: Collection) => {
 					{collection.collectionName}
 				</Text>
 				<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
-					By {formatName(collection.artists[0])}
+					By {collection.artists && formatName(collection.artists[0])}
 				</Text>
 				<Text fontSize='12px' lineHeight='18px'>
 					<span style={{ fontWeight: "bold" }}>{collection.totalSupply} </span>

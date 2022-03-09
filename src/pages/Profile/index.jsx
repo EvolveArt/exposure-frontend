@@ -13,7 +13,7 @@ import Header from "components/Header";
 import React, { Suspense, useEffect, useState } from "react";
 // import styles from "./styles.module.scss";
 import { useParams } from "react-router-dom";
-import { getRandomIPFS, shortenAddress } from "utils";
+import { shortenAddress } from "utils";
 // import toast from "utils/toast";
 
 import addIcon from "../../assets/imgs/plus.png";
