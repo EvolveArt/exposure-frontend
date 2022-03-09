@@ -35,7 +35,7 @@ import Loader from "react-loader-spinner";
 import SuspenseImg from "components/SuspenseImg";
 import styles from "./styles.module.scss";
 
-const TopPage = (collection: Collection) => {
+export const TopPage = (collection: Collection, extend: boolean) => {
 	const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
 	const [minting, setMinting] = useState(false);
 	const [auctionPrice, setAuctionPrice] = useState("");
@@ -220,7 +220,10 @@ const TopPage = (collection: Collection) => {
 						fontSize={"16px"}
 						lineHeight='28px'
 						paddingBottom={"24px"}>
-						By {formatName(collection?.artists[0])}
+						By{" "}
+						{collection?.artists
+							? formatName(collection?.artists[0])
+							: "Unknown"}
 					</Text>
 					<Text
 						fontFamily='Inter'
@@ -330,29 +333,31 @@ const TopPage = (collection: Collection) => {
 					marginLeft='auto'
 					marginRight='auto'></Image>
 			</Flex>
-			<Flex
-				width={{ base: "90%", lg: "80%" }}
-				flexDirection='column'
-				justifyContent='center'
-				alignItems={"center"}
-				margin='auto'
-				zIndex='1'
-				border='solid 2px #000'>
-				<Text
-					fontWeight='800'
-					fontSize={{ base: "30px", md: "40px" }}
-					lineHeight={{ base: "40px", md: "53px" }}
-					textAlign={"center"}
-					paddingTop='25px'
-					paddingLeft='32px'
-					paddingRight={"32px"}
-					paddingBottom='20px'>
-					{collection?.description}
-				</Text>
-				<Text paddingBottom={"25px"} fontSize='16px' lineHeight={"28px"}>
-					{formatName(collection?.artists[0])}
-				</Text>
-			</Flex>
+			{extend && (
+				<Flex
+					width={{ base: "90%", lg: "80%" }}
+					flexDirection='column'
+					justifyContent='center'
+					alignItems={"center"}
+					margin='auto'
+					zIndex='1'
+					border='solid 2px #000'>
+					<Text
+						fontWeight='800'
+						fontSize={{ base: "30px", md: "40px" }}
+						lineHeight={{ base: "40px", md: "53px" }}
+						textAlign={"center"}
+						paddingTop='25px'
+						paddingLeft='32px'
+						paddingRight={"32px"}
+						paddingBottom='20px'>
+						{collection?.description}
+					</Text>
+					<Text paddingBottom={"25px"} fontSize='16px' lineHeight={"28px"}>
+						{collection.artists && formatName(collection?.artists[0])}
+					</Text>
+				</Flex>
+			)}
 		</>
 	);
 };
@@ -412,7 +417,7 @@ const CollectionPage = () => {
 	return (
 		<div>
 			<Header />
-			{TopPage(currentCollection as Collection)}
+			{TopPage(currentCollection as Collection, true)}
 			<Flex
 				position='relative'
 				margin={"auto"}

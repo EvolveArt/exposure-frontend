@@ -102,6 +102,18 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const getLatestCollection = async () => {
+		const res = await axios({
+			method: "GET",
+			url: `${apiUrl}/collection/getLatestCollection`,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		return res.data;
+	};
+
 	const getCollectionInfo = async (dropId: number) => {
 		const res = await axios({
 			method: "POST",
@@ -138,6 +150,7 @@ export const useApi = () => {
 		getAllCollections,
 		getCollectionInfo,
 		getArtistInfo,
+		getLatestCollection,
 		// getIsModerator,
 	};
 };
