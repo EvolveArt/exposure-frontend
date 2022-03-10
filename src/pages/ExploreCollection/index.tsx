@@ -10,7 +10,7 @@ import NftItem from "components/NFTitem";
 // eslint-disable-next-line
 import { Collection } from "interfaces";
 import Footer from "components/Footer";
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Checkbox, Flex, Image, Text } from "@chakra-ui/react";
 import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 
 const ExploreCollection = () => {
@@ -51,7 +51,26 @@ const ExploreCollection = () => {
               alt="collapse-menu"
             />
           </div>
-          <div className={styles.filterList}></div>
+          <div className={styles.filterList}>
+            <div className={styles.filterList}>
+              <div className={styles.titleFilter}>Availability</div>
+              <Checkbox paddingBottom={"8px"} paddingTop={"8px"}>
+                <span className={styles.check}>Available</span>
+              </Checkbox>
+              <Checkbox>
+                <span className={styles.check}>Sold Out</span>
+              </Checkbox>
+            </div>
+            <div className={styles.filterList}>
+              <div
+                className={styles.titleFilter}
+                style={{ paddingBottom: "8px" }}
+              >
+                Photographer
+              </div>
+              <div className={styles.filterLists}>//Add check boxes</div>
+            </div>
+          </div>
         </div>
         <div className={styles.body}>
           <div

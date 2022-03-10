@@ -398,6 +398,37 @@
   color: var(--color-text);
 }
 
+.filterList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.titleFilter {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 28px;
+  color: #000000;
+}
+.check {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  color: #000000;
+}
+.filterLists {
+  height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 8px;
+}
+
 @media only screen and (max-width: 768px) {
   .profile {
     margin-top: 135px;
