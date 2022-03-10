@@ -35,10 +35,20 @@
   }
 }
 
+.link {
+  display: unset;
+}
+
 @media only screen and (max-width: 1400px) {
   .panelBody {
     display: unset;
     justify-content: unset;
     align-items: unset;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .link {
+    display: none;
   }
 }
