@@ -3,3 +3,10 @@
   width: 100%;
   line-height: 2;
 }
+
+.switch {
+  border-right: 1px solid #000;
+  &:last-child {
+    border-right: unset;
+  }
+}

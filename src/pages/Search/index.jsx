@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  useRadio,
+  useRadioGroup,
+} from "@chakra-ui/react";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import styles from "./styles.module.scss";
@@ -14,8 +22,48 @@ import bordermr from "../../assets/imgs/bordermr.png";
 import bordertl from "../../assets/imgs/bordertl.png";
 import bordertr from "../../assets/imgs/bordertr.png";
 
+function RadioCard(props) {
+  const { getInputProps, getCheckboxProps } = useRadio(props);
+
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
+
+  return (
+    <Box as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        cursor="pointer"
+        _checked={{
+          filter: "brightness(0) saturate(100%)",
+        }}
+        padding="5px 34px"
+        fontFamily="Inter"
+        fontStyle="normal"
+        fontWeight="600"
+        fontSize="16px"
+        lineHeight="28px"
+        letterSpacing="1px"
+        color="#B5B6B7"
+        className={styles.switch}
+      >
+        {props.children}
+      </Box>
+    </Box>
+  );
+}
+
 const Search = () => {
   const [collection, setCollection] = useState("");
+  const options = ["Artists", "Collection"];
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "framework",
+    defaultValue: "react",
+    onChange: console.log,
+  });
+
+  const group = getRootProps();
 
   return (
     <div>
@@ -164,6 +212,35 @@ const Search = () => {
             // onBlur={validateName}
           />
         </Flex>
+        <HStack
+          {...group}
+          right="0"
+          top="15px"
+          display={{ base: "none", md: "flex" }}
+          flexDirection="row"
+          marginTop={"50px"}
+          border="2px solid #000"
+          width={"fit-content"}
+          padding="9px 0px"
+        >
+          {options.map((value) => {
+            const radio = getRadioProps({ value });
+            return (
+              <>
+                <RadioCard key={value} {...radio}>
+                  {value}
+                </RadioCard>
+                <Box
+                  width={"0px"}
+                  border="1px solid #EAEAEA"
+                  height={"30px"}
+                  transform="translateX(2px)"
+                  zIndex={"-1"}
+                />
+              </>
+            );
+          })}
+        </HStack>
       </Flex>
       <Footer />
     </div>
