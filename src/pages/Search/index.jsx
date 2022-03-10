@@ -81,24 +81,24 @@ const Search = () => {
       >
         <Image
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           top={"100px"}
           left="0"
         ></Image>
         <Image
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           top={"100px"}
           right={{ base: "0", md: "-0px" }}
         ></Image>
         <Image
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"-20px"}
           right="0"
@@ -106,10 +106,10 @@ const Search = () => {
         <Image
           display={{ base: "unset", md: "none" }}
           src={ticon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
-          top={"114px"}
+          top={"107px"}
           left="0"
           right="0"
           marginLeft="auto"
@@ -118,8 +118,8 @@ const Search = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           top={"100px"}
           left="0"
@@ -130,11 +130,11 @@ const Search = () => {
         <Image
           display={{ base: "unset", md: "none" }}
           src={ticon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           transform={"rotate(180deg)"}
-          bottom={"-6px"}
+          bottom={"-14px"}
           left="0"
           right="0"
           marginLeft="auto"
@@ -143,8 +143,8 @@ const Search = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"-20px"}
           left="0"
@@ -154,8 +154,8 @@ const Search = () => {
         ></Image>
         <Image
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"-20px"}
           left="0"
