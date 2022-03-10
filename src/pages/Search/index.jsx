@@ -212,6 +212,9 @@ const Search = () => {
             // onBlur={validateName}
           />
         </Flex>
+        <div className={styles.stage}>
+          <div className={styles.dotTyping}></div>
+        </div>
         <HStack
           {...group}
           right="0"
