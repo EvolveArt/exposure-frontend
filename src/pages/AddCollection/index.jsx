@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import cx from "classnames";
 import Header from "components/Header";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, useToast } from "@chakra-ui/react";
 import addImage from "../../assets/imgs/addImage.png";
 import closeIcon from "assets/svgs/close.svg";
 import Select from "react-dropdown-select";
@@ -12,13 +12,15 @@ import "react-datetime/css/react-datetime.css";
 import { useApi } from "api";
 import "./styles.css";
 import { ethers } from "ethers";
-import toast from "utils/toast";
+// import toast from "utils/toast";
 import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
 import { getSigner, useExposureContract, useSalesContract } from "contracts";
 import { ClipLoader } from "react-spinners";
 import { formatName } from "utils";
+import { ADMIN_ADDRESSES } from "constants/index";
+import { useHistory } from "react-router-dom";
 // import { kebabCase } from "lodash";
 
 const AddCollection = () => {
@@ -63,6 +65,9 @@ const AddCollection = () => {
 	const [saleStart, setSaleStart] = useState(0);
 	const [mint, setMint] = useState(0);
 
+	const history = useHistory();
+	const toast = useToast();
+
 	const generateMetadata = async (
 		_name,
 		_description,
@@ -106,6 +111,14 @@ const AddCollection = () => {
 		updateArtists();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		if (account && authToken) {
+			if (!ADMIN_ADDRESSES.includes(account.toLowerCase()))
+				history.replace("/");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [account, authToken]);
 
 	useEffect(() => {
 		if (artists?.length) {
@@ -260,10 +273,11 @@ const AddCollection = () => {
 						signature = await signer.signMessage(msg);
 						signatureAddress = ethers.utils.verifyMessage(msg, signature);
 					} catch (err) {
-						toast(
-							"error",
-							"You need to sign the message to be able to add a collection."
-						);
+						toast({
+							status: "error",
+							title:
+								"You need to sign the message to be able to add a collection.",
+						});
 						setAdding(false);
 						return;
 					}
@@ -305,14 +319,14 @@ const AddCollection = () => {
 											dropId,
 											ethers.utils.parseEther(startingPrice.toString()),
 											decreasingConstant,
-											auctionStart,
+											Math.floor(dropTime.valueOf() / 1000),
 											auctionPeriod,
 											account
 									  )
 									: await createSale(
 											dropId,
 											ethers.utils.parseEther(mint.toString()),
-											saleStart,
+											Math.floor(dropTime.valueOf() / 1000),
 											maxMintPerWallet,
 											account
 									  );
@@ -351,17 +365,18 @@ const AddCollection = () => {
 								},
 							});
 
-							toast(
-								"success",
-								"Collection added!",
-								"The collection has successfuly been added to Exposure."
-							);
+							toast({
+								status: "success",
+								title: "Collection added!",
+								description:
+									"The collection has successfuly been added to Exposure.",
+							});
 						} else {
-							toast(
-								"error",
-								"Tx didn't pass!",
-								"The collection was not added to Exposure."
-							);
+							toast({
+								status: "error",
+								title: "Tx didn't pass!",
+								description: "The collection was not added to Exposure.",
+							});
 						}
 					});
 
@@ -598,7 +613,7 @@ const AddCollection = () => {
 									</div>
 								</div>
 							</div>
-							<div className={styles.inputGroup}>
+							{/* <div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>
 									Debut de l'enchere (UNIX timestamp)
 								</div>
@@ -611,7 +626,7 @@ const AddCollection = () => {
 										type='number'
 									/>
 								</div>
-							</div>
+							</div> */}
 							<div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>Duree (s)</div>
 								<div className={styles.inputWrapper}>
@@ -642,7 +657,7 @@ const AddCollection = () => {
 									<div className={styles.lengthIndicator}>{mint}/200</div>
 								</div>
 							</div>
-							<div className={styles.inputGroup}>
+							{/* <div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>
 									Debut de la vente (UNIX timestamp)
 								</div>
@@ -655,7 +670,7 @@ const AddCollection = () => {
 										type='number'
 									/>
 								</div>
-							</div>
+							</div> */}
 							<div className={styles.inputGroup}>
 								<div className={styles.inputTitle}>
 									Nb max de mint par wallet

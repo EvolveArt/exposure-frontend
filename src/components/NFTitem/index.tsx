@@ -2,17 +2,21 @@ import { Flex, Image, Text } from "@chakra-ui/react";
 // eslint-disable-next-line
 import { Collection } from "interfaces";
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { formatName, getRandomIPFS } from "utils";
 import styles from "./styles.module.scss";
 
 const NftItem = (collection: Collection) => {
+	const history = useHistory();
+
 	return (
 		<Flex
 			minHeight={{ base: "410px", lg: "520px" }}
 			width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
 			flexDir={"column"}
 			borderRadius={"2px"}
-			className={styles.dropContainer}>
+			className={styles.dropContainer}
+			onClick={() => history.push(`/collection/${collection.dropId}`)}>
 			<Flex
 				width='100%'
 				position='relative'
@@ -45,7 +49,7 @@ const NftItem = (collection: Collection) => {
 					{collection.collectionName}
 				</Text>
 				<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
-					By {formatName(collection.artists[0])}
+					By {collection.artists && formatName(collection.artists[0])}
 				</Text>
 				<Text fontSize='12px' lineHeight='18px'>
 					<span style={{ fontWeight: "bold" }}>{collection.totalSupply} </span>

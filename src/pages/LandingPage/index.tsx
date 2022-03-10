@@ -20,31 +20,13 @@ import NftItem from "components/NFTitem";
 import { Artist, Collection } from "interfaces";
 import { useApi } from "api";
 import { formatName, getRandomIPFS } from "utils";
+import { TopPage } from "pages/CollectionPage";
 import { Link } from "react-router-dom";
 
 // import ArtistCard from "components/ArtistCard";
 
-const arrival = {
-  title: "Touching Strangers",
-  image: "/images/strangers.png",
-  author: "Richard Renaldi",
-  mintType: "Random mint",
-  mintPrice: "0.9",
-  mintAvailable: "75",
-  releaseDate: "18/02/2022",
-  releaseHour: "16:00",
-};
-
-const arrivalPage = (arrival: {
-  title: string;
-  image: string;
-  author: string;
-  mintType: string;
-  mintPrice: string;
-  mintAvailable: string;
-  releaseDate: string;
-  releaseHour: string;
-}) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const arrivalPage = (arrival: Collection) => {
   return (
     <>
       <Flex
@@ -73,7 +55,9 @@ const arrivalPage = (arrival: {
           position="relative"
         >
           <Zoom>
-            <Image src={arrival.image}></Image>
+            <Image
+              src={getRandomIPFS(`ipfs://${arrival?.logoImageHash}`)}
+            ></Image>
           </Zoom>
           <Image
             src={addIcon}
@@ -180,7 +164,7 @@ const arrivalPage = (arrival: {
             lineHeight="53px"
             paddingBottom={"8px"}
           >
-            {arrival.title}
+            {arrival.collectionName}
           </Text>
           <Text
             fontFamily="Inter"
@@ -190,7 +174,7 @@ const arrivalPage = (arrival: {
             lineHeight="28px"
             paddingBottom={"58px"}
           >
-            By {arrival.author}
+            By {arrival.artists && formatName(arrival.artists[0])}
           </Text>
           <Flex flexDirection={"row"} gridGap="9px">
             <Image src={mintType} width="29px" height="29px" />
@@ -202,7 +186,7 @@ const arrivalPage = (arrival: {
               lineHeight="28px"
               paddingBottom={"17px"}
             >
-              {arrival.mintType}
+              {arrival?.mintMode === 0 ? "Dutch Auction" : "Random Mint"}
             </Text>
           </Flex>
           <Flex flexDirection={"row"} gridGap="9px">
@@ -231,7 +215,7 @@ const arrivalPage = (arrival: {
             >
               Mint available -{" "}
               <span style={{ fontWeight: "800" }}>
-                0 / {arrival.mintAvailable}
+                {arrival.minted} / {arrival.totalSupply}
               </span>
             </Text>
           </Flex>
@@ -246,11 +230,13 @@ const arrivalPage = (arrival: {
               paddingBottom={"35px"}
             >
               Release date -{" "}
-              <span style={{ fontWeight: "800" }}>{arrival.releaseDate}</span>{" "}
-              at{" "}
               <span style={{ fontWeight: "800" }}>
-                {arrival.releaseHour} GMT
-              </span>
+                {arrival?.releaseDate?.toString()}
+              </span>{" "}
+              {/* at{" "}
+							<span style={{ fontWeight: "800" }}>
+								{arrival.releaseHour} GMT
+							</span> */}
             </Text>
           </Flex>
           <Flex border={"1px solid #000"} width="100%">
@@ -319,7 +305,7 @@ const ArtistsLanding = (artist: Artist) => {
 const LandingPage = () => {
   const [latestCollections, setLatestCollections] = useState<Collection[]>([]);
 
-  const { getAllCollections, getAllArtists } = useApi();
+  const { getAllCollections, getAllArtists, getLatestCollection } = useApi();
 
   useEffect(() => {
     const updateCollections = async () => {
@@ -333,6 +319,8 @@ const LandingPage = () => {
 
   const [artists, setArtists] = useState<Artist[]>([]);
 
+  const [arrival, setArrival] = useState<Collection>({} as Collection);
+
   useEffect(() => {
     const updateArtists = async () => {
       const _artists = await getAllArtists();
@@ -343,10 +331,20 @@ const LandingPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const updateArrival = async () => {
+      const _arrival = await getLatestCollection();
+      setArrival(_arrival.data);
+      // console.log(_artists);
+    };
+    updateArrival();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <Header />
-      {arrivalPage(arrival)}
+      {TopPage(arrival, false)}
 
       <Box paddingBottom="112px">
         <Flex

@@ -50,6 +50,17 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	// const getIsModerator = async (address: string | null | undefined) => {
+	// 	const { data } = await axios({
+	// 		method: "get",
+	// 		url: `${apiUrl}/mod/isModerator/${address}`,
+	// 	});
+	// 	if (data.status === "success") {
+	// 		return data.data;
+	// 	}
+	// 	return false;
+	// };
+
 	const postArtist = async (
 		artist: Artist,
 		authToken: string | null | undefined
@@ -83,6 +94,18 @@ export const useApi = () => {
 		const res = await axios({
 			method: "GET",
 			url: `${apiUrl}/collection/fetchAllCollections`,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		return res.data;
+	};
+
+	const getLatestCollection = async () => {
+		const res = await axios({
+			method: "GET",
+			url: `${apiUrl}/collection/getLatestCollection`,
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -127,5 +150,7 @@ export const useApi = () => {
 		getAllCollections,
 		getCollectionInfo,
 		getArtistInfo,
+		getLatestCollection,
+		// getIsModerator,
 	};
 };

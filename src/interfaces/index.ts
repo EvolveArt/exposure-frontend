@@ -14,6 +14,7 @@ export interface Collection {
 	artists: Artist[];
 	description: string;
 	logoImageHash: string;
+	metadataHash: string;
 	totalSupply: number;
 	teasingDate: string;
 	releaseDate: string;
