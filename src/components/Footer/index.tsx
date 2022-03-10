@@ -110,14 +110,14 @@ const Footer = () => {
           </Flex>
           <Image
             src={addIcon}
-            width={"27px"}
+            width={"16px"}
             position="absolute"
             bottom={{ base: "40px", md: "-50px" }}
             right="-10px"
           ></Image>
           <Image
             src={addIcon}
-            width={"27px"}
+            width={"16px"}
             position="absolute"
             bottom={{ base: "40px", md: "-50px" }}
             left="0"
@@ -128,7 +128,7 @@ const Footer = () => {
           ></Image>
           <Image
             src={addIcon}
-            width={"27px"}
+            width={"16px"}
             position="absolute"
             bottom={{ base: "40px", md: "-50px" }}
             left="0px"

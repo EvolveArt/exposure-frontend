@@ -61,34 +61,34 @@ const arrivalPage = (arrival: Collection) => {
           </Zoom>
           <Image
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            width={"16px"}
             position="absolute"
             top={"0"}
             left="0"
+            filter="brightness(0)"
           ></Image>
           <Image
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            width={"16px"}
             position="absolute"
             top={"0"}
+            filter="brightness(0)"
             right={{ base: "0", md: "-35px" }}
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            width={"16px"}
             position="absolute"
             bottom={"0"}
             right="0"
+            filter="brightness(0)"
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
             src={ticon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             top={"14px"}
             left="0"
@@ -98,8 +98,8 @@ const arrivalPage = (arrival: Collection) => {
           ></Image>
           <Image
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             bottom={"0"}
             left="0"
@@ -120,8 +120,8 @@ const arrivalPage = (arrival: Collection) => {
           <Image
             display={{ base: "none", md: "unset" }}
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             top={"0"}
             right="0px"
@@ -129,16 +129,16 @@ const arrivalPage = (arrival: Collection) => {
           <Image
             display={{ base: "unset", md: "none" }}
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             bottom={"0"}
             left="0px"
           ></Image>
           <Image
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             bottom={"0"}
             right="0px"
@@ -146,8 +146,8 @@ const arrivalPage = (arrival: Collection) => {
           <Image
             display={{ base: "unset", md: "none" }}
             src={ticon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             transform={"rotate(180deg)"}
             bottom={"14px"}
@@ -345,7 +345,19 @@ const LandingPage = () => {
     <div>
       <Header />
       {TopPage(arrival, false)}
-
+      <Flex
+        justifyContent={"center"}
+        alignItems="center"
+        transform={"translateY(-50px)"}
+        position="relative"
+      >
+        <Image
+          src={arrowContainer}
+          position="absolute"
+          display={{ base: "none", md: "unset" }}
+        />
+        <Image src={arrow} display={{ base: "none", md: "unset" }} />
+      </Flex>
       <Box paddingBottom="112px">
         <Flex
           width={{ base: "90%", lg: "80%" }}
@@ -377,8 +389,8 @@ const LandingPage = () => {
           <Image
             display={{ base: "none", md: "unset" }}
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             bottom={"-60px"}
             right="0px"
@@ -386,8 +398,8 @@ const LandingPage = () => {
           <Image
             display={{ base: "none", md: "unset" }}
             src={addIcon}
-            opacity="0.1"
-            width={"27px"}
+            filter="brightness(0)"
+            width={"16px"}
             position="absolute"
             bottom={"-60px"}
             left="0px"
@@ -406,8 +418,8 @@ const LandingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"-60px"}
           right="-10px"
@@ -415,8 +427,8 @@ const LandingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"-60px"}
           left="0px"
@@ -526,8 +538,8 @@ const LandingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"0px"}
           right="-10px"
@@ -535,8 +547,8 @@ const LandingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"0px"}
           left="0"
@@ -547,8 +559,8 @@ const LandingPage = () => {
         <Image
           display={{ base: "none", md: "unset" }}
           src={addIcon}
-          opacity="0.1"
-          width={"27px"}
+          filter="brightness(0)"
+          width={"16px"}
           position="absolute"
           bottom={"0"}
           left="0px"
