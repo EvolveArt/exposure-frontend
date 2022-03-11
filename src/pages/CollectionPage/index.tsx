@@ -49,9 +49,10 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
 	const { getDropInfo, unpauseDrop } = useExposureContract();
 	const [minting, setMinting] = useState(false);
-	const [auctionPrice, setAuctionPrice] = useState("");
+	const [auctionPrice, setAuctionPrice] = useState("0");
 	const { account } = useWeb3React();
 	const [dropInfo, setDropInfo] = useState<DropInfo>({} as DropInfo);
+	const { updateMint } = useApi();
 
 	const toast = useToast();
 
@@ -60,10 +61,11 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 		setMinting(true);
 
 		try {
-			if (collection?.mintMode === 0) {
+			// console.log(typeof collection?.mintMode);
+			if (collection?.mintMode === "0") {
 				const tx = await purchaseThroughAuction(
 					collection.dropId,
-					ethers.utils.parseEther(collection.mintPrice.toString()),
+					auctionPrice.toString(),
 					account
 				);
 				await tx.wait();
@@ -76,6 +78,12 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 				);
 				await tx.wait();
 			}
+			await updateMint(
+				collection.dropId,
+				1,
+				ethers.utils.parseEther(collection.mintPrice.toString()).toNumber(),
+				account
+			);
 			toast({ status: "success", title: "NFT Minted!" });
 			setMinting(false);
 		} catch (error) {
@@ -280,7 +288,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							fontSize='16px'
 							lineHeight='28px'
 							paddingBottom={"17px"}>
-							{collection?.mintMode === 0 ? "Dutch Auction" : "Random Mint"}
+							{collection?.mintMode === "0" ? "Dutch Auction" : "Random Mint"}
 						</Text>
 					</Flex>
 					<Flex flexDirection={"row"} gridGap='9px'>
@@ -294,7 +302,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							paddingBottom={"17px"}>
 							Mint price -{" "}
 							<span style={{ fontWeight: "800" }}>
-								{collection?.mintMode === 0
+								{collection?.mintMode === "0"
 									? ethers.utils.formatEther(auctionPrice)
 									: collection?.mintPrice}{" "}
 								ETH

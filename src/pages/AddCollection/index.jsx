@@ -318,7 +318,7 @@ const AddCollection = () => {
 									? await setAuction(
 											dropId,
 											ethers.utils.parseEther(startingPrice.toString()),
-											decreasingConstant,
+											ethers.utils.parseEther(decreasingConstant.toString()),
 											Math.floor(dropTime.valueOf() / 1000),
 											auctionPeriod,
 											account

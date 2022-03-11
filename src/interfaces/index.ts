@@ -21,5 +21,5 @@ export interface Collection {
 	mintPrice: number;
 	maxMintPerWallet: number;
 	minted: number;
-	mintMode: number;
+	mintMode: string;
 }

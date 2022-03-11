@@ -90,13 +90,14 @@ export const useApi = () => {
 		return res.data;
 	};
 
-	const getAllCollections = async () => {
+	const getAllCollections = async (isAvailable?: boolean | null) => {
 		const res = await axios({
-			method: "GET",
+			method: "POST",
 			url: `${apiUrl}/collection/fetchAllCollections`,
 			headers: {
 				"Content-Type": "application/json",
 			},
+			data: { isAvailable },
 		});
 
 		return res.data;
@@ -140,6 +141,24 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const updateMint = async (
+		dropId: number,
+		amount: number,
+		price: number,
+		address: string | null | undefined
+	) => {
+		const res = await axios({
+			method: "POST",
+			url: `${apiUrl}/collection/updateMint`,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			data: { dropId, amount, price, address },
+		});
+
+		return res.data;
+	};
+
 	return {
 		getAuthToken,
 		getAccountDetails,
@@ -151,6 +170,7 @@ export const useApi = () => {
 		getCollectionInfo,
 		getArtistInfo,
 		getLatestCollection,
+		updateMint,
 		// getIsModerator,
 	};
 };

@@ -16,6 +16,7 @@ import { Checkbox } from "@chakra-ui/react";
 const ExploreCollection = () => {
 	const conRef: any = useRef();
 	const [collapsed, setCollapsed] = useState(false);
+	const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
 	// eslint-disable-next-line no-unused-vars
 	const [collections, setCollections] = useState<Collection[]>([]);
 
@@ -25,13 +26,23 @@ const ExploreCollection = () => {
 
 	useEffect(() => {
 		const updateCollections = async () => {
-			const _collections = await getAllCollections();
+			const _collections = await getAllCollections(isAvailable);
 			setCollections(_collections.data);
 		};
 
 		updateCollections();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [isAvailable]);
+
+	const handleAvailable = async (event: any, _isAvailable: boolean) => {
+		if (event.target.checked) {
+			setIsAvailable(_isAvailable);
+		} else {
+			setIsAvailable(null);
+		}
+
+		// console.log(isAvailable);
+	};
 
 	return (
 		<div>
@@ -54,10 +65,13 @@ const ExploreCollection = () => {
 					<div className={styles.filterList}>
 						<div className={styles.filterList}>
 							<div className={styles.titleFilter}>Availability</div>
-							<Checkbox paddingBottom={"8px"} paddingTop={"8px"}>
+							<Checkbox
+								paddingBottom={"8px"}
+								paddingTop={"8px"}
+								onChange={(e) => handleAvailable(e, true)}>
 								<span className={styles.check}>Available</span>
 							</Checkbox>
-							<Checkbox>
+							<Checkbox onChange={(e) => handleAvailable(e, false)}>
 								<span className={styles.check}>Sold Out</span>
 							</Checkbox>
 						</div>
