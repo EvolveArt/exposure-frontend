@@ -55,7 +55,7 @@ export const useExposureContract = () => {
 	const unpauseDrop = async (
 		dropId: number,
 		shouldUnpause: boolean,
-		from: string
+		from: string | null | undefined
 	) => {
 		const contract = await getExposureContract();
 		const args = [dropId, shouldUnpause];
@@ -74,10 +74,18 @@ export const useExposureContract = () => {
 		return await contract.unpauseDrop(...args, options);
 	};
 
+	const getDropInfo = async (dropId: number) => {
+		const contract = await getExposureContract();
+		const args = [dropId];
+
+		return await contract.drops(...args);
+	};
+
 	return {
 		getExposureContract,
 		createDrop,
 		setDropIPFS,
 		unpauseDrop,
+		getDropInfo,
 	};
 };
