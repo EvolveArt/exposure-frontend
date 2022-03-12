@@ -22,4 +22,5 @@ export interface Collection {
 	maxMintPerWallet: number;
 	minted: number;
 	mintMode: string;
+	soldOut: boolean;
 }
