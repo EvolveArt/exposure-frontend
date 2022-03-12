@@ -8,6 +8,7 @@ import {
 	useRadioGroup,
 	Box,
 	HStack,
+	Skeleton,
 } from "@chakra-ui/react";
 import React, { Suspense, useEffect, useState } from "react";
 
@@ -49,6 +50,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
 	const { getDropInfo, unpauseDrop } = useExposureContract();
 	const [minting, setMinting] = useState(false);
+	const [updating, setUpdating] = useState(false);
 	const [auctionPrice, setAuctionPrice] = useState("0");
 	const { account } = useWeb3React();
 	const [dropInfo, setDropInfo] = useState<DropInfo>({} as DropInfo);
@@ -95,8 +97,10 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 
 	const updateAuctionPrice = async () => {
 		if (collection?.dropId === undefined) return;
+		setUpdating(true);
 		let _currentPrice = await getPrice(collection?.dropId);
 		setAuctionPrice(_currentPrice);
+		setUpdating(false);
 	};
 
 	const handlePause = async () => {
@@ -114,6 +118,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 
 	useEffect(() => {
 		const _intervalId = setInterval(() => updateAuctionPrice(), 5000);
+		updateAuctionPrice();
 
 		return () => clearInterval(_intervalId);
 
@@ -301,12 +306,16 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							lineHeight='28px'
 							paddingBottom={"17px"}>
 							Mint price -{" "}
-							<span style={{ fontWeight: "800" }}>
-								{collection?.mintMode === "0"
-									? ethers.utils.formatEther(auctionPrice)
-									: collection?.mintPrice}{" "}
-								ETH
-							</span>
+							{updating ? (
+								<Skeleton width={60} style={{ background: "black" }} />
+							) : (
+								<span style={{ fontWeight: "800" }}>
+									{collection?.mintMode === "0"
+										? ethers.utils.formatEther(auctionPrice)
+										: collection?.mintPrice}{" "}
+									ETH
+								</span>
+							)}
 						</Text>
 					</Flex>
 					<Flex flexDirection={"row"} gridGap='9px'>
