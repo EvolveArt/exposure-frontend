@@ -103,6 +103,32 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const searchCollections = async (searchString: string) => {
+		const res = await axios({
+			method: "POST",
+			url: `${apiUrl}/collection/searchCollection`,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			data: { searchString },
+		});
+
+		return res.data;
+	};
+
+	const searchArtists = async (searchString: string) => {
+		const res = await axios({
+			method: "POST",
+			url: `${apiUrl}/artist/searchArtist`,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			data: { searchString },
+		});
+
+		return res.data;
+	};
+
 	const getLatestCollection = async () => {
 		const res = await axios({
 			method: "GET",
@@ -171,6 +197,8 @@ export const useApi = () => {
 		getArtistInfo,
 		getLatestCollection,
 		updateMint,
+		searchCollections,
+		searchArtists,
 		// getIsModerator,
 	};
 };

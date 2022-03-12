@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Box,
 	Flex,
@@ -21,6 +21,9 @@ import borderml from "../../assets/imgs/borderml.png";
 import bordermr from "../../assets/imgs/bordermr.png";
 import bordertl from "../../assets/imgs/bordertl.png";
 import bordertr from "../../assets/imgs/bordertr.png";
+import NftItem from "components/NFTitem";
+import { useApi } from "api";
+import ArtistCard from "components/ArtistCard";
 
 function RadioCard(props) {
 	const { getInputProps, getCheckboxProps } = useRadio(props);
@@ -54,15 +57,35 @@ function RadioCard(props) {
 
 const Search = () => {
 	const [collection, setCollection] = useState("");
+	const [searching, setSearching] = useState(false);
+	const [collections, setCollections] = useState([]);
+	const [selected, setSelected] = useState("Collection");
 	const options = ["Artists", "Collection"];
 
 	const { getRootProps, getRadioProps } = useRadioGroup({
 		name: "framework",
 		defaultValue: "Collection",
-		onChange: console.log,
+		onChange: (nextValue) => setSelected(nextValue),
 	});
 
 	const group = getRootProps();
+
+	const { searchCollections, searchArtists } = useApi();
+
+	useEffect(() => {
+		const updateCollections = async () => {
+			setSearching(true);
+			const _collections =
+				selected === "Collection"
+					? await searchCollections(collection)
+					: await searchArtists(collection);
+			setCollections(_collections.data);
+			setSearching(false);
+		};
+
+		updateCollections();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [collection]);
 
 	return (
 		<div>
@@ -183,32 +206,12 @@ const Search = () => {
 					letterSpacing={"1px"}>
 					Search for your favorite artists and collections
 				</Text>
-				<Flex position={"relative"} width='100%' padding='30px'>
-					<Image src={bordertl} position='absolute' top={"0"} left='0' />
-					<Image src={borderbl} position='absolute' bottom={"0"} left='0' />
-					<Image src={bordertr} position='absolute' top={"0"} right='0' />
-					<Image src={borderbr} position='absolute' bottom={"0"} right='0' />
-					<Image src={borderml} position='absolute' bottom={"45%"} left='0' />
-					<Image src={bordermr} position='absolute' bottom={"45%"} right='0' />
-					<input
-						className={styles.input}
-						maxLength={40}
-						placeholder='Search'
-						value={collection}
-						onChange={(e) => setCollection(e.target.value)}
-						// onBlur={validateName}
-					/>
-				</Flex>
-				<div className={styles.stage}>
-					<div className={styles.dotTyping}></div>
-				</div>
 				<HStack
 					{...group}
 					right='0'
 					top='15px'
 					display={{ base: "none", md: "flex" }}
 					flexDirection='row'
-					marginTop={"50px"}
 					border='2px solid #000'
 					width={"fit-content"}
 					padding='9px 0px'>
@@ -230,7 +233,38 @@ const Search = () => {
 						);
 					})}
 				</HStack>
+				<Flex position={"relative"} width='100%' padding='30px'>
+					<Image src={bordertl} position='absolute' top={"0"} left='0' />
+					<Image src={borderbl} position='absolute' bottom={"0"} left='0' />
+					<Image src={bordertr} position='absolute' top={"0"} right='0' />
+					<Image src={borderbr} position='absolute' bottom={"0"} right='0' />
+					<Image src={borderml} position='absolute' bottom={"45%"} left='0' />
+					<Image src={bordermr} position='absolute' bottom={"45%"} right='0' />
+					<input
+						className={styles.input}
+						maxLength={40}
+						placeholder='Search'
+						value={collection}
+						onChange={(e) => setCollection(e.target.value)}
+						// onBlur={validateName}
+					/>
+				</Flex>
+
+				{searching ? (
+					<div className={styles.stage}>
+						<div className={styles.dotTyping}></div>
+					</div>
+				) : (
+					<div className={styles.exploreAll}>
+						{collections.map((collection) => {
+							return selected === "Collection"
+								? NftItem(collection)
+								: ArtistCard(collection);
+						})}
+					</div>
+				)}
 			</Flex>
+
 			<Footer />
 		</div>
 	);
