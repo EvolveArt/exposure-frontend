@@ -610,7 +610,11 @@ const CollectionPage = () => {
 						);
 					})}
 				</HStack>
-				<Flex height='fit-content' flexWrap='wrap'>
+				<Flex
+					width={"100%"}
+					flexWrap='wrap'
+					justifyContent={"center"}
+					alignItems='center'>
 					{images.map((elem, index) => {
 						return (
 							<Suspense

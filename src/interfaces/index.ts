@@ -6,6 +6,7 @@ export interface Artist {
 	instagram?: string;
 	description: string;
 	imageHash: string;
+	nbCollections: number;
 }
 
 export interface Collection {
