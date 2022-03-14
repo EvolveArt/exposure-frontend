@@ -37,6 +37,7 @@ import Loader from "react-loader-spinner";
 import SuspenseImg from "components/SuspenseImg";
 import styles from "./styles.module.scss";
 import { ADMIN_ADDRESSES } from "constants/index";
+import axios from "axios";
 
 interface DropInfo {
 	artist: string;
@@ -529,6 +530,8 @@ const CollectionPage = () => {
 
 	const { getCollectionInfo } = useApi();
 
+	const [images, setImages] = useState<any[]>([]);
+
 	const { getRootProps, getRadioProps } = useRadioGroup({
 		name: "framework",
 		defaultValue: "react",
@@ -550,6 +553,24 @@ const CollectionPage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dropId]);
 
+	const loadAvailablePhotographs = async () => {
+		const _totalSupply = currentCollection?.totalSupply || 0;
+		const images = [];
+		for (let index = 0; index < _totalSupply; index++) {
+			const _metadata = await axios.get(
+				getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
+			);
+			images.push(_metadata.data.image);
+		}
+
+		setImages(images);
+	};
+
+	useEffect(() => {
+		loadAvailablePhotographs();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentCollection]);
+
 	const group = getRootProps();
 	return (
 		<div>
@@ -570,24 +591,7 @@ const CollectionPage = () => {
 					marginLeft='10px'>
 					Available photographs
 				</Text>
-				{[]
-					.fill(0 as never, 0, currentCollection?.totalSupply)
-					.map((elem, index) => {
-						return (
-							<Suspense
-								fallback={
-									<Loader type='Oval' color='rgb(109, 186, 252)' height={32} />
-								}>
-								<SuspenseImg
-									src={getRandomIPFS(
-										`ipfs://${currentCollection?.metadataHash}/${index}.png`
-									)}
-									className={styles.media}
-									alt={`Photo ${index}`}
-								/>
-							</Suspense>
-						);
-					})}
+
 				<HStack
 					{...group}
 					position='absolute'
@@ -606,6 +610,23 @@ const CollectionPage = () => {
 						);
 					})}
 				</HStack>
+				<Flex height='fit-content' flexWrap='wrap'>
+					{images.map((elem, index) => {
+						return (
+							<Suspense
+								key={index}
+								fallback={
+									<Loader type='Oval' color='rgb(109, 186, 252)' height={32} />
+								}>
+								<SuspenseImg
+									src={getRandomIPFS(elem)}
+									className={styles.media}
+									alt={`Photo ${index}`}
+								/>
+							</Suspense>
+						);
+					})}
+				</Flex>
 			</Flex>
 			<Footer />
 		</div>
