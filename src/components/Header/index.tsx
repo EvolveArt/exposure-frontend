@@ -177,13 +177,13 @@ export default function Header() {
 											shortenAddress(account)
 										)}
 									</div>
-									<div className={styles.network}>
+									{/* <div className={styles.network}>
 										{loading ? (
 											<Skeleton width={60} style={{ background: "black" }} />
 										) : (
 											NETWORK_LABEL[chainId || 1]
 										)}
-									</div>
+									</div> */}
 								</div>
 								<Image src={down} marginLeft='auto' />
 								<Collapse in={isOpen} animateOpacity>
