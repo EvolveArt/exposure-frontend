@@ -347,7 +347,7 @@ const AddCollection = () => {
 								maxMintPerWallet,
 								mintMode: selectedMintType[0] === "Dutch Auction" ? 0 : 1,
 								description,
-								artists,
+								selected,
 								logoImageHash: imageHash,
 								metadataHash,
 								totalSupply: photos?.length,
