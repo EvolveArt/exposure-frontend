@@ -198,7 +198,7 @@ const AddArtist = () => {
 						signatureAddress,
 					};
 
-					await axios({
+					const resp = await axios({
 						method: "post",
 						url: `${apiUrl}/artist/artistDetails`,
 						data: JSON.stringify(data),
@@ -207,6 +207,8 @@ const AddArtist = () => {
 							Authorization: `Bearer ${authToken}`,
 						},
 					});
+
+					if (resp.data.status === "failed") throw Error("Duplicate Values");
 
 					toast({
 						status: "success",
