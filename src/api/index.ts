@@ -90,14 +90,17 @@ export const useApi = () => {
 		return res.data;
 	};
 
-	const getAllCollections = async (isAvailable?: boolean | null) => {
+	const getAllCollections = async (
+		isAvailable?: boolean | null,
+		artists?: string[]
+	) => {
 		const res = await axios({
 			method: "POST",
 			url: `${apiUrl}/collection/fetchAllCollections`,
 			headers: {
 				"Content-Type": "application/json",
 			},
-			data: { isAvailable },
+			data: { isAvailable, artists },
 		});
 
 		return res.data;

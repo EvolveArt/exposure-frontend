@@ -8,9 +8,10 @@ import Header from "components/Header";
 import { useApi } from "api";
 import NftItem from "components/NFTitem";
 // eslint-disable-next-line
-import { Collection } from "interfaces";
+import { Artist, Collection } from "interfaces";
 import Footer from "components/Footer";
 import { Checkbox } from "@chakra-ui/react";
+import { formatName } from "utils";
 // import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 
 const ExploreCollection = () => {
@@ -19,20 +20,25 @@ const ExploreCollection = () => {
 	const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
 	// eslint-disable-next-line no-unused-vars
 	const [collections, setCollections] = useState<Collection[]>([]);
+	const [artists, setArtists] = useState<Artist[]>([]);
+	const [selected, setSelected] = useState<Artist[]>([]);
 
 	const { ref }: any = useResizeDetector();
 
-	const { getAllCollections } = useApi();
+	const { getAllCollections, getAllArtists } = useApi();
 
 	useEffect(() => {
 		const updateCollections = async () => {
-			const _collections = await getAllCollections(isAvailable);
+			const _collections = await getAllCollections(
+				isAvailable,
+				selected.map((a: Artist) => a._id)
+			);
 			setCollections(_collections.data);
 		};
 
 		updateCollections();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isAvailable]);
+	}, [isAvailable, selected]);
 
 	const handleAvailable = async (event: any, _isAvailable: boolean) => {
 		if (event.target.checked) {
@@ -43,6 +49,29 @@ const ExploreCollection = () => {
 
 		// console.log(isAvailable);
 	};
+
+	const handleChangeArtists = (_artist: Artist) => {
+		let newArtists: Artist[];
+		if (selected.find((s: Artist) => s.address === _artist.address)) {
+			// remove the _artist from selected
+			newArtists = selected.filter(
+				(a: Artist) => a.address !== _artist.address
+			);
+		} else {
+			// add the _artist to selected
+			newArtists = [...selected, _artist];
+		}
+		setSelected(newArtists);
+	};
+
+	useEffect(() => {
+		const updateArtists = async () => {
+			const _artists = await getAllArtists();
+			setArtists(_artists.data);
+		};
+		updateArtists();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div>
@@ -81,7 +110,15 @@ const ExploreCollection = () => {
 								style={{ paddingBottom: "8px" }}>
 								Photographer
 							</div>
-							<div className={styles.filterLists}>Add check boxes</div>
+							<div className={styles.filterLists}>
+								{artists.map((artist: Artist) => {
+									return (
+										<Checkbox onChange={(e) => handleChangeArtists(artist)}>
+											<span className={styles.check}>{formatName(artist)}</span>
+										</Checkbox>
+									);
+								})}
+							</div>
 						</div>
 					</div>
 				</div>

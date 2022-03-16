@@ -1,4 +1,5 @@
 export interface Artist {
+	_id: string;
 	address: string;
 	firstname: string;
 	lastname: string;
@@ -10,6 +11,7 @@ export interface Artist {
 }
 
 export interface Collection {
+	_id: string;
 	dropId: number;
 	collectionName: string;
 	artists: Artist[];
