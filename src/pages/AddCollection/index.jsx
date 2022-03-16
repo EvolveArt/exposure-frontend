@@ -345,7 +345,7 @@ const AddCollection = () => {
 								releaseDate: dropTime,
 								mintPrice: mint,
 								maxMintPerWallet,
-								mintMode: selectedMintType[0] === "Dutch Auction" ? 0 : 1,
+								mintMode: selectedMintType[0] === "Dutch Auction" ? "0" : "1",
 								description,
 								artists: [selected[0]._id],
 								logoImageHash: imageHash,
