@@ -371,6 +371,7 @@ const AddCollection = () => {
 								description:
 									"The collection has successfuly been added to Exposure.",
 							});
+							setAdding(false);
 						} else {
 							toast({
 								status: "error",
@@ -379,8 +380,6 @@ const AddCollection = () => {
 							});
 						}
 					});
-
-					setAdding(false);
 
 					// history.push("/");
 				} catch (e) {
