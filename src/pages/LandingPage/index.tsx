@@ -442,7 +442,7 @@ const LandingPage = () => {
 					flexWrap={"wrap"}
 					alignItems='center'
 					justifyContent={"center"}>
-					{latestCollections.map((collection: Collection) =>
+					{latestCollections?.map((collection: Collection) =>
 						NftItem(collection)
 					)}
 				</Flex>
