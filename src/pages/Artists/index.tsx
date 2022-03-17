@@ -151,6 +151,7 @@ const Artists = () => {
           flexWrap="wrap"
           justifyContent={"center"}
           alignItems="center"
+          gridGap={"36px 0px"}
         >
           {artists.map((artist: Artist) => ArtistCard(artist))}
         </Flex>
