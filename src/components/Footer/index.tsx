@@ -78,7 +78,7 @@ const Footer = () => {
                 letterSpacing={"1px"}
                 href={"/QA"}
               >
-                Q&A
+                Help Center
               </Link>
               <Link
                 color={"#fff"}

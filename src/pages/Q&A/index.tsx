@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
-import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+import dropWrapper from "../../assets/imgs/dropWrapper.png";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import React from "react";
@@ -183,12 +183,12 @@ const QA = () => {
           marginTop={"100px"}
         >
           <Image
-            src={artistWrapper}
+            src={dropWrapper}
             position="absolute"
             transform="translate3d(-2px,3px,0px)"
             zIndex={"-1"}
-            height="50px"
-            width={"90px"}
+            height="55px"
+            width={"200px"}
           />
           <Text
             fontFamily="Inter"
@@ -198,7 +198,7 @@ const QA = () => {
             lineHeight="56px"
             marginLeft="10px"
           >
-            Q&A
+            Help Center
           </Text>
         </Flex>
         <Accordion allowToggle marginTop={"30px"}>
