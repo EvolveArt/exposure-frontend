@@ -373,7 +373,12 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							{minting ? "Minting..." : "Mint"}
 						</Button>
 					</Flex>
-					<Link fontWeight={"700"} margin='auto' paddingTop={"29px"}>
+					<Link
+						fontWeight={"700"}
+						margin='auto'
+						paddingTop={"29px"}
+						href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
+						target='_blank'>
 						See collection on Opensea
 					</Link>
 				</Flex>
