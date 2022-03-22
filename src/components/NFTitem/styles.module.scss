@@ -1,6 +1,5 @@
 .dropContainer {
   border: 2px solid #eee;
-  margin: auto;
 }
 
 .mediaBox {
@@ -61,5 +60,11 @@
   border-right: 1px solid #ddd;
   &:last-child {
     border-right: unset;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .dropContainer {
+    margin: auto;
   }
 }

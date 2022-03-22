@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-	Box,
-	Flex,
-	HStack,
-	Image,
-	Text,
-	useRadio,
-	useRadioGroup,
+  Box,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  useRadio,
+  useRadioGroup,
 } from "@chakra-ui/react";
 import Header from "components/Header";
 import Footer from "components/Footer";
@@ -26,247 +26,262 @@ import { useApi } from "api";
 import ArtistCard from "components/ArtistCard";
 
 function RadioCard(props) {
-	const { getInputProps, getCheckboxProps } = useRadio(props);
+  const { getInputProps, getCheckboxProps } = useRadio(props);
 
-	const input = getInputProps();
-	const checkbox = getCheckboxProps();
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
 
-	return (
-		<Box as='label'>
-			<input {...input} />
-			<Box
-				{...checkbox}
-				cursor='pointer'
-				_checked={{
-					filter: "brightness(0) saturate(100%)",
-				}}
-				padding='5px 34px'
-				fontFamily='Inter'
-				fontStyle='normal'
-				fontWeight='600'
-				fontSize='16px'
-				lineHeight='28px'
-				letterSpacing='1px'
-				color='#B5B6B7'
-				className={styles.switch}>
-				{props.children}
-			</Box>
-		</Box>
-	);
+  return (
+    <Box as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        cursor="pointer"
+        _checked={{
+          filter: "brightness(0) saturate(100%)",
+        }}
+        padding="5px 34px"
+        fontFamily="Inter"
+        fontStyle="normal"
+        fontWeight="600"
+        fontSize="16px"
+        lineHeight="28px"
+        letterSpacing="1px"
+        color="#B5B6B7"
+        className={styles.switch}
+      >
+        {props.children}
+      </Box>
+    </Box>
+  );
 }
 
 const Search = () => {
-	const [collection, setCollection] = useState("");
-	const [searching, setSearching] = useState(false);
-	const [collections, setCollections] = useState([]);
-	const [selected, setSelected] = useState("Collection");
-	const options = ["Artists", "Collection"];
+  const [collection, setCollection] = useState("");
+  const [searching, setSearching] = useState(false);
+  const [collections, setCollections] = useState([]);
+  const [selected, setSelected] = useState("Collection");
+  const options = ["Artists", "Collection"];
 
-	const { getRootProps, getRadioProps } = useRadioGroup({
-		name: "framework",
-		defaultValue: "Collection",
-		onChange: (nextValue) => setSelected(nextValue),
-	});
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "framework",
+    defaultValue: "Collection",
+    onChange: (nextValue) => setSelected(nextValue),
+  });
 
-	const group = getRootProps();
+  const group = getRootProps();
 
-	const { searchCollections, searchArtists } = useApi();
+  const { searchCollections, searchArtists } = useApi();
 
-	useEffect(() => {
-		const updateCollections = async () => {
-			setSearching(true);
-			const _collections =
-				selected === "Collection"
-					? await searchCollections(collection)
-					: await searchArtists(collection);
-			setCollections(_collections.data);
-			setSearching(false);
-		};
+  useEffect(() => {
+    const updateCollections = async () => {
+      setSearching(true);
+      const _collections =
+        selected === "Collection"
+          ? await searchCollections(collection)
+          : await searchArtists(collection);
+      setCollections(_collections.data);
+      setSearching(false);
+    };
 
-		updateCollections();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [collection]);
+    updateCollections();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collection]);
 
-	return (
-		<div>
-			<Header />
-			<Flex
-				width={{ base: "90%", lg: "80%" }}
-				minHeight={"calc(100vh - 80px)"}
-				flexDirection={"column"}
-				paddingTop={"85px"}
-				margin='auto'
-				gridGap={"24px"}
-				zIndex='1'
-				paddingBottom={"100px"}
-				position='relative'>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					left='0'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					right={{ base: "0", md: "-0px" }}></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-20px"}
-					right='0'></Image>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"107px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					transform={"rotate(180deg)"}
-					bottom={"-14px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-20px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-20px"}
-					left='0'></Image>
-				<Flex
-					position='relative'
-					marginRight={"auto"}
-					width={{ base: "88vw", lg: "80vw" }}
-					marginLeft='auto'
-					marginTop={"100px"}>
-					<Image
-						src={artistWrapper}
-						position='absolute'
-						transform='translate3d(-2px,3px,0px)'
-						zIndex={"-1"}
-						height='50px'
-					/>
-					<Text
-						fontFamily='Inter'
-						fontStyle='normal'
-						fontWeight='bold'
-						fontSize='30px'
-						lineHeight='56px'
-						marginLeft='10px'>
-						Search
-					</Text>
-				</Flex>
-				<Text
-					fontFamily='Inter'
-					fontStyle='normal'
-					fontWeight='600'
-					fontSize='16px'
-					lineHeight='28px'
-					paddingBottom='50px'
-					letterSpacing={"1px"}>
-					Search for your favorite artists and collections
-				</Text>
-				<HStack
-					{...group}
-					right='0'
-					top='15px'
-					display={{ base: "none", md: "flex" }}
-					flexDirection='row'
-					border='2px solid #000'
-					width={"fit-content"}
-					padding='9px 0px'>
-					{options.map((value) => {
-						const radio = getRadioProps({ value });
-						return (
-							<>
-								<RadioCard key={value} {...radio}>
-									{value}
-								</RadioCard>
-								<Box
-									width={"0px"}
-									border='1px solid #EAEAEA'
-									height={"30px"}
-									transform='translateX(2px)'
-									zIndex={"-1"}
-								/>
-							</>
-						);
-					})}
-				</HStack>
-				<Flex position={"relative"} width='100%' padding='30px'>
-					<Image src={bordertl} position='absolute' top={"0"} left='0' />
-					<Image src={borderbl} position='absolute' bottom={"0"} left='0' />
-					<Image src={bordertr} position='absolute' top={"0"} right='0' />
-					<Image src={borderbr} position='absolute' bottom={"0"} right='0' />
-					<Image src={borderml} position='absolute' bottom={"45%"} left='0' />
-					<Image src={bordermr} position='absolute' bottom={"45%"} right='0' />
-					<input
-						className={styles.input}
-						maxLength={40}
-						placeholder='Search'
-						value={collection}
-						onChange={(e) => setCollection(e.target.value)}
-						// onBlur={validateName}
-					/>
-				</Flex>
+  return (
+    <div>
+      <Header />
+      <Flex
+        width={{ base: "90%", lg: "80%" }}
+        minHeight={"calc(100vh - 80px)"}
+        flexDirection={"column"}
+        paddingTop={"85px"}
+        margin="auto"
+        gridGap={"24px"}
+        zIndex="1"
+        paddingBottom={"100px"}
+        position="relative"
+      >
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"100px"}
+          left="0"
+        ></Image>
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"100px"}
+          right={{ base: "0", md: "-0px" }}
+        ></Image>
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          bottom={"-20px"}
+          right="0"
+        ></Image>
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={ticon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"107px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"100px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={ticon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          transform={"rotate(180deg)"}
+          bottom={"-14px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          bottom={"-20px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          bottom={"-20px"}
+          left="0"
+        ></Image>
+        <Flex
+          position="relative"
+          marginRight={"auto"}
+          width={{ base: "88vw", lg: "80vw" }}
+          marginLeft="auto"
+          marginTop={"100px"}
+        >
+          <Image
+            src={artistWrapper}
+            position="absolute"
+            transform="translate3d(-2px,3px,0px)"
+            zIndex={"-1"}
+            height="50px"
+          />
+          <Text
+            fontFamily="Inter"
+            fontStyle="normal"
+            fontWeight="bold"
+            fontSize="30px"
+            lineHeight="56px"
+            marginLeft="10px"
+          >
+            Search
+          </Text>
+        </Flex>
+        <Text
+          fontFamily="Inter"
+          fontStyle="normal"
+          fontWeight="600"
+          fontSize="16px"
+          lineHeight="28px"
+          paddingBottom="50px"
+          letterSpacing={"1px"}
+        >
+          Search for your favorite artists and collections
+        </Text>
+        <Flex position={"relative"} width="100%" padding="30px">
+          <Image src={bordertl} position="absolute" top={"0"} left="0" />
+          <Image src={borderbl} position="absolute" bottom={"0"} left="0" />
+          <Image src={bordertr} position="absolute" top={"0"} right="0" />
+          <Image src={borderbr} position="absolute" bottom={"0"} right="0" />
+          <Image src={borderml} position="absolute" bottom={"45%"} left="0" />
+          <Image src={bordermr} position="absolute" bottom={"45%"} right="0" />
+          <input
+            className={styles.input}
+            maxLength={40}
+            placeholder="Search"
+            value={collection}
+            onChange={(e) => setCollection(e.target.value)}
+            // onBlur={validateName}
+          />
+        </Flex>
+        <HStack
+          {...group}
+          right="0"
+          top="15px"
+          display={{ base: "none", md: "flex" }}
+          flexDirection="row"
+          border="2px solid #000"
+          width={"fit-content"}
+          padding="9px 0px"
+          marginTop={"40px"}
+        >
+          {options.map((value) => {
+            const radio = getRadioProps({ value });
+            return (
+              <>
+                <RadioCard key={value} {...radio}>
+                  {value}
+                </RadioCard>
+                <Box
+                  width={"0px"}
+                  border="1px solid #EAEAEA"
+                  height={"30px"}
+                  transform="translateX(2px)"
+                  zIndex={"-1"}
+                />
+              </>
+            );
+          })}
+        </HStack>
 
-				{searching ? (
-					<div className={styles.stage}>
-						<div className={styles.dotTyping}></div>
-					</div>
-				) : (
-					<div className={styles.exploreAll}>
-						{collections.map((collection) => {
-							return selected === "Collection"
-								? NftItem(collection)
-								: ArtistCard(collection);
-						})}
-					</div>
-				)}
-			</Flex>
+        {searching ? (
+          <div className={styles.stage}>
+            <div className={styles.dotTyping}></div>
+          </div>
+        ) : (
+          <div className={styles.exploreAll}>
+            {collections.map((collection) => {
+              return selected === "Collection"
+                ? NftItem(collection)
+                : ArtistCard(collection);
+            })}
+          </div>
+        )}
+      </Flex>
 
-			<Footer />
-		</div>
-	);
+      <Footer />
+    </div>
+  );
 };
 export default Search;

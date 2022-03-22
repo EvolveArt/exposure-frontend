@@ -16,6 +16,7 @@ import { formatName, getRandomIPFS } from "utils";
 const TopPage = (artist: Artist) => {
   return (
     <>
+      <Flex padding={"30px"} display={{ base: "none", md: "unset" }} />
       <Flex
         width={{ base: "90%", lg: "80%" }}
         minHeight={"80vh"}
