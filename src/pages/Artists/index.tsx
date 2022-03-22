@@ -1,4 +1,4 @@
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { useApi } from "api";
 import ArtistCard from "components/ArtistCard";
 import Header from "components/Header";
@@ -146,15 +146,17 @@ const Artists = () => {
             Artists
           </Text>
         </Flex>
-        <Flex
-          width={"100%"}
-          flexWrap="wrap"
-          justifyContent={"center"}
-          alignItems="center"
-          gridGap={"36px 0px"}
-        >
-          {artists.map((artist: Artist) => ArtistCard(artist))}
-        </Flex>
+        <Box overflow={"hidden"} width="fit-content">
+          <Flex
+            width={"fit-content"}
+            flexWrap="wrap"
+            justifyContent={"center"}
+            alignItems="center"
+            gridGap={"36px 0px"}
+          >
+            {artists.map((artist: Artist) => ArtistCard(artist))}
+          </Flex>
+        </Box>
       </Flex>
       <Footer />
     </div>

@@ -12,6 +12,14 @@
 .dropContainer:hover .imageContainer {
   border-bottom: 2px solid #000;
 }
+.artistComponent {
+  border-right: 1px solid #ddd;
+  min-width: 262px;
+  height: fit-content;
+  &:last-child {
+    border-right: unset;
+  }
+}
 
 .panelBody {
   width: 100%;

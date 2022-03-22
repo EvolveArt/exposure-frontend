@@ -117,6 +117,7 @@ export default function Header() {
         position="fixed"
         width={"100vw"}
         zIndex="3"
+        borderBottom={"1px solid #ccc"}
       >
         <Flex
           flex={{ base: "unset", md: "auto" }}
