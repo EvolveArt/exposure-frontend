@@ -3,6 +3,28 @@
   margin: auto;
 }
 
+.mediaBox {
+  position: relative;
+  padding-bottom: calc(100% - 16px);
+  overflow: hidden;
+  border-bottom: var(--color-text) 1px solid;
+}
+
+.mediaPanel {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.imageBox {
+  width: 100%;
+  position: relative;
+  padding-bottom: 100%;
+  box-sizing: border-box;
+}
+
 .imageContainer {
   border-bottom: 2px solid #eee;
 }
