@@ -38,7 +38,8 @@ import { useToast } from "@chakra-ui/react";
 // import styles from "./styles.module.scss";
 import { ADMIN_ADDRESSES } from "constants/index";
 import axios from "axios";
-import NftItem from "components/NFTitem";
+// import NftItem from "components/NFTitem";
+import styles from "./styles.module.scss";
 
 interface DropInfo {
 	artist: string;
@@ -567,7 +568,8 @@ const CollectionPage = () => {
 			const _metadata = await axios.get(
 				getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
 			);
-			images.push(_metadata.data.image);
+			images.push(_metadata.data);
+			// console.log(_metadata.data);
 		}
 
 		setImages(images);
@@ -626,7 +628,59 @@ const CollectionPage = () => {
 				margin={"auto"}
 				gridGap={"24px"}>
 				{images.map((elem, index) => {
-					return NftItem(elem);
+					return (
+						<Flex
+							width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
+							flexDir={"column"}
+							borderRadius={"2px"}
+							className={styles.dropContainer}>
+							<Flex
+								width='100%'
+								position='relative'
+								paddingBottom='100%'
+								boxSizing='border-box'
+								className={styles.imageContainer}>
+								<Image
+									src={getRandomIPFS(elem.image)}
+									position='absolute'
+									top='0'
+									left='0'
+									width='100%'
+									height='100%'
+									backgroundSize='contain'
+									objectFit='contain'
+									border='0'
+									padding='8px'></Image>
+							</Flex>
+							<Flex
+								flexDirection={"column"}
+								paddingLeft='8px'
+								gridGap={"8px"}
+								paddingBottom='8px'>
+								<Text
+									fontStyle='normal'
+									fontWeight='600'
+									fontSize='20px'
+									lineHeight='35px'
+									paddingTop='19px'>
+									{elem.name}
+								</Text>
+								<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
+									By{" "}
+									{
+										elem.attributes.find((a: any) => a.trait_type === "Artist")
+											.value
+									}
+								</Text>
+								{/* <Text fontSize='12px' lineHeight='18px'>
+									<span style={{ fontWeight: "bold" }}>
+										{collection.totalSupply}{" "}
+									</span>
+									photos
+								</Text> */}
+							</Flex>
+						</Flex>
+					);
 				})}
 			</Flex>
 			<Footer />
