@@ -18,7 +18,7 @@ import { getSigner } from "contracts";
 import { ethers } from "ethers";
 import AuthActions from "actions/auth.actions";
 import arrow from "../../assets/imgs/ArrowRight.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Email = () => {
 	const [saving, setSaving] = useState(false);
@@ -30,6 +30,8 @@ const Email = () => {
 	const { getNonce, updateAccountDetails } = useApi();
 	const toast = useToast();
 	const dispatch = useDispatch();
+
+	const history = useHistory();
 
 	const validEmail = (email) => /(.+)@(.+){2,}\.(.+){2,}/.test(email);
 
@@ -73,10 +75,11 @@ const Email = () => {
 
 			const res = await updateAccountDetails(email, authToken, signature, addr);
 			dispatch(AuthActions.fetchSuccess(res.data));
-			toast("success", "Account details saved!");
+			toast({ status: "success", title: "Account details saved!" });
 			setSaving(false);
 
 			// Update bool and redirect
+			history.replace("/");
 		} catch {
 			setSaving(false);
 		}
