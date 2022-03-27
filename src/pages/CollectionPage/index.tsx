@@ -524,10 +524,10 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 						paddingLeft='32px'
 						paddingRight={"32px"}
 						paddingBottom='20px'>
-						{collection?.description}
+						{collection?.verbatim}
 					</Text>
 					<Text paddingBottom={"25px"} fontSize='16px' lineHeight={"28px"}>
-						{collection?.artists && formatName(collection?.artists[0])}
+						{collection?.verbatimAuthor}
 					</Text>
 				</Flex>
 			)}

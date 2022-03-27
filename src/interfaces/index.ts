@@ -14,6 +14,8 @@ export interface Collection {
 	_id: string;
 	dropId: number;
 	collectionName: string;
+	verbatim?: string;
+	verbatimAuthor?: string;
 	artists: Artist[];
 	description: string;
 	logoImageHash: string;
