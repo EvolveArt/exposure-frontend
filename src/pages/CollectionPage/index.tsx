@@ -22,7 +22,7 @@ import smallGrid from "../../assets/imgs/smallgrid.png";
 import ether from "../../assets/imgs/ether.png";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useParams } from "react-router-dom";
+import { useParams, Link as RouterLink } from "react-router-dom";
 import { useApi } from "api";
 // eslint-disable-next-line
 import { Collection } from "interfaces";
@@ -357,33 +357,60 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							</span> */}
 						</Text>
 					</Flex>
-					<Flex border={"1px solid #000"} width='100%'>
-						<Button
-							fontSize={"16px"}
-							lineHeight='20px'
-							fontWeight={"700"}
-							fontFamily={"Inter"}
-							color={"white"}
-							bg={"#000"}
-							borderRadius='0px'
-							width={"100%"}
-							height={"64px"}
-							style={{ marginInlineStart: "unset" }}
-							_hover={{
-								transform: "translate3d(4px,4px,0px)",
-							}}
-							onClick={handleMint}>
-							{minting ? "Minting..." : "Mint"}
-						</Button>
-					</Flex>
-					<Link
-						fontWeight={"700"}
-						margin='auto'
-						paddingTop={"29px"}
-						href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
-						target='_blank'>
-						See collection on Opensea
-					</Link>
+					{extend ? (
+						<>
+							<Flex border={"1px solid #000"} width='100%'>
+								<Button
+									fontSize={"16px"}
+									lineHeight='20px'
+									fontWeight={"700"}
+									fontFamily={"Inter"}
+									color={"white"}
+									bg={"#000"}
+									borderRadius='0px'
+									width={"100%"}
+									height={"64px"}
+									style={{ marginInlineStart: "unset" }}
+									_hover={{
+										transform: "translate3d(4px,4px,0px)",
+									}}
+									onClick={handleMint}>
+									{minting ? "Minting..." : "Mint"}
+								</Button>
+							</Flex>
+							<Link
+								fontWeight={"700"}
+								margin='auto'
+								paddingTop={"29px"}
+								href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
+								target='_blank'>
+								See collection on Opensea
+							</Link>
+						</>
+					) : (
+						<>
+							<Flex border={"1px solid #000"} width='100%'>
+								<Button
+									fontSize={"16px"}
+									lineHeight='20px'
+									fontWeight={"700"}
+									fontFamily={"Inter"}
+									color={"white"}
+									bg={"#000"}
+									borderRadius='0px'
+									width={"100%"}
+									height={"64px"}
+									style={{ marginInlineStart: "unset" }}
+									_hover={{
+										transform: "translate3d(4px,4px,0px)",
+									}}
+									as={RouterLink}
+									to={`/collection/${collection.dropId}`}>
+									Discover Collection
+								</Button>
+							</Flex>
+						</>
+					)}
 				</Flex>
 				<Image
 					display={{ base: "none", md: "unset" }}
@@ -397,7 +424,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 					marginLeft='auto'
 					marginRight='auto'></Image>
 			</Flex>
-			{account && ADMIN_ADDRESSES.includes(account.toLowerCase()) && (
+			{account && ADMIN_ADDRESSES.includes(account.toLowerCase()) && extend && (
 				<Flex
 					width={"80%"}
 					margin='auto'
