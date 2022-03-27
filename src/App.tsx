@@ -24,6 +24,7 @@ import ListMints from "pages/ListMints";
 import NotFound from "components/NotFound";
 import ProtectedRoute from "components/ProtectedRoute";
 import Search from "pages/Search/index.jsx";
+import Email from "pages/Email/index.jsx";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -40,6 +41,7 @@ export const App = () => (
         <Route exact path="/exploreCollection" component={ExploreCollection} />
         <Route exact path="/artist/:address" component={ArtistPage} />
         <Route exact path="/" component={WaitingPage} />
+        <Route exact path="/email" component={Email} />
         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
         <ProtectedRoute exact path="/listartists" component={ListArtists} />
         <ProtectedRoute

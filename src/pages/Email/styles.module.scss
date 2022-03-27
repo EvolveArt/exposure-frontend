@@ -1,0 +1,14 @@
+.input {
+  border: 2px solid #cbcbcb;
+  width: calc(100% - 40px);
+  margin-left: auto;
+  margin-right: auto;
+  height: 60px;
+  line-height: 2;
+  margin-bottom: 27px;
+  padding: 10px;
+
+  &:focus {
+    border: 2px #000 solid;
+  }
+}
