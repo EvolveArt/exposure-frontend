@@ -531,37 +531,35 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							Un bouton
 						</Button>
 					</Flex> */}
-        </Flex>
-      )}
-      {extend && (
-        <Flex
-          width={{ base: "90%", lg: "80%" }}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems={"center"}
-          margin="auto"
-          zIndex="1"
-          border="solid 2px #000"
-        >
-          <Text
-            fontWeight="800"
-            fontSize={{ base: "30px", md: "40px" }}
-            lineHeight={{ base: "40px", md: "53px" }}
-            textAlign={"center"}
-            paddingTop="25px"
-            paddingLeft="32px"
-            paddingRight={"32px"}
-            paddingBottom="20px"
-          >
-            {collection?.description}
-          </Text>
-          <Text paddingBottom={"25px"} fontSize="16px" lineHeight={"28px"}>
-            {collection?.artists && formatName(collection?.artists[0])}
-          </Text>
-        </Flex>
-      )}
-    </>
-  );
+				</Flex>
+			)}
+			{extend && (
+				<Flex
+					width={{ base: "90%", lg: "80%" }}
+					flexDirection='column'
+					justifyContent='center'
+					alignItems={"center"}
+					margin='auto'
+					zIndex='1'
+					border='solid 2px #000'>
+					<Text
+						fontWeight='800'
+						fontSize={{ base: "30px", md: "40px" }}
+						lineHeight={{ base: "40px", md: "53px" }}
+						textAlign={"center"}
+						paddingTop='25px'
+						paddingLeft='32px'
+						paddingRight={"32px"}
+						paddingBottom='20px'>
+						{collection?.verbatim}
+					</Text>
+					<Text paddingBottom={"25px"} fontSize='16px' lineHeight={"28px"}>
+						{collection?.verbatimAuthor}
+					</Text>
+				</Flex>
+			)}
+		</>
+	);
 };
 
 function RadioCard(props: any) {
