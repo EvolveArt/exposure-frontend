@@ -239,7 +239,7 @@ const AddCollection = () => {
 		}
 	};
 
-	const clipImage = (image, clipX, clipY, clipWidth, clipHeight, cb) => {
+	const clipImage = (image, cb) => {
 		// const CANVAS_SIZE = 128;
 		const canvas = document.createElement("canvas");
 		canvas.width = image.width;
