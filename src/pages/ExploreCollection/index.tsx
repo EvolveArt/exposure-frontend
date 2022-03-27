@@ -9,9 +9,11 @@ import { useApi } from "api";
 import NftItem from "components/NFTitem";
 // eslint-disable-next-line
 import { Artist, Collection } from "interfaces";
-import { Box, Checkbox, Flex, Image, Link } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { formatName } from "utils";
 // import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+
 import logo from "../../assets/imgs/logoWhite.png";
 import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
@@ -266,6 +268,46 @@ const ExploreCollection = () => {
             className={styles.exploreAll}
             // onScroll={width > 600 ? handleScroll : null}
           >
+            <Box width={"100%"}>
+              <Flex
+                position="relative"
+                marginRight={"auto"}
+                width={{ base: "88vw", lg: "80vw" }}
+              >
+                <Image
+                  src={artistWrapper}
+                  position="absolute"
+                  transform="translate3d(-2px,3px,0px)"
+                  height="50px"
+                  width={"170px"}
+                  zIndex="100"
+                />
+                <Text
+                  fontFamily="Inter"
+                  fontStyle="normal"
+                  fontWeight="bold"
+                  fontSize="30px"
+                  lineHeight="56px"
+                  paddingBottom={"10px"}
+                  marginLeft="10px"
+                >
+                  Collection
+                </Text>
+              </Flex>
+              <Text
+                paddingBottom={"57px"}
+                maxWidth="592px"
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight="400"
+                fontSize="16px"
+                lineHeight="28px"
+                color="#3E3E3E"
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus,
+                laoreet aliquam natoque vitae nulla tellus mauris sapien. Amet.
+              </Text>
+            </Box>
             {collections.map((collection: Collection) => {
               return NftItem(collection);
             })}
