@@ -126,13 +126,13 @@ const AddArtist = () => {
 		return true;
 	})();
 
-	const clipImage = (image, clipX, clipY, clipWidth, clipHeight, cb) => {
+	const clipImage = (image, cb) => {
 		// const CANVAS_SIZE = 128;
 		const canvas = document.createElement("canvas");
-		canvas.width = 240;
-		canvas.height = 280;
+		canvas.width = image.width;
+		canvas.height = image.height;
 		const ctx = canvas.getContext("2d");
-		ctx.drawImage(image, clipX, clipY, clipWidth, clipHeight, 0, 0, 240, 280);
+		ctx.drawImage(image, 0, 0);
 		cb(canvas.toDataURL());
 	};
 
@@ -142,13 +142,13 @@ const AddArtist = () => {
 		setAdding(true);
 
 		const img = new Image();
-		img.onload = function() {
-			const w = this.width;
-			const h = this.height;
-			const size = Math.min(w, h);
-			const x = (w - size) / 2;
-			const y = (h - size) / 2;
-			clipImage(img, x, y, size, size, async (logodata) => {
+		img.onload = async function() {
+			// const w = this.width;
+			// const h = this.height;
+			// const size = Math.min(w, h);
+			// const x = (w - size) / 2;
+			// const y = (h - size) / 2;
+			clipImage(img, async (logodata) => {
 				try {
 					const { data: nonce } = await getNonce(account, authToken);
 

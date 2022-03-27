@@ -240,10 +240,10 @@ const AddCollection = () => {
 	const clipImage = (image, clipX, clipY, clipWidth, clipHeight, cb) => {
 		// const CANVAS_SIZE = 128;
 		const canvas = document.createElement("canvas");
-		canvas.width = 1280;
-		canvas.height = 720;
+		canvas.width = image.width;
+		canvas.height = image.height;
 		const ctx = canvas.getContext("2d");
-		ctx.drawImage(image, clipX, clipY, clipWidth, clipHeight, 0, 0, 1280, 720);
+		ctx.drawImage(image, 0, 0);
 		cb(canvas.toDataURL());
 	};
 
@@ -254,12 +254,7 @@ const AddCollection = () => {
 
 		const img = new Image();
 		img.onload = function() {
-			const w = this.width;
-			const h = this.height;
-			const size = Math.min(w, h);
-			const x = (w - size) / 2;
-			const y = (h - size) / 2;
-			clipImage(img, x, y, size, size, async (logodata) => {
+			clipImage(img, async (logodata) => {
 				try {
 					const { data: nonce } = await getNonce(account, authToken);
 
