@@ -28,6 +28,8 @@ const AddCollection = () => {
 	const [metadataHash, setMetadataHash] = useState(null);
 	const [photos, setPhotos] = useState(null);
 	const [name, setName] = useState("");
+	const [verbatim, setVerbatim] = useState("");
+	const [verbatimAuthor, setVerbatimAuthor] = useState("");
 	const [adding, setAdding] = useState(false);
 	const [uploading, setUploading] = useState(false);
 	const [nameError, setNameError] = useState(null);
@@ -336,6 +338,8 @@ const AddCollection = () => {
 							const data = {
 								dropId,
 								collectionName: name,
+								verbatim,
+								verbatimAuthor,
 								teasingDate: teasingTime,
 								releaseDate: dropTime,
 								mintPrice: mint,
@@ -478,6 +482,34 @@ const AddCollection = () => {
 						/>
 						<div className={styles.lengthIndicator}>{name.length}/40</div>
 						{nameError && <div className={styles.error}>{nameError}</div>}
+					</div>
+				</div>
+				<div className={styles.inputGroup}>
+					<div className={styles.inputTitle}>Verbatim</div>
+					<div className={styles.inputWrapper}>
+						<input
+							className={cx(styles.input)}
+							maxLength={200}
+							placeholder='Verbatim'
+							value={verbatim}
+							onChange={(e) => setVerbatim(e.target.value)}
+						/>
+						<div className={styles.lengthIndicator}>{verbatim.length}/200</div>
+					</div>
+				</div>
+				<div className={styles.inputGroup}>
+					<div className={styles.inputTitle}>Verbatim Author</div>
+					<div className={styles.inputWrapper}>
+						<input
+							className={cx(styles.input)}
+							maxLength={50}
+							placeholder='Verbatim Author'
+							value={verbatimAuthor}
+							onChange={(e) => setVerbatimAuthor(e.target.value)}
+						/>
+						<div className={styles.lengthIndicator}>
+							{verbatimAuthor.length}/50
+						</div>
 					</div>
 				</div>
 				<div className={styles.inputGroup}>
