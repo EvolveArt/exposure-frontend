@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSigner } from "contracts";
 import { ethers } from "ethers";
 import AuthActions from "actions/auth.actions";
+import arrow from "../../assets/imgs/ArrowRight.png";
+import { Link } from "react-router-dom";
 
 const Email = () => {
 	const [saving, setSaving] = useState(false);
@@ -241,6 +243,26 @@ const Email = () => {
 							Confirm
 						</Button>
 					</Flex>
+					<Link to={"/"}>
+						<Flex
+							flexDir={"row"}
+							width='fit-content'
+							alignItems={"center"}
+							marginLeft='auto'
+							justifyContent='center'
+							padding={"20px"}>
+							<Text
+								fontFamily='Inter'
+								fontStyle='normal'
+								fontWeight='700'
+								fontSize='16px'
+								lineHeight='20px'
+								textAlign='center'>
+								Skip
+							</Text>
+							<Image src={arrow} width='30px' />
+						</Flex>
+					</Link>
 				</Flex>
 			</Flex>
 			<Footer />
