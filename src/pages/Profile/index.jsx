@@ -49,6 +49,8 @@ function RadioCard(props) {
 	);
 }
 
+const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
+
 const Profile = () => {
 	const { uid } = useParams();
 	const [userNFTs, setUserNFTs] = useState([]);
@@ -67,7 +69,9 @@ const Profile = () => {
 		const fetchNFTs = async () => {
 			const response = await axios({
 				method: "get",
-				url: `${baseURL}?owner=${uid}&contractAddresses=[${Contracts[4].ExposureMain}]`,
+				url: `${baseURL}?owner=${uid}&contractAddresses=[${Contracts[
+					isMainnet ? 1 : 4
+				].ExposureMain.toLowerCase()}]`,
 			});
 			console.log(response);
 			setUserNFTs(response.data.ownedNfts);
