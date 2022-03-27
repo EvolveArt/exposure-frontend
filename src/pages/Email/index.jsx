@@ -4,7 +4,6 @@ import React from "react";
 import Header from "../../components/Header/index";
 import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
-import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import borderbl from "../../assets/imgs/borderbl.png";
 import borderbr from "../../assets/imgs/borderbr.png";
 import borderml from "../../assets/imgs/borderml.png";
