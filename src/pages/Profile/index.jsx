@@ -63,15 +63,15 @@ const Profile = () => {
 	});
 
 	const apiKey = process.env.REACT_APP_ALCHEMY_KEY;
-	const baseURL = `https://eth-rinkeby.alchemyapi.io/v2/${apiKey}/getNFTs/`;
+	const baseURL = `https://eth-rinkeby.alchemyapi.io/v2/${apiKey}/getNFTs`;
 
 	useEffect(() => {
 		const fetchNFTs = async () => {
 			const response = await axios({
 				method: "get",
-				url: `${baseURL}?owner=${uid}&contractAddresses=[${Contracts[
+				url: `${baseURL}?owner=${uid}&contractAddresses[]=${Contracts[
 					isMainnet ? 1 : 4
-				].ExposureMain.toLowerCase()}]`,
+				].ExposureMain.toLowerCase()}`,
 			});
 			console.log(response);
 			setUserNFTs(response.data.ownedNfts);
