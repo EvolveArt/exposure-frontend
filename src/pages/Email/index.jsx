@@ -19,6 +19,7 @@ import { ethers } from "ethers";
 import AuthActions from "actions/auth.actions";
 import arrow from "../../assets/imgs/ArrowRight.png";
 import { Link, useHistory } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Email = () => {
 	const [saving, setSaving] = useState(false);
@@ -32,6 +33,9 @@ const Email = () => {
 	const dispatch = useDispatch();
 
 	const history = useHistory();
+
+	// eslint-disable-next-line no-unused-vars
+	const [cookies, setCookie, removeCookie] = useCookies(["skip-email"]);
 
 	const validEmail = (email) => /(.+)@(.+){2,}\.(.+){2,}/.test(email);
 
@@ -246,7 +250,11 @@ const Email = () => {
 							Confirm
 						</Button>
 					</Flex>
-					<Link to={"/"}>
+					<Link
+						onClick={() => {
+							setCookie("skip-email", true, { path: "/", maxAge: 86400 });
+							history.replace("/");
+						}}>
 						<Flex
 							flexDir={"row"}
 							width='fit-content'

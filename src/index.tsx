@@ -10,6 +10,7 @@ import { createWeb3ReactRoot, Web3ReactProvider } from "@web3-react/core";
 import { NetworkContextName } from "./constants";
 import Web3ReactManager from "components/Web3ReactManager";
 import getLibrary from "./utils/getLibrary";
+import { CookiesProvider } from "react-cookie";
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 
@@ -18,8 +19,10 @@ ReactDOM.render(
 		<Web3ReactProvider getLibrary={getLibrary}>
 			<Web3ProviderNetwork getLibrary={getLibrary}>
 				<Web3ReactManager>
-					<ColorModeScript />
-					<App />
+					<CookiesProvider>
+						<ColorModeScript />
+						<App />
+					</CookiesProvider>
 				</Web3ReactManager>
 			</Web3ProviderNetwork>
 		</Web3ReactProvider>
