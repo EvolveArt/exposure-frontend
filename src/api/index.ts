@@ -170,6 +170,29 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const updateAccountDetails = async (
+		email: string,
+		authToken: string | null | undefined,
+		signature: string,
+		signatureAddress: string
+	) => {
+		const formData = new FormData();
+		formData.append("email", email);
+		formData.append("signature", signature);
+		formData.append("signatureAddress", signatureAddress);
+
+		const res = await axios({
+			method: "post",
+			url: `${apiUrl}/account/accountdetails`,
+			data: formData,
+			headers: {
+				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${authToken}`,
+			},
+		});
+		return res.data;
+	};
+
 	const updateMint = async (
 		dropId: number,
 		amount: number,
@@ -202,6 +225,7 @@ export const useApi = () => {
 		updateMint,
 		searchCollections,
 		searchArtists,
+		updateAccountDetails,
 		// getIsModerator,
 	};
 };

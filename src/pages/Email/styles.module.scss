@@ -1,14 +1,21 @@
 .input {
-  border: 2px solid #cbcbcb;
-  width: calc(100% - 40px);
-  margin-left: auto;
-  margin-right: auto;
-  height: 60px;
-  line-height: 2;
-  margin-bottom: 27px;
-  padding: 10px;
+	border: 2px solid #cbcbcb;
+	width: calc(100% - 40px);
+	margin-left: auto;
+	margin-right: auto;
+	height: 60px;
+	line-height: 2;
+	margin-bottom: 27px;
+	padding: 10px;
 
-  &:focus {
-    border: 2px #000 solid;
-  }
+	&:focus {
+		border: 2px #000 solid;
+	}
+}
+
+.error {
+	font-size: 13px;
+	font-weight: 400;
+	margin: 6px 0 0 6px;
+	color: rgba(235, 87, 87);
 }
