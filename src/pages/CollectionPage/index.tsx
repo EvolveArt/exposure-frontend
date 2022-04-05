@@ -193,15 +193,6 @@ export const TopPage = (collection: Collection, extend: boolean) => {
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
-            src={addIcon}
-            filter="brightness(0)"
-            width={"16px"}
-            position="absolute"
-            bottom={"0px"}
-            right="0"
-          ></Image>
-          <Image
-            display={{ base: "unset", md: "none" }}
             src={ticon}
             filter="brightness(0)"
             width={"16px"}
@@ -211,6 +202,15 @@ export const TopPage = (collection: Collection, extend: boolean) => {
             right="0"
             marginLeft="auto"
             marginRight="auto"
+          ></Image>
+          <Image
+            display={{ base: "unset", md: "none" }}
+            src={addIcon}
+            filter="brightness(0)"
+            width={"16px"}
+            position="absolute"
+            bottom={"0px"}
+            right="0"
           ></Image>
           <Image
             src={addIcon}
@@ -242,7 +242,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
             width={"16px"}
             position="absolute"
             top={"0"}
-            right="0px"
+            right="-7px"
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
@@ -259,7 +259,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
             width={"16px"}
             position="absolute"
             bottom={{ base: "0", md: "0px" }}
-            right="0px"
+            right="-7px"
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
@@ -695,7 +695,50 @@ const CollectionPage = () => {
         alignItems="center"
         margin={"auto"}
         gridGap={"24px"}
+        position="relative"
+        paddingBottom={"150px"}
       >
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={ticon}
+          transform={"rotate(180deg)"}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          bottom={"75px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          bottom={"70px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          bottom={"70px"}
+          right="-7px"
+        ></Image>
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          bottom={"70px"}
+          left="-7px"
+        ></Image>
         {images.map((elem, index) => {
           return (
             <Flex

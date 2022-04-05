@@ -135,7 +135,7 @@ const LandingPage = () => {
             width={"16px"}
             position="absolute"
             bottom={"-60px"}
-            right="0px"
+            right="-7px"
           ></Image>
           <Image
             display={{ base: "none", md: "unset" }}
