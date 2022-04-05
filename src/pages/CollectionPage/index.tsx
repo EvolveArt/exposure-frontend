@@ -172,6 +172,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
           <Image
             src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
             boxShadow="0px 8px 16px 0px rgba(0, 0, 0, 0.15)"
+            width={"100%"}
           ></Image>
           <Image
             src={addIcon}
@@ -179,7 +180,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
             width={"16px"}
             position="absolute"
             top={"0"}
-            left="0"
+            left="-7px"
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
@@ -217,7 +218,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
             width={"16px"}
             position="absolute"
             bottom={"0"}
-            left="0"
+            left="-7px"
           ></Image>
         </Flex>
         <Flex
@@ -230,6 +231,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
           height={{ base: "fit-content", md: "80vh" }}
           justifyContent="center"
           position="relative"
+          paddingLeft={{ base: "unset", md: "50px", lg: "70px" }}
           paddingBottom={{ base: "50px", md: "unset" }}
           paddingTop="50px"
         >
@@ -272,168 +274,174 @@ export const TopPage = (collection: Collection, extend: boolean) => {
             marginLeft="auto"
             marginRight="auto"
           ></Image>
-          <Text
-            fontFamily="Inter"
-            fontStyle="normal"
-            fontWeight="800"
-            fontSize="30px"
-            lineHeight="56px"
-            paddingBottom={"4px"}
-          >
-            {collection?.collectionName}
-          </Text>
-          <Text
-            fontFamily="Inter"
-            fontStyle="normal"
-            fontWeight="normal"
-            fontSize={"16px"}
-            lineHeight="28px"
-            paddingBottom={"24px"}
-          >
-            By{" "}
-            {collection?.artists
-              ? formatName(collection?.artists[0])
-              : "Unknown"}
-          </Text>
-          <Text
-            fontFamily="Inter"
-            fontStyle="normal"
-            fontWeight="normal"
-            fontSize={"16px"}
-            lineHeight="28px"
-            paddingBottom={"26px"}
-          >
-            {collection?.description}
-          </Text>
-          <Flex flexDirection={"row"} gridGap="9px">
-            <Image src={mintType} width="29px" height="29px" />
+          <Box margin={"auto"} paddingBottom="50px">
             <Text
               fontFamily="Inter"
               fontStyle="normal"
-              fontWeight="normal"
-              fontSize="16px"
-              lineHeight="28px"
-              paddingBottom={"17px"}
+              fontWeight="800"
+              fontSize="30px"
+              lineHeight="56px"
+              paddingBottom={"4px"}
             >
-              {collection?.mintMode === "0" ? "Dutch Auction" : "Random Mint"}
+              {collection?.collectionName}
             </Text>
-          </Flex>
-          <Flex flexDirection={"row"} gridGap="9px">
-            <Image src={ether} width="29px" height="29px" />
             <Text
               fontFamily="Inter"
               fontStyle="normal"
               fontWeight="normal"
-              fontSize="16px"
+              fontSize={"16px"}
               lineHeight="28px"
-              paddingBottom={"17px"}
+              paddingBottom={"24px"}
             >
-              Mint price -{" "}
-              {updating ? (
-                <Skeleton width={60} style={{ background: "black" }} />
-              ) : (
+              By{" "}
+              {collection?.artists
+                ? formatName(collection?.artists[0])
+                : "Unknown"}
+            </Text>
+            {extend ? (
+              <Text
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight="normal"
+                fontSize={"16px"}
+                lineHeight="28px"
+                paddingBottom={"26px"}
+              >
+                {collection?.description}
+              </Text>
+            ) : (
+              <></>
+            )}
+            <Flex flexDirection={"row"} gridGap="9px">
+              <Image src={mintType} width="29px" height="29px" />
+              <Text
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight="normal"
+                fontSize="16px"
+                lineHeight="28px"
+                paddingBottom={"17px"}
+              >
+                {collection?.mintMode === "0" ? "Dutch Auction" : "Random Mint"}
+              </Text>
+            </Flex>
+            <Flex flexDirection={"row"} gridGap="9px">
+              <Image src={ether} width="29px" height="29px" />
+              <Text
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight="normal"
+                fontSize="16px"
+                lineHeight="28px"
+                paddingBottom={"17px"}
+              >
+                Mint price -{" "}
+                {updating ? (
+                  <Skeleton width={60} style={{ background: "black" }} />
+                ) : (
+                  <span style={{ fontWeight: "800" }}>
+                    {collection?.mintMode === "0"
+                      ? ethers.utils.formatEther(auctionPrice)
+                      : collection?.mintPrice}{" "}
+                    ETH
+                  </span>
+                )}
+              </Text>
+            </Flex>
+            <Flex flexDirection={"row"} gridGap="9px">
+              <Image src={available} width="29px" height="29px" />
+              <Text
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight="normal"
+                fontSize="16px"
+                lineHeight="28px"
+                paddingBottom={"17px"}
+              >
+                Mint available -{" "}
                 <span style={{ fontWeight: "800" }}>
-                  {collection?.mintMode === "0"
-                    ? ethers.utils.formatEther(auctionPrice)
-                    : collection?.mintPrice}{" "}
-                  ETH
+                  {dropInfo?.circulating?.toNumber()} /{" "}
+                  {dropInfo?.max?.toNumber()}
                 </span>
-              )}
-            </Text>
-          </Flex>
-          <Flex flexDirection={"row"} gridGap="9px">
-            <Image src={available} width="29px" height="29px" />
-            <Text
-              fontFamily="Inter"
-              fontStyle="normal"
-              fontWeight="normal"
-              fontSize="16px"
-              lineHeight="28px"
-              paddingBottom={"17px"}
-            >
-              Mint available -{" "}
-              <span style={{ fontWeight: "800" }}>
-                {dropInfo?.circulating?.toNumber()} /{" "}
-                {dropInfo?.max?.toNumber()}
-              </span>
-            </Text>
-          </Flex>
-          <Flex flexDirection={"row"} gridGap="9px">
-            <Image src={agenda} width="29px" height="29px" />
-            <Text
-              fontFamily="Inter"
-              fontStyle="normal"
-              fontWeight="normal"
-              fontSize="16px"
-              lineHeight="28px"
-              paddingBottom={"35px"}
-            >
-              Release date -{" "}
-              <span style={{ fontWeight: "800" }}>
-                {new Date(collection?.releaseDate || "").toString()}
-              </span>{" "}
-              {/* at{" "}
+              </Text>
+            </Flex>
+            <Flex flexDirection={"row"} gridGap="9px">
+              <Image src={agenda} width="29px" height="29px" />
+              <Text
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight="normal"
+                fontSize="16px"
+                lineHeight="28px"
+                paddingBottom={"35px"}
+              >
+                Release date -{" "}
+                <span style={{ fontWeight: "800" }}>
+                  {new Date(collection?.releaseDate || "").toString()}
+                </span>{" "}
+                {/* at{" "}
 							<span style={{ fontWeight: "800" }}>
 								{collection?.releaseDate} GMT
 							</span> */}
-            </Text>
-          </Flex>
-          {extend ? (
-            <>
-              <Flex border={"1px solid #000"} width="100%">
-                <Button
-                  fontSize={"16px"}
-                  lineHeight="20px"
+              </Text>
+            </Flex>
+            {extend ? (
+              <>
+                <Flex border={"1px solid #000"} width="100%">
+                  <Button
+                    fontSize={"16px"}
+                    lineHeight="20px"
+                    fontWeight={"700"}
+                    fontFamily={"Inter"}
+                    color={"white"}
+                    bg={"#000"}
+                    borderRadius="0px"
+                    width={"100%"}
+                    height={"64px"}
+                    style={{ marginInlineStart: "unset" }}
+                    _hover={{
+                      transform: "translate3d(4px,4px,0px)",
+                    }}
+                    onClick={handleMint}
+                  >
+                    {minting ? "Minting..." : "Mint"}
+                  </Button>
+                </Flex>
+                <Link
                   fontWeight={"700"}
-                  fontFamily={"Inter"}
-                  color={"white"}
-                  bg={"#000"}
-                  borderRadius="0px"
-                  width={"100%"}
-                  height={"64px"}
-                  style={{ marginInlineStart: "unset" }}
-                  _hover={{
-                    transform: "translate3d(4px,4px,0px)",
-                  }}
-                  onClick={handleMint}
+                  margin="auto"
+                  href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
+                  target="_blank"
                 >
-                  {minting ? "Minting..." : "Mint"}
-                </Button>
-              </Flex>
-              <Link
-                fontWeight={"700"}
-                margin="auto"
-                href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
-                target="_blank"
-              >
-                See collection on Opensea
-              </Link>
-            </>
-          ) : (
-            <>
-              <Flex border={"1px solid #000"} width="100%">
-                <Button
-                  fontSize={"16px"}
-                  lineHeight="20px"
-                  fontWeight={"700"}
-                  fontFamily={"Inter"}
-                  color={"white"}
-                  bg={"#000"}
-                  borderRadius="0px"
-                  width={"100%"}
-                  height={"64px"}
-                  style={{ marginInlineStart: "unset" }}
-                  _hover={{
-                    transform: "translate3d(4px,4px,0px)",
-                  }}
-                  as={RouterLink}
-                  to={`/collection/${collection.dropId}`}
-                >
-                  Discover Collection
-                </Button>
-              </Flex>
-            </>
-          )}
+                  See collection on Opensea
+                </Link>
+              </>
+            ) : (
+              <>
+                <Flex border={"1px solid #000"} width="100%">
+                  <Button
+                    fontSize={"16px"}
+                    lineHeight="20px"
+                    fontWeight={"700"}
+                    fontFamily={"Inter"}
+                    color={"white"}
+                    bg={"#000"}
+                    borderRadius="0px"
+                    width={"100%"}
+                    height={"54px"}
+                    style={{ marginInlineStart: "unset" }}
+                    _hover={{
+                      transform: "translate3d(4px,4px,0px)",
+                    }}
+                    as={RouterLink}
+                    to={`/collection/${collection.dropId}`}
+                  >
+                    Discover Collection
+                  </Button>
+                </Flex>
+              </>
+            )}
+          </Box>
         </Flex>
         <Image
           display={{ base: "none", md: "unset" }}

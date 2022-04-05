@@ -44,7 +44,10 @@ const TopPage = (artist: Artist) => {
           flexDir={"column"}
         >
           <Image src={getRandomIPFS(`ipfs://${artist?.imageHash}`)}></Image>
-          <Link href={`https://instagram.com/${artist.instagram}/`}>
+          <Link
+            href={`https://instagram.com/${artist.instagram}/`}
+            target="_blank"
+          >
             <Flex gridGap={"10px"} paddingBottom="20px" paddingTop={"30px"}>
               <Image src={instagram} filter="invert(1)" height={"30px"} />
               <Text
@@ -59,7 +62,7 @@ const TopPage = (artist: Artist) => {
               </Text>
             </Flex>
           </Link>
-          <Link href={`https://twitter.com/${artist.twitter}/`}>
+          <Link href={`https://twitter.com/${artist.twitter}/`} target="_blank">
             <Flex gridGap={"10px"}>
               <Image src={twitter} filter="invert(1)" height={"30px"} />
               <Text

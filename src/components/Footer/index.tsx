@@ -98,13 +98,16 @@ const Footer = () => {
             paddingTop={"90px"}
             paddingBottom={{ base: "110px", md: "unset" }}
           >
-            <Link href={"https://instagram.com/exposure_art_"}>
+            <Link href={"https://instagram.com/exposure_art_"} target="_blank">
               <Image src={instagram} height="30px" />
             </Link>
-            <Link href={"https://twitter.com/exposure_art_"}>
+            <Link href={"https://twitter.com/exposure_art_"} target="_blank">
               <Image src={twitter} height="30px" margin="auto" />
             </Link>
-            <Link href={"https://discord.com/invite/gGfeUXCVWD"}>
+            <Link
+              href={"https://discord.com/invite/gGfeUXCVWD"}
+              target="_blank"
+            >
               <Image src={discord} height="30px" />
             </Link>
           </Flex>
