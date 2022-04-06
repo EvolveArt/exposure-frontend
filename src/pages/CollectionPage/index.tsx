@@ -17,8 +17,6 @@ import ticon from "../../assets/imgs/t.png";
 import mintType from "../../assets/imgs/mintType.png";
 import agenda from "../../assets/imgs/agenda.png";
 import available from "../../assets/imgs/available.png";
-import largeGrid from "../../assets/imgs/largegrid.png";
-import smallGrid from "../../assets/imgs/smallgrid.png";
 import ether from "../../assets/imgs/ether.png";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -607,7 +605,6 @@ function RadioCard(props: any) {
 }
 
 const CollectionPage = () => {
-  const options = [largeGrid, smallGrid];
   const [currentCollection, setCurrentCollection] = useState<Collection | null>(
     null
   );
@@ -726,19 +723,7 @@ const CollectionPage = () => {
           top="15px"
           display={{ base: "none", md: "flex" }}
           flexDirection="row"
-        >
-          {options.map((value) => {
-            const radio = getRadioProps({ value });
-            return (
-              <RadioCard key={value} {...radio}>
-                <Image
-                  src={value}
-                  filter="brightness(0) saturate(100%) invert(79%) sepia(0%) saturate(1169%) hue-rotate(47deg) brightness(93%) contrast(90%)"
-                ></Image>
-              </RadioCard>
-            );
-          })}
-        </HStack>
+        ></HStack>
       </Flex>
       <Flex
         width={{ base: "90%", lg: "80%" }}
