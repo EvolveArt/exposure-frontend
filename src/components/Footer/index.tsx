@@ -36,64 +36,114 @@ const Footer = () => {
             <Flex
               paddingTop={{ base: "32px", md: "unset" }}
               marginLeft={{ base: "unset", md: "auto" }}
-              gridGap={{ base: "24px", md: "32px" }}
+              gridGap={{ base: "24px", md: "15px" }}
               marginTop={"auto"}
               marginBottom="auto"
-              flexDirection={{ base: "column", md: "row" }}
+              flexDirection={{ base: "column" }}
             >
-              <Link
-                color={"#fff"}
-                fontWeight="600"
-                fontSize="14px"
-                lineHeight="28px"
-                letterSpacing={"1px"}
-                _focus={{ outline: "none !important" }}
+              <Flex
+                paddingTop={{ base: "32px", md: "unset" }}
+                marginLeft={{ base: "unset", md: "auto" }}
+                gridGap={{ base: "24px", md: "32px" }}
+                marginTop={"auto"}
+                marginBottom="auto"
+                flexDirection={{ base: "column", md: "row" }}
               >
-                Curated drop
-              </Link>
-              <Link
-                color={"#fff"}
-                fontWeight="600"
-                fontSize="14px"
-                lineHeight="28px"
-                letterSpacing={"1px"}
-                href="/exploreCollection"
-                _focus={{ outline: "none !important" }}
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  _focus={{ outline: "none !important" }}
+                >
+                  Curated drop
+                </Link>
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  href="/exploreCollection"
+                  _focus={{ outline: "none !important" }}
+                >
+                  Collections
+                </Link>
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  href={"/artists"}
+                  _focus={{ outline: "none !important" }}
+                >
+                  Artists
+                </Link>
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  href={"/HelpCenter"}
+                  _focus={{ outline: "none !important" }}
+                >
+                  Help Center
+                </Link>
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  _focus={{ outline: "none !important" }}
+                >
+                  Contact us
+                </Link>
+              </Flex>
+              <Flex
+                paddingTop={{ base: "0px", md: "unset" }}
+                marginLeft={{ base: "unset", md: "auto" }}
+                gridGap={{ base: "24px", md: "32px" }}
+                marginTop={"auto"}
+                marginBottom="auto"
+                flexDirection={{ base: "column", md: "row" }}
               >
-                Collections
-              </Link>
-              <Link
-                color={"#fff"}
-                fontWeight="600"
-                fontSize="14px"
-                lineHeight="28px"
-                letterSpacing={"1px"}
-                href={"/artists"}
-                _focus={{ outline: "none !important" }}
-              >
-                Artists
-              </Link>
-              <Link
-                color={"#fff"}
-                fontWeight="600"
-                fontSize="14px"
-                lineHeight="28px"
-                letterSpacing={"1px"}
-                href={"/HelpCenter"}
-                _focus={{ outline: "none !important" }}
-              >
-                Help Center
-              </Link>
-              <Link
-                color={"#fff"}
-                fontWeight="600"
-                fontSize="14px"
-                lineHeight="28px"
-                letterSpacing={"1px"}
-                _focus={{ outline: "none !important" }}
-              >
-                Contact us
-              </Link>
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  _focus={{ outline: "none !important" }}
+                >
+                  Terms & Conditions
+                </Link>
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  href="/exploreCollection"
+                  _focus={{ outline: "none !important" }}
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  color={"#fff"}
+                  fontWeight="600"
+                  fontSize="14px"
+                  lineHeight="28px"
+                  letterSpacing={"1px"}
+                  href={"/artists"}
+                  _focus={{ outline: "none !important" }}
+                >
+                  Cookie Policy
+                </Link>
+              </Flex>
             </Flex>
           </Flex>
           <Flex
