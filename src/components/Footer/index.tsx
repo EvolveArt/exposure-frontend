@@ -30,7 +30,7 @@ const Footer = () => {
             height={{ base: "fit-content" }}
             width="100%"
           >
-            <Link href="/#">
+            <Link href="/#" _focus={{ outline: "none !important" }}>
               <Image src={logo} height="38px" margin="auto"></Image>
             </Link>
             <Flex
@@ -47,6 +47,7 @@ const Footer = () => {
                 fontSize="14px"
                 lineHeight="28px"
                 letterSpacing={"1px"}
+                _focus={{ outline: "none !important" }}
               >
                 Curated drop
               </Link>
@@ -57,6 +58,7 @@ const Footer = () => {
                 lineHeight="28px"
                 letterSpacing={"1px"}
                 href="/exploreCollection"
+                _focus={{ outline: "none !important" }}
               >
                 Collections
               </Link>
@@ -67,6 +69,7 @@ const Footer = () => {
                 lineHeight="28px"
                 letterSpacing={"1px"}
                 href={"/artists"}
+                _focus={{ outline: "none !important" }}
               >
                 Artists
               </Link>
@@ -77,6 +80,7 @@ const Footer = () => {
                 lineHeight="28px"
                 letterSpacing={"1px"}
                 href={"/QA"}
+                _focus={{ outline: "none !important" }}
               >
                 Help Center
               </Link>
@@ -86,6 +90,7 @@ const Footer = () => {
                 fontSize="14px"
                 lineHeight="28px"
                 letterSpacing={"1px"}
+                _focus={{ outline: "none !important" }}
               >
                 Contact us
               </Link>
@@ -98,15 +103,24 @@ const Footer = () => {
             paddingTop={"90px"}
             paddingBottom={{ base: "110px", md: "unset" }}
           >
-            <Link href={"https://instagram.com/exposure_art_"} target="_blank">
+            <Link
+              href={"https://instagram.com/exposure_art_"}
+              target="_blank"
+              _focus={{ outline: "none !important" }}
+            >
               <Image src={instagram} height="30px" />
             </Link>
-            <Link href={"https://twitter.com/exposure_art_"} target="_blank">
+            <Link
+              href={"https://twitter.com/exposure_art_"}
+              target="_blank"
+              _focus={{ outline: "none !important" }}
+            >
               <Image src={twitter} height="30px" margin="auto" />
             </Link>
             <Link
               href={"https://discord.com/invite/gGfeUXCVWD"}
               target="_blank"
+              _focus={{ outline: "none !important" }}
             >
               <Image src={discord} height="30px" />
             </Link>

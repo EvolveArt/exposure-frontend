@@ -134,7 +134,7 @@ export default function Header() {
           margin={{ base: "auto", md: "unset" }}
         >
           <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-            <Link href="/#">
+            <Link href="/#" _focus={{ outline: "none !important" }}>
               <Image
                 textAlign={useBreakpointValue({ base: "center", md: "left" })}
                 fontFamily={"heading"}
@@ -155,7 +155,7 @@ export default function Header() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Link href="/#">
+          <Link href="/#" _focus={{ outline: "none !important" }}>
             <Image
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
               fontFamily={"heading"}
@@ -220,6 +220,7 @@ export default function Header() {
                         textDecoration: "none",
                         color: "linkHoverColor",
                       }}
+                      _focus={{ outline: "none !important" }}
                     >
                       <div
                         className={styles.dropElt}
@@ -237,6 +238,7 @@ export default function Header() {
                           textDecoration: "none",
                           color: "linkHoverColor",
                         }}
+                        _focus={{ outline: "none !important" }}
                       >
                         <div
                           className={styles.dropElt}
@@ -253,6 +255,7 @@ export default function Header() {
                           textDecoration: "none",
                           color: "linkHoverColor",
                         }}
+                        _focus={{ outline: "none !important" }}
                       >
                         <div
                           className={styles.dropElt}
@@ -286,6 +289,7 @@ export default function Header() {
                   opacity: "0.6",
                 }}
                 onClick={handleConnectWallet}
+                _focus={{ outline: "none !important" }}
               >
                 Connect Wallet
                 <Image src={wallet} paddingLeft="8px" width={"36px"}></Image>
@@ -337,6 +341,7 @@ const DesktopNav = () => {
               textDecoration: "none",
               color: linkHoverColor,
             }}
+            _focus={{ outline: "none !important" }}
           >
             {navItem.label}
           </Link>
@@ -465,6 +470,7 @@ const MobileNav = () => {
                   textDecoration: "none",
                   color: "linkHoverColor",
                 }}
+                _focus={{ outline: "none !important" }}
               >
                 <div className={styles.dropElt}>
                   <Image src={profile} paddingRight="15px" />
@@ -479,6 +485,7 @@ const MobileNav = () => {
                     textDecoration: "none",
                     color: "linkHoverColor",
                   }}
+                  _focus={{ outline: "none !important" }}
                 >
                   <div className={styles.dropElt}>
                     {/* <Image src={profile} paddingRight='15px' /> */}
@@ -492,6 +499,7 @@ const MobileNav = () => {
                     textDecoration: "none",
                     color: "linkHoverColor",
                   }}
+                  _focus={{ outline: "none !important" }}
                 >
                   <div className={styles.dropElt}>
                     {/* <Image src={profile} paddingRight='15px' /> */}
@@ -509,6 +517,7 @@ const MobileNav = () => {
       ) : (
         <Button
           display={{ base: "none", md: "inline-flex" }}
+          _focus={{ outline: "none !important" }}
           fontSize={"sm"}
           fontWeight={600}
           fontFamily={"Inter"}
@@ -585,6 +594,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                 key={child.label}
                 py={2}
                 href={child.href}
+                _focus={{ outline: "none !important" }}
               >
                 {child.label}
               </Link>
