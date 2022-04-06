@@ -39,8 +39,9 @@ function RadioCard(props) {
         cursor="pointer"
         _checked={{
           filter: "brightness(0) saturate(100%)",
+          textDecoration: "underline",
         }}
-        padding="5px 34px"
+        paddingRight="30px"
         fontFamily="Inter"
         fontStyle="normal"
         fontWeight="600"
@@ -208,40 +209,12 @@ const Search = () => {
             Search
           </Text>
         </Flex>
-        <Text
-          fontFamily="Inter"
-          fontStyle="normal"
-          fontWeight="600"
-          fontSize="16px"
-          lineHeight="28px"
-          paddingBottom="50px"
-          letterSpacing={"1px"}
-        >
-          Search for your favorite artists and collections
-        </Text>
-        <Flex position={"relative"} width="100%" padding="30px">
-          <Image src={bordertl} position="absolute" top={"0"} left="0" />
-          <Image src={borderbl} position="absolute" bottom={"0"} left="0" />
-          <Image src={bordertr} position="absolute" top={"0"} right="0" />
-          <Image src={borderbr} position="absolute" bottom={"0"} right="0" />
-          <Image src={borderml} position="absolute" bottom={"45%"} left="0" />
-          <Image src={bordermr} position="absolute" bottom={"45%"} right="0" />
-          <input
-            className={styles.input}
-            maxLength={40}
-            placeholder="Search"
-            value={collection}
-            onChange={(e) => setCollection(e.target.value)}
-            // onBlur={validateName}
-          />
-        </Flex>
         <HStack
           {...group}
           right="0"
           top="15px"
           display={{ base: "none", md: "flex" }}
           flexDirection="row"
-          border="2px solid #000"
           width={"fit-content"}
           padding="9px 0px"
           marginTop={"40px"}
@@ -253,18 +226,21 @@ const Search = () => {
                 <RadioCard key={value} {...radio}>
                   {value}
                 </RadioCard>
-                <Box
-                  width={"0px"}
-                  border="1px solid #EAEAEA"
-                  height={"30px"}
-                  transform="translateX(2px)"
-                  zIndex={"-1"}
-                />
+                <Box width={"0px"} height={"30px"} zIndex={"-1"} />
               </>
             );
           })}
         </HStack>
-
+        <Flex position={"relative"} width="100%" paddingBottom={"40px"}>
+          <input
+            className={styles.input}
+            maxLength={40}
+            placeholder="Search"
+            value={collection}
+            onChange={(e) => setCollection(e.target.value)}
+            // onBlur={validateName}
+          />
+        </Flex>
         {searching ? (
           <div className={styles.stage}>
             <div className={styles.dotTyping}></div>
