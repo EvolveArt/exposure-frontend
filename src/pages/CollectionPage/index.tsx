@@ -397,7 +397,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                     bg={"#000"}
                     borderRadius="0px"
                     width={"100%"}
-                    height={"64px"}
+                    height={"54px"}
                     style={{ marginInlineStart: "unset" }}
                     _hover={{
                       transform: "translate3d(4px,4px,0px)",
@@ -407,14 +407,21 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                     {minting ? "Minting..." : "Mint"}
                   </Button>
                 </Flex>
-                <Link
-                  fontWeight={"700"}
-                  margin="auto"
-                  href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
-                  target="_blank"
+                <Box
+                  width={"100%"}
+                  paddingTop="30px"
+                  display={"flex"}
+                  alignItems="center"
+                  justifyContent={"center"}
                 >
-                  See collection on Opensea
-                </Link>
+                  <Link
+                    fontWeight={"700"}
+                    href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
+                    target="_blank"
+                  >
+                    See collection on Opensea
+                  </Link>
+                </Box>
               </>
             ) : (
               <>
@@ -653,8 +660,48 @@ const CollectionPage = () => {
         position="relative"
         margin={"auto"}
         width={{ base: "88vw", lg: "80vw" }}
-        marginTop="90px"
+        marginTop="150px"
       >
+        <Image
+          display={{ base: "unset", md: "none" }}
+          src={ticon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"-65px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          display={{ base: "none", md: "unset" }}
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"-70px"}
+          left="0"
+          right="0"
+          marginLeft="auto"
+          marginRight="auto"
+        ></Image>
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"-70px"}
+          right="-7px"
+        ></Image>
+        <Image
+          src={addIcon}
+          filter="brightness(0)"
+          width={"16px"}
+          position="absolute"
+          top={"-70px"}
+          left="-7px"
+        ></Image>
         <Text
           fontFamily="Inter"
           fontStyle="normal"

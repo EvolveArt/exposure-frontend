@@ -45,7 +45,7 @@ const Artists = () => {
           width="16px"
           position="absolute"
           top={"100px"}
-          left="0"
+          left="-7px"
         ></Image>
         <Image
           src={addIcon}
@@ -53,7 +53,7 @@ const Artists = () => {
           width="16px"
           position="absolute"
           top={"100px"}
-          right={{ base: "0", md: "-0px" }}
+          right="-7px"
         ></Image>
         <Image
           src={addIcon}
@@ -61,7 +61,7 @@ const Artists = () => {
           width="16px"
           position="absolute"
           bottom={"-20px"}
-          right="0"
+          right="-7px"
         ></Image>
         <Image
           display={{ base: "unset", md: "none" }}
@@ -118,7 +118,7 @@ const Artists = () => {
           width="16px"
           position="absolute"
           bottom={"-20px"}
-          left="0"
+          left="-7px"
         ></Image>
         <Flex
           position="relative"

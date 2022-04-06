@@ -43,18 +43,22 @@ const TopPage = (artist: Artist) => {
           position="relative"
           flexDir={"column"}
         >
-          <Image src={getRandomIPFS(`ipfs://${artist?.imageHash}`)}></Image>
+          <Image
+            src={getRandomIPFS(`ipfs://${artist?.imageHash}`)}
+            width={{ base: "90%", sm: "80%", md: "70%" }}
+          ></Image>
           <Link
             href={`https://instagram.com/${artist.instagram}/`}
             target="_blank"
+            _focus={{ outline: "none" }}
           >
             <Flex gridGap={"10px"} paddingBottom="20px" paddingTop={"30px"}>
-              <Image src={instagram} filter="invert(1)" height={"30px"} />
+              <Image src={instagram} filter="invert(1)" height={"27px"} />
               <Text
                 fontFamily="Inter"
                 fontStyle="normal"
                 fontWeight="600"
-                fontSize="16px"
+                fontSize="14px"
                 lineHeight="28px"
                 letterSpacing="1px"
               >
@@ -62,14 +66,18 @@ const TopPage = (artist: Artist) => {
               </Text>
             </Flex>
           </Link>
-          <Link href={`https://twitter.com/${artist.twitter}/`} target="_blank">
+          <Link
+            href={`https://twitter.com/${artist.twitter}/`}
+            target="_blank"
+            _focus={{ outline: "none" }}
+          >
             <Flex gridGap={"10px"}>
-              <Image src={twitter} filter="invert(1)" height={"30px"} />
+              <Image src={twitter} filter="invert(1)" height={"27px"} />
               <Text
                 fontFamily="Inter"
                 fontStyle="normal"
                 fontWeight="600"
-                fontSize="16px"
+                fontSize="14px"
                 lineHeight="28px"
                 letterSpacing="1px"
               >
@@ -83,7 +91,7 @@ const TopPage = (artist: Artist) => {
             width={"16px"}
             position="absolute"
             top={"0"}
-            left="0"
+            left="-7px"
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
@@ -92,7 +100,7 @@ const TopPage = (artist: Artist) => {
             width={"16px"}
             position="absolute"
             top={"0"}
-            right={{ base: "0", md: "-35px" }}
+            right={{ base: "-7px" }}
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
@@ -101,7 +109,7 @@ const TopPage = (artist: Artist) => {
             width={"16px"}
             position="absolute"
             bottom={"0px"}
-            right="0"
+            right="-7px"
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
@@ -121,7 +129,7 @@ const TopPage = (artist: Artist) => {
             width={"16px"}
             position="absolute"
             bottom={"0"}
-            left="0"
+            left="-7px"
             display={{ base: "unset", md: "none" }}
           ></Image>
         </Flex>
@@ -145,7 +153,7 @@ const TopPage = (artist: Artist) => {
             width={"16px"}
             position="absolute"
             top={"0"}
-            right="0px"
+            right="-7px"
           ></Image>
           <Image
             display={{ base: "unset", md: "none" }}
@@ -154,7 +162,7 @@ const TopPage = (artist: Artist) => {
             width={"16px"}
             position="absolute"
             bottom={"0"}
-            left="0px"
+            left="-7px"
           ></Image>
           <Image
             src={addIcon}
@@ -162,7 +170,7 @@ const TopPage = (artist: Artist) => {
             width={"16px"}
             position="absolute"
             bottom={{ base: "0", md: "-65px" }}
-            right="0px"
+            right="-7px"
             display={{ base: "unset", md: "none" }}
           ></Image>
           <Image
@@ -252,16 +260,16 @@ const ArtistPage = () => {
           width={"16px"}
           position="absolute"
           bottom={"-20px"}
-          right="0"
+          right="-7px"
         ></Image>
         <Image
           display={{ base: "unset", md: "none" }}
-          src={ticon}
+          src={addIcon}
           filter="brightness(0)"
           width={"16px"}
           position="absolute"
           transform={"rotate(180deg)"}
-          bottom={"-14px"}
+          bottom={"-20px"}
           left="0"
           right="0"
           marginLeft="auto"
@@ -285,7 +293,7 @@ const ArtistPage = () => {
           width={"16px"}
           position="absolute"
           bottom={"-20px"}
-          left="0"
+          left="-7px"
         ></Image>
         <Text
           fontFamily="Inter"
