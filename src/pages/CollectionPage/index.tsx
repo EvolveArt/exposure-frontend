@@ -4,7 +4,7 @@ import {
   Image,
   Text,
   Link,
-  useRadio,
+  // useRadio,
   useRadioGroup,
   Box,
   HStack,
@@ -581,28 +581,28 @@ export const TopPage = (collection: Collection, extend: boolean) => {
   );
 };
 
-function RadioCard(props: any) {
-  const { getInputProps, getCheckboxProps } = useRadio(props);
+// function RadioCard(props: any) {
+//   const { getInputProps, getCheckboxProps } = useRadio(props);
 
-  const input = getInputProps();
-  const checkbox = getCheckboxProps();
+//   const input = getInputProps();
+//   const checkbox = getCheckboxProps();
 
-  return (
-    <Box as="label">
-      <input {...input} />
-      <Box
-        {...checkbox}
-        cursor="pointer"
-        _checked={{
-          filter: "brightness(0) saturate(100%)",
-        }}
-        padding="5px"
-      >
-        {props.children}
-      </Box>
-    </Box>
-  );
-}
+//   return (
+//     <Box as="label">
+//       <input {...input} />
+//       <Box
+//         {...checkbox}
+//         cursor="pointer"
+//         _checked={{
+//           filter: "brightness(0) saturate(100%)",
+//         }}
+//         padding="5px"
+//       >
+//         {props.children}
+//       </Box>
+//     </Box>
+//   );
+// }
 
 const CollectionPage = () => {
   const [currentCollection, setCurrentCollection] = useState<Collection | null>(
@@ -613,7 +613,7 @@ const CollectionPage = () => {
 
   const [images, setImages] = useState<any[]>([]);
 
-  const { getRootProps, getRadioProps } = useRadioGroup({
+  const { getRootProps /*, getRadioProps*/ } = useRadioGroup({
     name: "framework",
     defaultValue: "react",
     onChange: console.log,
