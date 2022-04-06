@@ -229,9 +229,13 @@ const ExploreCollection = () => {
             <div className={styles.filterList}>
               <div className={styles.titleFilter}>Availability</div>
               <Checkbox
-                paddingBottom={"8px"}
                 paddingTop={"8px"}
                 onChange={(e) => handleAvailable(e, true)}
+                css={`
+                  > span:first-of-type {
+                    box-shadow: unset;
+                  }
+                `}
               >
                 <span className={styles.check}>Available</span>
               </Checkbox>
@@ -239,6 +243,11 @@ const ExploreCollection = () => {
                 paddingBottom={"8px"}
                 paddingTop={"8px"}
                 onChange={(e) => handleAvailable(e, false)}
+                css={`
+                  > span:first-of-type {
+                    box-shadow: unset;
+                  }
+                `}
               >
                 <span className={styles.check}>Sold Out</span>
               </Checkbox>
@@ -253,7 +262,14 @@ const ExploreCollection = () => {
               <div className={styles.filterLists}>
                 {artists.map((artist: Artist) => {
                   return (
-                    <Checkbox onChange={(e) => handleChangeArtists(artist)}>
+                    <Checkbox
+                      css={`
+                        > span:first-of-type {
+                          box-shadow: unset;
+                        }
+                      `}
+                      onChange={(e) => handleChangeArtists(artist)}
+                    >
                       <span className={styles.check}>{formatName(artist)}</span>
                     </Checkbox>
                   );
