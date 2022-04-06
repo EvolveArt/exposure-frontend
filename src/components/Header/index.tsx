@@ -623,7 +623,7 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: "Help",
-    href: "/QA",
+    href: "/HelpCenter",
   },
   {
     label: "Search",

@@ -36,7 +36,7 @@ export const App = () => (
         <ProtectedRoute exact path="/addartist" component={AddArtist} />
         <ProtectedRoute exact path="/addcollection" component={AddCollection} />
         <Route exact path="/profile/:uid" component={Profile} />
-        <Route exact path="/QA" component={QA} />
+        <Route exact path="/HelpCenter" component={QA} />
         <Route exact path="/search" component={Search} />
         <Route exact path="/exploreCollection" component={ExploreCollection} />
         <Route exact path="/artist/:address" component={ArtistPage} />

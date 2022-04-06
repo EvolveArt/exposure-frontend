@@ -85,7 +85,7 @@ const Footer = () => {
                 fontSize="14px"
                 lineHeight="28px"
                 letterSpacing={"1px"}
-                href={"/QA"}
+                href={"/HelpCenter"}
               >
                 Help Center
               </Link>

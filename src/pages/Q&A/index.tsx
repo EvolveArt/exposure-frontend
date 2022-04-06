@@ -101,7 +101,7 @@ const QA = () => {
           width={"16px"}
           position="absolute"
           top={"100px"}
-          left="0"
+          left="-7px"
         ></Image>
         <Image
           src={addIcon}
@@ -109,7 +109,7 @@ const QA = () => {
           width={"16px"}
           position="absolute"
           top={"100px"}
-          right={{ base: "0", md: "-0px" }}
+          right={{ base: "-7px", md: "-7px" }}
         ></Image>
         <Image
           src={addIcon}
@@ -117,7 +117,7 @@ const QA = () => {
           width={"16px"}
           position="absolute"
           bottom={"-20px"}
-          right="0"
+          right="-7px"
         ></Image>
         <Image
           display={{ base: "unset", md: "none" }}
@@ -174,7 +174,7 @@ const QA = () => {
           width={"16px"}
           position="absolute"
           bottom={"-20px"}
-          left="0"
+          left="-7px"
         ></Image>
         <Flex
           position="relative"
@@ -188,13 +188,13 @@ const QA = () => {
             transform="translate3d(-2px,3px,0px)"
             zIndex={"-1"}
             height="55px"
-            width={"200px"}
+            width={"180px"}
           />
           <Text
             fontFamily="Inter"
             fontStyle="normal"
             fontWeight="bold"
-            fontSize="30px"
+            fontSize="27px"
             lineHeight="56px"
             marginLeft="10px"
           >
@@ -205,7 +205,7 @@ const QA = () => {
           {Faq.map((faq) => (
             <AccordionItem borderTopWidth={"0px"} borderBottomWidth="1px">
               <h2>
-                <AccordionButton>
+                <AccordionButton _focus={{ outline: "none !important" }}>
                   <Box
                     flex="1"
                     textAlign="left"
