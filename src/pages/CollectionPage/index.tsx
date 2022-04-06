@@ -404,6 +404,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                       transform: "translate3d(4px,4px,0px)",
                     }}
                     onClick={handleMint}
+                    _focus={{ outline: "none !important" }}
                   >
                     {minting ? "Minting..." : "Mint"}
                   </Button>
@@ -419,6 +420,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                     fontWeight={"700"}
                     href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
                     target="_blank"
+                    _focus={{ outline: "none !important" }}
                   >
                     See collection on Opensea
                   </Link>
@@ -443,6 +445,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                     }}
                     as={RouterLink}
                     to={`/collection/${collection.dropId}`}
+                    _focus={{ outline: "none !important" }}
                   >
                     Discover Collection
                   </Button>
@@ -490,6 +493,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                 transform: "translate3d(4px,4px,0px)",
               }}
               onClick={handlePause}
+              _focus={{ outline: "none !important" }}
             >
               {dropInfo?.paused ? "Unpause" : "Pause"}
             </Button>
