@@ -28,6 +28,7 @@ const AddCollection = () => {
 	const [metadataHash, setMetadataHash] = useState(null);
 	const [photos, setPhotos] = useState(null);
 	const [name, setName] = useState("");
+	const [season, setSeason] = useState("Season 1");
 	const [verbatim, setVerbatim] = useState("");
 	const [verbatimAuthor, setVerbatimAuthor] = useState("");
 	const [adding, setAdding] = useState(false);
@@ -75,7 +76,8 @@ const AddCollection = () => {
 		_description,
 		_image,
 		_artist,
-		_collection
+		_collection,
+		_season
 	) => {
 		// Upload image on ipfs
 		let ipfsHash = await uploadOnIPFS(_image);
@@ -88,6 +90,7 @@ const AddCollection = () => {
 			attributes: [
 				{ trait_type: "Artist", value: _artist },
 				{ trait_type: "Collection", value: _collection },
+				{ trait_type: "Season", value: _season },
 			],
 		};
 
@@ -182,7 +185,8 @@ const AddCollection = () => {
 					description,
 					photo.file,
 					formatName(selected[0]),
-					name
+					name,
+					season
 				);
 				metadatas.push(metadata);
 			}
@@ -338,6 +342,7 @@ const AddCollection = () => {
 							const data = {
 								dropId,
 								collectionName: name,
+								season,
 								verbatim,
 								verbatimAuthor,
 								teasingDate: teasingTime,
@@ -482,6 +487,19 @@ const AddCollection = () => {
 						/>
 						<div className={styles.lengthIndicator}>{name.length}/40</div>
 						{nameError && <div className={styles.error}>{nameError}</div>}
+					</div>
+				</div>
+				<div className={styles.inputGroup}>
+					<div className={styles.inputTitle}>Saison</div>
+					<div className={styles.inputWrapper}>
+						<input
+							className={cx(styles.input)}
+							maxLength={40}
+							placeholder='Saison'
+							value={season}
+							onChange={(e) => setSeason(e.target.value)}
+						/>
+						<div className={styles.lengthIndicator}>{season.length}/40</div>
 					</div>
 				</div>
 				<div className={styles.inputGroup}>

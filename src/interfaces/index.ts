@@ -15,6 +15,7 @@ export interface Collection {
 	dropId: number;
 	collectionName: string;
 	verbatim?: string;
+	season?: string;
 	verbatimAuthor?: string;
 	artists: Artist[];
 	description: string;
