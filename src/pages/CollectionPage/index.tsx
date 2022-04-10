@@ -762,6 +762,8 @@ const CollectionPage = () => {
 		null
 	);
 
+	const { account } = useWeb3React();
+
 	const { getCollectionInfo } = useApi();
 
 	const [images, setImages] = useState<any[]>([]);
@@ -805,6 +807,11 @@ const CollectionPage = () => {
 		loadAvailablePhotographs();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentCollection]);
+
+	const _isAdmin = useMemo(
+		() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
+		[account]
+	);
 
 	const group = getRootProps();
 	return (
@@ -917,61 +924,63 @@ const CollectionPage = () => {
 					position='absolute'
 					bottom={"70px"}
 					left='-7px'></Image>
-				{images.map((elem, index) => {
-					return (
-						<Flex
-							width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
-							flexDir={"column"}
-							borderRadius={"2px"}
-							className={styles.dropContainer}>
+				{_isAdmin &&
+					images.map((elem, index) => {
+						return (
 							<Flex
-								width='100%'
-								position='relative'
-								paddingBottom='100%'
-								boxSizing='border-box'
-								className={styles.imageContainer}>
-								<Image
-									src={getRandomIPFS(elem.image)}
-									position='absolute'
-									top='0'
-									left='0'
+								width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
+								flexDir={"column"}
+								borderRadius={"2px"}
+								className={styles.dropContainer}>
+								<Flex
 									width='100%'
-									height='100%'
-									backgroundSize='contain'
-									objectFit='contain'
-									border='0'
-									padding='8px'></Image>
-							</Flex>
-							<Flex
-								flexDirection={"column"}
-								paddingLeft='8px'
-								gridGap={"8px"}
-								paddingBottom='8px'>
-								<Text
-									fontStyle='normal'
-									fontWeight='600'
-									fontSize='20px'
-									lineHeight='35px'
-									paddingTop='19px'>
-									{elem.name}
-								</Text>
-								<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
-									By{" "}
-									{
-										elem.attributes.find((a: any) => a.trait_type === "Artist")
-											.value
-									}
-								</Text>
-								{/* <Text fontSize='12px' lineHeight='18px'>
+									position='relative'
+									paddingBottom='100%'
+									boxSizing='border-box'
+									className={styles.imageContainer}>
+									<Image
+										src={getRandomIPFS(elem.image)}
+										position='absolute'
+										top='0'
+										left='0'
+										width='100%'
+										height='100%'
+										backgroundSize='contain'
+										objectFit='contain'
+										border='0'
+										padding='8px'></Image>
+								</Flex>
+								<Flex
+									flexDirection={"column"}
+									paddingLeft='8px'
+									gridGap={"8px"}
+									paddingBottom='8px'>
+									<Text
+										fontStyle='normal'
+										fontWeight='600'
+										fontSize='20px'
+										lineHeight='35px'
+										paddingTop='19px'>
+										{elem.name}
+									</Text>
+									<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
+										By{" "}
+										{
+											elem.attributes.find(
+												(a: any) => a.trait_type === "Artist"
+											).value
+										}
+									</Text>
+									{/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>
 										{collection.totalSupply}{" "}
 									</span>
 									photos
 								</Text> */}
+								</Flex>
 							</Flex>
-						</Flex>
-					);
-				})}
+						);
+					})}
 			</Flex>
 			<Footer />
 		</div>
