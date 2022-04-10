@@ -159,7 +159,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const _isAdmin = () =>
 		account && ADMIN_ADDRESSES.includes(account.toLowerCase());
 
-	if (collection.private && !_isAdmin()) history.replace("/");
+	if (collection?.private && !_isAdmin()) history.replace("/");
 
 	return (
 		<>
