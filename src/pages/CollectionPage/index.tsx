@@ -10,7 +10,7 @@ import {
 	HStack,
 	Skeleton,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
@@ -20,7 +20,7 @@ import available from "../../assets/imgs/available.png";
 import ether from "../../assets/imgs/ether.png";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useParams, Link as RouterLink, useHistory } from "react-router-dom";
+import { useParams, Link as RouterLink } from "react-router-dom";
 import { useApi } from "api";
 // eslint-disable-next-line
 import { Collection } from "interfaces";
@@ -63,7 +63,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
 
 	const toast = useToast();
-	const history = useHistory();
+	// const history = useHistory();
 
 	const handleMint = async () => {
 		if (minting) return;
@@ -156,240 +156,334 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [collection?.dropId]);
 
-	const _isAdmin = () =>
-		account && ADMIN_ADDRESSES.includes(account.toLowerCase());
-
-	if (collection?.private && !_isAdmin()) history.replace("/");
+	const _isAdmin = useMemo(
+		() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
+		[account]
+	);
 
 	return (
 		<>
-			<Flex padding={"30px"} display={{ base: "none", md: "unset" }} />
-			<Flex
-				width={{ base: "90%", lg: "80%" }}
-				minHeight={"80vh"}
-				flexDirection={{ base: "column", md: "row" }}
-				justifyContent='center'
-				alignItems={"center"}
-				paddingTop={"85px"}
-				margin='auto'
-				gridGap={"24px"}
-				zIndex='1'
-				paddingBottom={"100px"}
-				position='relative'>
-				<Flex
-					width={{
-						base: "100%",
-						md: "calc(60% - 12px)",
-						lg: "calc(50% - 12px)",
-					}}
-					height={{ base: "fit-content", md: "80vh" }}
-					paddingTop={{ base: "50px", md: "unset" }}
-					paddingBottom={{ base: "50px", md: "unset" }}
-					justifyContent={{ base: "center", md: "end" }}
-					alignItems='center'
-					position='relative'>
-					<Image
-						src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
-						boxShadow='0px 8px 16px 0px rgba(0, 0, 0, 0.15)'
-						width={"100%"}></Image>
-					<Image
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						top={"0"}
-						left='-7px'></Image>
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						top={"0"}
-						right={{ base: "0", md: "-35px" }}></Image>
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={ticon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						top={"7px"}
-						left='0'
-						right='0'
-						marginLeft='auto'
-						marginRight='auto'></Image>
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						bottom={"0px"}
-						right='0'></Image>
-					<Image
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						bottom={"0"}
-						left='-7px'></Image>
-				</Flex>
-				<Flex
-					flexDirection={"column"}
-					width={{
-						base: "100%",
-						md: "calc(40% - 12px)",
-						lg: "calc(50% - 12px)",
-					}}
-					height={{ base: "fit-content", md: "80vh" }}
-					justifyContent='center'
-					position='relative'
-					paddingLeft={{ base: "unset", md: "50px", lg: "70px" }}
-					paddingBottom={{ base: "50px", md: "unset" }}
-					paddingTop='50px'>
-					<Image
-						display={{ base: "none", md: "unset" }}
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						top={"0"}
-						right='-7px'></Image>
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						bottom={"0"}
-						left='0px'></Image>
-					<Image
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						bottom={{ base: "0", md: "0px" }}
-						right='-7px'></Image>
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={ticon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						transform={"rotate(180deg)"}
-						bottom={"7px"}
-						left='0'
-						right='0'
-						marginLeft='auto'
-						marginRight='auto'></Image>
-					<Box paddingBottom='50px'>
-						<Text
-							fontFamily='Inter'
-							fontStyle='normal'
-							fontWeight='800'
-							fontSize='30px'
-							lineHeight='56px'
-							paddingBottom={"4px"}>
-							{collection?.collectionName}
-						</Text>
-						<Text
-							fontFamily='Inter'
-							fontStyle='normal'
-							fontWeight='normal'
-							fontSize={"16px"}
-							lineHeight='28px'
-							paddingBottom={"24px"}>
-							By{" "}
-							{collection?.artists
-								? formatName(collection?.artists[0])
-								: "Unknown"}
-						</Text>
-						{extend ? (
-							<Text
-								fontFamily='Inter'
-								fontStyle='normal'
-								fontWeight='normal'
-								fontSize={"16px"}
-								lineHeight='28px'
-								paddingBottom={"26px"}>
-								{collection?.description}
-							</Text>
-						) : (
-							<></>
-						)}
-						<Flex flexDirection={"row"} gridGap='9px'>
-							<Image src={mintType} width='29px' height='29px' />
-							<Text
-								fontFamily='Inter'
-								fontStyle='normal'
-								fontWeight='normal'
-								fontSize='16px'
-								lineHeight='28px'
-								paddingBottom={"17px"}>
-								{collection?.mintMode === "0" ? "Dutch Auction" : "Random Mint"}
-							</Text>
+			{collection?.private && !_isAdmin ? (
+				<>
+					<Flex padding={"30px"} display={{ base: "none", md: "unset" }} />
+					Nothing to see here
+				</>
+			) : (
+				<>
+					<Flex padding={"30px"} display={{ base: "none", md: "unset" }} />
+					<Flex
+						width={{ base: "90%", lg: "80%" }}
+						minHeight={"80vh"}
+						flexDirection={{ base: "column", md: "row" }}
+						justifyContent='center'
+						alignItems={"center"}
+						paddingTop={"85px"}
+						margin='auto'
+						gridGap={"24px"}
+						zIndex='1'
+						paddingBottom={"100px"}
+						position='relative'>
+						<Flex
+							width={{
+								base: "100%",
+								md: "calc(60% - 12px)",
+								lg: "calc(50% - 12px)",
+							}}
+							height={{ base: "fit-content", md: "80vh" }}
+							paddingTop={{ base: "50px", md: "unset" }}
+							paddingBottom={{ base: "50px", md: "unset" }}
+							justifyContent={{ base: "center", md: "end" }}
+							alignItems='center'
+							position='relative'>
+							<Image
+								src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+								boxShadow='0px 8px 16px 0px rgba(0, 0, 0, 0.15)'
+								width={"100%"}></Image>
+							<Image
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"0"}
+								left='-7px'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"0"}
+								right={{ base: "0", md: "-35px" }}></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={ticon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"7px"}
+								left='0'
+								right='0'
+								marginLeft='auto'
+								marginRight='auto'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={"0px"}
+								right='0'></Image>
+							<Image
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={"0"}
+								left='-7px'></Image>
 						</Flex>
-						<Flex flexDirection={"row"} gridGap='9px'>
-							<Image src={ether} width='29px' height='29px' />
-							<Text
-								fontFamily='Inter'
-								fontStyle='normal'
-								fontWeight='normal'
-								fontSize='16px'
-								lineHeight='28px'
-								paddingBottom={"17px"}>
-								Mint price -{" "}
-								{updating ? (
-									<Skeleton width={60} style={{ background: "black" }} />
+						<Flex
+							flexDirection={"column"}
+							width={{
+								base: "100%",
+								md: "calc(40% - 12px)",
+								lg: "calc(50% - 12px)",
+							}}
+							height={{ base: "fit-content", md: "80vh" }}
+							justifyContent='center'
+							position='relative'
+							paddingLeft={{ base: "unset", md: "50px", lg: "70px" }}
+							paddingBottom={{ base: "50px", md: "unset" }}
+							paddingTop='50px'>
+							<Image
+								display={{ base: "none", md: "unset" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"0"}
+								right='-7px'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={"0"}
+								left='0px'></Image>
+							<Image
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={{ base: "0", md: "0px" }}
+								right='-7px'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={ticon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								transform={"rotate(180deg)"}
+								bottom={"7px"}
+								left='0'
+								right='0'
+								marginLeft='auto'
+								marginRight='auto'></Image>
+							<Box paddingBottom='50px'>
+								<Text
+									fontFamily='Inter'
+									fontStyle='normal'
+									fontWeight='800'
+									fontSize='30px'
+									lineHeight='56px'
+									paddingBottom={"4px"}>
+									{collection?.collectionName}
+								</Text>
+								<Text
+									fontFamily='Inter'
+									fontStyle='normal'
+									fontWeight='normal'
+									fontSize={"16px"}
+									lineHeight='28px'
+									paddingBottom={"24px"}>
+									By{" "}
+									{collection?.artists
+										? formatName(collection?.artists[0])
+										: "Unknown"}
+								</Text>
+								{extend ? (
+									<Text
+										fontFamily='Inter'
+										fontStyle='normal'
+										fontWeight='normal'
+										fontSize={"16px"}
+										lineHeight='28px'
+										paddingBottom={"26px"}>
+										{collection?.description}
+									</Text>
 								) : (
-									<span style={{ fontWeight: "800" }}>
-										{collection?.mintMode === "0"
-											? ethers.utils.formatEther(auctionPrice)
-											: collection?.mintPrice}{" "}
-										ETH
-									</span>
+									<></>
 								)}
-							</Text>
-						</Flex>
-						<Flex flexDirection={"row"} gridGap='9px'>
-							<Image src={available} width='29px' height='29px' />
-							<Text
-								fontFamily='Inter'
-								fontStyle='normal'
-								fontWeight='normal'
-								fontSize='16px'
-								lineHeight='28px'
-								paddingBottom={"17px"}>
-								Mint available -{" "}
-								<span style={{ fontWeight: "800" }}>
-									{dropInfo?.max?.toNumber() -
-										dropInfo?.circulating?.toNumber()}{" "}
-									/ {dropInfo?.max?.toNumber()}
-								</span>
-							</Text>
-						</Flex>
-						<Flex flexDirection={"row"} gridGap='9px'>
-							<Image src={agenda} width='29px' height='29px' />
-							<Text
-								fontFamily='Inter'
-								fontStyle='normal'
-								fontWeight='normal'
-								fontSize='16px'
-								lineHeight='28px'
-								paddingBottom={"35px"}>
-								Release date -{" "}
-								<span style={{ fontWeight: "800" }}>
-									{new Date(collection?.releaseDate || "").toLocaleString()}
-								</span>{" "}
-								{/* at{" "}
+								<Flex flexDirection={"row"} gridGap='9px'>
+									<Image src={mintType} width='29px' height='29px' />
+									<Text
+										fontFamily='Inter'
+										fontStyle='normal'
+										fontWeight='normal'
+										fontSize='16px'
+										lineHeight='28px'
+										paddingBottom={"17px"}>
+										{collection?.mintMode === "0"
+											? "Dutch Auction"
+											: "Random Mint"}
+									</Text>
+								</Flex>
+								<Flex flexDirection={"row"} gridGap='9px'>
+									<Image src={ether} width='29px' height='29px' />
+									<Text
+										fontFamily='Inter'
+										fontStyle='normal'
+										fontWeight='normal'
+										fontSize='16px'
+										lineHeight='28px'
+										paddingBottom={"17px"}>
+										Mint price -{" "}
+										{updating ? (
+											<Skeleton width={60} style={{ background: "black" }} />
+										) : (
+											<span style={{ fontWeight: "800" }}>
+												{collection?.mintMode === "0"
+													? ethers.utils.formatEther(auctionPrice)
+													: collection?.mintPrice}{" "}
+												ETH
+											</span>
+										)}
+									</Text>
+								</Flex>
+								<Flex flexDirection={"row"} gridGap='9px'>
+									<Image src={available} width='29px' height='29px' />
+									<Text
+										fontFamily='Inter'
+										fontStyle='normal'
+										fontWeight='normal'
+										fontSize='16px'
+										lineHeight='28px'
+										paddingBottom={"17px"}>
+										Mint available -{" "}
+										<span style={{ fontWeight: "800" }}>
+											{dropInfo?.max?.toNumber() -
+												dropInfo?.circulating?.toNumber()}{" "}
+											/ {dropInfo?.max?.toNumber()}
+										</span>
+									</Text>
+								</Flex>
+								<Flex flexDirection={"row"} gridGap='9px'>
+									<Image src={agenda} width='29px' height='29px' />
+									<Text
+										fontFamily='Inter'
+										fontStyle='normal'
+										fontWeight='normal'
+										fontSize='16px'
+										lineHeight='28px'
+										paddingBottom={"35px"}>
+										Release date -{" "}
+										<span style={{ fontWeight: "800" }}>
+											{new Date(collection?.releaseDate || "").toLocaleString()}
+										</span>{" "}
+										{/* at{" "}
 							<span style={{ fontWeight: "800" }}>
 								{collection?.releaseDate} GMT
 							</span> */}
-							</Text>
+									</Text>
+								</Flex>
+								{extend ? (
+									<>
+										<Flex border={"1px solid #000"} width='100%'>
+											<Button
+												fontSize={"16px"}
+												lineHeight='20px'
+												fontWeight={"700"}
+												fontFamily={"Inter"}
+												color={"white"}
+												bg={"#000"}
+												borderRadius='0px'
+												width={"100%"}
+												height={"54px"}
+												style={{ marginInlineStart: "unset" }}
+												_hover={{
+													transform: "translate3d(4px,4px,0px)",
+												}}
+												onClick={handleMint}
+												_focus={{ outline: "none !important" }}>
+												{minting ? "Minting..." : "Mint"}
+											</Button>
+										</Flex>
+										<Box
+											width={"100%"}
+											paddingTop='30px'
+											display={"flex"}
+											alignItems='center'
+											justifyContent={"center"}>
+											<Link
+												fontWeight={"700"}
+												href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
+												target='_blank'
+												_focus={{ outline: "none !important" }}>
+												See collection on Opensea
+											</Link>
+										</Box>
+									</>
+								) : (
+									<>
+										<Flex border={"1px solid #000"} width='100%'>
+											<Button
+												fontSize={"16px"}
+												lineHeight='20px'
+												fontWeight={"700"}
+												fontFamily={"Inter"}
+												color={"white"}
+												bg={"#000"}
+												borderRadius='0px'
+												width={"100%"}
+												height={"54px"}
+												style={{ marginInlineStart: "unset" }}
+												_hover={{
+													transform: "translate3d(4px,4px,0px)",
+												}}
+												as={RouterLink}
+												to={`/collection/${collection.dropId}`}
+												_focus={{ outline: "none !important" }}>
+												Discover Collection
+											</Button>
+										</Flex>
+									</>
+								)}
+							</Box>
 						</Flex>
-						{extend ? (
-							<>
-								<Flex border={"1px solid #000"} width='100%'>
+						<Image
+							display={{ base: "none", md: "unset" }}
+							src={addIcon}
+							filter='brightness(0)'
+							width={"16px"}
+							position='absolute'
+							top={"83px"}
+							left='0'
+							right='0'
+							marginLeft='auto'
+							marginRight='auto'></Image>
+					</Flex>
+					{account &&
+						ADMIN_ADDRESSES.includes(account.toLowerCase()) &&
+						extend && (
+							<Flex
+								width={"80%"}
+								margin='auto'
+								gridGap='20px'
+								flexWrap={"wrap"}
+								justifyContent='center'
+								alignItems={"center"}
+								padding='40px'>
+								<Flex border={"1px solid #000"} width='fit-content'>
 									<Button
 										fontSize={"16px"}
 										lineHeight='20px'
@@ -398,35 +492,18 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 										color={"white"}
 										bg={"#000"}
 										borderRadius='0px'
-										width={"100%"}
-										height={"54px"}
+										height={"64px"}
+										padding='10px 50px'
 										style={{ marginInlineStart: "unset" }}
 										_hover={{
 											transform: "translate3d(4px,4px,0px)",
 										}}
-										onClick={handleMint}
+										onClick={handlePause}
 										_focus={{ outline: "none !important" }}>
-										{minting ? "Minting..." : "Mint"}
+										{dropInfo?.paused ? "Unpause" : "Pause"}
 									</Button>
 								</Flex>
-								<Box
-									width={"100%"}
-									paddingTop='30px'
-									display={"flex"}
-									alignItems='center'
-									justifyContent={"center"}>
-									<Link
-										fontWeight={"700"}
-										href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
-										target='_blank'
-										_focus={{ outline: "none !important" }}>
-										See collection on Opensea
-									</Link>
-								</Box>
-							</>
-						) : (
-							<>
-								<Flex border={"1px solid #000"} width='100%'>
+								<Flex border={"1px solid #000"} width='fit-content'>
 									<Button
 										fontSize={"16px"}
 										lineHeight='20px'
@@ -435,84 +512,18 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 										color={"white"}
 										bg={"#000"}
 										borderRadius='0px'
-										width={"100%"}
-										height={"54px"}
+										height={"64px"}
+										padding='10px 50px'
 										style={{ marginInlineStart: "unset" }}
 										_hover={{
 											transform: "translate3d(4px,4px,0px)",
 										}}
-										as={RouterLink}
-										to={`/collection/${collection.dropId}`}
+										onClick={handlePublish}
 										_focus={{ outline: "none !important" }}>
-										Discover Collection
+										{collection?.private ? "Publish" : "Hide"}
 									</Button>
 								</Flex>
-							</>
-						)}
-					</Box>
-				</Flex>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"83px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-			</Flex>
-			{account && ADMIN_ADDRESSES.includes(account.toLowerCase()) && extend && (
-				<Flex
-					width={"80%"}
-					margin='auto'
-					gridGap='20px'
-					flexWrap={"wrap"}
-					justifyContent='center'
-					alignItems={"center"}
-					padding='40px'>
-					<Flex border={"1px solid #000"} width='fit-content'>
-						<Button
-							fontSize={"16px"}
-							lineHeight='20px'
-							fontWeight={"700"}
-							fontFamily={"Inter"}
-							color={"white"}
-							bg={"#000"}
-							borderRadius='0px'
-							height={"64px"}
-							padding='10px 50px'
-							style={{ marginInlineStart: "unset" }}
-							_hover={{
-								transform: "translate3d(4px,4px,0px)",
-							}}
-							onClick={handlePause}
-							_focus={{ outline: "none !important" }}>
-							{dropInfo?.paused ? "Unpause" : "Pause"}
-						</Button>
-					</Flex>
-					<Flex border={"1px solid #000"} width='fit-content'>
-						<Button
-							fontSize={"16px"}
-							lineHeight='20px'
-							fontWeight={"700"}
-							fontFamily={"Inter"}
-							color={"white"}
-							bg={"#000"}
-							borderRadius='0px'
-							height={"64px"}
-							padding='10px 50px'
-							style={{ marginInlineStart: "unset" }}
-							_hover={{
-								transform: "translate3d(4px,4px,0px)",
-							}}
-							onClick={handlePublish}
-							_focus={{ outline: "none !important" }}>
-							{collection?.private ? "Publish" : "Hide"}
-						</Button>
-					</Flex>
-					{/* <Flex border={"1px solid #000"} width='fit-content'>
+								{/* <Flex border={"1px solid #000"} width='fit-content'>
 						<Button
 							fontSize={"16px"}
 							lineHeight='20px'
@@ -564,32 +575,34 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							Un bouton
 						</Button>
 					</Flex> */}
-				</Flex>
-			)}
-			{extend && (
-				<Flex
-					width={{ base: "90%", lg: "80%" }}
-					flexDirection='column'
-					justifyContent='center'
-					alignItems={"center"}
-					margin='auto'
-					zIndex='1'
-					border='solid 2px #000'>
-					<Text
-						fontWeight='800'
-						fontSize={{ base: "30px", md: "40px" }}
-						lineHeight={{ base: "40px", md: "53px" }}
-						textAlign={"center"}
-						paddingTop='25px'
-						paddingLeft='32px'
-						paddingRight={"32px"}
-						paddingBottom='20px'>
-						{collection?.verbatim}
-					</Text>
-					<Text paddingBottom={"25px"} fontSize='16px' lineHeight={"28px"}>
-						{collection?.verbatimAuthor}
-					</Text>
-				</Flex>
+							</Flex>
+						)}
+					{extend && (
+						<Flex
+							width={{ base: "90%", lg: "80%" }}
+							flexDirection='column'
+							justifyContent='center'
+							alignItems={"center"}
+							margin='auto'
+							zIndex='1'
+							border='solid 2px #000'>
+							<Text
+								fontWeight='800'
+								fontSize={{ base: "30px", md: "40px" }}
+								lineHeight={{ base: "40px", md: "53px" }}
+								textAlign={"center"}
+								paddingTop='25px'
+								paddingLeft='32px'
+								paddingRight={"32px"}
+								paddingBottom='20px'>
+								{collection?.verbatim}
+							</Text>
+							<Text paddingBottom={"25px"} fontSize='16px' lineHeight={"28px"}>
+								{collection?.verbatimAuthor}
+							</Text>
+						</Flex>
+					)}
+				</>
 			)}
 		</>
 	);
