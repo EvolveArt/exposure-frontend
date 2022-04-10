@@ -78,6 +78,24 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const publishDrop = async (
+		dropId: number,
+		shouldPublish: boolean,
+		authToken: string | null | undefined
+	) => {
+		const res = await axios({
+			method: "POST",
+			url: `${apiUrl}/collection/publish`,
+			data: { dropId, shouldPublish },
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		});
+
+		return res.data;
+	};
+
 	const getAllArtists = async () => {
 		const res = await axios({
 			method: "GET",
@@ -226,6 +244,7 @@ export const useApi = () => {
 		searchCollections,
 		searchArtists,
 		updateAccountDetails,
+		publishDrop,
 		// getIsModerator,
 	};
 };

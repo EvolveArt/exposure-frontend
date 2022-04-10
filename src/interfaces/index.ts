@@ -29,4 +29,5 @@ export interface Collection {
 	minted: number;
 	mintMode: string;
 	soldOut: boolean;
+	private: boolean;
 }
