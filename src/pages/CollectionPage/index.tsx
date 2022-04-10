@@ -166,7 +166,133 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 			{collection?.private && !_isAdmin ? (
 				<>
 					<Flex padding={"30px"} display={{ base: "none", md: "unset" }} />
-					Nothing to see here
+					<Flex
+						width={{ base: "90%", lg: "80%" }}
+						minHeight={"80vh"}
+						flexDirection={{ base: "column", md: "row" }}
+						justifyContent='center'
+						alignItems={"center"}
+						paddingTop={"85px"}
+						margin='auto'
+						gridGap={"24px"}
+						zIndex='1'
+						paddingBottom={"100px"}
+						position='relative'>
+						<Flex
+							width={{
+								base: "100%",
+								md: "calc(60% - 12px)",
+								lg: "calc(50% - 12px)",
+							}}
+							height={{ base: "fit-content", md: "80vh" }}
+							paddingTop={{ base: "50px", md: "unset" }}
+							paddingBottom={{ base: "50px", md: "unset" }}
+							justifyContent={{ base: "center", md: "end" }}
+							alignItems='center'
+							position='relative'>
+							<Image
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"0"}
+								left='-7px'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"0"}
+								right={{ base: "0", md: "-35px" }}></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={ticon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"7px"}
+								left='0'
+								right='0'
+								marginLeft='auto'
+								marginRight='auto'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={"0px"}
+								right='0'></Image>
+							<Image
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={"0"}
+								left='-7px'></Image>
+						</Flex>
+						<Flex
+							flexDirection={"column"}
+							width={{
+								base: "100%",
+								md: "calc(40% - 12px)",
+								lg: "calc(50% - 12px)",
+							}}
+							height={{ base: "fit-content", md: "80vh" }}
+							justifyContent='center'
+							position='relative'
+							paddingLeft={{ base: "unset", md: "50px", lg: "70px" }}
+							paddingBottom={{ base: "50px", md: "unset" }}
+							paddingTop='50px'>
+							<Image
+								display={{ base: "none", md: "unset" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								top={"0"}
+								right='-7px'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={"0"}
+								left='0px'></Image>
+							<Image
+								src={addIcon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								bottom={{ base: "0", md: "0px" }}
+								right='-7px'></Image>
+							<Image
+								display={{ base: "unset", md: "none" }}
+								src={ticon}
+								filter='brightness(0)'
+								width={"16px"}
+								position='absolute'
+								transform={"rotate(180deg)"}
+								bottom={"7px"}
+								left='0'
+								right='0'
+								marginLeft='auto'
+								marginRight='auto'></Image>
+						</Flex>
+						<Image
+							display={{ base: "none", md: "unset" }}
+							src={addIcon}
+							filter='brightness(0)'
+							width={"16px"}
+							position='absolute'
+							top={"83px"}
+							left='0'
+							right='0'
+							marginLeft='auto'
+							marginRight='auto'></Image>
+					</Flex>
 				</>
 			) : (
 				<>
