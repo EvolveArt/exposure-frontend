@@ -9,6 +9,9 @@ export const useApi = () => {
 	const apiUrl = isMainnet
 		? "https://exposure-rest-api.herokuapp.com"
 		: "https://exposure-rest-api.herokuapp.com";
+	// const apiUrl = isMainnet
+	// 	? "http://localhost:5001"
+	// 	: "http://localhost:5001";
 
 	const getAuthToken = async (address: string | null | undefined) => {
 		let result = await axios({
@@ -100,6 +103,18 @@ export const useApi = () => {
 		const res = await axios({
 			method: "GET",
 			url: `${apiUrl}/artist/fetchAllArtists`,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		return res.data;
+	};
+
+	const getAllArtistSeasons = async (address: string) => {
+		const res = await axios({
+			method: "GET",
+			url: `${apiUrl}/season/getArtistSeasons?address=${address}`,
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -236,6 +251,7 @@ export const useApi = () => {
 		getNonce,
 		apiUrl,
 		getAllArtists,
+		getAllArtistSeasons,
 		getAllCollections,
 		getCollectionInfo,
 		getArtistInfo,

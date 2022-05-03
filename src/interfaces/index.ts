@@ -10,12 +10,21 @@ export interface Artist {
 	nbCollections: number;
 }
 
+export interface Season {
+	_id: string;
+	name: string;
+	address: string;
+	collectionName: string;
+	nbCollections: number;
+}
+
 export interface Collection {
 	_id: string;
 	dropId: number;
 	collectionName: string;
 	verbatim?: string;
-	season?: string;
+	copyRights?: string;
+	season?: Season[];
 	verbatimAuthor?: string;
 	artists: Artist[];
 	description: string;

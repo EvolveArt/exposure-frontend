@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useMemo, useState } from "react";
 
 import addIcon from "../../assets/imgs/plus.png";
+import copyRights from "../../assets/imgs/copyright.png";
 import ticon from "../../assets/imgs/t.png";
 import mintType from "../../assets/imgs/mintType.png";
 import agenda from "../../assets/imgs/agenda.png";
@@ -450,6 +451,20 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 								) : (
 									<></>
 								)}
+								{collection?.season && collection.season.length > 0 && <Flex flexDirection={"row"} gridGap='9px'>
+									<Text
+										fontFamily='Inter'
+										fontStyle='normal'
+										fontWeight='normal'
+										fontSize='16px'
+										lineHeight='28px'
+										paddingBottom={"17px"}>
+										Season -{" "}
+										<span style={{fontWeight: "800"}}>
+												{collection.season[0].name}{" "}
+											</span>
+									</Text>
+								</Flex>}
 								<Flex flexDirection={"row"} gridGap='9px'>
 									<Image src={mintType} width='29px' height='29px' />
 									<Text
@@ -503,6 +518,22 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 										</span>
 									</Text>
 								</Flex>
+								{collection?.copyRights && <Flex flexDirection={"row"} gridGap='9px'>
+									<Image src={copyRights} width='29px' height='29px'/>
+									<Text
+										fontFamily='Inter'
+										fontStyle='normal'
+										fontWeight='normal'
+										fontSize='16px'
+										lineHeight='28px'
+										paddingBottom={"17px"}>
+										Copyright -{" "}
+										<span style={{fontWeight: "800"}}>
+												{collection?.copyRights}{" "}
+											</span>
+									</Text>
+								</Flex>
+								}
 								<Flex flexDirection={"row"} gridGap='9px'>
 									<Image src={agenda} width='29px' height='29px' />
 									<Text

@@ -28,12 +28,14 @@ const AddCollection = () => {
 	const [metadataHash, setMetadataHash] = useState(null);
 	const [photos, setPhotos] = useState(null);
 	const [name, setName] = useState("");
-	const [season, setSeason] = useState("Season 1");
+	const [season, setSeason] = useState("");
 	const [verbatim, setVerbatim] = useState("");
 	const [verbatimAuthor, setVerbatimAuthor] = useState("");
+	const [copyRights, setCopyRights] = useState("");
 	const [adding, setAdding] = useState(false);
 	const [uploading, setUploading] = useState(false);
 	const [nameError, setNameError] = useState(null);
+	const [seasonError, setSeasonError] = useState(null);
 	const [description, setDescription] = useState("");
 	const [descriptionError, setDescriptionError] = useState(null);
 	const [maxMintPerWallet, setMaxMintPerWallet] = useState(1);
@@ -48,12 +50,14 @@ const AddCollection = () => {
 	);
 	const [now, setNow] = useState(new Date());
 
-	const { getAllArtists, apiUrl, getNonce } = useApi();
+	const { getAllArtists, apiUrl, getNonce, getAllArtistSeasons } = useApi();
 	const { createDrop, setDropIPFS } = useExposureContract();
 	const { setAuction, createSale } = useSalesContract();
 
 	const [artists, setArtists] = useState([]);
+	const [seasonList, setSeasonList] = useState([]);
 	const [selected, setSelected] = useState(null);
+	const [selectedSeason, setSelectedSeason] = useState(null);
 	const [selectedMintType, setSelectedMintType] = useState([]);
 
 	const { account, library } = useWeb3React();
@@ -101,20 +105,24 @@ const AddCollection = () => {
 		setLogo(null);
 	};
 
-	const removePhotos = () => {
-		setPhotos(null);
+	const removePhotos = (idx) => {
+		setPhotos(() => photos.filter((photo, i) => i !== idx));
 	};
 
 	const inputRef = useRef(null);
 	const inputPhotoRef = useRef(null);
 
-	useEffect(() => {
+	useEffect(async () => {
 		const updateArtists = async () => {
 			const _artists = await getAllArtists();
 			setArtists(_artists.data);
 		};
 		updateArtists();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	useEffect(async () => {
+		const _seasons = await getAllArtistSeasons(account);
+		setSeasonList(_seasons.data);
 	}, []);
 
 	useEffect(() => {
@@ -169,7 +177,10 @@ const AddCollection = () => {
 
 			// At this point you'll have an array of results
 			let res = await Promise.all(files);
-			setPhotos(res);
+			setPhotos(res.map(pt => ({
+				photo: pt,
+				description: ''
+			})));
 		}
 	};
 
@@ -179,14 +190,14 @@ const AddCollection = () => {
 
 		try {
 			let metadatas = [];
-			for (const photo of photos) {
+			for (const {photo, description: photoDescription} of photos) {
 				const metadata = await generateMetadata(
 					photo.name,
-					description,
+					photoDescription,
 					photo.file,
 					formatName(selected[0]),
 					name,
-					season
+					season?.length > 0 ? season : selectedSeason[0].name
 				);
 				metadatas.push(metadata);
 			}
@@ -216,6 +227,13 @@ const AddCollection = () => {
 			setNameError("This field can't be blank");
 		} else {
 			setNameError("");
+		}
+	};
+	const validateSeasonName = () => {
+		if (season.length === 0 && seasonList?.length === 0) {
+			setSeasonError("This field can't be blank");
+		} else {
+			setSeasonError("");
 		}
 	};
 
@@ -342,9 +360,10 @@ const AddCollection = () => {
 							const data = {
 								dropId,
 								collectionName: name,
-								season,
+								season: season?.length > 0 ? season : selectedSeason[0].name,
 								verbatim,
 								verbatimAuthor,
+								copyRights,
 								teasingDate: teasingTime,
 								releaseDate: dropTime,
 								mintPrice: mint,
@@ -357,6 +376,7 @@ const AddCollection = () => {
 								totalSupply: photos?.length,
 								signature,
 								signatureAddress,
+								address: account
 							};
 
 							await axios({
@@ -493,13 +513,52 @@ const AddCollection = () => {
 					<div className={styles.inputTitle}>Saison</div>
 					<div className={styles.inputWrapper}>
 						<input
-							className={cx(styles.input)}
+							className={cx(styles.input, nameError && styles.hasError)}
 							maxLength={40}
-							placeholder='Saison'
+							placeholder='Nouvelle saison'
 							value={season}
+							disabled={selectedSeason}
+							onBlur={validateSeasonName}
 							onChange={(e) => setSeason(e.target.value)}
 						/>
+						{seasonError && <div className={styles.error}>{seasonError}</div>}
 						<div className={styles.lengthIndicator}>{season.length}/40</div>
+						<div className={styles.inputWrapper}>
+							<Select
+								options={seasonList}
+								clearable
+								disabled={season.length !== 0 }
+								values={selectedSeason}
+								onChange={([col]) => {
+									setSelectedSeason(col ? [col]: null);
+								}}
+								className={styles.input}
+								itemRenderer={({ item, methods }) => (
+									<div
+										key={item._id}
+										className={styles.collectionInput}
+										onClick={() => {
+											methods.clearAll();
+											methods.addItem(item);
+										}}>
+										<div className={styles.collectionName}>
+											{item.name}
+										</div>
+									</div>
+								)}
+								contentRenderer={({ props: { values } }) =>
+									values?.length > 0 ? (
+										<div className={styles.collection}>
+											<div className={styles.collectionName}>
+												{values[0].name}
+											</div>
+										</div>
+									) : (
+										<div className={styles.collection}><div className={styles.seasonPlaceholder}>Choisir une season existante</div></div>
+									)
+								}
+							/>
+						</div>
 					</div>
 				</div>
 				<div className={styles.inputGroup}>
@@ -527,6 +586,21 @@ const AddCollection = () => {
 						/>
 						<div className={styles.lengthIndicator}>
 							{verbatimAuthor.length}/50
+						</div>
+					</div>
+				</div>
+				<div className={styles.inputGroup}>
+					<div className={styles.inputTitle}>Droit d'auteur</div>
+					<div className={styles.inputWrapper}>
+						<input
+							className={cx(styles.input)}
+							maxLength={50}
+							placeholder="Droit d'auteur"
+							value={copyRights}
+							onChange={(e) => setCopyRights(e.target.value)}
+						/>
+						<div className={styles.lengthIndicator}>
+							{copyRights.length}/50
 						</div>
 					</div>
 				</div>
@@ -805,17 +879,38 @@ const AddCollection = () => {
 				</div>
 				<div className={styles.inputGroup}>
 					<div className={styles.inputWrapper}>
-						<div className={styles.logoUploadBox}>
-							{photos ? (
-								<>
-									<img src={photos[0].src} alt='collection-photograph' />
-									<div className={styles.removeOverlay}>
-										<div className={styles.removeIcon} onClick={removePhotos}>
-											<img src={closeIcon} alt='CloseIcon' />
+						{
+							photos?.length &&
+								photos.map(({photo, description}, idx) =>
+									 <div className={styles.imageDescription}>
+										<div className={styles.logoUploadBox}>
+											<img src={photo.src} alt='collection-photograph' />
+											<div className={styles.removeOverlay}>
+												<div className={styles.removeIcon} onClick={() => removePhotos(idx)}>
+													<img src={closeIcon} alt='CloseIcon' />
+												</div>
+											</div>
 										</div>
+										<textarea
+											className={cx(
+												styles.input,
+												styles.longInput,
+												styles.imgDescriptionDivider
+											)}
+											maxLength={200}
+											placeholder='Information Complémentaire'
+											value={description}
+											onChange={(e) => setPhotos(oldPhotos => {
+												oldPhotos[idx].description = e.target.value;
+												return [...oldPhotos];
+											})}
+										/>
 									</div>
-								</>
-							) : (
+								)
+
+						}
+						{(!photos || photos.length === 0) && (
+							<div className={styles.logoUploadBox}>
 								<div
 									className={styles.uploadOverlay}
 									onClick={() => inputPhotoRef.current?.click()}>
@@ -836,8 +931,9 @@ const AddCollection = () => {
 										<div className={styles.uploadInner}>Ajouter une image</div>
 									</div>
 								</div>
-							)}
+
 						</div>
+						)}
 						{photos && (
 							<Button
 								fontSize={"sm"}

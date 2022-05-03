@@ -5,6 +5,7 @@ import { formatName, getRandomIPFS } from "utils";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line
 import { Artist } from "interfaces";
+import arr from '../../assets/imgs/arrowContainer.png'
 
 const ArtistCard = (artist: Artist) => {
   return (
@@ -18,6 +19,7 @@ const ArtistCard = (artist: Artist) => {
         >
           <Image
             src={getRandomIPFS(`ipfs://${artist.imageHash}`)}
+            fallbackSrc={arr}
             width={"262px"}
             height={"262px"}
             maxWidth={"unset"}
@@ -27,7 +29,7 @@ const ArtistCard = (artist: Artist) => {
             {formatName(artist)}
           </Text>
           <Text fontSize="12px" lineHeight="18px">
-            <span style={{ fontWeight: "bold" }}>{0}</span> Collections
+            <span style={{ fontWeight: "bold" }}>{artist?.nbCollections}</span> Collections
           </Text>
         </Flex>
       </Link>
