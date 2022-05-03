@@ -112,18 +112,25 @@ const AddCollection = () => {
 	const inputRef = useRef(null);
 	const inputPhotoRef = useRef(null);
 
-	useEffect(async () => {
-		const updateArtists = async () => {
+	useEffect( () => {
+		async function fetchData() {
 			const _artists = await getAllArtists();
 			setArtists(_artists.data);
-		};
-		updateArtists();
+		}
+
+		fetchData();
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	useEffect(async () => {
-		const _seasons = await getAllArtistSeasons(account);
-		setSeasonList(_seasons.data);
-	}, []);
+
+	useEffect( () => {
+		async function fetchData() {
+			const _seasons = await getAllArtistSeasons(account);
+			setSeasonList(_seasons.data);
+		}
+		fetchData()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [account]);
 
 	useEffect(() => {
 		if (account && authToken) {
