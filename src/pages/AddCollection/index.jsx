@@ -112,7 +112,7 @@ const AddCollection = () => {
 	const inputRef = useRef(null);
 	const inputPhotoRef = useRef(null);
 
-	useEffect(() => {
+	useEffect(async () => {
 		const updateArtists = async () => {
 			const _artists = await getAllArtists();
 			setArtists(_artists.data);
