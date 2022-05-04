@@ -20,7 +20,7 @@ export const Contracts = {
 		ExposureMain: "",
 	},
 	[ChainId.RINKEBY]: {
-		SalePlatform: "0xaE00fB9C9054258a4d012aD90Fb4d6A045C07Dd4",
-		ExposureMain: "0x3be98534CFe9d75d43AB9d649a7Fd2144176bB93",
+		SalePlatform: "0x254196c40c3cFfFB6FBa1232A5083c72E83B8028",
+		ExposureMain: "0x2E19da5a8C5445937ff0BA0D03984Cb756C774A3",
 	},
 };
