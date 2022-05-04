@@ -19,6 +19,7 @@ import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
 import instagram from "../../assets/imgs/instagram.png";
 import addIcon from "../../assets/imgs/plus1.png";
+import {useWeb3React} from "@web3-react/core";
 
 const Footer = () => {
   return (
@@ -160,12 +161,14 @@ const ExploreCollection = () => {
   const { ref }: any = useResizeDetector();
 
   const { getAllCollections, getAllArtists } = useApi();
+  const { account } = useWeb3React();
 
   useEffect(() => {
     const updateCollections = async () => {
       const _collections = await getAllCollections(
         isAvailable,
-        selected.map((a: Artist) => a._id)
+        selected.map((a: Artist) => a._id),
+        account ?? ''
       );
       setCollections(_collections.data);
     };
