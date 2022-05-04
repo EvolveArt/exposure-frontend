@@ -59,7 +59,7 @@ const Email = () => {
 			try {
 				const signer = await getSigner(library);
 				console.log("SIGNING", signer, library);
-				let msg = `Approve Signature on Exposure with nonce ${nonce}`;
+				let msg = `Approve Signature on Rhapsody with nonce ${nonce}`;
 
 				signature = await library.send("personal_sign", [
 					ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg)),
@@ -201,7 +201,7 @@ const Email = () => {
 							lineHeight='53px'
 							color={"#000"}
 							textAlign='center'>
-							Welcome to Exposure!
+							Welcome to Rhapsody!
 						</Text>
 					</Flex>
 					<Text
@@ -217,7 +217,7 @@ const Email = () => {
 						paddingTop={"80px"}
 						paddingBottom='35px'
 						width={"100%"}>
-						Enter your Email to be notified of futur drops on the Exposure
+						Enter your Email to be notified of futur drops on the Rhapsody
 						plateform
 					</Text>
 					<input

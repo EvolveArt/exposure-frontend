@@ -35,7 +35,7 @@ export const injected = new InjectedConnector({
 
 export const walletlink = new WalletLinkConnector({
 	url: process.env.REACT_APP_NETWORK_RPC || "",
-	appName: "Exposure",
+	appName: "Rhapsody",
 	appLogoUrl: EXPOSURE_LOGO_URL,
 });
 

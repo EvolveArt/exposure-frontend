@@ -583,7 +583,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 											justifyContent={"center"}>
 											<Link
 												fontWeight={"700"}
-												href={`https://testnets.opensea.io/assets/exposure?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
+												href={`https://testnets.opensea.io/assets/rhapsody?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
 												target='_blank'
 												_focus={{ outline: "none !important" }}>
 												See collection on Opensea

@@ -89,7 +89,7 @@ const AddCollection = () => {
 		let tempMetadata = {
 			name: _name,
 			description: _description,
-			external_url: "https://exposure.art",
+			external_url: "https://rhapsody.art",
 			image: `ipfs://${ipfsHash}`,
 			attributes: [
 				{ trait_type: "Artist", value: _artist },
@@ -294,7 +294,7 @@ const AddCollection = () => {
 
 					try {
 						const signer = await getSigner(library);
-						const msg = `Approve Signature on Exposure with nonce ${nonce}`;
+						const msg = `Approve Signature on Rhapsody with nonce ${nonce}`;
 
 						signature = await signer.signMessage(msg);
 						signatureAddress = ethers.utils.verifyMessage(msg, signature);
@@ -400,14 +400,14 @@ const AddCollection = () => {
 								status: "success",
 								title: "Collection added!",
 								description:
-									"The collection has successfuly been added to Exposure.",
+									"The collection has successfuly been added to Rhapsody.",
 							});
 							setAdding(false);
 						} else {
 							toast({
 								status: "error",
 								title: "Tx didn't pass!",
-								description: "The collection was not added to Exposure.",
+								description: "The collection was not added to Rhapsody.",
 							});
 						}
 					});
