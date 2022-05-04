@@ -19,30 +19,30 @@ import ticon from "../../assets/imgs/t.png";
 
 const Faq = [
   {
-    title: "What is Exposure ?",
+    title: "What is Rhapsody ?",
     desc:
-      "Exposure is a web3 platform curating the best photographic series from the world’s most renowned artists. Our platform is dedicated to photography as an art and a science.",
+      "Rhapsody is a web3 platform curating the best photographic series from the world’s most renowned artists. Our platform is dedicated to photography as an art and a science.",
   },
   {
     title: "What are curated drops ? How do they work ?",
     desc:
-      "Exposure’s curated drops are theme based and occur every month with 3 to 5 different collections/series from various photographers. They each have their own narrative and style but, together, they tell a broader story. Our model is based on random mints in which, after the purchase, the collector receives a random photograph from the chosen collection/series.",
+      "Rhapsody’s curated drops are theme based and occur every month with 3 to 5 different collections/series from various photographers. They each have their own narrative and style but, together, they tell a broader story. Our model is based on random mints in which, after the purchase, the collector receives a random photograph from the chosen collection/series.",
   },
   {
     title: "How does curation work ?",
     desc:
-      "Our curation team selects a series of photographic works based on Exposure’s future thematics as well as the outstanding quality of the photographer’s work and vision. What we don’t base our selection on : Follower count, Name and Relationships",
+      "Our curation team selects a series of photographic works based on Rhapsody’s future thematics as well as the outstanding quality of the photographer’s work and vision. What we don’t base our selection on : Follower count, Name and Relationships",
   },
   {
-    title: "Can I submit my work to Exposure ?",
+    title: "Can I submit my work to Rhapsody ?",
     desc:
       "If you would like to apply to do a curated drop, please send your application (images + explanation of your project) to curation@exposure.art. We do not guarantee a quick reply as we receive several requests per day and our team is still small. Please forgive the delay ;)",
   },
   {
     title:
-      "When I buy an NFT on Exposure, do I own the copyright of the work ?",
+      "When I buy an NFT on Rhapsody, do I own the copyright of the work ?",
     desc:
-      "Purchasing an NFT from Exposure or on the secondary market gives you the right to print the image for your own personal use (ie. Framing and displaying in your home…). You do not have the following rights regarding NFTs purchased on Exposure : Commercial usage and Intellectual property",
+      "Purchasing an NFT from Rhapsody or on the secondary market gives you the right to print the image for your own personal use (ie. Framing and displaying in your home…). You do not have the following rights regarding NFTs purchased on Rhapsody : Commercial usage and Intellectual property",
   },
   {
     title: "Where can I meet my fellow collectors ?",
@@ -57,7 +57,7 @@ const Faq = [
   {
     title: "What are the environmental effects of blockchain technology ?",
     desc:
-      "Blockchains make a platform like Exposure possible, but they do have a power-hungry dark side. Exposure tries to contribute as much as possible to environmental initiatives to offset its carbon footprint. Today, for every NFT bought on our platform, 10 trees are planted. While this might not be enough just yet, we pledge to only ever increase our commitments to the environment. Important note: Ethereum is moving away from Proof-of-Work (PoW) and toward Proof-of-Stake (PoS). When this change happens, it will reduce Ethereum’s energy consumption by 99,95%. That said, Exposure’s commitment will not end there and we will continue to support environment-friendly initiatives.",
+      "Blockchains make a platform like Rhapsody possible, but they do have a power-hungry dark side. Rhapsody tries to contribute as much as possible to environmental initiatives to offset its carbon footprint. Today, for every NFT bought on our platform, 10 trees are planted. While this might not be enough just yet, we pledge to only ever increase our commitments to the environment. Important note: Ethereum is moving away from Proof-of-Work (PoW) and toward Proof-of-Stake (PoS). When this change happens, it will reduce Ethereum’s energy consumption by 99,95%. That said, Rhapsody’s commitment will not end there and we will continue to support environment-friendly initiatives.",
   },
   {
     title: "How can I view and/or resell the NFT I bought ?",
@@ -65,7 +65,7 @@ const Faq = [
       "Your NFT is viewable on OpenSea right after your purchase. It might take a few minutes for the image to appear.",
   },
   {
-    title: "Does Exposure have a token ?",
+    title: "Does Rhapsody have a token ?",
     desc: "No token.",
   },
   {

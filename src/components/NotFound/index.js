@@ -21,7 +21,7 @@ const NotFound = () => {
       <div className={styles.body}>
         <img
           src={exposure}
-          alt="exposure"
+          alt="Rhapsody"
           className={styles.man}
           style={{ filter: "invert(var(--color-logo))" }}
         />

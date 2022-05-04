@@ -157,7 +157,7 @@ const AddArtist = () => {
 
 					try {
 						const signer = await getSigner(library);
-						const msg = `Approve Signature on Exposure with nonce ${nonce}`;
+						const msg = `Approve Signature on Rhapsody with nonce ${nonce}`;
 
 						signature = await signer.signMessage(msg);
 						signatureAddress = ethers.utils.verifyMessage(msg, signature);
@@ -213,7 +213,7 @@ const AddArtist = () => {
 					toast({
 						status: "success",
 						title: "Artist added!",
-						description: "The artist has successfuly been added to Exposure.",
+						description: "The artist has successfuly been added to Rhapsody.",
 					});
 
 					setAdding(false);
