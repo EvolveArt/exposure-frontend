@@ -27,7 +27,6 @@ export const useExposureContract = () => {
 			gasPrice: getHigherGWEI(library),
 			gasLimit: 0,
 		};
-		// console.log(contract);
 		const gasEstimate = await contract.estimateGas[
 			"createDrop(address,uint128)"
 		](...args, options);
