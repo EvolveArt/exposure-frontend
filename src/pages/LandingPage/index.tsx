@@ -37,7 +37,7 @@ const ArtistsLanding = (artist: Artist) => {
           {formatName(artist)}
         </Text>
         <Text fontSize="12px" lineHeight="18px">
-          <span style={{ fontWeight: "bold" }}>{0}</span> Collections
+          <span style={{ fontWeight: "bold" }}>{artist.nbCollections}</span> Collections
         </Text>
       </Flex>
     </Link>
@@ -122,11 +122,7 @@ const LandingPage = () => {
             About Curated Drop
           </Text>
           <Text textAlign={"justify"}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et tellus
-            id mauris in. Adipiscing enim, augue sapien mattis vestibulum.
-            Fermentum sapien viverra fusce vitae, quam a. Turpis phasellus duis
-            justo, sodales. Massa gravida non eget id diam. Porttitor hac diam
-            nibh diam in fringilla. Rutrum consequat vitae sapien et est. Sit.
+            {arrival.description}
           </Text>
           <Image
             display={{ base: "none", md: "unset" }}
