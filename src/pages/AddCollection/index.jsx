@@ -321,6 +321,8 @@ const AddCollection = () => {
 						method: "post",
 						url: `${apiUrl}/ipfs/uploadCollectionImage2Server`,
 						data: formData,
+						maxContentLength: "Infinity",
+						maxBodyLength: "Infinity",
 						headers: {
 							"Content-Type": "multipart/form-data",
 							Authorization: `Bearer ${authToken}`,
