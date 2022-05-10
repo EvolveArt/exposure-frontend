@@ -40,7 +40,7 @@ export const App = () => (
         <Route exact path="/search" component={Search} />
         <Route exact path="/exploreCollection" component={ExploreCollection} />
         <Route exact path="/artist/:address" component={ArtistPage} />
-        <Route exact path="/" component={WaitingPage} />
+        <Route exact path="/" component={() => <Redirect to='/landing'  />} />
         <Route exact path="/email" component={Email} />
         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
         <ProtectedRoute exact path="/listartists" component={ListArtists} />

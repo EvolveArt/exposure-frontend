@@ -5,6 +5,11 @@ import { Artist } from "interfaces";
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
 
+const corsHeader = {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+}
+
 export const useApi = () => {
 	const apiUrl = isMainnet
 		? "https://exposure-rest-api.herokuapp.com"
@@ -18,7 +23,7 @@ export const useApi = () => {
 			method: "post",
 			url: `${apiUrl}/auth/getToken`,
 			data: JSON.stringify({ address: address }),
-			headers: { "Content-Type": "application/json" },
+			headers: { "Content-Type": "application/json", ...corsHeader },
 		});
 		if (result.data.status === "success") {
 			let token = result.data.token;
@@ -33,6 +38,7 @@ export const useApi = () => {
 			url: `${apiUrl}/account/getaccountinfo`,
 			headers: {
 				Authorization: `Bearer ${authToken}`,
+				...corsHeader
 			},
 		});
 
@@ -48,6 +54,7 @@ export const useApi = () => {
 			url: `${apiUrl}/account/nonce/${address}`,
 			headers: {
 				Authorization: `Bearer ${authToken}`,
+				...corsHeader
 			},
 		});
 		return res.data;
@@ -75,6 +82,7 @@ export const useApi = () => {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${authToken}`,
+				...corsHeader
 			},
 		});
 
@@ -93,6 +101,7 @@ export const useApi = () => {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${authToken}`,
+				...corsHeader
 			},
 		});
 
@@ -105,6 +114,7 @@ export const useApi = () => {
 			url: `${apiUrl}/artist/fetchAllArtists`,
 			headers: {
 				"Content-Type": "application/json",
+				...corsHeader
 			},
 		});
 
@@ -116,7 +126,7 @@ export const useApi = () => {
 			method: "GET",
 			url: `${apiUrl}/season/getArtistSeasons?address=${address}`,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json",...corsHeader
 			},
 		});
 
@@ -132,7 +142,7 @@ export const useApi = () => {
 			method: "POST",
 			url: `${apiUrl}/collection/fetchAllCollections`,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json",...corsHeader
 			},
 			data: { isAvailable, artists, address },
 		});
@@ -145,7 +155,7 @@ export const useApi = () => {
 			method: "POST",
 			url: `${apiUrl}/collection/searchCollection`,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json",...corsHeader
 			},
 			data: { searchString },
 		});
@@ -158,7 +168,7 @@ export const useApi = () => {
 			method: "POST",
 			url: `${apiUrl}/artist/searchArtist`,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json",...corsHeader
 			},
 			data: { searchString },
 		});
@@ -171,7 +181,7 @@ export const useApi = () => {
 			method: "GET",
 			url: `${apiUrl}/collection/getLatestCollection`,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json",...corsHeader
 			},
 		});
 
@@ -183,7 +193,7 @@ export const useApi = () => {
 			method: "POST",
 			url: `${apiUrl}/collection/getCollectionInfo`,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json",...corsHeader
 			},
 			data: { dropId },
 		});
@@ -196,7 +206,7 @@ export const useApi = () => {
 			method: "POST",
 			url: `${apiUrl}/artist/getArtistInfo`,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json",...corsHeader
 			},
 			data: { address },
 		});
@@ -222,6 +232,7 @@ export const useApi = () => {
 			headers: {
 				"Content-Type": "multipart/form-data",
 				Authorization: `Bearer ${authToken}`,
+				...corsHeader
 			},
 		});
 		return res.data;
@@ -238,6 +249,7 @@ export const useApi = () => {
 			url: `${apiUrl}/collection/updateMint`,
 			headers: {
 				"Content-Type": "application/json",
+				...corsHeader
 			},
 			data: { dropId, amount, price, address },
 		});
