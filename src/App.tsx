@@ -16,7 +16,6 @@ import Artists from "pages/Artists";
 import QA from "pages/Q&A";
 import ArtistPage from "pages/ArtistPage";
 import ExploreCollection from "pages/ExploreCollection";
-import WaitingPage from "pages/WaitingPage";
 import Dashboard from "pages/Dashboard";
 import ListArtists from "pages/ListArtists";
 import ListCollections from "pages/ListCollections";
