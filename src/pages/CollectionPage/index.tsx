@@ -824,11 +824,15 @@ const CollectionPage = () => {
 		const _totalSupply = currentCollection?.totalSupply || 0;
 		const images = [];
 		for (let index = 0; index < _totalSupply; index++) {
-			const _metadata = await axios.get(
-				getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
-			);
-			images.push(_metadata.data);
-			// console.log(_metadata.data);
+			try {
+				const _metadata = await axios.get(
+					getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
+				);
+				images.push(_metadata.data);
+				// console.log(_metadata.data);
+			} catch (error) {
+				console.log(error)
+			}
 		}
 
 		setImages(images);
