@@ -23,6 +23,11 @@ import { ADMIN_ADDRESSES } from "constants/index";
 import { useHistory } from "react-router-dom";
 // import { kebabCase } from "lodash";
 
+const corsHeader = {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+}
+
 const AddCollection = () => {
 	const [logo, setLogo] = useState(null);
 	const [metadataHash, setMetadataHash] = useState(null);
@@ -216,6 +221,7 @@ const AddCollection = () => {
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${authToken}`,
+					...corsHeader
 				},
 			});
 
@@ -318,6 +324,7 @@ const AddCollection = () => {
 						headers: {
 							"Content-Type": "multipart/form-data",
 							Authorization: `Bearer ${authToken}`,
+							...corsHeader
 						},
 					});
 
@@ -393,6 +400,7 @@ const AddCollection = () => {
 								headers: {
 									"Content-Type": "application/json",
 									Authorization: `Bearer ${authToken}`,
+									...corsHeader
 								},
 							});
 
@@ -443,6 +451,7 @@ const AddCollection = () => {
 				"Content-Type": `multipart/form-data;boundary=${formData._boundary}`,
 				pinata_api_key: API_KEY,
 				pinata_secret_api_key: API_SECRET,
+				...corsHeader
 			},
 		});
 

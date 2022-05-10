@@ -313,19 +313,6 @@ const ExploreCollection = () => {
                   Collection
                 </Text>
               </Flex>
-              <Text
-                paddingBottom={"57px"}
-                maxWidth="592px"
-                fontFamily="Inter"
-                fontStyle="normal"
-                fontWeight="400"
-                fontSize="16px"
-                lineHeight="28px"
-                color="#3E3E3E"
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus,
-                laoreet aliquam natoque vitae nulla tellus mauris sapien. Amet.
-              </Text>
             </Box>
             {collections.map((collection: Collection) => {
               return NftItem(collection);

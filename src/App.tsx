@@ -16,7 +16,6 @@ import Artists from "pages/Artists";
 import QA from "pages/Q&A";
 import ArtistPage from "pages/ArtistPage";
 import ExploreCollection from "pages/ExploreCollection";
-import WaitingPage from "pages/WaitingPage";
 import Dashboard from "pages/Dashboard";
 import ListArtists from "pages/ListArtists";
 import ListCollections from "pages/ListCollections";
@@ -40,7 +39,7 @@ export const App = () => (
         <Route exact path="/search" component={Search} />
         <Route exact path="/exploreCollection" component={ExploreCollection} />
         <Route exact path="/artist/:address" component={ArtistPage} />
-        <Route exact path="/" component={WaitingPage} />
+        <Route exact path="/" component={() => <Redirect to='/landing'  />} />
         <Route exact path="/email" component={Email} />
         <ProtectedRoute exact path="/dashboard" component={Dashboard} />
         <ProtectedRoute exact path="/listartists" component={ListArtists} />
