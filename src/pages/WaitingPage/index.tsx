@@ -123,7 +123,7 @@ const WaitingPage = () => {
 						<Link href={"https://instagram.com/exposure_art_"} target='_blank'>
 							<Image src={instagram} height='30px' />
 						</Link>
-						<Link href={"https://twitter.com/exposure_art_"} target='_blank'>
+						<Link href={"https://twitter.com/rhapsodycurated"} target='_blank'>
 							<Image src={twitter} height='30px' margin='auto' />
 						</Link>
 						<Link
