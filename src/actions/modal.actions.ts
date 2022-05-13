@@ -1,32 +1,57 @@
-import ModalConstants from '../constants/modal.constants';
+import ModalConstants from "../constants/modal.constants";
 
 const ModalActions = {
-  showConnectWalletModal,
-  hideConnectWalletModal,
+	showConnectWalletModal,
+	hideConnectWalletModal,
+	showRemindModal,
+	hideRemindModal,
 };
 
+function showRemindModal() {
+	return (dispatch: any) => {
+		dispatch(_showRemindModal());
+	};
+}
+
+const _showRemindModal = () => {
+	return {
+		type: ModalConstants.SHOW_REMIND_MODAL,
+	};
+};
+
+function hideRemindModal() {
+	return (dispatch: any) => {
+		dispatch(_hideRemindModal());
+	};
+}
+
+const _hideRemindModal = () => {
+	return {
+		type: ModalConstants.HIDE_REMIND_MODAL,
+	};
+};
 function showConnectWalletModal() {
-  return (dispatch: any) => {
-    dispatch(_showConnectWalletModal());
-  };
+	return (dispatch: any) => {
+		dispatch(_showConnectWalletModal());
+	};
 }
 
 const _showConnectWalletModal = () => {
-  return {
-    type: ModalConstants.SHOW_CONNECT_WALLET_MODAL,
-  };
+	return {
+		type: ModalConstants.SHOW_CONNECT_WALLET_MODAL,
+	};
 };
 
 function hideConnectWalletModal() {
-  return (dispatch: any) => {
-    dispatch(_hideConnectWalletModal());
-  };
+	return (dispatch: any) => {
+		dispatch(_hideConnectWalletModal());
+	};
 }
 
 const _hideConnectWalletModal = () => {
-  return {
-    type: ModalConstants.HIDE_CONNECT_WALLET_MODAL,
-  };
+	return {
+		type: ModalConstants.HIDE_CONNECT_WALLET_MODAL,
+	};
 };
 
 export default ModalActions;

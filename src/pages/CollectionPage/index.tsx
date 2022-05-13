@@ -39,9 +39,13 @@ import { ADMIN_ADDRESSES } from "constants/index";
 import axios from "axios";
 // import NftItem from "components/NFTitem";
 import styles from "./styles.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
+import { BsTextLeft } from "react-icons/bs";
+import { CalendarIcon } from "@chakra-ui/icons";
+import ModalActions from "actions/modal.actions";
+import RemindModal from "components/RemindModal";
 
 interface DropInfo {
 	artist: string;
@@ -62,8 +66,10 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const { updateMint, publishDrop } = useApi();
 
 	const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
+	const { remindModalVisible } = useSelector((state: RootState) => state.Modal);
 
 	const toast = useToast();
+	const dispatch = useDispatch();
 	// const history = useHistory();
 
 	const handleMint = async () => {
@@ -164,6 +170,10 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 
 	return (
 		<>
+			<RemindModal
+				visible={remindModalVisible}
+				onClose={() => dispatch(ModalActions.hideRemindModal())}
+			/>
 			{collection?.private && !_isAdmin ? (
 				<>
 					<Flex padding={"30px"} display={{ base: "none", md: "unset" }} />
@@ -557,12 +567,13 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 												}
 											)}{" "}
 											|{" "}
-											{new Date(
-												collection?.releaseDate || ""
-											).toLocaleString([], {
-												hour: "2-digit",
-												minute: "2-digit",
-											})}
+											{new Date(collection?.releaseDate || "").toLocaleString(
+												[],
+												{
+													hour: "2-digit",
+													minute: "2-digit",
+												}
+											)}
 										</span>{" "}
 										{/* at{" "}
 							<span style={{ fontWeight: "800" }}>
@@ -611,6 +622,28 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 									<>
 										<Flex border={"1px solid #000"} width='100%'>
 											<Button
+												leftIcon={<CalendarIcon />}
+												fontSize={"16px"}
+												lineHeight='20px'
+												fontWeight={"700"}
+												fontFamily={"Inter"}
+												color={"black"}
+												bg={"white"}
+												borderRadius='0px'
+												width={"100%"}
+												height={"54px"}
+												style={{ marginInlineStart: "unset" }}
+												// _hover={{
+												// 	transform: "translate3d(4px,4px,0px)",
+												// }}
+												onClick={() => dispatch(ModalActions.showRemindModal())}
+												_focus={{ outline: "none !important" }}>
+												Remind Me
+											</Button>
+										</Flex>
+										<Flex border={"1px solid #000"} width='100%' mt={2}>
+											<Button
+												leftIcon={<BsTextLeft />}
 												fontSize={"16px"}
 												lineHeight='20px'
 												fontWeight={"700"}
@@ -627,7 +660,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 												as={RouterLink}
 												to={`/collection/${collection.dropId}`}
 												_focus={{ outline: "none !important" }}>
-												Discover Collection
+												Full Details
 											</Button>
 										</Flex>
 									</>
