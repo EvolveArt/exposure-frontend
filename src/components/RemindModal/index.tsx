@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from "react";
-import cx from "classnames";
-import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
-
-import { SUPPORTED_WALLETS } from "constants/wallet";
-import usePrevious from "hooks/usePrevious";
+import React, { useState } from "react";
+import { useWeb3React } from "@web3-react/core";
 
 import Modal from "../Modal";
 import styles from "./styles.module.scss";
@@ -11,13 +7,14 @@ import { Button, Flex, useToast } from "@chakra-ui/react";
 import { useApi } from "api";
 import { getSigner } from "contracts";
 import { useDispatch, useSelector } from "react-redux";
+// eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
 import { ethers } from "ethers";
 import AuthActions from "actions/auth.actions";
 import { useHistory } from "react-router-dom";
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
+// const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
 
 const RemindModal = ({ visible, onClose }: any) => {
 	const { library, account } = useWeb3React();
