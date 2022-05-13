@@ -192,7 +192,7 @@ const LandingPage = () => {
 						lineHeight='56px'
 						paddingBottom={"32px"}
 						marginLeft='10px'>
-						Latest Drops
+						Collections
 					</Text>
 					<Link
 						style={{
@@ -211,8 +211,8 @@ const LandingPage = () => {
 					flexDirection={{ base: "column", md: "row" }}
 					gridGap='24px'
 					flexWrap={"wrap"}
-					alignItems='center'
-					justifyContent={"center"}>
+					alignItems='flex-start'
+					justifyContent={"flex-start"}>
 					{latestCollections?.map((collection: Collection) =>
 						NftItem(collection)
 					)}
