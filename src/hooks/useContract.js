@@ -18,8 +18,10 @@ export default () => {
 				return new ethers.Contract(address, abi, signer);
 			} else {
 				const provider = new ethers.providers.JsonRpcProvider(
-					isMainnet ? "https://rpc.nebkas.ro" : "https://arb1.arbitrum.io/rpc",
-					isMainnet ? 25 : 42161
+					isMainnet
+						? "https://eth-mainnet.alchemyapi.io/v2/qWyqqCpE1hzR-_HlJwe-RUu8Uy0YvnoP"
+						: "https://eth-rinkeby.alchemyapi.io/v2/Xsu8vJ7-9wZqTyU9rFR2TegPPRSHxuFS",
+					isMainnet ? 1 : 4
 				);
 
 				return new ethers.Contract(address, abi, provider);
