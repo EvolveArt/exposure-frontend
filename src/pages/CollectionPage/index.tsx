@@ -540,7 +540,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 											fontSize='16px'
 											lineHeight='28px'
 											paddingBottom={"17px"}>
-											Copyright -{" "}
+											Licence -{" "}
 											<span style={{ fontWeight: "800" }}>
 												{collection?.copyRights}{" "}
 											</span>
@@ -795,7 +795,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							border='solid 2px #000'>
 							<Text
 								fontWeight='800'
-								fontSize={{ base: "30px", md: "40px" }}
+								fontSize={{ base: "20px", md: "30px" }}
 								lineHeight={{ base: "40px", md: "53px" }}
 								textAlign={"center"}
 								paddingTop='25px'
