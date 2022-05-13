@@ -139,7 +139,7 @@ const Footer = () => {
 						paddingTop={"90px"}
 						paddingBottom={{ base: "110px", md: "unset" }}>
 						<Link
-							href={"https://instagram.com/exposure_art_"}
+							href={"https://instagram.com/rhapsodycurated"}
 							target='_blank'
 							_focus={{ outline: "none !important" }}>
 							<Image src={instagram} height='30px' />
