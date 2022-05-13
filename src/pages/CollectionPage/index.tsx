@@ -451,20 +451,22 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 								) : (
 									<></>
 								)}
-								{collection?.season && collection.season.length > 0 && <Flex flexDirection={"row"} gridGap='9px'>
-									<Text
-										fontFamily='Inter'
-										fontStyle='normal'
-										fontWeight='normal'
-										fontSize='16px'
-										lineHeight='28px'
-										paddingBottom={"17px"}>
-										Season -{" "}
-										<span style={{fontWeight: "800"}}>
+								{collection?.season && collection.season.length > 0 && (
+									<Flex flexDirection={"row"} gridGap='9px'>
+										<Text
+											fontFamily='Inter'
+											fontStyle='normal'
+											fontWeight='normal'
+											fontSize='16px'
+											lineHeight='28px'
+											paddingBottom={"17px"}>
+											Season -{" "}
+											<span style={{ fontWeight: "800" }}>
 												{collection.season[0].name}{" "}
 											</span>
-									</Text>
-								</Flex>}
+										</Text>
+									</Flex>
+								)}
 								<Flex flexDirection={"row"} gridGap='9px'>
 									<Image src={mintType} width='29px' height='29px' />
 									<Text
@@ -518,22 +520,23 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 										</span>
 									</Text>
 								</Flex>
-								{collection?.copyRights && <Flex flexDirection={"row"} gridGap='9px'>
-									<Image src={copyRights} width='29px' height='29px'/>
-									<Text
-										fontFamily='Inter'
-										fontStyle='normal'
-										fontWeight='normal'
-										fontSize='16px'
-										lineHeight='28px'
-										paddingBottom={"17px"}>
-										Copyright -{" "}
-										<span style={{fontWeight: "800"}}>
+								{collection?.copyRights && (
+									<Flex flexDirection={"row"} gridGap='9px'>
+										<Image src={copyRights} width='29px' height='29px' />
+										<Text
+											fontFamily='Inter'
+											fontStyle='normal'
+											fontWeight='normal'
+											fontSize='16px'
+											lineHeight='28px'
+											paddingBottom={"17px"}>
+											Copyright -{" "}
+											<span style={{ fontWeight: "800" }}>
 												{collection?.copyRights}{" "}
 											</span>
-									</Text>
-								</Flex>
-								}
+										</Text>
+									</Flex>
+								)}
 								<Flex flexDirection={"row"} gridGap='9px'>
 									<Image src={agenda} width='29px' height='29px' />
 									<Text
@@ -545,7 +548,21 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 										paddingBottom={"35px"}>
 										Release date -{" "}
 										<span style={{ fontWeight: "800" }}>
-											{new Date(collection?.releaseDate || "").toLocaleString()}
+											{new Date(collection?.releaseDate || "").toLocaleString(
+												[],
+												{
+													year: "numeric",
+													month: "long",
+													day: "numeric",
+												}
+											)}{" "}
+											|{" "}
+											{new Date(
+												collection?.releaseDate || ""
+											).toLocaleString([], {
+												hour: "2-digit",
+												minute: "2-digit",
+											})}
 										</span>{" "}
 										{/* at{" "}
 							<span style={{ fontWeight: "800" }}>
@@ -832,13 +849,13 @@ const CollectionPage = () => {
 				// images.push(_metadata.data);
 				// console.log(_metadata.data);
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 			}
 		}
 
 		// setImages(images);
 	};
-//QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
+	//QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
 	useEffect(() => {
 		loadAvailablePhotographs();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
