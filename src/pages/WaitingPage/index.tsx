@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import logo from "assets/imgs/logoWhite.png";
-import addIcon from "assets/imgs/plus1.png";
 import { Flex, Image, Text, Link, Box } from "@chakra-ui/react";
 import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
@@ -22,71 +21,6 @@ const WaitingPage = () => {
 				position='relative'
 				justifyContent='center'
 				alignItems='center'>
-				<Image
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					left='0'></Image>
-				<Image
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					right={{ base: "0", md: "-0px" }}></Image>
-				<Image
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					bottom={"80px"}
-					right='0'></Image>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					transform={"rotate(180deg)"}
-					bottom={"80px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					bottom={"80px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					src={addIcon}
-					width={"16px"}
-					position='absolute'
-					bottom={"80px"}
-					left='0'></Image>
 				<Box paddingTop={"30px"}>
 					<Image
 						src={logo}

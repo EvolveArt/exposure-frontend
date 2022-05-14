@@ -18,7 +18,6 @@ import logo from "../../assets/imgs/logoWhite.png";
 import twitter from "../../assets/imgs/twitter.png";
 import discord from "../../assets/imgs/discord.png";
 import instagram from "../../assets/imgs/instagram.png";
-import addIcon from "../../assets/imgs/plus1.png";
 import { useWeb3React } from "@web3-react/core";
 
 const Footer = () => {
@@ -109,28 +108,6 @@ const Footer = () => {
 							<Image src={discord} height='30px' />
 						</Link>
 					</Flex>
-					<Image
-						src={addIcon}
-						width={"16px"}
-						position='absolute'
-						bottom={{ base: "40px", md: "-50px" }}
-						right='-10px'></Image>
-					<Image
-						src={addIcon}
-						width={"16px"}
-						position='absolute'
-						bottom={{ base: "40px", md: "-50px" }}
-						left='0'
-						right='0'
-						marginLeft='auto'
-						marginRight='auto'
-						zIndex={"10"}></Image>
-					<Image
-						src={addIcon}
-						width={"16px"}
-						position='absolute'
-						bottom={{ base: "40px", md: "-50px" }}
-						left='0px'></Image>
 				</Box>
 			</Flex>
 		</div>

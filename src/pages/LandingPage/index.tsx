@@ -2,7 +2,6 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
-import addIcon from "../../assets/imgs/plus.png";
 import dropWrapper from "../../assets/imgs/dropWrapper.png";
 import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import Footer from "../../components/Footer";
@@ -131,22 +130,6 @@ const LandingPage = () => {
 						series. Essentially, what the collector captures is a unique piece
 						of the overall story told by the photographer.
 					</Text>
-					<Image
-						display={{ base: "none", md: "unset" }}
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						bottom={"-60px"}
-						right='-7px'></Image>
-					<Image
-						display={{ base: "none", md: "unset" }}
-						src={addIcon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						bottom={"-60px"}
-						left='-7px'></Image>
 				</Flex>
 			</Box>
 			<Flex
@@ -157,22 +140,6 @@ const LandingPage = () => {
 				gridGap={"8px"}
 				zIndex='1'
 				position={"relative"}>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-60px"}
-					right='-10px'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-60px"}
-					left='-7px'></Image>
 				<Flex
 					position='relative'
 					marginRight={"auto"}
@@ -271,33 +238,6 @@ const LandingPage = () => {
 						))}
 					</div>
 				</div>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"0px"}
-					right='-10px'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"0px"}
-					left='-7px'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"0"}
-					left='-7px'></Image>
 			</Box>
 			<Footer />
 		</div>

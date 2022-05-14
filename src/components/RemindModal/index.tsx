@@ -108,7 +108,7 @@ const RemindModal = ({ visible, onClose }: any) => {
 						onBlur={validateEmail}
 					/>
 
-					<Flex border={"1px solid #000"} width='20%'>
+					<Flex border={"1px solid #000"} width='40%'>
 						<Button
 							fontSize={"sm"}
 							fontWeight={600}

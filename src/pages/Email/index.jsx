@@ -2,7 +2,6 @@ import { Flex, Image, Text, Button, useToast } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import React, { useState } from "react";
 import Header from "../../components/Header/index";
-import addIcon from "../../assets/imgs/plus.png";
 import ticon from "../../assets/imgs/t.png";
 import borderbl from "../../assets/imgs/borderbl.png";
 import borderbr from "../../assets/imgs/borderbr.png";
@@ -103,27 +102,6 @@ const Email = () => {
 				paddingBottom={"100px"}
 				position='relative'>
 				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					left='0'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					right={{ base: "0", md: "-0px" }}></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-20px"}
-					right='0'></Image>
-				<Image
 					display={{ base: "unset", md: "none" }}
 					src={ticon}
 					filter='brightness(0)'
@@ -134,47 +112,7 @@ const Email = () => {
 					right='0'
 					marginLeft='auto'
 					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"100px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					transform={"rotate(180deg)"}
-					bottom={"-14px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-20px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"-20px"}
-					left='0'></Image>
+
 				<Flex flexDir={"column"} maxWidth='548px' margin={"auto"}>
 					<Flex
 						position={"relative"}

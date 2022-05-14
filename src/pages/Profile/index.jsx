@@ -16,8 +16,6 @@ import { useParams } from "react-router-dom";
 import { shortenAddress } from "utils";
 // import toast from "utils/toast";
 
-import addIcon from "../../assets/imgs/plus.png";
-import ticon from "../../assets/imgs/t.png";
 import dropWrapper from "../../assets/imgs/dropWrapper.png";
 import largeGrid from "../../assets/imgs/largegrid.png";
 import smallGrid from "../../assets/imgs/smallgrid.png";
@@ -93,79 +91,6 @@ const Profile = () => {
 				zIndex='1'
 				paddingBottom={"100px"}
 				position='relative'>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					top={"100px"}
-					left='0'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					top={"100px"}
-					right={{ base: "0", md: "-0px" }}></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					bottom={"-20px"}
-					right='0'></Image>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					top={"107px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					top={"100px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					transform={"rotate(180deg)"}
-					bottom={"-14px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					bottom={"-20px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					bottom={"-20px"}
-					left='0'></Image>
 				<Flex
 					position='relative'
 					marginRight={"auto"}

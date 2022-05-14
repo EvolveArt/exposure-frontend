@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useState } from "react";
 
-import addIcon from "../../assets/imgs/plus.png";
 import copyRights from "../../assets/imgs/copyright.png";
 import ticon from "../../assets/imgs/t.png";
 import mintType from "../../assets/imgs/mintType.png";
@@ -200,49 +199,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							paddingBottom={{ base: "50px", md: "unset" }}
 							justifyContent={{ base: "center", md: "end" }}
 							alignItems='center'
-							position='relative'>
-							<Image
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"0"}
-								left='-7px'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"0"}
-								right={{ base: "0", md: "-35px" }}></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={ticon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"7px"}
-								left='0'
-								right='0'
-								marginLeft='auto'
-								marginRight='auto'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={"0px"}
-								right='0'></Image>
-							<Image
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={"0"}
-								left='-7px'></Image>
-						</Flex>
+							position='relative'></Flex>
 						<Flex
 							flexDirection={"column"}
 							width={{
@@ -255,54 +212,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							position='relative'
 							paddingLeft={{ base: "unset", md: "50px", lg: "70px" }}
 							paddingBottom={{ base: "50px", md: "unset" }}
-							paddingTop='50px'>
-							<Image
-								display={{ base: "none", md: "unset" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"0"}
-								right='-7px'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={"0"}
-								left='0px'></Image>
-							<Image
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={{ base: "0", md: "0px" }}
-								right='-7px'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={ticon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								transform={"rotate(180deg)"}
-								bottom={"7px"}
-								left='0'
-								right='0'
-								marginLeft='auto'
-								marginRight='auto'></Image>
-						</Flex>
-						<Image
-							display={{ base: "none", md: "unset" }}
-							src={addIcon}
-							filter='brightness(0)'
-							width={"16px"}
-							position='absolute'
-							top={"83px"}
-							left='0'
-							right='0'
-							marginLeft='auto'
-							marginRight='auto'></Image>
+							paddingTop='50px'></Flex>
 					</Flex>
 				</>
 			) : (
@@ -336,47 +246,6 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 								src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
 								boxShadow='0px 8px 16px 0px rgba(0, 0, 0, 0.15)'
 								width={"100%"}></Image>
-							<Image
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"0"}
-								left='-7px'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"0"}
-								right={{ base: "0", md: "-35px" }}></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={ticon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"7px"}
-								left='0'
-								right='0'
-								marginLeft='auto'
-								marginRight='auto'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={"0px"}
-								right='0'></Image>
-							<Image
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={"0"}
-								left='-7px'></Image>
 						</Flex>
 						<Flex
 							flexDirection={"column"}
@@ -391,41 +260,6 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							paddingLeft={{ base: "unset", md: "50px", lg: "70px" }}
 							paddingBottom={{ base: "50px", md: "unset" }}
 							paddingTop='50px'>
-							<Image
-								display={{ base: "none", md: "unset" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								top={"0"}
-								right='-7px'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={"0"}
-								left='0px'></Image>
-							<Image
-								src={addIcon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								bottom={{ base: "0", md: "0px" }}
-								right='-7px'></Image>
-							<Image
-								display={{ base: "unset", md: "none" }}
-								src={ticon}
-								filter='brightness(0)'
-								width={"16px"}
-								position='absolute'
-								transform={"rotate(180deg)"}
-								bottom={"7px"}
-								left='0'
-								right='0'
-								marginLeft='auto'
-								marginRight='auto'></Image>
 							<Box paddingBottom='50px'>
 								<Text
 									fontFamily='Inter'
@@ -583,40 +417,72 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 								</Flex>
 								{extend ? (
 									<>
-										<Flex border={"1px solid #000"} width='100%'>
-											<Button
-												fontSize={"16px"}
-												lineHeight='20px'
-												fontWeight={"700"}
-												fontFamily={"Inter"}
-												color={"white"}
-												bg={"#000"}
-												borderRadius='0px'
-												width={"100%"}
-												height={"54px"}
-												style={{ marginInlineStart: "unset" }}
-												_hover={{
-													transform: "translate3d(4px,4px,0px)",
-												}}
-												onClick={handleMint}
-												_focus={{ outline: "none !important" }}>
-												{minting ? "Minting..." : "Mint"}
-											</Button>
-										</Flex>
-										<Box
-											width={"100%"}
-											paddingTop='30px'
-											display={"flex"}
-											alignItems='center'
-											justifyContent={"center"}>
-											<Link
-												fontWeight={"700"}
-												href={`https://testnets.opensea.io/assets/rhapsody?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
-												target='_blank'
-												_focus={{ outline: "none !important" }}>
-												See collection on Opensea
-											</Link>
-										</Box>
+										{new Date(collection?.releaseDate || "").getTime() >
+										new Date().getTime() ? (
+											<Flex border={"1px solid #000"} width='100%'>
+												<Button
+													leftIcon={<CalendarIcon />}
+													fontSize={"16px"}
+													lineHeight='20px'
+													fontWeight={"700"}
+													fontFamily={"Inter"}
+													color={"black"}
+													bg={"white"}
+													borderRadius='0px'
+													width={"100%"}
+													height={"54px"}
+													style={{ marginInlineStart: "unset" }}
+													// _hover={{
+													// 	transform: "translate3d(4px,4px,0px)",
+													// }}
+													onClick={() =>
+														dispatch(ModalActions.showRemindModal())
+													}
+													_focus={{ outline: "none !important" }}>
+													Remind Me
+												</Button>
+											</Flex>
+										) : (
+											<>
+												{collection?.soldOut ? (
+													<Box
+														width={"100%"}
+														paddingTop='30px'
+														display={"flex"}
+														alignItems='center'
+														justifyContent={"center"}>
+														<Link
+															fontWeight={"700"}
+															href={`https://testnets.opensea.io/assets/rhapsody?search[stringTraits][0][name]=Collection&search[stringTraits][0][values][0]=${collection?.collectionName}&search[sortAscending]=true&search[sortBy]=PRICE`}
+															target='_blank'
+															_focus={{ outline: "none !important" }}>
+															See collection on Opensea
+														</Link>
+													</Box>
+												) : (
+													<Flex border={"1px solid #000"} width='100%'>
+														<Button
+															fontSize={"16px"}
+															lineHeight='20px'
+															fontWeight={"700"}
+															fontFamily={"Inter"}
+															color={"white"}
+															bg={"#000"}
+															borderRadius='0px'
+															width={"100%"}
+															height={"54px"}
+															style={{ marginInlineStart: "unset" }}
+															_hover={{
+																transform: "translate3d(4px,4px,0px)",
+															}}
+															onClick={handleMint}
+															_focus={{ outline: "none !important" }}>
+															{minting ? "Minting..." : "Mint"}
+														</Button>
+													</Flex>
+												)}
+											</>
+										)}
 									</>
 								) : (
 									<>
@@ -667,17 +533,6 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 								)}
 							</Box>
 						</Flex>
-						<Image
-							display={{ base: "none", md: "unset" }}
-							src={addIcon}
-							filter='brightness(0)'
-							width={"16px"}
-							position='absolute'
-							top={"83px"}
-							left='0'
-							right='0'
-							marginLeft='auto'
-							marginRight='auto'></Image>
 					</Flex>
 					{account &&
 						ADMIN_ADDRESSES.includes(account.toLowerCase()) &&
@@ -920,31 +775,7 @@ const CollectionPage = () => {
 					right='0'
 					marginLeft='auto'
 					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"-70px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"-70px"}
-					right='-7px'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"-70px"}
-					left='-7px'></Image>
+
 				<Text
 					fontFamily='Inter'
 					fontStyle='normal'
@@ -973,43 +804,6 @@ const CollectionPage = () => {
 				gridGap={"24px"}
 				position='relative'
 				paddingBottom={"150px"}>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					transform={"rotate(180deg)"}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"75px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					display={{ base: "none", md: "unset" }}
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"70px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"70px"}
-					right='-7px'></Image>
-				<Image
-					src={addIcon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					bottom={"70px"}
-					left='-7px'></Image>
 				{_isAdmin &&
 					images.map((elem, index) => {
 						return (
