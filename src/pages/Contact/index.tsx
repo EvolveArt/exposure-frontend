@@ -7,8 +7,6 @@ import {
 	Text,
 	Button,
 	VStack,
-	Wrap,
-	WrapItem,
 	FormControl,
 	FormLabel,
 	Input,
