@@ -5,8 +5,34 @@ const ModalActions = {
 	hideConnectWalletModal,
 	showRemindModal,
 	hideRemindModal,
+	showSeeMoreModal,
+	hideSeeMoreModal,
 };
 
+function showSeeMoreModal() {
+	return (dispatch: any) => {
+		dispatch(_showSeeMoreModal());
+	};
+}
+
+const _showSeeMoreModal = () => {
+	return {
+		type: ModalConstants.SHOW_SEE_MORE_MODAL,
+	};
+};
+
+function hideSeeMoreModal() {
+	return (dispatch: any) => {
+		dispatch(_hideSeeMoreModal());
+	};
+}
+
+const _hideSeeMoreModal = () => {
+	return {
+		type: ModalConstants.HIDE_SEE_MORE_MODAL,
+	};
+};
+// Remind Modal
 function showRemindModal() {
 	return (dispatch: any) => {
 		dispatch(_showRemindModal());

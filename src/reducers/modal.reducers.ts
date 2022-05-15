@@ -3,6 +3,7 @@ import ModalConstants from "../constants/modal.constants";
 const initialState = {
 	connectWalletModalVisible: false,
 	remindModalVisible: false,
+	seeMoreModalVisible: false,
 };
 
 export function Modal(state = initialState, action: any) {
@@ -26,6 +27,16 @@ export function Modal(state = initialState, action: any) {
 			return {
 				...state,
 				remindModalVisible: false,
+			};
+		case ModalConstants.SHOW_SEE_MORE_MODAL:
+			return {
+				...state,
+				seeMoreModalVisible: true,
+			};
+		case ModalConstants.HIDE_SEE_MORE_MODAL:
+			return {
+				...state,
+				seeMoreModalVisible: false,
 			};
 		default: {
 			return state;

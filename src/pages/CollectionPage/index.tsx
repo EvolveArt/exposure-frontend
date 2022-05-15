@@ -10,10 +10,9 @@ import {
 	HStack,
 	Skeleton,
 } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import copyRights from "../../assets/imgs/copyright.png";
-import ticon from "../../assets/imgs/t.png";
 import mintType from "../../assets/imgs/mintType.png";
 import agenda from "../../assets/imgs/agenda.png";
 import available from "../../assets/imgs/available.png";
@@ -45,6 +44,8 @@ import { BsTextLeft } from "react-icons/bs";
 import { CalendarIcon } from "@chakra-ui/icons";
 import ModalActions from "actions/modal.actions";
 import RemindModal from "components/RemindModal";
+import { useIsOverflow } from "hooks/useIsOverflow";
+import SeeMoreModal from "components/SeeMoreModal";
 
 interface DropInfo {
 	artist: string;
@@ -65,7 +66,9 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const { updateMint, publishDrop } = useApi();
 
 	const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
-	const { remindModalVisible } = useSelector((state: RootState) => state.Modal);
+	const { remindModalVisible, seeMoreModalVisible } = useSelector(
+		(state: RootState) => state.Modal
+	);
 
 	const toast = useToast();
 	const dispatch = useDispatch();
@@ -167,11 +170,19 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 		[account]
 	);
 
+	const ref = useRef();
+	const isOverflow = useIsOverflow(ref);
+
 	return (
 		<>
 			<RemindModal
 				visible={remindModalVisible}
 				onClose={() => dispatch(ModalActions.hideRemindModal())}
+			/>
+			<SeeMoreModal
+				visible={seeMoreModalVisible}
+				onClose={() => dispatch(ModalActions.hideSeeMoreModal())}
+				fullText={collection?.description}
 			/>
 			{collection?.private && !_isAdmin ? (
 				<>
@@ -283,20 +294,34 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 										: "Unknown"}
 								</Text>
 								{extend ? (
-									<Text
-										fontFamily='Inter'
-										fontStyle='normal'
-										fontWeight='normal'
-										fontSize={"16px"}
-										lineHeight='28px'
-										paddingBottom={"26px"}>
-										{collection?.description}
-									</Text>
+									<>
+										<Box overflow='hidden' ref={ref as any}>
+											<Text
+												className={styles.descriptionText}
+												fontFamily='Inter'
+												fontStyle='normal'
+												fontWeight='normal'
+												fontSize={"16px"}
+												lineHeight='28px'>
+												{collection?.description}
+											</Text>
+										</Box>
+										{isOverflow && (
+											<Text
+												fontWeight='bold'
+												_hover={{ cursor: "pointer" }}
+												onClick={() =>
+													dispatch(ModalActions.showSeeMoreModal())
+												}>
+												See More
+											</Text>
+										)}
+									</>
 								) : (
 									<></>
 								)}
 								{collection?.season && collection.season.length > 0 && (
-									<Flex flexDirection={"row"} gridGap='9px'>
+									<Flex flexDirection={"row"} gridGap='9px' mt={2}>
 										<Text
 											fontFamily='Inter'
 											fontStyle='normal'
@@ -698,7 +723,7 @@ const CollectionPage = () => {
 		null
 	);
 
-	const { account } = useWeb3React();
+	// const { account } = useWeb3React();
 
 	const { getCollectionInfo } = useApi();
 
@@ -749,10 +774,10 @@ const CollectionPage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentCollection]);
 
-	const _isAdmin = useMemo(
-		() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
-		[account]
-	);
+	// const _isAdmin = useMemo(
+	// 	() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
+	// 	[account]
+	// );
 
 	const group = getRootProps();
 	return (
@@ -764,18 +789,6 @@ const CollectionPage = () => {
 				margin={"auto"}
 				width={{ base: "88vw", lg: "80vw" }}
 				marginTop='150px'>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"-65px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-
 				<Text
 					fontFamily='Inter'
 					fontStyle='normal'
@@ -804,63 +817,62 @@ const CollectionPage = () => {
 				gridGap={"24px"}
 				position='relative'
 				paddingBottom={"150px"}>
-				{_isAdmin &&
-					images.map((elem, index) => {
-						return (
+				{images.map((elem, index) => {
+					return (
+						<Flex
+							width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
+							flexDir={"column"}
+							borderRadius={"2px"}
+							key={index}
+							className={styles.dropContainer}>
 							<Flex
-								width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
-								flexDir={"column"}
-								borderRadius={"2px"}
-								className={styles.dropContainer}>
-								<Flex
+								width='100%'
+								position='relative'
+								paddingBottom='100%'
+								boxSizing='border-box'
+								className={styles.imageContainer}>
+								<Image
+									src={getRandomIPFS(elem.image)}
+									position='absolute'
+									top='0'
+									left='0'
 									width='100%'
-									position='relative'
-									paddingBottom='100%'
-									boxSizing='border-box'
-									className={styles.imageContainer}>
-									<Image
-										src={getRandomIPFS(elem.image)}
-										position='absolute'
-										top='0'
-										left='0'
-										width='100%'
-										height='100%'
-										backgroundSize='contain'
-										objectFit='contain'
-										border='0'
-										padding='8px'></Image>
-								</Flex>
-								<Flex
-									flexDirection={"column"}
-									paddingLeft='8px'
-									gridGap={"8px"}
-									paddingBottom='8px'>
-									<Text
-										fontStyle='normal'
-										fontWeight='600'
-										fontSize='20px'
-										lineHeight='35px'
-										paddingTop='19px'>
-										{elem.name}
-									</Text>
-									<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
-										By{" "}
-										{
-											elem.attributes.find(
-												(a: any) => a.trait_type === "Artist"
-											).value
-										}
-									</Text>
-									{/* <Text fontSize='12px' lineHeight='18px'>
+									height='100%'
+									backgroundSize='contain'
+									objectFit='contain'
+									border='0'
+									padding='8px'></Image>
+							</Flex>
+							<Flex
+								flexDirection={"column"}
+								paddingLeft='8px'
+								gridGap={"8px"}
+								paddingBottom='8px'>
+								<Text
+									fontStyle='normal'
+									fontWeight='600'
+									fontSize='20px'
+									lineHeight='35px'
+									paddingTop='19px'>
+									{elem.name}
+								</Text>
+								<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
+									By{" "}
+									{
+										elem.attributes.find((a: any) => a.trait_type === "Artist")
+											.value
+									}
+								</Text>
+								{/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>
 										{collection.totalSupply}{" "}
 									</span>
 									photos
 								</Text> */}
-								</Flex>
 							</Flex>
-						);
-					})}
+						</Flex>
+					);
+				})}
 			</Flex>
 			<Footer />
 		</div>
