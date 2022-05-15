@@ -117,7 +117,7 @@ const LandingPage = () => {
 						lineHeight='56px'>
 						About Rhapsody Curated
 					</Text>
-					<Text textAlign={"justify"}>
+					<Text textAlign={"justify"} lineHeight='8'>
 						Rhapsody Curated is a digital space bringing together the greatest
 						photographic writings and facilitating, for NFT collectors, the
 						exploration, the discovery and the collection of high quality
