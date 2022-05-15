@@ -8,8 +8,9 @@ import { useApi } from "api";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
 // eslint-disable-next-line
-import { Artist } from "interfaces";
+import { Artist, Collection } from "interfaces";
 import { formatName, getRandomIPFS } from "utils";
+import NftItem from "components/NFTitem";
 
 const TopPage = (artist: Artist) => {
 	return (
@@ -94,8 +95,11 @@ const TopPage = (artist: Artist) => {
 };
 
 const ArtistPage = () => {
-	const { getArtistInfo } = useApi();
+	const { getArtistInfo, getAllCollections } = useApi();
 	const [artist, setArtist] = useState<Artist>({} as Artist);
+	const [collections, setCollections] = useState<Collection[]>(
+		[] as Collection[]
+	);
 
 	const { address }: any = useParams();
 
@@ -103,8 +107,10 @@ const ArtistPage = () => {
 		const fetchArtist = async () => {
 			const _artist = await getArtistInfo(address);
 			setArtist(_artist.data);
+
+			const _collections = await getAllCollections(true, [_artist.data._id]);
+			setCollections(_collections.data);
 		};
-		console.log(address);
 
 		if (ethers.utils.isAddress(address)) fetchArtist();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,7 +137,11 @@ const ArtistPage = () => {
 					letterSpacing='1px'>
 					Collections
 				</Text>
-				<Flex flexWrap={"wrap"} width='100%'></Flex>
+				<Flex flexWrap={"wrap"} width='100%'>
+					{collections?.map((collection: Collection) => {
+						return NftItem(collection);
+					})}
+				</Flex>
 			</Flex>
 			<Footer />
 		</div>
