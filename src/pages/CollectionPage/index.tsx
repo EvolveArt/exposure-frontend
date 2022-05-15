@@ -11,7 +11,7 @@ import {
 	Skeleton,
 } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-
+import Zoom from "react-medium-image-zoom";
 import copyRights from "../../assets/imgs/copyright.png";
 import mintType from "../../assets/imgs/mintType.png";
 import agenda from "../../assets/imgs/agenda.png";
@@ -253,10 +253,12 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							justifyContent={{ base: "center", md: "end" }}
 							alignItems='center'
 							position='relative'>
-							<Image
-								src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
-								boxShadow='0px 8px 16px 0px rgba(0, 0, 0, 0.15)'
-								width={"100%"}></Image>
+							<Zoom>
+								<Image
+									src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+									boxShadow='0px 8px 16px 0px rgba(0, 0, 0, 0.15)'
+									width={"100%"}></Image>
+							</Zoom>
 						</Flex>
 						<Flex
 							flexDirection={"column"}
@@ -825,24 +827,28 @@ const CollectionPage = () => {
 							borderRadius={"2px"}
 							key={index}
 							className={styles.dropContainer}>
-							<Flex
-								width='100%'
-								position='relative'
-								paddingBottom='100%'
-								boxSizing='border-box'
-								className={styles.imageContainer}>
-								<Image
-									src={getRandomIPFS(elem.image)}
-									position='absolute'
-									top='0'
-									left='0'
+							<Zoom>
+								<Flex
 									width='100%'
-									height='100%'
-									backgroundSize='contain'
-									objectFit='contain'
-									border='0'
-									padding='8px'></Image>
-							</Flex>
+									position='relative'
+									paddingBottom='100%'
+									boxSizing='border-box'
+									className={styles.imageContainer}>
+									{/* <Zoom> */}
+									<Image
+										src={getRandomIPFS(elem.image)}
+										position='absolute'
+										top='0'
+										left='0'
+										width='100%'
+										height='100%'
+										backgroundSize='contain'
+										objectFit='contain'
+										border='0'
+										padding='8px'></Image>
+									{/* </Zoom> */}
+								</Flex>
+							</Zoom>
 							<Flex
 								flexDirection={"column"}
 								paddingLeft='8px'
