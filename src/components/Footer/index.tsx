@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Link } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import logo from "../../assets/imgs/logoWhite.png";
 import twitter from "../../assets/imgs/twitter.png";
@@ -133,10 +133,9 @@ const Footer = () => {
 						</Flex>
 					</Flex>
 					<Flex
-						margin='auto'
 						gridGap={"20px"}
-						width='fit-content'
 						paddingTop={"90px"}
+						justifyContent='flex-end'
 						paddingBottom={{ base: "110px", md: "unset" }}>
 						<Link
 							href={"https://instagram.com/rhapsodycurated"}
@@ -156,6 +155,10 @@ const Footer = () => {
 							_focus={{ outline: "none !important" }}>
 							<Image src={discord} height='30px' />
 						</Link>
+						<Text color='white'>
+							© {new Date().getFullYear()} Rhapsody Curated. All Rights
+							Reserved.
+						</Text>
 					</Flex>
 				</Box>
 			</Flex>
