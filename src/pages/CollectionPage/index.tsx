@@ -46,6 +46,7 @@ import ModalActions from "actions/modal.actions";
 import RemindModal from "components/RemindModal";
 import { useIsOverflow } from "hooks/useIsOverflow";
 import SeeMoreModal from "components/SeeMoreModal";
+import MintModal from "components/MintModal";
 
 interface DropInfo {
 	artist: string;
@@ -66,9 +67,11 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const { updateMint, publishDrop } = useApi();
 
 	const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
-	const { remindModalVisible, seeMoreModalVisible } = useSelector(
-		(state: RootState) => state.Modal
-	);
+	const {
+		remindModalVisible,
+		seeMoreModalVisible,
+		mintModalVisible,
+	} = useSelector((state: RootState) => state.Modal);
 
 	const toast = useToast();
 	const dispatch = useDispatch();
@@ -183,6 +186,16 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 				visible={seeMoreModalVisible}
 				onClose={() => dispatch(ModalActions.hideSeeMoreModal())}
 				fullText={collection?.description}
+			/>
+			<MintModal
+				visible={true}
+				collection={collection}
+				price={
+					collection?.mintMode === "0"
+						? ethers.utils.formatEther(auctionPrice)
+						: collection?.mintPrice
+				}
+				onClose={() => dispatch(ModalActions.hideMintModal())}
 			/>
 			{collection?.private && !_isAdmin ? (
 				<>
@@ -502,9 +515,11 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 															_hover={{
 																transform: "translate3d(4px,4px,0px)",
 															}}
-															onClick={handleMint}
+															onClick={() =>
+																dispatch(ModalActions.showMintModal())
+															}
 															_focus={{ outline: "none !important" }}>
-															{minting ? "Minting..." : "Mint"}
+															Mint
 														</Button>
 													</Flex>
 												)}

@@ -7,7 +7,35 @@ const ModalActions = {
 	hideRemindModal,
 	showSeeMoreModal,
 	hideSeeMoreModal,
+	showMintModal,
+	hideMintModal,
 };
+
+function showMintModal() {
+	return (dispatch: any) => {
+		dispatch(_showMintModal());
+	};
+}
+
+const _showMintModal = () => {
+	return {
+		type: ModalConstants.SHOW_MINT_MODAL,
+	};
+};
+
+function hideMintModal() {
+	return (dispatch: any) => {
+		dispatch(_hideMintModal());
+	};
+}
+
+const _hideMintModal = () => {
+	return {
+		type: ModalConstants.HIDE_MINT_MODAL,
+	};
+};
+
+// See More Modal
 
 function showSeeMoreModal() {
 	return (dispatch: any) => {
