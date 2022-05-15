@@ -56,7 +56,7 @@ const ContactPage = () => {
 			await axios.post(
 				"https://exposure-rest-api.herokuapp.com/contact/email",
 				{
-					data: JSON.stringify(data),
+					data: data,
 					headers: {
 						"Content-Type": "application/json",
 						...corsHeader,
