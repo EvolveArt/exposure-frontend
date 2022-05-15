@@ -43,40 +43,20 @@ const TopPage = (artist: Artist) => {
 					<Image
 						src={getRandomIPFS(`ipfs://${artist?.imageHash}`)}
 						width={{ base: "90%", sm: "80%", md: "70%" }}></Image>
-					<Link
-						href={`https://instagram.com/${artist.instagram}/`}
-						target='_blank'
-						_focus={{ outline: "none" }}>
-						<Flex gridGap={"10px"} paddingBottom='20px' paddingTop={"30px"}>
+					<Flex justifyContent='center' alignItems='center' mt={5} gap='20px'>
+						<Link
+							href={`https://instagram.com/${artist.instagram}/`}
+							target='_blank'
+							_focus={{ outline: "none" }}>
 							<Image src={instagram} filter='invert(1)' height={"27px"} />
-							<Text
-								fontFamily='Inter'
-								fontStyle='normal'
-								fontWeight='600'
-								fontSize='14px'
-								lineHeight='28px'
-								letterSpacing='1px'>
-								{artist.instagram}
-							</Text>
-						</Flex>
-					</Link>
-					<Link
-						href={`https://twitter.com/${artist.twitter}/`}
-						target='_blank'
-						_focus={{ outline: "none" }}>
-						<Flex gridGap={"10px"}>
+						</Link>
+						<Link
+							href={`https://twitter.com/${artist.twitter}/`}
+							target='_blank'
+							_focus={{ outline: "none" }}>
 							<Image src={twitter} filter='invert(1)' height={"27px"} />
-							<Text
-								fontFamily='Inter'
-								fontStyle='normal'
-								fontWeight='600'
-								fontSize='14px'
-								lineHeight='28px'
-								letterSpacing='1px'>
-								{artist.twitter}
-							</Text>
-						</Flex>
-					</Link>
+						</Link>
+					</Flex>
 
 					<Image
 						display={{ base: "unset", md: "none" }}
