@@ -8,7 +8,7 @@ import { Button, Flex, useToast } from "@chakra-ui/react";
 // import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 // eslint-disable-next-line no-undef
@@ -24,7 +24,7 @@ const RemindModal = ({ visible, onClose }: any) => {
 	const [emailError, setEmailError] = useState("");
 	// const { getNonce, updateAccountDetails } = useApi();
 
-	const history = useHistory();
+	// const history = useHistory();
 	// const dispatch = useDispatch();
 
 	const toast = useToast();
