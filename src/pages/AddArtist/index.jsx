@@ -319,14 +319,14 @@ const AddArtist = () => {
 								styles.longInput,
 								descriptionError && styles.hasError
 							)}
-							maxLength={200}
+							maxLength={2000}
 							placeholder='Information Complémentaire'
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 							onBlur={validateDescription}
 						/>
 						<div className={styles.lengthIndicator}>
-							{description.length}/200
+							{description.length}/2000
 						</div>
 						{descriptionError && (
 							<div className={styles.error}>{descriptionError}</div>
