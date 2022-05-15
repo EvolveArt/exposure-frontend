@@ -19,6 +19,7 @@ import {
 import { MdOutlineEmail } from "react-icons/md";
 import Header from "components/Header";
 import Footer from "components/Footer";
+import axios from "axios";
 
 const ContactPage = () => {
 	const [mail, setMail] = useState("");
@@ -47,10 +48,21 @@ const ContactPage = () => {
 				mail,
 				message,
 			};
-			await fetch("https://exposure-rest-api.herokuapp.com/contact/email", {
-				method: "POST",
-				body: JSON.stringify(data),
-			});
+			const corsHeader = {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Headers":
+					"Origin, X-Requested-With, Content-Type, Accept",
+			};
+			await axios.post(
+				"https://exposure-rest-api.herokuapp.com/contact/email",
+				{
+					data: JSON.stringify(data),
+					headers: {
+						"Content-Type": "application/json",
+						...corsHeader,
+					},
+				}
+			);
 			setSaving(false);
 		} catch {
 			toast({ status: "error", title: "An error has occured !" });
