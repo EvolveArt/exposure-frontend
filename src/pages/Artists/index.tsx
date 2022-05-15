@@ -3,7 +3,6 @@ import { useApi } from "api";
 import ArtistCard from "components/ArtistCard";
 import Header from "components/Header";
 import React, { useEffect, useState } from "react";
-import ticon from "../../assets/imgs/t.png";
 import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import Footer from "components/Footer";
 // eslint-disable-next-line
@@ -37,31 +36,6 @@ const Artists = () => {
 				zIndex='1'
 				paddingBottom={"100px"}
 				position='relative'>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					top={"107px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					transform={"rotate(180deg)"}
-					bottom={"-14px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-
 				<Flex
 					position='relative'
 					marginRight={"auto"}

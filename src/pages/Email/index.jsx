@@ -2,7 +2,6 @@ import { Flex, Image, Text, Button, useToast } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import React, { useState } from "react";
 import Header from "../../components/Header/index";
-import ticon from "../../assets/imgs/t.png";
 import borderbl from "../../assets/imgs/borderbl.png";
 import borderbr from "../../assets/imgs/borderbr.png";
 import borderml from "../../assets/imgs/borderml.png";
@@ -101,18 +100,6 @@ const Email = () => {
 				zIndex='1'
 				paddingBottom={"100px"}
 				position='relative'>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"107px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-
 				<Flex flexDir={"column"} maxWidth='548px' margin={"auto"}>
 					<Flex
 						position={"relative"}

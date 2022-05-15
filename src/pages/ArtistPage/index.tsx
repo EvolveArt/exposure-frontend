@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Flex, Image, Link, Text } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import ticon from "../../assets/imgs/t.png";
 import twitter from "../../assets/imgs/twitter.png";
 import instagram from "../../assets/imgs/instagram.png";
 import { useApi } from "api";
@@ -57,18 +56,6 @@ const TopPage = (artist: Artist) => {
 							<Image src={twitter} filter='invert(1)' height={"27px"} />
 						</Link>
 					</Flex>
-
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={ticon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						top={"7px"}
-						left='0'
-						right='0'
-						marginLeft='auto'
-						marginRight='auto'></Image>
 				</Flex>
 				<Flex
 					flexDirection={"column"}
@@ -82,18 +69,6 @@ const TopPage = (artist: Artist) => {
 					position='relative'
 					paddingBottom={{ base: "50px", md: "unset" }}
 					paddingTop='50px'>
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={ticon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						transform={"rotate(180deg)"}
-						bottom={"7px"}
-						left='0'
-						right='0'
-						marginLeft='auto'
-						marginRight='auto'></Image>
 					<Text
 						fontFamily='Inter'
 						fontStyle='normal'
