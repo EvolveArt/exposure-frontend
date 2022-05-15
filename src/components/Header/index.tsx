@@ -39,7 +39,6 @@ import profile from "../../assets/imgs/account.png";
 import { ADMIN_ADDRESSES } from "constants/index";
 import { useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
-// import Identicon from "components/Identicon";
 
 export default function Header() {
 	const { account, chainId, deactivate } = useWeb3React();

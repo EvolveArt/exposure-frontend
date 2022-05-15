@@ -43,10 +43,17 @@ const ContactPage = () => {
 
 		try {
 			setSaving(true);
-
-			toast({ status: "success", title: "Your demand has been received !" });
+			const data = {
+				mail,
+				message,
+			};
+			await fetch("https://exposure-rest-api.herokuapp.com/contact/email", {
+				method: "POST",
+				body: JSON.stringify(data),
+			});
 			setSaving(false);
 		} catch {
+			toast({ status: "error", title: "An error has occured !" });
 			setSaving(false);
 		}
 	};
@@ -119,9 +126,13 @@ const ContactPage = () => {
 												}}
 												type='submit'
 												_focus={{ outline: "none !important" }}
-												disabled={emailError.length > 0 || message.length === 0}
+												disabled={
+													emailError.length > 0 ||
+													message.length === 0 ||
+													saving
+												}
 												onClick={onSave}>
-												Send Message
+												{saving ? "Sending..." : "Send Message"}
 											</Button>
 										</FormControl>
 									</VStack>
