@@ -101,7 +101,7 @@ const TopPage = (artist: Artist) => {
 						fontSize='30px'
 						lineHeight='56px'
 						paddingBottom={"4px"}
-						paddingTop={{ base: "unset", md: "100px" }}>
+						paddingTop={{ base: "50px", md: "65px" }}>
 						{formatName(artist)}
 					</Text>
 					<Text
@@ -154,7 +154,7 @@ const ArtistPage = () => {
 					fontSize='16px'
 					lineHeight='28px'
 					letterSpacing='1px'>
-					Works
+					Collections
 				</Text>
 				<Flex flexWrap={"wrap"} width='100%'></Flex>
 			</Flex>

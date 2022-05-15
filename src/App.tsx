@@ -25,6 +25,7 @@ import ProtectedRoute from "components/ProtectedRoute";
 import Search from "pages/Search/index.jsx";
 import Email from "pages/Email/index.jsx";
 import WaitingPage from "pages/WaitingPage";
+import ContactPage from "pages/Contact";
 
 export const App = () => (
 	<ChakraProvider theme={theme}>
@@ -42,6 +43,7 @@ export const App = () => (
 				<Route exact path='/artist/:address' component={ArtistPage} />
 				<Route exact path='/' component={WaitingPage} />
 				<Route exact path='/email' component={Email} />
+				<Route exact path='/contact' component={ContactPage} />
 				<ProtectedRoute exact path='/dashboard' component={Dashboard} />
 				<ProtectedRoute exact path='/listartists' component={ListArtists} />
 				<ProtectedRoute
