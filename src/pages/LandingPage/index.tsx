@@ -121,14 +121,16 @@ const LandingPage = () => {
 						Rhapsody Curated is a digital space bringing together the greatest
 						photographic writings and facilitating, for NFT collectors, the
 						exploration, the discovery and the collection of high quality
-						photographic projects. Each month, we curate a season of 3 to 5
-						photography projects selected according to a specific theme,
-						composing what could be seen as an exhibition. To highlight the
-						photographer&#39;s story and writing, we use a random drop system
-						well known to NFT enthusiasts which consists of offering collectors
-						the opportunity to acquire a photograph at random from the chosen
-						series. Essentially, what the collector captures is a unique piece
-						of the overall story told by the photographer.
+						photographic projects.
+						<br /> Each month, we curate a season of 3 to 5 photography projects
+						selected according to a specific theme, composing what could be seen
+						as an exhibition.
+						<br /> To highlight the photographer&#39;s story and writing, we use
+						a random drop system well known to NFT enthusiasts which consists of
+						offering collectors the opportunity to acquire a photograph at
+						random from the chosen series. Essentially, what the collector
+						captures is a unique piece of the overall story told by the
+						photographer.
 					</Text>
 				</Flex>
 			</Box>

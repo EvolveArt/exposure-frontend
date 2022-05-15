@@ -79,6 +79,7 @@ const RemindModal = ({ visible, onClose }: any) => {
 					marginBottom={"20px"}
 					justifyContent='space-between'>
 					<input
+						style={{ paddingLeft: "15px" }}
 						className={styles.input}
 						maxLength={100}
 						placeholder='Email Address'
