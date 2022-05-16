@@ -14,7 +14,7 @@ import axios from "axios";
 // eslint-disable-next-line no-undef
 // const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
 
-const RemindModal = ({ visible, onClose }: any) => {
+const RemindModal = ({ visible, onClose, collection }: any) => {
 	// const { library, account } = useWeb3React();
 	const [email, setEmail] = useState("");
 	// const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
@@ -46,6 +46,7 @@ const RemindModal = ({ visible, onClose }: any) => {
 
 			await axios.post("https://exposure-rest-api.herokuapp.com/contact/save", {
 				email: email,
+				collectionId: collection._id,
 			});
 
 			toast({

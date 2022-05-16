@@ -182,6 +182,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 			<RemindModal
 				visible={remindModalVisible}
 				onClose={() => dispatch(ModalActions.hideRemindModal())}
+				collection={collection}
 			/>
 			<SeeMoreModal
 				visible={seeMoreModalVisible}
