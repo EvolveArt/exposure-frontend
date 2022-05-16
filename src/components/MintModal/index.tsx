@@ -10,6 +10,7 @@ import {
 	Text,
 	useToast,
 } from "@chakra-ui/react";
+import Zoom from "react-medium-image-zoom";
 import { formatError, formatName, getRandomIPFS } from "utils";
 import ether from "../../assets/imgs/ether.png";
 import styles from "./styles.module.scss";
@@ -60,7 +61,7 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 			await updateMint(
 				collection.dropId,
 				amountToMint,
-				ethers.utils.parseEther(_price.toString()).toNumber(),
+				ethers.utils.parseEther(_price.toString()).toString(),
 				account
 			);
 			// toast({ status: "success", title: "NFT Minted!" });
@@ -135,11 +136,15 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 						<>
 							<Flex border={"2px solid black"}>
 								<Flex width='40%' p={5} borderRight='2px solid black'>
-									<Image
-										width={"200px"}
-										src={getRandomIPFS(
-											`ipfs://${collection?.logoImageHash}`
-										)}></Image>
+									<Zoom>
+										<Image
+											width={"200px"}
+											height={"max-content"}
+											margin='auto'
+											src={getRandomIPFS(
+												`ipfs://${collection?.logoImageHash}`
+											)}></Image>
+									</Zoom>
 								</Flex>
 								<Flex width={"60%"} p={3} flexDir='column'>
 									<Text
@@ -193,7 +198,11 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 											minWidth='unset'
 											p={0}
 											m='0 5px'
-											onClick={() => setAmountToMint((state) => state - 1)}>
+											onClick={() =>
+												amountToMint > 1
+													? setAmountToMint((state) => state - 1)
+													: null
+											}>
 											-
 										</Button>{" "}
 										{amountToMint}{" "}
@@ -206,7 +215,11 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 											minWidth='unset'
 											p={0}
 											m='0 5px'
-											onClick={() => setAmountToMint((state) => state + 1)}>
+											onClick={() =>
+												amountToMint < collection.maxMintPerWallet
+													? setAmountToMint((state) => state + 1)
+													: null
+											}>
 											+
 										</Button>
 									</Text>

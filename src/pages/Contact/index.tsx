@@ -87,17 +87,18 @@ const ContactPage = () => {
 								Fill up the form below to contact us
 							</Text>
 
-							<Box bg='white' borderRadius='lg'>
+							<Box bg='white' borderRadius='0'>
 								<Box mt={5} color='#0B0E3F'>
 									<VStack spacing={5}>
 										<FormControl id='mail' isInvalid={emailError.length > 0}>
 											<FormLabel>Mail</FormLabel>
-											<InputGroup borderColor='#E0E1E7'>
+											<InputGroup borderColor='black'>
 												<InputLeftElement
 													pointerEvents='none'
 													children={<MdOutlineEmail color='gray.800' />}
 												/>
 												<Input
+													borderRadius='0'
 													type='text'
 													size='md'
 													value={mail}
@@ -114,11 +115,9 @@ const ContactPage = () => {
 											<Textarea
 												value={message}
 												onChange={(event) => setMessage(event.target.value)}
-												borderColor='gray.300'
-												_hover={{
-													borderRadius: "gray.300",
-												}}
-												placeholder='message'
+												borderColor='black'
+												borderRadius='0'
+												placeholder='Your message'
 											/>
 										</FormControl>
 										<FormControl float='right'>

@@ -103,7 +103,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 			await updateMint(
 				collection.dropId,
 				1,
-				ethers.utils.parseEther(collection.mintPrice.toString()).toNumber(),
+				ethers.utils.parseEther(collection.mintPrice.toString()).toString(),
 				account
 			);
 			toast({ status: "success", title: "NFT Minted!" });

@@ -587,8 +587,8 @@ const AddCollection = () => {
 				<div className={styles.inputGroup}>
 					<div className={styles.inputTitle}>Verbatim</div>
 					<div className={styles.inputWrapper}>
-						<input
-							className={cx(styles.input)}
+						<textarea
+							className={cx(styles.inputBig)}
 							maxLength={2000}
 							placeholder='Verbatim'
 							value={verbatim}
