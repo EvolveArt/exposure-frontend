@@ -25,7 +25,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const MintModal = ({ visible, onClose, collection, price }: any) => {
 	const [amountToMint, setAmountToMint] = useState(1);
-	const [minting, setMinting] = useState(true);
+	const [minting, setMinting] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const { purchase, purchaseThroughAuction } = useSalesContract();
 	const { account } = useWeb3React();
