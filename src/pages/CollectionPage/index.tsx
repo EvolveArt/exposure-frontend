@@ -77,6 +77,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	const dispatch = useDispatch();
 	// const history = useHistory();
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const handleMint = async () => {
 		if (minting) return;
 		setMinting(true);
@@ -188,7 +189,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 				fullText={collection?.description}
 			/>
 			<MintModal
-				visible={true}
+				visible={mintModalVisible}
 				collection={collection}
 				price={
 					collection?.mintMode === "0"
