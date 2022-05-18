@@ -175,18 +175,34 @@ const AddArtist = () => {
 					const formData = new FormData();
 					formData.append("firstname", name);
 					formData.append("address", wallet);
-					formData.append("imgData", logodata);
+					formData.append("file", logodata);
+
 					const result = await axios({
 						method: "post",
-						url: `${apiUrl}/ipfs/uploadArtistImage2Server`,
+						url: `${process.env.REACT_APP_UPLOAD_API_URL}/arweave/image`,
 						data: formData,
+						maxContentLength: "Infinity",
+						maxBodyLength: "Infinity",
 						headers: {
 							"Content-Type": "multipart/form-data",
-							Authorization: `Bearer ${authToken}`,
+							...corsHeader
 						},
-					});
+					}); 
 
-					const imageHash = result.data.data;
+					// const result = await axios({
+					// 	method: "post",
+					// 	url: `${apiUrl}/ipfs/uploadArtistImage2Server`,
+					// 	data: formData,
+					// 	headers: {
+					// 		"Content-Type": "multipart/form-data",
+					// 		Authorization: `Bearer ${authToken}`,
+					// 	},
+					// });
+
+					// const imageHash = result.data.data;
+
+					const imageHash = result.data;
+					console.log({imageHash})
 					const data = {
 						address: wallet,
 						firstname: name,
