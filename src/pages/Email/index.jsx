@@ -102,18 +102,6 @@ const Email = () => {
 				zIndex='1'
 				paddingBottom={"100px"}
 				position='relative'>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width={"16px"}
-					position='absolute'
-					top={"107px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-
 				<Flex flexDir={"column"} maxWidth='548px' margin={"auto"}>
 					<Flex
 						position={"relative"}

@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useApi } from "api";
 import ArtistCard from "components/ArtistCard";
 import Header from "components/Header";
@@ -38,44 +38,19 @@ const Artists = () => {
 				zIndex='1'
 				paddingBottom={"100px"}
 				position='relative'>
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					top={"107px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-
-				<Image
-					display={{ base: "unset", md: "none" }}
-					src={ticon}
-					filter='brightness(0)'
-					width='16px'
-					position='absolute'
-					transform={"rotate(180deg)"}
-					bottom={"-14px"}
-					left='0'
-					right='0'
-					marginLeft='auto'
-					marginRight='auto'></Image>
-
 				<Flex
 					position='relative'
 					marginRight={"auto"}
 					width={{ base: "88vw", lg: "80vw" }}
 					margin='auto'
 					marginTop={"100px"}>
-					<Image
+					{/* <Image
 						src={artistWrapper}
 						position='absolute'
 						transform='translate3d(-2px,3px,0px)'
 						zIndex={"-1"}
 						height='50px'
-					/>
+					/> */}
 					<Text
 						fontFamily='Inter'
 						fontStyle='normal'
@@ -89,9 +64,9 @@ const Artists = () => {
 				</Flex>
 				<Box overflow={"hidden"} width='fit-content'>
 					<Flex
-						width={"fit-content"}
+						width={"full"}
 						flexWrap='wrap'
-						justifyContent={"center"}
+						justifyContent={"flex-start"}
 						alignItems='center'
 						gridGap={"36px 0px"}>
 						{artists.map((artist: Artist) => ArtistCard(artist))}

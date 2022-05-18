@@ -26,8 +26,9 @@ import { useHistory } from "react-router-dom";
 
 const corsHeader = {
 	"Access-Control-Allow-Origin": "*",
-	"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-}
+	"Access-Control-Allow-Headers":
+		"Origin, X-Requested-With, Content-Type, Accept",
+};
 
 const AddCollection = () => {
 	const [logo, setLogo] = useState(null);
@@ -119,7 +120,7 @@ const AddCollection = () => {
 	const inputRef = useRef(null);
 	const inputPhotoRef = useRef(null);
 
-	useEffect( () => {
+	useEffect(() => {
 		async function fetchData() {
 			const _artists = await getAllArtists();
 			setArtists(_artists.data);
@@ -130,12 +131,12 @@ const AddCollection = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	useEffect( () => {
+	useEffect(() => {
 		async function fetchData() {
 			const _seasons = await getAllArtistSeasons(account);
 			setSeasonList(_seasons.data);
 		}
-		fetchData()
+		fetchData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [account]);
 
@@ -191,10 +192,12 @@ const AddCollection = () => {
 
 			// At this point you'll have an array of results
 			let res = await Promise.all(files);
-			setPhotos(res.map(pt => ({
-				photo: pt,
-				description: ''
-			})));
+			setPhotos(
+				res.map((pt) => ({
+					photo: pt,
+					description: "",
+				}))
+			);
 		}
 	};
 
@@ -434,7 +437,7 @@ const AddCollection = () => {
 								totalSupply: photos?.length,
 								signature,
 								signatureAddress,
-								address: account
+								address: account,
 							};
 
 							console.log({data})
@@ -445,7 +448,7 @@ const AddCollection = () => {
 								headers: {
 									"Content-Type": "application/json",
 									Authorization: `Bearer ${authToken}`,
-									...corsHeader
+									...corsHeader,
 								},
 							});
 
@@ -628,10 +631,10 @@ const AddCollection = () => {
 							<Select
 								options={seasonList}
 								clearable
-								disabled={season.length !== 0 }
+								disabled={season.length !== 0}
 								values={selectedSeason}
 								onChange={([col]) => {
-									setSelectedSeason(col ? [col]: null);
+									setSelectedSeason(col ? [col] : null);
 								}}
 								className={styles.input}
 								itemRenderer={({ item, methods }) => (
@@ -642,9 +645,7 @@ const AddCollection = () => {
 											methods.clearAll();
 											methods.addItem(item);
 										}}>
-										<div className={styles.collectionName}>
-											{item.name}
-										</div>
+										<div className={styles.collectionName}>{item.name}</div>
 									</div>
 								)}
 								contentRenderer={({ props: { values } }) =>
@@ -655,7 +656,11 @@ const AddCollection = () => {
 											</div>
 										</div>
 									) : (
-										<div className={styles.collection}><div className={styles.seasonPlaceholder}>Choisir une season existante</div></div>
+										<div className={styles.collection}>
+											<div className={styles.seasonPlaceholder}>
+												Choisir une season existante
+											</div>
+										</div>
 									)
 								}
 							/>
@@ -665,14 +670,14 @@ const AddCollection = () => {
 				<div className={styles.inputGroup}>
 					<div className={styles.inputTitle}>Verbatim</div>
 					<div className={styles.inputWrapper}>
-						<input
-							className={cx(styles.input)}
-							maxLength={200}
+						<textarea
+							className={cx(styles.inputBig)}
+							maxLength={2000}
 							placeholder='Verbatim'
 							value={verbatim}
 							onChange={(e) => setVerbatim(e.target.value)}
 						/>
-						<div className={styles.lengthIndicator}>{verbatim.length}/200</div>
+						<div className={styles.lengthIndicator}>{verbatim.length}/2000</div>
 					</div>
 				</div>
 				<div className={styles.inputGroup}>
@@ -700,9 +705,7 @@ const AddCollection = () => {
 							value={copyRights}
 							onChange={(e) => setCopyRights(e.target.value)}
 						/>
-						<div className={styles.lengthIndicator}>
-							{copyRights.length}/50
-						</div>
+						<div className={styles.lengthIndicator}>{copyRights.length}/50</div>
 					</div>
 				</div>
 				<div className={styles.inputGroup}>
@@ -926,14 +929,14 @@ const AddCollection = () => {
 								styles.longInput,
 								descriptionError && styles.hasError
 							)}
-							maxLength={200}
+							maxLength={2000}
 							placeholder='Information Complémentaire'
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 							onBlur={validateDescription}
 						/>
 						<div className={styles.lengthIndicator}>
-							{description.length}/200
+							{description.length}/2000
 						</div>
 						{descriptionError && (
 							<div className={styles.error}>{descriptionError}</div>
@@ -980,36 +983,37 @@ const AddCollection = () => {
 				</div>
 				<div className={styles.inputGroup}>
 					<div className={styles.inputWrapper}>
-						{
-							photos?.length &&
-								photos.map(({photo, description}, idx) =>
-									 <div className={styles.imageDescription}>
-										<div className={styles.logoUploadBox}>
-											<img src={photo.src} alt='collection-photograph' />
-											<div className={styles.removeOverlay}>
-												<div className={styles.removeIcon} onClick={() => removePhotos(idx)}>
-													<img src={closeIcon} alt='CloseIcon' />
-												</div>
+						{photos?.length &&
+							photos.map(({ photo, description }, idx) => (
+								<div className={styles.imageDescription}>
+									<div className={styles.logoUploadBox}>
+										<img src={photo.src} alt='collection-photograph' />
+										<div className={styles.removeOverlay}>
+											<div
+												className={styles.removeIcon}
+												onClick={() => removePhotos(idx)}>
+												<img src={closeIcon} alt='CloseIcon' />
 											</div>
 										</div>
-										<textarea
-											className={cx(
-												styles.input,
-												styles.longInput,
-												styles.imgDescriptionDivider
-											)}
-											maxLength={200}
-											placeholder='Information Complémentaire'
-											value={description}
-											onChange={(e) => setPhotos(oldPhotos => {
+									</div>
+									<textarea
+										className={cx(
+											styles.input,
+											styles.longInput,
+											styles.imgDescriptionDivider
+										)}
+										maxLength={2000}
+										placeholder='Information Complémentaire'
+										value={description}
+										onChange={(e) =>
+											setPhotos((oldPhotos) => {
 												oldPhotos[idx].description = e.target.value;
 												return [...oldPhotos];
-											})}
-										/>
-									</div>
-								)
-
-						}
+											})
+										}
+									/>
+								</div>
+							))}
 						{(!photos || photos.length === 0) && (
 							<div className={styles.logoUploadBox}>
 								<div
@@ -1032,8 +1036,7 @@ const AddCollection = () => {
 										<div className={styles.uploadInner}>Ajouter une image</div>
 									</div>
 								</div>
-
-						</div>
+							</div>
 						)}
 						{photos && (
 							<Button

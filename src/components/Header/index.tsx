@@ -40,7 +40,6 @@ import { logo, wallet, down, disc, profile } from "../../constants/cdn.constants
 import { ADMIN_ADDRESSES } from "constants/index";
 import { useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
-// import Identicon from "components/Identicon";
 
 export default function Header() {
 	const { account, chainId, deactivate } = useWeb3React();
@@ -494,7 +493,6 @@ const MobileNav = () => {
 				</div>
 			) : (
 				<Button
-					display={{ base: "none", md: "inline-flex" }}
 					_focus={{ outline: "none !important" }}
 					fontSize={"sm"}
 					fontWeight={600}
@@ -504,13 +502,13 @@ const MobileNav = () => {
 					borderRadius='0px'
 					width={"200px"}
 					height={"46px"}
-					style={{ marginInlineStart: "40px" }}
+					// style={{ marginInlineStart: "40px" }}
 					_hover={{
 						opacity: "0.6",
 					}}
 					onClick={handleConnectWallet}>
 					Connect Wallet
-					<Image src={wallet} paddingLeft='8px'></Image>
+					{/* <Image src={wallet} paddingLeft='8px'></Image> */}
 				</Button>
 			)}
 		</Stack>

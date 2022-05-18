@@ -249,7 +249,7 @@ export const useApi = () => {
 	const updateMint = async (
 		dropId: number,
 		amount: number,
-		price: number,
+		price: string,
 		address: string | null | undefined
 	) => {
 		const res = await axios({

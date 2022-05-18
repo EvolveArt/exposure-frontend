@@ -9,9 +9,11 @@ import { useApi } from "api";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
 // eslint-disable-next-line
-import { Artist } from "interfaces";
+import { Artist, Collection } from "interfaces";
 import { formatName, getRandomIPFS } from "utils";
 import { ticon, instagram, twitter, getCDNLink } from "../../constants/cdn.constants";
+import NftItem from "components/NFTitem";
+
 const TopPage = (artist: Artist) => {
 	return (
 		<>
@@ -58,18 +60,6 @@ const TopPage = (artist: Artist) => {
 							<Image src={twitter} filter='invert(1)' height={"27px"} />
 						</Link>
 					</Flex>
-
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={ticon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						top={"7px"}
-						left='0'
-						right='0'
-						marginLeft='auto'
-						marginRight='auto'></Image>
 				</Flex>
 				<Flex
 					flexDirection={"column"}
@@ -83,18 +73,6 @@ const TopPage = (artist: Artist) => {
 					position='relative'
 					paddingBottom={{ base: "50px", md: "unset" }}
 					paddingTop='50px'>
-					<Image
-						display={{ base: "unset", md: "none" }}
-						src={ticon}
-						filter='brightness(0)'
-						width={"16px"}
-						position='absolute'
-						transform={"rotate(180deg)"}
-						bottom={"7px"}
-						left='0'
-						right='0'
-						marginLeft='auto'
-						marginRight='auto'></Image>
 					<Text
 						fontFamily='Inter'
 						fontStyle='normal'
@@ -120,8 +98,11 @@ const TopPage = (artist: Artist) => {
 };
 
 const ArtistPage = () => {
-	const { getArtistInfo } = useApi();
+	const { getArtistInfo, getAllCollections } = useApi();
 	const [artist, setArtist] = useState<Artist>({} as Artist);
+	const [collections, setCollections] = useState<Collection[]>(
+		[] as Collection[]
+	);
 
 	const { address }: any = useParams();
 
@@ -129,8 +110,10 @@ const ArtistPage = () => {
 		const fetchArtist = async () => {
 			const _artist = await getArtistInfo(address);
 			setArtist(_artist.data);
+
+			const _collections = await getAllCollections(true, [_artist.data._id]);
+			setCollections(_collections.data);
 		};
-		console.log(address);
 
 		if (ethers.utils.isAddress(address)) fetchArtist();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -157,7 +140,11 @@ const ArtistPage = () => {
 					letterSpacing='1px'>
 					Collections
 				</Text>
-				<Flex flexWrap={"wrap"} width='100%'></Flex>
+				<Flex flexWrap={"wrap"} width='100%'>
+					{collections?.map((collection: Collection) => {
+						return NftItem(collection);
+					})}
+				</Flex>
 			</Flex>
 			<Footer />
 		</div>

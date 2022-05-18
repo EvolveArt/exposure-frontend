@@ -1,33 +1,31 @@
 import React, { useState } from "react";
-import { useWeb3React } from "@web3-react/core";
+// import { useWeb3React } from "@web3-react/core";
 
 import Modal from "../Modal";
 import styles from "./styles.module.scss";
 import { Button, Flex, useToast } from "@chakra-ui/react";
-import { useApi } from "api";
-import { getSigner } from "contracts";
-import { useDispatch, useSelector } from "react-redux";
+// import { useApi } from "api";
+// import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
-import { ethers } from "ethers";
-import AuthActions from "actions/auth.actions";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 // eslint-disable-next-line no-undef
 // const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
 
-const RemindModal = ({ visible, onClose }: any) => {
-	const { library, account } = useWeb3React();
+const RemindModal = ({ visible, onClose, collection }: any) => {
+	// const { library, account } = useWeb3React();
 	const [email, setEmail] = useState("");
-	const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
+	// const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
 
 	const [saving, setSaving] = useState(false);
 
 	const [emailError, setEmailError] = useState("");
-	const { getNonce, updateAccountDetails } = useApi();
+	// const { getNonce, updateAccountDetails } = useApi();
 
-	const history = useHistory();
-	const dispatch = useDispatch();
+	// const history = useHistory();
+	// const dispatch = useDispatch();
 
 	const toast = useToast();
 
@@ -46,39 +44,21 @@ const RemindModal = ({ visible, onClose }: any) => {
 		try {
 			setSaving(true);
 
-			const { data: nonce } = await getNonce(account, authToken);
+			await axios.post("https://exposure-rest-api.herokuapp.com/contact/save", {
+				email: email,
+				collectionId: collection._id,
+			});
 
-			let signature;
-			let addr;
-			try {
-				const signer = await getSigner(library);
-				console.log("SIGNING", signer, library);
-				let msg = `Approve Signature on Rhapsody with nonce ${nonce}`;
-
-				signature = await library.send("personal_sign", [
-					ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg)),
-					account?.toLowerCase(),
-				]);
-				addr = ethers.utils.verifyMessage(msg, signature);
-			} catch (err) {
-				console.error(err);
-				toast({
-					status: "error",
-					title:
-						"You need to sign the message to be able to update account settings.",
-				});
-				setSaving(false);
-				return;
-			}
-
-			const res = await updateAccountDetails(email, authToken, signature, addr);
-			dispatch(AuthActions.fetchSuccess(res.data));
-			toast({ status: "success", title: "Account details saved!" });
+			toast({
+				status: "success",
+				title: "Thank you, we’ll send you an email before the drop !",
+			});
 			setSaving(false);
 
-			// Update bool and redirect
-			history.replace("/");
+			// Close Modal
+			onClose();
 		} catch {
+			toast({ status: "error", title: "An error has occured !" });
 			setSaving(false);
 		}
 	};
@@ -100,6 +80,7 @@ const RemindModal = ({ visible, onClose }: any) => {
 					marginBottom={"20px"}
 					justifyContent='space-between'>
 					<input
+						style={{ paddingLeft: "15px" }}
 						className={styles.input}
 						maxLength={100}
 						placeholder='Email Address'
