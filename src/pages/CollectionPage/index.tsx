@@ -149,6 +149,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 	};
 
 	useEffect(() => {
+		if (collection?.mintMode === "1") return;
 		const _intervalId = setInterval(() => updateAuctionPrice(), 5000);
 		updateAuctionPrice();
 
