@@ -18,6 +18,12 @@ import { ClipLoader } from "react-spinners";
 import { ADMIN_ADDRESSES } from "constants/index";
 import { useHistory } from "react-router-dom";
 
+const corsHeader = {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Headers":
+		"Origin, X-Requested-With, Content-Type, Accept",
+};
+
 const AddArtist = () => {
 	const [logo, setLogo] = useState(null);
 	const [name, setName] = useState("");
@@ -185,9 +191,9 @@ const AddArtist = () => {
 						maxBodyLength: "Infinity",
 						headers: {
 							"Content-Type": "multipart/form-data",
-							...corsHeader
+							...corsHeader,
 						},
-					}); 
+					});
 
 					// const result = await axios({
 					// 	method: "post",
@@ -202,7 +208,7 @@ const AddArtist = () => {
 					// const imageHash = result.data.data;
 
 					const imageHash = result.data;
-					console.log({imageHash})
+					console.log({ imageHash });
 					const data = {
 						address: wallet,
 						firstname: name,
