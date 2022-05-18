@@ -18,8 +18,8 @@ import {
 
 import cx from "classnames";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
-import logo from "../../assets/imgs/logo.png";
-import wallet from "../../assets/imgs/wallet.png";
+// import logo from "../../assets/imgs/logo.png";
+// import wallet from "../../assets/imgs/wallet.png";
 import styles from "./styles.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import ModalActions from "actions/modal.actions";
@@ -33,9 +33,10 @@ import AuthActions from "actions/auth.actions";
 import { useWeb3React } from "@web3-react/core";
 import { NETWORK_LABEL } from "constants/networks";
 import { shortenAddress } from "utils";
-import down from "../../assets/imgs/down.png";
-import disc from "../../assets/imgs/disconnect.png";
-import profile from "../../assets/imgs/account.png";
+// import down from "../../assets/imgs/down.png";
+// import disc from "../../assets/imgs/disconnect.png";
+// import profile from "../../assets/imgs/account.png";
+import { logo, wallet, down, disc, profile } from "../../constants/cdn.constants";
 import { ADMIN_ADDRESSES } from "constants/index";
 import { useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";

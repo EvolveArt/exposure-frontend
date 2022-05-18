@@ -5,7 +5,8 @@ import { formatName, getRandomIPFS } from "utils";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line
 import { Artist } from "interfaces";
-import arr from '../../assets/imgs/arrowContainer.png'
+// import arr from '../../assets/imgs/arrowContainer.png'
+import { arr, getCDNLink } from "../../constants/cdn.constants";
 
 const ArtistCard = (artist: Artist) => {
   return (
@@ -18,7 +19,8 @@ const ArtistCard = (artist: Artist) => {
           className={styles.artistComponent}
         >
           <Image
-            src={getRandomIPFS(`ipfs://${artist.imageHash}`)}
+            // src={getRandomIPFS(`ipfs://${artist.imageHash}`)}
+					  src={getCDNLink(artist.imageHash)}
             fallbackSrc={arr}
             width={"262px"}
             height={"262px"}

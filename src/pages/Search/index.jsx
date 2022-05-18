@@ -12,10 +12,11 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 import styles from "./styles.module.scss";
 
-import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+// import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import NftItem from "components/NFTitem";
 import { useApi } from "api";
 import ArtistCard from "components/ArtistCard";
+import { artistWrapper } from "../../constants/cdn.constants";
 
 function RadioCard(props) {
 	const { getInputProps, getCheckboxProps } = useRadio(props);

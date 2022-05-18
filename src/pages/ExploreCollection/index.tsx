@@ -12,12 +12,12 @@ import { Artist, Collection } from "interfaces";
 import { Box, Checkbox, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { formatName } from "utils";
 // import artistWrapper from "../../assets/imgs/artistsWrapper.png";
-import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+// import logo from "../../assets/imgs/logoWhite.png";
+// import twitter from "../../assets/imgs/twitter.png";
+// import discord from "../../assets/imgs/discord.png";
+// import instagram from "../../assets/imgs/instagram.png";
+import { logoWhite, discord, instagram, twitter, artistWrapper } from "../../constants/cdn.constants";
 
-import logo from "../../assets/imgs/logoWhite.png";
-import twitter from "../../assets/imgs/twitter.png";
-import discord from "../../assets/imgs/discord.png";
-import instagram from "../../assets/imgs/instagram.png";
 import { useWeb3React } from "@web3-react/core";
 
 const Footer = () => {
@@ -38,7 +38,7 @@ const Footer = () => {
 						height={{ base: "fit-content" }}
 						width='100%'>
 						<Link href='/#'>
-							<Image src={logo} height='38px' margin='auto'></Image>
+							<Image src={logoWhite} height='38px' margin='auto'></Image>
 						</Link>
 						<Flex
 							paddingTop={{ base: "32px", md: "unset" }}

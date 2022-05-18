@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Flex, Image, Link, Text } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import ticon from "../../assets/imgs/t.png";
-import twitter from "../../assets/imgs/twitter.png";
-import instagram from "../../assets/imgs/instagram.png";
+// import ticon from "../../assets/imgs/t.png";
+// import twitter from "../../assets/imgs/twitter.png";
+// import instagram from "../../assets/imgs/instagram.png";
 import { useApi } from "api";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
 // eslint-disable-next-line
 import { Artist } from "interfaces";
 import { formatName, getRandomIPFS } from "utils";
-
+import { ticon, instagram, twitter, getCDNLink } from "../../constants/cdn.constants";
 const TopPage = (artist: Artist) => {
 	return (
 		<>
@@ -41,7 +41,8 @@ const TopPage = (artist: Artist) => {
 					position='relative'
 					flexDir={"column"}>
 					<Image
-						src={getRandomIPFS(`ipfs://${artist?.imageHash}`)}
+						// src={getRandomIPFS(`ipfs://${artist?.imageHash}`)}
+						src={getCDNLink(artist?.imageHash)}
 						width={{ base: "90%", sm: "80%", md: "70%" }}></Image>
 					<Flex justifyContent='center' alignItems='center' mt={5} gap='20px'>
 						<Link

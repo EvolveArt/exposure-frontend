@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import logo from "assets/imgs/logoWhite.png";
+// import logo from "assets/imgs/logoWhite.png";
 import { Flex, Image, Text, Link, Box } from "@chakra-ui/react";
-import twitter from "../../assets/imgs/twitter.png";
-import discord from "../../assets/imgs/discord.png";
-import instagram from "../../assets/imgs/instagram.png";
+// import twitter from "../../assets/imgs/twitter.png";
+// import discord from "../../assets/imgs/discord.png";
+// import instagram from "../../assets/imgs/instagram.png";
+import { logoWhite, discord, instagram, twitter } from "../../constants/cdn.constants";
 
 const WaitingPage = () => {
 	return (
@@ -23,7 +24,7 @@ const WaitingPage = () => {
 				alignItems='center'>
 				<Box paddingTop={"30px"}>
 					<Image
-						src={logo}
+						src={logoWhite}
 						// height={{ base: "60px", md: "106px" }}
 						width={{ base: "240px", md: "492px" }}
 						margin='auto'

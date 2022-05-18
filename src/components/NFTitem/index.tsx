@@ -5,6 +5,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { formatName, getRandomIPFS } from "utils";
 import styles from "./styles.module.scss";
+import { getCDNLink } from "../../constants/cdn.constants";
 
 const NftItem = (collection: Collection) => {
   const history = useHistory();
@@ -25,7 +26,8 @@ const NftItem = (collection: Collection) => {
         className={styles.imageContainer}
       >
         <Image
-          src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+          // src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+					src={getCDNLink(collection?.logoImageHash)}
           position="absolute"
           top="0"
           left="0"

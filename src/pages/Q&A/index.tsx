@@ -10,7 +10,8 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
-import dropWrapper from "../../assets/imgs/dropWrapper.png";
+// import dropWrapper from "../../assets/imgs/dropWrapper.png";
+import { dropWrapper } from "../../constants/cdn.constants";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import React from "react";

@@ -1,9 +1,10 @@
 import { Box, Flex, Image, Link } from "@chakra-ui/react";
 import React from "react";
-import logo from "../../assets/imgs/logoWhite.png";
-import twitter from "../../assets/imgs/twitter.png";
-import discord from "../../assets/imgs/discord.png";
-import instagram from "../../assets/imgs/instagram.png";
+// import logo from "../../assets/imgs/logoWhite.png";
+// import twitter from "../../assets/imgs/twitter.png";
+// import discord from "../../assets/imgs/discord.png";
+// import instagram from "../../assets/imgs/instagram.png";
+import { logoWhite, discord, instagram, twitter } from "../../constants/cdn.constants";
 
 const Footer = () => {
 	return (
@@ -27,7 +28,7 @@ const Footer = () => {
 						height={{ base: "fit-content" }}
 						width='100%'>
 						<Link href='/#' _focus={{ outline: "none !important" }}>
-							<Image src={logo} height='38px' margin='auto'></Image>
+							<Image src={logoWhite} height='38px' margin='auto'></Image>
 						</Link>
 						<Flex
 							paddingTop={{ base: "32px", md: "unset" }}

@@ -3,11 +3,12 @@ import { useApi } from "api";
 import ArtistCard from "components/ArtistCard";
 import Header from "components/Header";
 import React, { useEffect, useState } from "react";
-import ticon from "../../assets/imgs/t.png";
-import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+// import ticon from "../../assets/imgs/t.png";
+// import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import Footer from "components/Footer";
 // eslint-disable-next-line
 import { Artist } from "interfaces";
+import { ticon, artistWrapper } from "../../constants/cdn.constants";
 
 const Artists = () => {
 	const [artists, setArtists] = useState([]);

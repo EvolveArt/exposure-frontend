@@ -16,9 +16,10 @@ import { useParams } from "react-router-dom";
 import { shortenAddress } from "utils";
 // import toast from "utils/toast";
 
-import dropWrapper from "../../assets/imgs/dropWrapper.png";
-import largeGrid from "../../assets/imgs/largegrid.png";
-import smallGrid from "../../assets/imgs/smallgrid.png";
+// import dropWrapper from "../../assets/imgs/dropWrapper.png";
+// import largeGrid from "../../assets/imgs/largegrid.png";
+// import smallGrid from "../../assets/imgs/smallgrid.png";
+import { dropWrapper, largeGrid, smallGrid } from "../../constants/cdn.constants";
 import axios from "axios";
 import { Contracts } from "constants/networks";
 import SuspenseImg from "components/SuspenseImg";

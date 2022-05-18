@@ -2,8 +2,8 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
-import dropWrapper from "../../assets/imgs/dropWrapper.png";
-import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+// import dropWrapper from "../../assets/imgs/dropWrapper.png";
+// import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import Footer from "../../components/Footer";
 // import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
@@ -14,6 +14,7 @@ import { useApi } from "api";
 import { formatName, getRandomIPFS } from "utils";
 import { TopPage } from "pages/CollectionPage";
 import { Link } from "react-router-dom";
+import { artistWrapper, dropWrapper, getCDNLink } from "../../constants/cdn.constants";
 
 // import ArtistCard from "components/ArtistCard";
 
@@ -26,7 +27,8 @@ const ArtistsLanding = (artist: Artist) => {
 				paddingLeft={"12px"}
 				className={styles.artistComponent}>
 				<Image
-					src={getRandomIPFS(`ipfs://${artist.imageHash}`)}
+					// src={getRandomIPFS(`ipfs://${artist.imageHash}`)}
+					src={getCDNLink(artist.imageHash)}
 					width='262px'
 					height='262px'
 					maxWidth={"unset"}></Image>

@@ -12,12 +12,13 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useState } from "react";
 
-import copyRights from "../../assets/imgs/copyright.png";
-import ticon from "../../assets/imgs/t.png";
-import mintType from "../../assets/imgs/mintType.png";
-import agenda from "../../assets/imgs/agenda.png";
-import available from "../../assets/imgs/available.png";
-import ether from "../../assets/imgs/ether.png";
+// import copyRights from "../../assets/imgs/copyright.png";
+// import ticon from "../../assets/imgs/t.png";
+// import mintType from "../../assets/imgs/mintType.png";
+// import agenda from "../../assets/imgs/agenda.png";
+// import available from "../../assets/imgs/available.png";
+// import ether from "../../assets/imgs/ether.png";
+import { copyRights, ticon, mintType, agenda, available, ether, getCDNLink } from "../../constants/cdn.constants";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useParams, Link as RouterLink } from "react-router-dom";
@@ -243,7 +244,8 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 							alignItems='center'
 							position='relative'>
 							<Image
-								src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+								// src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+								src={getCDNLink(collection?.logoImageHash)}
 								boxShadow='0px 8px 16px 0px rgba(0, 0, 0, 0.15)'
 								width={"100%"}></Image>
 						</Flex>
@@ -715,7 +717,7 @@ const CollectionPage = () => {
 	useEffect(() => {
 		const fetchCurrentCollection = async () => {
 			const _collection: any = await getCollectionInfo(dropId);
-			// console.log(_collection);
+			console.log({_collection});
 			setCurrentCollection(_collection.data);
 		};
 
@@ -733,6 +735,9 @@ const CollectionPage = () => {
 				const _metadata = await axios.get(
 					getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
 				);
+				console.log(`ipfs://${currentCollection?.metadataHash}/${index}`);
+				console.log({currentCollection});
+				console.log({_metadata});
 				setImages((prevState: any) => [...prevState, _metadata.data]);
 				// images.push(_metadata.data);
 				// console.log(_metadata.data);
@@ -744,10 +749,10 @@ const CollectionPage = () => {
 		// setImages(images);
 	};
 	//QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
-	useEffect(() => {
-		loadAvailablePhotographs();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentCollection]);
+	// useEffect(() => {
+	// 	loadAvailablePhotographs();
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [currentCollection]);
 
 	const _isAdmin = useMemo(
 		() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
@@ -819,7 +824,8 @@ const CollectionPage = () => {
 									boxSizing='border-box'
 									className={styles.imageContainer}>
 									<Image
-										src={getRandomIPFS(elem.image)}
+										// src={getRandomIPFS(elem.image)}
+										src={`https://imagedelivery.net/Ui4hX-mywdi4eO8Amekoxw/${currentCollection?.metadataHash}/${index}`}
 										position='absolute'
 										top='0'
 										left='0'
