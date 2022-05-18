@@ -1,9 +1,9 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useApi } from "api";
 import ArtistCard from "components/ArtistCard";
 import Header from "components/Header";
 import React, { useEffect, useState } from "react";
-import artistWrapper from "../../assets/imgs/artistsWrapper.png";
+// import artistWrapper from "../../assets/imgs/artistsWrapper.png";
 import Footer from "components/Footer";
 // eslint-disable-next-line
 import { Artist } from "interfaces";
