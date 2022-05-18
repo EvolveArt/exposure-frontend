@@ -253,14 +253,14 @@ const ExploreCollection = () => {
 								position='relative'
 								marginRight={"auto"}
 								width={{ base: "88vw", lg: "80vw" }}>
-								<Image
+								{/* <Image
 									src={artistWrapper}
 									position='absolute'
 									transform='translate3d(-1px,3px,0px)'
 									height='50px'
 									width={"190px"}
 									zIndex='100'
-								/>
+								/> */}
 								<Text
 									fontFamily='Inter'
 									fontStyle='normal'

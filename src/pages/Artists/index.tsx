@@ -42,13 +42,13 @@ const Artists = () => {
 					width={{ base: "88vw", lg: "80vw" }}
 					margin='auto'
 					marginTop={"100px"}>
-					<Image
+					{/* <Image
 						src={artistWrapper}
 						position='absolute'
 						transform='translate3d(-2px,3px,0px)'
 						zIndex={"-1"}
 						height='50px'
-					/>
+					/> */}
 					<Text
 						fontFamily='Inter'
 						fontStyle='normal'
@@ -62,9 +62,9 @@ const Artists = () => {
 				</Flex>
 				<Box overflow={"hidden"} width='fit-content'>
 					<Flex
-						width={"fit-content"}
+						width={"full"}
 						flexWrap='wrap'
-						justifyContent={"center"}
+						justifyContent={"flex-start"}
 						alignItems='center'
 						gridGap={"36px 0px"}>
 						{artists.map((artist: Artist) => ArtistCard(artist))}

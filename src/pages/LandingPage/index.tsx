@@ -146,13 +146,13 @@ const LandingPage = () => {
 					position='relative'
 					marginRight={"auto"}
 					width={{ base: "88vw", lg: "80vw" }}>
-					<Image
+					{/* <Image
 						src={dropWrapper}
 						position='absolute'
 						transform='translateX(-6px)'
 						zIndex={"-1"}
 						height='60px'
-					/>
+					/> */}
 					<Text
 						fontFamily='Inter'
 						fontStyle='normal'
@@ -193,13 +193,13 @@ const LandingPage = () => {
 				width={{ base: "88vw", lg: "80vw" }}
 				margin='auto'
 				marginTop={"100px"}>
-				<Image
+				{/* <Image
 					src={artistWrapper}
 					position='absolute'
 					transform='translate3d(-2px,3px,0px)'
 					zIndex={"-1"}
 					height='50px'
-				/>
+				/> */}
 				<Text
 					fontFamily='Inter'
 					fontStyle='normal'
