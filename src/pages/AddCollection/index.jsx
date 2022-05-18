@@ -4,7 +4,8 @@ import styles from "./styles.module.scss";
 import cx from "classnames";
 import Header from "components/Header";
 import { Button, Flex, useToast } from "@chakra-ui/react";
-import addImage from "../../assets/imgs/addImage.png";
+// import addImage from "../../assets/imgs/addImage.png";
+import { addImage } from "../../constants/cdn.constants";
 import closeIcon from "assets/svgs/close.svg";
 import Select from "react-dropdown-select";
 import Datetime from "react-datetime";
@@ -86,21 +87,22 @@ const AddCollection = () => {
 		_image,
 		_artist,
 		_collection,
-		_season
+		_season,
+		arweaveHash
 	) => {
 		// Upload image on ipfs
-		let ipfsHash = await uploadOnIPFS(_image);
-
+		// let ipfsHash = await uploadOnIPFS(_image);
+		
 		let tempMetadata = {
 			name: _name,
 			description: _description,
 			external_url: "https://rhapsody.art",
-			image: `ipfs://${ipfsHash}`,
+			image: `https://arweave.net/${arweaveHash}`,
 			attributes: [
 				{ trait_type: "Artist", value: _artist },
 				{ trait_type: "Collection", value: _collection },
 				{ trait_type: "Season", value: _season },
-			],
+			]
 		};
 
 		return tempMetadata;
@@ -202,31 +204,54 @@ const AddCollection = () => {
 
 		try {
 			let metadatas = [];
+			let id = 0;
 			for (const {photo, description: photoDescription} of photos) {
+
+				const arweaveHash = await uploadOnIPFS(photo.file);
+				console.log({arweaveHash});
+
+				const cdnLink = await uploadOnCloudfare(photo.file, arweaveHash + "/" + id);
+				console.log({cdnLink});
+
 				const metadata = await generateMetadata(
 					photo.name,
 					photoDescription,
 					photo.file,
 					formatName(selected[0]),
 					name,
-					season?.length > 0 ? season : selectedSeason[0].name
+					season?.length > 0 ? season : selectedSeason[0].name,
+					arweaveHash
 				);
 				metadatas.push(metadata);
 			}
-			// console.log(JSON.stringify(metadatas));
+
+			// Upload JSON Metadata on Arweave
 			const result = await axios({
 				method: "post",
-				url: `${apiUrl}/ipfs/uploadMetadata2Server`,
-				data: JSON.stringify(metadatas),
+				url: `${process.env.REACT_APP_UPLOAD_API_URL}/arweave/json`,
+				data: {data: JSON.stringify(metadatas)},
+				maxContentLength: "Infinity",
+				maxBodyLength: "Infinity",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${authToken}`,
 					...corsHeader
 				},
-			});
-
-			const imageHash = result.data.data;
-			setMetadataHash(imageHash);
+			}); 
+			const _metadataHash = result.data;
+			// const result = await axios({
+			// 	method: "post",
+			// 	url: `${apiUrl}/ipfs/uploadMetadata2Server`,
+			// 	data: JSON.stringify(metadatas),
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 		Authorization: `Bearer ${authToken}`,
+			// 		...corsHeader
+			// 	},
+			// });
+			// const imageHash = result.data.data;
+			console.log({result})
+			console.log({_metadataHash})
+			setMetadataHash(_metadataHash);
 
 			setUploading(false);
 		} catch (e) {
@@ -316,21 +341,38 @@ const AddCollection = () => {
 
 					const formData = new FormData();
 					formData.append("name", name);
-					formData.append("imgData", logodata);
+					formData.append("file", logodata);
+
 					const result = await axios({
 						method: "post",
-						url: `${apiUrl}/ipfs/uploadCollectionImage2Server`,
+						url: `${process.env.REACT_APP_UPLOAD_API_URL}/arweave/image`,
 						data: formData,
 						maxContentLength: "Infinity",
 						maxBodyLength: "Infinity",
 						headers: {
 							"Content-Type": "multipart/form-data",
-							Authorization: `Bearer ${authToken}`,
 							...corsHeader
 						},
-					});
+					}); 
 
-					const imageHash = result.data.data;
+					const imageHash = result.data;
+					console.log({imageHash})
+					
+					const cdnLogoLink = await uploadOnCloudfare(logodata, imageHash);
+					console.log({cdnLogoLink})
+
+					// const result = await axios({
+					// 	method: "post",
+					// 	url: `${apiUrl}/ipfs/uploadCollectionImage2Server`,
+					// 	data: formData,
+					// 	maxContentLength: "Infinity",
+					// 	maxBodyLength: "Infinity",
+					// 	headers: {
+					// 		"Content-Type": "multipart/form-data",
+					// 		Authorization: `Bearer ${authToken}`,
+					// 		...corsHeader
+					// 	},
+					// });
 
 					const tx = await createDrop(
 						selected[0].address,
@@ -395,6 +437,7 @@ const AddCollection = () => {
 								address: account
 							};
 
+							console.log({data})
 							await axios({
 								method: "post",
 								url: `${apiUrl}/collection/collectionDetails`,
@@ -439,26 +482,66 @@ const AddCollection = () => {
 		// append the file form data to
 		formData.append("file", _file);
 		console.log(_file);
-
+		try {
+			const response = await axios({
+				method: "post",
+				url: `${process.env.REACT_APP_UPLOAD_API_URL}/arweave/image`,
+				data: formData,
+				maxContentLength: "Infinity",
+				maxBodyLength: "Infinity",
+				headers: {
+					"Content-Type": "multipart/form-data",
+					...corsHeader
+				},
+			}); 
+			return response.data;
+		} catch (error) {
+			console.log({error})
+		}
+	
 		// call the keys from .env
-		const API_KEY = process.env.REACT_APP_PINATA_API_KEY;
-		const API_SECRET = process.env.REACT_APP_PINATA_SECRET_API_KEY;
+		// const API_KEY = process.env.REACT_APP_PINATA_API_KEY;
+		// const API_SECRET = process.env.REACT_APP_PINATA_SECRET_API_KEY;
 
-		// the endpoint needed to upload the file
-		const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+		// // the endpoint needed to upload the file
+		// const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 
-		const response = await axios.post(url, formData, {
-			maxContentLength: "Infinity",
-			headers: {
-				"Content-Type": `multipart/form-data;boundary=${formData._boundary}`,
-				pinata_api_key: API_KEY,
-				pinata_secret_api_key: API_SECRET,
-				...corsHeader
-			},
-		});
+		// const response = await axios.post(url, formData, {
+		// 	maxContentLength: "Infinity",
+		// 	headers: {
+		// 		"Content-Type": `multipart/form-data;boundary=${formData._boundary}`,
+		// 		pinata_api_key: API_KEY,
+		// 		pinata_secret_api_key: API_SECRET,
+		// 		...corsHeader
+		// 	},
+		// });
 
-		return response.data.IpfsHash;
 	};
+
+	const uploadOnCloudfare = async (_file, id) => {
+		const formData = new FormData();
+		formData.append("file", _file);
+		formData.append("id", id);
+
+		try {
+			const response = await axios({
+				method: "post",
+				url: `${process.env.REACT_APP_UPLOAD_API_URL}/cdn/image`,
+				data: formData,
+				maxContentLength: "Infinity",
+				maxBodyLength: "Infinity",
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}); 
+
+			const cdnLink = response.data;
+			return cdnLink;
+		} catch (error) {
+			console.log({error})
+		}
+		
+	}
 
 	return (
 		<>
