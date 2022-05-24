@@ -9,7 +9,15 @@ import Header from "../../components/Header/index";
 // import bordermr from "../../assets/imgs/bordermr.png";
 // import bordertl from "../../assets/imgs/bordertl.png";
 // import bordertr from "../../assets/imgs/bordertr.png";
-import { ticon, borderbl, borderbr, borderml, bordermr, bordertl, bordertr, arrow } from "../../constants/cdn.constants";
+import {
+	borderbl,
+	borderbr,
+	borderml,
+	bordermr,
+	bordertl,
+	bordertr,
+	arrow,
+} from "../../constants/cdn.constants";
 import styles from "./styles.module.scss";
 import { useApi } from "api";
 import { useWeb3React } from "@web3-react/core";

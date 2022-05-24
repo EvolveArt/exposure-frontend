@@ -3,7 +3,7 @@ import { Flex, Image, Text } from "@chakra-ui/react";
 import { Collection } from "interfaces";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { formatName, getRandomIPFS } from "utils";
+import { formatName } from "utils";
 import styles from "./styles.module.scss";
 import { getCDNLink } from "../../constants/cdn.constants";
 

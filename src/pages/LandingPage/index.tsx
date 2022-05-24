@@ -11,10 +11,10 @@ import NftItem from "components/NFTitem";
 // eslint-disable-next-line
 import { Artist, Collection } from "interfaces";
 import { useApi } from "api";
-import { formatName, getRandomIPFS } from "utils";
+import { formatName } from "utils";
 import { TopPage } from "pages/CollectionPage";
 import { Link } from "react-router-dom";
-import { artistWrapper, dropWrapper, getCDNLink } from "../../constants/cdn.constants";
+import { getCDNLink } from "../../constants/cdn.constants";
 
 // import ArtistCard from "components/ArtistCard";
 

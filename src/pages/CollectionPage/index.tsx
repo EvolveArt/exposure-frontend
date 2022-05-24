@@ -10,7 +10,7 @@ import {
 	HStack,
 	Skeleton,
 } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Zoom from "react-medium-image-zoom";
 // import copyRights from "../../assets/imgs/copyright.png";
 // import ticon from "../../assets/imgs/t.png";
@@ -18,7 +18,14 @@ import Zoom from "react-medium-image-zoom";
 // import agenda from "../../assets/imgs/agenda.png";
 // import available from "../../assets/imgs/available.png";
 // import ether from "../../assets/imgs/ether.png";
-import { copyRights, ticon, mintType, agenda, available, ether, getCDNLink } from "../../constants/cdn.constants";
+import {
+	copyRights,
+	mintType,
+	agenda,
+	available,
+	ether,
+	getCDNLink,
+} from "../../constants/cdn.constants";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useParams, Link as RouterLink } from "react-router-dom";
@@ -763,7 +770,7 @@ const CollectionPage = () => {
 	useEffect(() => {
 		const fetchCurrentCollection = async () => {
 			const _collection: any = await getCollectionInfo(dropId);
-			console.log({_collection});
+			console.log({ _collection });
 			setCurrentCollection(_collection.data);
 		};
 
@@ -773,6 +780,7 @@ const CollectionPage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dropId]);
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const loadAvailablePhotographs = async () => {
 		const _totalSupply = currentCollection?.totalSupply || 0;
 		// const images = [];
@@ -782,8 +790,8 @@ const CollectionPage = () => {
 					getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
 				);
 				console.log(`ipfs://${currentCollection?.metadataHash}/${index}`);
-				console.log({currentCollection});
-				console.log({_metadata});
+				console.log({ currentCollection });
+				console.log({ _metadata });
 				setImages((prevState: any) => [...prevState, _metadata.data]);
 				// images.push(_metadata.data);
 				// console.log(_metadata.data);

@@ -1,7 +1,7 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
 import React from "react";
-import { formatName, getRandomIPFS } from "utils";
+import { formatName } from "utils";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line
 import { Artist } from "interfaces";
@@ -19,7 +19,7 @@ const ArtistCard = (artist: Artist) => {
 					className={styles.artistComponent}>
 					<Image
 						// src={getRandomIPFS(`ipfs://${artist.imageHash}`)}
-					  src={getCDNLink(artist.imageHash)}
+						src={getCDNLink(artist.imageHash)}
 						fallbackSrc={arr}
 						width={"242px"}
 						height={"242px"}

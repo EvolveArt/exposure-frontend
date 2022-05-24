@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 import Footer from "components/Footer";
 // eslint-disable-next-line
 import { Artist } from "interfaces";
-import { ticon, artistWrapper } from "../../constants/cdn.constants";
 
 const Artists = () => {
 	const [artists, setArtists] = useState([]);

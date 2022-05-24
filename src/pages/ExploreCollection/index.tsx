@@ -16,7 +16,12 @@ import { formatName } from "utils";
 // import twitter from "../../assets/imgs/twitter.png";
 // import discord from "../../assets/imgs/discord.png";
 // import instagram from "../../assets/imgs/instagram.png";
-import { logoWhite, discord, instagram, twitter, artistWrapper } from "../../constants/cdn.constants";
+import {
+	logoWhite,
+	discord,
+	instagram,
+	twitter,
+} from "../../constants/cdn.constants";
 
 import { useWeb3React } from "@web3-react/core";
 

@@ -10,8 +10,8 @@ import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
 // eslint-disable-next-line
 import { Artist, Collection } from "interfaces";
-import { formatName, getRandomIPFS } from "utils";
-import { ticon, instagram, twitter, getCDNLink } from "../../constants/cdn.constants";
+import { formatName } from "utils";
+import { instagram, twitter, getCDNLink } from "../../constants/cdn.constants";
 import NftItem from "components/NFTitem";
 
 const TopPage = (artist: Artist) => {
