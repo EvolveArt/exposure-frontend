@@ -9,7 +9,35 @@ const ModalActions = {
 	hideSeeMoreModal,
 	showMintModal,
 	hideMintModal,
+	showLicensesModal,
+	hideLicensesModal,
 };
+
+function showLicensesModal() {
+	return (dispatch: any) => {
+		dispatch(_showLicensesModal());
+	};
+}
+
+const _showLicensesModal = () => {
+	return {
+		type: ModalConstants.SHOW_LICENSES_MODAL,
+	};
+};
+
+function hideLicensesModal() {
+	return (dispatch: any) => {
+		dispatch(_hideLicensesModal());
+	};
+}
+
+const _hideLicensesModal = () => {
+	return {
+		type: ModalConstants.HIDE_LICENSES_MODAL,
+	};
+};
+
+// Mint Modal
 
 function showMintModal() {
 	return (dispatch: any) => {

@@ -13,6 +13,7 @@ import { Artist, Collection } from "interfaces";
 import { formatName } from "utils";
 import { instagram, twitter, getCDNLink } from "../../constants/cdn.constants";
 import NftItem from "components/NFTitem";
+// import LicensesModal from "components/LicensesModal";
 
 const TopPage = (artist: Artist) => {
 	return (

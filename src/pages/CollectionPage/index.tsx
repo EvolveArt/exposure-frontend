@@ -9,6 +9,7 @@ import {
 	Box,
 	HStack,
 	Skeleton,
+	IconButton,
 } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Zoom from "react-medium-image-zoom";
@@ -50,12 +51,13 @@ import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
 import { BsTextLeft } from "react-icons/bs";
-import { CalendarIcon } from "@chakra-ui/icons";
+import { CalendarIcon, QuestionIcon } from "@chakra-ui/icons";
 import ModalActions from "actions/modal.actions";
 import RemindModal from "components/RemindModal";
 import { useIsOverflow } from "hooks/useIsOverflow";
 import SeeMoreModal from "components/SeeMoreModal";
 import MintModal from "components/MintModal";
+import LicensesModal from "components/LicensesModal";
 
 interface DropInfo {
 	artist: string;
@@ -80,6 +82,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 		remindModalVisible,
 		seeMoreModalVisible,
 		mintModalVisible,
+		licensesModalVisible,
 	} = useSelector((state: RootState) => state.Modal);
 
 	const toast = useToast();
@@ -193,6 +196,10 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 				visible={remindModalVisible}
 				onClose={() => dispatch(ModalActions.hideRemindModal())}
 				collection={collection}
+			/>
+			<LicensesModal
+				visible={licensesModalVisible}
+				onClose={() => dispatch(ModalActions.hideLicensesModal())}
 			/>
 			<SeeMoreModal
 				visible={seeMoreModalVisible}
@@ -430,7 +437,17 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 											Licence -{" "}
 											<span style={{ fontWeight: "800" }}>
 												{collection?.copyRights}{" "}
-											</span>
+											</span>{" "}
+											<IconButton
+												aria-label='licenses-modal'
+												bg='transparent'
+												_focus={{ border: "none", bg: "transparent" }}
+												_hover={{ border: "none", bg: "transparent" }}
+												icon={<QuestionIcon />}
+												onClick={() =>
+													dispatch(ModalActions.showLicensesModal())
+												}
+											/>
 										</Text>
 									</Flex>
 								)}

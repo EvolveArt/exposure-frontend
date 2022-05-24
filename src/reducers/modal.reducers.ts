@@ -5,6 +5,7 @@ const initialState = {
 	remindModalVisible: false,
 	seeMoreModalVisible: false,
 	mintModalVisible: false,
+	licensesModalVisible: false,
 };
 
 export function Modal(state = initialState, action: any) {
@@ -48,6 +49,16 @@ export function Modal(state = initialState, action: any) {
 			return {
 				...state,
 				mintModalVisible: false,
+			};
+		case ModalConstants.SHOW_LICENSES_MODAL:
+			return {
+				...state,
+				licensesModalVisible: true,
+			};
+		case ModalConstants.HIDE_LICENSES_MODAL:
+			return {
+				...state,
+				licensesModalVisible: false,
 			};
 		default: {
 			return state;
