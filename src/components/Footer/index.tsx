@@ -4,16 +4,17 @@ import React from "react";
 // import twitter from "../../assets/imgs/twitter.png";
 // import discord from "../../assets/imgs/discord.png";
 // import instagram from "../../assets/imgs/instagram.png";
-import { logoWhite, discord, instagram, twitter } from "../../constants/cdn.constants";
+import {
+	logoWhite,
+	discord,
+	instagram,
+	twitter,
+} from "../../constants/cdn.constants";
 
 const Footer = () => {
 	return (
 		<div>
-			<Flex
-				minH={"300px"}
-				backgroundColor='#000'
-				marginTop={"100px"}
-				flexDirection='column'>
+			<Flex minH={"300px"} backgroundColor='#000' flexDirection='column'>
 				<Box
 					position={"relative"}
 					width={{ base: "90%", lg: "80%" }}

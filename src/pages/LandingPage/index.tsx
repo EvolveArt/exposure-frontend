@@ -244,7 +244,9 @@ const LandingPage = () => {
 				{arrival.season && (
 					<Flex color='white' width='50%' flexDir='column' p={10}>
 						<Heading size='md'>Season - {arrival.season.name}</Heading>
-						<Text pt='16px'>{arrival.season.description}</Text>
+						<Text pt='16px' style={{ whiteSpace: "pre-wrap" }}>
+							{arrival.season.description}
+						</Text>
 					</Flex>
 				)}
 			</Flex>
@@ -358,6 +360,59 @@ const LandingPage = () => {
 					</div>
 				</div>
 			</Box>
+			<Flex
+				bg='#F8F8F8'
+				p={10}
+				flexDir={["column", "row"]}
+				justifyContent='space-between'>
+				<Flex
+					flexDir='column'
+					alignItems='center'
+					textAlign='center'
+					m={5}
+					w='300px'
+					gap='8px'>
+					<Image src='/images/icon-landscape.png' w='40px' h='40px' />
+					<Text fontWeight='bold' mt='30px'>
+						Tight Curation
+					</Text>
+					<Text fontWeight='light'>
+						A rigorous curation of renowned and thought-provoking photography
+						series.
+					</Text>
+				</Flex>
+				<Flex
+					flexDir='column'
+					alignItems='center'
+					textAlign='center'
+					m={5}
+					w='300px'
+					gap='8px'>
+					<Image src='/images/icon-people.png' w='40px' h='40px' />
+					<Text fontWeight='bold' mt='30px'>
+						Experts from both worlds
+					</Text>
+					<Text fontWeight='light'>
+						A team of photography and web3 professionals and enthusiasts.
+					</Text>
+				</Flex>
+				<Flex
+					flexDir='column'
+					alignItems='center'
+					textAlign='center'
+					m={5}
+					w='300px'
+					gap='8px'>
+					<Image src='/images/icon-school.png' w='40px' h='40px' />
+					<Text fontWeight='bold' mt='30px'>
+						Education events
+					</Text>
+					<Text fontWeight='light'>
+						Educating the photography world about NFT technology through talks
+						and events.
+					</Text>
+				</Flex>
+			</Flex>
 			<Footer />
 		</div>
 	);
