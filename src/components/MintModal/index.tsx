@@ -11,7 +11,7 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import Zoom from "react-medium-image-zoom";
-import { formatError, formatName, getRandomIPFS } from "utils";
+import { formatError, formatName } from "utils";
 import ether from "../../assets/imgs/ether.png";
 import styles from "./styles.module.scss";
 import { useSalesContract } from "contracts";
@@ -20,6 +20,7 @@ import { ethers } from "ethers";
 import { useApi } from "api";
 import { CheckIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
+import { getCDNLink } from "constants/cdn.constants";
 
 // eslint-disable-next-line no-undef
 // const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
@@ -141,9 +142,7 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 											width={"200px"}
 											height={"max-content"}
 											margin='auto'
-											src={getRandomIPFS(
-												`ipfs://${collection?.logoImageHash}`
-											)}></Image>
+											src={getCDNLink(collection?.logoImageHash)}></Image>
 									</Zoom>
 								</Flex>
 								<Flex width={"60%"} p={3} flexDir='column'>

@@ -32,7 +32,7 @@ import { useParams, Link as RouterLink } from "react-router-dom";
 import { useApi } from "api";
 // eslint-disable-next-line
 import { Collection } from "interfaces";
-import { formatError, formatName, getRandomIPFS } from "utils";
+import { formatError, formatName } from "utils";
 // import showToast from "utils/toast";
 import { useExposureContract, useSalesContract } from "contracts";
 import { useWeb3React } from "@web3-react/core";
@@ -43,7 +43,7 @@ import { useToast } from "@chakra-ui/react";
 // import SuspenseImg from "components/SuspenseImg";
 // import styles from "./styles.module.scss";
 import { ADMIN_ADDRESSES } from "constants/index";
-import axios from "axios";
+// import axios from "axios";
 // import NftItem from "components/NFTitem";
 import styles from "./styles.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -348,7 +348,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 								) : (
 									<></>
 								)}
-								{collection?.season && collection.season.length > 0 && (
+								{collection?.season && (
 									<Flex flexDirection={"row"} gridGap='9px' mt={2}>
 										<Text
 											fontFamily='Inter'
@@ -359,7 +359,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 											paddingBottom={"17px"}>
 											Season -{" "}
 											<span style={{ fontWeight: "800" }}>
-												{collection.season[0].name}{" "}
+												{collection.season.name}{" "}
 											</span>
 										</Text>
 									</Flex>
@@ -757,6 +757,7 @@ const CollectionPage = () => {
 
 	const { getCollectionInfo } = useApi();
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [images, setImages] = useState<any[]>([]);
 
 	const { getRootProps /*, getRadioProps*/ } = useRadioGroup({
@@ -781,27 +782,27 @@ const CollectionPage = () => {
 	}, [dropId]);
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const loadAvailablePhotographs = async () => {
-		const _totalSupply = currentCollection?.totalSupply || 0;
-		// const images = [];
-		for (let index = 0; index < _totalSupply; index++) {
-			try {
-				const _metadata = await axios.get(
-					getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
-				);
-				console.log(`ipfs://${currentCollection?.metadataHash}/${index}`);
-				console.log({ currentCollection });
-				console.log({ _metadata });
-				setImages((prevState: any) => [...prevState, _metadata.data]);
-				// images.push(_metadata.data);
-				// console.log(_metadata.data);
-			} catch (error) {
-				console.log(error);
-			}
-		}
+	// const loadAvailablePhotographs = async () => {
+	// 	const _totalSupply = currentCollection?.totalSupply || 0;
+	// 	// const images = [];
+	// 	for (let index = 0; index < _totalSupply; index++) {
+	// 		try {
+	// 			const _metadata = await axios.get(
+	// 				getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
+	// 			);
+	// 			console.log(`ipfs://${currentCollection?.metadataHash}/${index}`);
+	// 			console.log({ currentCollection });
+	// 			console.log({ _metadata });
+	// 			setImages((prevState: any) => [...prevState, _metadata.data]);
+	// 			// images.push(_metadata.data);
+	// 			// console.log(_metadata.data);
+	// 		} catch (error) {
+	// 			console.log(error);
+	// 		}
+	// 	}
 
-		// setImages(images);
-	};
+	// 	// setImages(images);
+	// };
 	//QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
 	// useEffect(() => {
 	// 	loadAvailablePhotographs();

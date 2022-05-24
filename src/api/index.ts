@@ -122,6 +122,19 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const getDisplayedSeason = async () => {
+		const res = await axios({
+			method: "GET",
+			url: `${apiUrl}/collection/getDisplayedSeason`,
+			headers: {
+				"Content-Type": "application/json",
+				...corsHeader,
+			},
+		});
+
+		return res.data;
+	};
+
 	const getAllArtistSeasons = async (address: string) => {
 		const res = await axios({
 			method: "GET",
@@ -138,7 +151,8 @@ export const useApi = () => {
 	const getAllCollections = async (
 		isAvailable?: boolean | null,
 		artists?: string[],
-		address?: string
+		address?: string,
+		season?: string
 	) => {
 		const res = await axios({
 			method: "POST",
@@ -147,7 +161,7 @@ export const useApi = () => {
 				"Content-Type": "application/json",
 				...corsHeader,
 			},
-			data: { isAvailable, artists, address },
+			data: { isAvailable, artists, address, season },
 		});
 
 		return res.data;
@@ -282,6 +296,7 @@ export const useApi = () => {
 		searchArtists,
 		updateAccountDetails,
 		publishDrop,
+		getDisplayedSeason,
 		// getIsModerator,
 	};
 };

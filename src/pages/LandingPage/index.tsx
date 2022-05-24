@@ -1,4 +1,12 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import {
+	Box,
+	Flex,
+	Heading,
+	IconButton,
+	Image,
+	Text,
+	// useBreakpointValue,
+} from "@chakra-ui/react";
 import styles from "./styles.module.scss";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
@@ -15,6 +23,11 @@ import { formatName } from "utils";
 import { TopPage } from "pages/CollectionPage";
 import { Link } from "react-router-dom";
 import { getCDNLink } from "../../constants/cdn.constants";
+
+// Here we have used react-icons package for the icons
+import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+// And react-slick as our Carousel Lib
+import Slider from "react-slick";
 
 // import ArtistCard from "components/ArtistCard";
 
@@ -46,8 +59,32 @@ const ArtistsLanding = (artist: Artist) => {
 
 const LandingPage = () => {
 	const [latestCollections, setLatestCollections] = useState<Collection[]>([]);
+	const [seasonCollections, setSeasonCollections] = useState<Collection[]>([]);
+	const [currentSlide, setCurrentSlide] = useState(0);
 
-	const { getAllCollections, getAllArtists, getLatestCollection } = useApi();
+	const {
+		getAllCollections,
+		getAllArtists,
+		getLatestCollection,
+		getDisplayedSeason,
+	} = useApi();
+
+	// Settings for the slider
+	const settings = {
+		dots: false,
+		arrows: false,
+		fade: true,
+		infinite: true,
+		autoplay: false,
+		speed: 500,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		afterChange: (current: number) => setCurrentSlide(current),
+	};
+
+	// As we have used custom buttons, we need a reference variable to
+	// change the state
+	const [slider, setSlider] = React.useState<Slider | null>(null);
 
 	useEffect(() => {
 		const updateCollections = async () => {
@@ -76,6 +113,16 @@ const LandingPage = () => {
 	useEffect(() => {
 		const updateArrival = async () => {
 			const _arrival = await getLatestCollection();
+
+			const _season = await getDisplayedSeason();
+			const _seasonCollections = await getAllCollections(
+				true,
+				undefined,
+				undefined,
+				_season.data._id
+			);
+
+			setSeasonCollections(_seasonCollections.data);
 			setArrival(_arrival.data);
 			// console.log(_artists);
 		};
@@ -136,6 +183,71 @@ const LandingPage = () => {
 					</Text>
 				</Flex>
 			</Box>
+			<Flex bg='black' width='100vw' height='700px' p={"100px"}>
+				<Flex width='50%' flexDir='column'>
+					<Box position={"relative"} width={"full"} overflow={"hidden"}>
+						{/* CSS files for react-slick */}
+						<link
+							rel='stylesheet'
+							type='text/css'
+							charSet='UTF-8'
+							href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css'
+						/>
+						<link
+							rel='stylesheet'
+							type='text/css'
+							href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css'
+						/>
+
+						{/* Slider */}
+						<Slider {...settings} ref={(slider) => setSlider(slider)}>
+							{seasonCollections?.map((collection: Collection, index) => (
+								<Box
+									key={index}
+									height={"6xl"}
+									position='relative'
+									backgroundPosition='center'
+									backgroundRepeat='no-repeat'
+									backgroundSize='cover'
+									backgroundImage={`url(${getCDNLink(
+										collection?.logoImageHash
+									)})`}
+								/>
+							))}
+						</Slider>
+					</Box>
+					<Flex gap='50px' margin='auto' alignItems='center'>
+						<IconButton
+							aria-label='left-arrow'
+							colorScheme='white'
+							borderRadius='full'
+							border='1px solid white'
+							zIndex={2}
+							onClick={() => slider?.slickPrev()}>
+							<BiLeftArrowAlt />
+						</IconButton>
+						<Text color='white'>
+							{currentSlide}/{seasonCollections?.length}
+						</Text>
+						{/* Right Icon */}
+						<IconButton
+							aria-label='right-arrow'
+							colorScheme='white'
+							borderRadius='full'
+							border='1px solid white'
+							zIndex={2}
+							onClick={() => slider?.slickNext()}>
+							<BiRightArrowAlt />
+						</IconButton>
+					</Flex>
+				</Flex>
+				{arrival.season && (
+					<Flex color='white' width='50%' flexDir='column' p={10}>
+						<Heading size='md'>Season - {arrival.season.name}</Heading>
+						<Text pt='16px'>{arrival.season.description}</Text>
+					</Flex>
+				)}
+			</Flex>
 			<Flex
 				width={{ base: "90%", lg: "80%" }}
 				height='fit-content'
@@ -179,7 +291,10 @@ const LandingPage = () => {
 				</Flex>
 				<Flex
 					width={{ base: "unset", lg: "80vw" }}
-					flexDirection={{ base: "column", md: "row" }}
+					flexDirection={{
+						base: "column",
+						md: "row",
+					}}
 					gridGap='24px'
 					flexWrap={"wrap"}
 					alignItems='flex-start'

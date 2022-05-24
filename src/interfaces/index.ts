@@ -13,6 +13,8 @@ export interface Artist {
 export interface Season {
 	_id: string;
 	name: string;
+	description: string;
+	isDisplayed: boolean;
 	address: string;
 	collectionName: string;
 	nbCollections: number;
@@ -24,7 +26,7 @@ export interface Collection {
 	collectionName: string;
 	verbatim?: string;
 	copyRights?: string;
-	season?: Season[];
+	season?: Season;
 	verbatimAuthor?: string;
 	artists: Artist[];
 	description: string;

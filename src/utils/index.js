@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 import { getAddress } from "@ethersproject/address";
 
-import { IPFSUris } from "constants/ipfs.constants";
 import MetamaskErrors from "constants/errors";
 // import { useWeb3React } from '@web3-react/core';
 
@@ -34,27 +33,6 @@ export const getHigherGWEI = async (library) => {
 	const price = (await library.getGasPrice()) * 2;
 
 	return price;
-};
-
-export const getRandomIPFS = (tokenURI, justURL = false) => {
-	let random = Math.floor(Math.random() * IPFSUris.length);
-
-	if (justURL) {
-		return `${IPFSUris[random]}`;
-	}
-
-	if (
-		tokenURI.includes("gateway.pinata.cloud") ||
-		tokenURI.includes("cloudflare") ||
-		tokenURI.includes("ipfs.io") ||
-		tokenURI.includes("ipfs.infura.io")
-	) {
-		return `${IPFSUris[random]}${tokenURI.split("ipfs/")[1]}`;
-	} else if (tokenURI.includes("ipfs://")) {
-		return `${IPFSUris[random]}${tokenURI.split("ipfs://")[1]}`;
-	}
-
-	return tokenURI;
 };
 
 export const formatNumber = (num) => {
