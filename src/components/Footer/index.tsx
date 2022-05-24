@@ -1,171 +1,186 @@
-import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
-import React from "react";
-// import logo from "../../assets/imgs/logoWhite.png";
-// import twitter from "../../assets/imgs/twitter.png";
-// import discord from "../../assets/imgs/discord.png";
-// import instagram from "../../assets/imgs/instagram.png";
 import {
-	logoWhite,
-	discord,
-	instagram,
-	twitter,
-} from "../../constants/cdn.constants";
+	Box,
+	chakra,
+	Container,
+	Link,
+	SimpleGrid,
+	Stack,
+	Text,
+	VisuallyHidden,
+	Input,
+	IconButton,
+	useColorModeValue,
+	Image,
+	useToast,
+} from "@chakra-ui/react";
+// eslint-disable-next-line
+import React, { ReactNode, useState } from "react";
+import { FaDiscord, FaInstagram, FaTwitter } from "react-icons/fa";
+import { BiMailSend } from "react-icons/bi";
+import { Link as ReactRouterLink } from "react-router-dom";
+import axios from "axios";
 
-const Footer = () => {
+const SocialButton = ({
+	children,
+	label,
+	href,
+}: {
+	children: ReactNode;
+	label: string;
+	href: string;
+}) => {
 	return (
-		<div>
-			<Flex minH={"300px"} backgroundColor='#000' flexDirection='column'>
-				<Box
-					position={"relative"}
-					width={{ base: "90%", lg: "80%" }}
-					marginLeft='auto'
-					marginRight={"auto"}>
-					<Flex
-						flexDirection={{ base: "column", md: "row" }}
-						marginRight='auto'
-						marginLeft='auto'
-						paddingTop='45px'
-						position={"relative"}
-						height={{ base: "fit-content" }}
-						width='100%'>
-						<Link href='/#' _focus={{ outline: "none !important" }}>
-							<Image src={logoWhite} height='38px' margin='auto'></Image>
-						</Link>
-						<Flex
-							paddingTop={{ base: "32px", md: "unset" }}
-							marginLeft={{ base: "unset", md: "auto" }}
-							gridGap={{ base: "24px", md: "15px" }}
-							marginTop={"auto"}
-							marginBottom='auto'
-							flexDirection={{ base: "column" }}>
-							<Flex
-								paddingTop={{ base: "32px", md: "unset" }}
-								marginLeft={{ base: "unset", md: "auto" }}
-								gridGap={{ base: "24px", md: "32px" }}
-								marginTop={"auto"}
-								marginBottom='auto'
-								flexDirection={{ base: "column", md: "row" }}>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									_focus={{ outline: "none !important" }}>
-									Curated drop
-								</Link>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									href='/exploreCollection'
-									_focus={{ outline: "none !important" }}>
-									Collections
-								</Link>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									href={"/artists"}
-									_focus={{ outline: "none !important" }}>
-									Artists
-								</Link>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									href={"/HelpCenter"}
-									_focus={{ outline: "none !important" }}>
-									Help Center
-								</Link>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									href={"/contact"}
-									_focus={{ outline: "none !important" }}>
-									Contact us
-								</Link>
-							</Flex>
-							<Flex
-								paddingTop={{ base: "0px", md: "unset" }}
-								marginLeft={{ base: "unset", md: "auto" }}
-								gridGap={{ base: "24px", md: "32px" }}
-								marginTop={"auto"}
-								marginBottom='auto'
-								flexDirection={{ base: "column", md: "row" }}>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									_focus={{ outline: "none !important" }}>
-									Terms & Conditions
-								</Link>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									href='/exploreCollection'
-									_focus={{ outline: "none !important" }}>
-									Privacy Policy
-								</Link>
-								<Link
-									color={"#fff"}
-									fontWeight='600'
-									fontSize='14px'
-									lineHeight='28px'
-									letterSpacing={"1px"}
-									href={"/artists"}
-									_focus={{ outline: "none !important" }}>
-									Cookie Policy
-								</Link>
-							</Flex>
-						</Flex>
-					</Flex>
-					<Flex
-						gridGap={"20px"}
-						paddingTop={"90px"}
-						justifyContent='flex-end'
-						paddingBottom={{ base: "110px", md: "unset" }}>
-						<Link
-							href={"https://instagram.com/rhapsodycurated"}
-							target='_blank'
-							_focus={{ outline: "none !important" }}>
-							<Image src={instagram} height='30px' />
-						</Link>
-						<Link
-							href={"https://twitter.com/rhapsodycurated"}
-							target='_blank'
-							_focus={{ outline: "none !important" }}>
-							<Image src={twitter} height='30px' margin='auto' />
-						</Link>
-						<Link
-							href={"https://discord.com/invite/gGfeUXCVWD"}
-							target='_blank'
-							_focus={{ outline: "none !important" }}>
-							<Image src={discord} height='30px' />
-						</Link>
-						<Text color='white'>
-							© {new Date().getFullYear()} Rhapsody Curated. All Rights
-							Reserved.
-						</Text>
-					</Flex>
-				</Box>
-			</Flex>
-		</div>
+		<chakra.button
+			bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+			rounded={"full"}
+			w={8}
+			h={8}
+			cursor={"pointer"}
+			as={"a"}
+			href={href}
+			display={"inline-flex"}
+			alignItems={"center"}
+			justifyContent={"center"}
+			transition={"background 0.3s ease"}
+			_hover={{
+				bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
+			}}>
+			<VisuallyHidden>{label}</VisuallyHidden>
+			{children}
+		</chakra.button>
 	);
 };
 
-export default Footer;
+const ListHeader = ({ children }: { children: ReactNode }) => {
+	return (
+		<Text fontWeight={"500"} fontSize={"lg"} mb={2}>
+			{children}
+		</Text>
+	);
+};
+
+export default function LargeWithNewsletter() {
+	const [email, setEmail] = useState("");
+	const [emailError, setEmailError] = useState("");
+	const toast = useToast();
+
+	const validEmail = (email: string) => /(.+)@(.+){2,}\.(.+){2,}/.test(email);
+
+	const validateEmail = () => {
+		if (email.length === 0 || validEmail(email)) {
+			setEmailError("");
+		} else {
+			setEmailError("Invalid email address.");
+		}
+	};
+
+	const onSave = async () => {
+		try {
+			await axios.post("https://exposure-rest-api.herokuapp.com/contact/save", {
+				email: email,
+			});
+
+			toast({
+				status: "success",
+				title: "Email successfuly saved!",
+			});
+		} catch {
+			toast({ status: "error", title: "An error has occured !" });
+		}
+	};
+
+	return (
+		<Box bg='black' color='white'>
+			<Container as={Stack} maxW={"6xl"} py={10}>
+				<SimpleGrid
+					templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr" }}
+					spacing={8}>
+					<Stack spacing={6}>
+						<Box>
+							<Image
+								fontFamily={"heading"}
+								color={useColorModeValue("gray.800", "white")}
+								height='45px'
+								src={"/images/white-logo.png"}></Image>
+						</Box>
+						<Text fontSize={"sm"}>
+							© 2022 Rhapsody Curated. All rights reserved
+						</Text>
+						<Stack direction={"row"} spacing={6}>
+							<SocialButton
+								label={"Twitter"}
+								href={"https://twitter.com/rhapsodycurated"}>
+								<FaTwitter />
+							</SocialButton>
+
+							<SocialButton
+								label={"Instagram"}
+								href={"https://instagram.com/rhapsodycurated"}>
+								<FaInstagram />
+							</SocialButton>
+							<SocialButton
+								label={"Discord"}
+								href={"https://discord.com/invite/gGfeUXCVWD"}>
+								<FaDiscord />
+							</SocialButton>
+						</Stack>
+					</Stack>
+
+					<Stack align={"flex-start"}>
+						<ListHeader>Navigate</ListHeader>
+						<Link as={ReactRouterLink} to='/artists'>
+							Photographers
+						</Link>
+						<Link as={ReactRouterLink} to='/exploreCollection'>
+							Series
+						</Link>
+						<Link as={ReactRouterLink} to='/HelpCenter'>
+							Help
+						</Link>
+						<Link as={ReactRouterLink} to='/contact'>
+							Contact Us
+						</Link>
+						<Link as={ReactRouterLink} to='/search'>
+							Search
+						</Link>
+					</Stack>
+					<Stack align={"flex-start"}>
+						<ListHeader>Sign Up to our Newsletter</ListHeader>
+						<Stack direction={"row"}>
+							<Input
+								placeholder={"Your email address"}
+								bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+								border={0}
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								onBlur={validateEmail}
+								_focus={{
+									bg: "whiteAlpha.300",
+								}}
+							/>
+							<IconButton
+								bg='black'
+								color={useColorModeValue("white", "gray.800")}
+								aria-label='Subscribe'
+								icon={<BiMailSend />}
+								onClick={onSave}
+							/>
+						</Stack>
+						{emailError.length > 0 && <Text color='red'>{emailError}</Text>}
+					</Stack>
+					<Stack direction='row'>
+						<Link as={ReactRouterLink} to='/artists'>
+							T&Cs
+						</Link>
+						<Link as={ReactRouterLink} to='/privacy'>
+							Privacy
+						</Link>
+						<Link as={ReactRouterLink} to='/cookies'>
+							Cookies
+						</Link>
+					</Stack>
+				</SimpleGrid>
+			</Container>
+		</Box>
+	);
+}
