@@ -31,7 +31,8 @@ const corsHeader = {
 };
 
 const AddCollection = () => {
-	const [logo, setLogo] = useState(null);
+	const [logoIMG, setLogoIMG] = useState(null);
+	const [logoFile, setLogoFile] = useState(null);
 	const [metadataHash, setMetadataHash] = useState(null);
 	const [photos, setPhotos] = useState(null);
 	const [name, setName] = useState("");
@@ -110,7 +111,7 @@ const AddCollection = () => {
 	};
 
 	const removeImage = () => {
-		setLogo(null);
+		setLogoIMG(null);
 	};
 
 	const removePhotos = (idx) => {
@@ -161,7 +162,9 @@ const AddCollection = () => {
 			const reader = new FileReader();
 
 			reader.onload = function(e) {
-				setLogo(e.target.result);
+				// console.log(e.target.result)
+				setLogoFile(file);
+				setLogoIMG(e.target.result);
 			};
 
 			reader.readAsDataURL(file);
@@ -343,9 +346,11 @@ const AddCollection = () => {
 					}
 
 					const formData = new FormData();
-					formData.append("name", name);
-					formData.append("file", logodata);
-
+					// formData.append("name", name);
+					formData.append("file", logoFile);
+					// console.log({logoFile})
+					// console.log({logoIMG})
+					// console.log({logodata})
 					const result = await axios({
 						method: "post",
 						url: `${process.env.REACT_APP_UPLOAD_API_URL}/arweave/image`,
@@ -361,7 +366,7 @@ const AddCollection = () => {
 					const imageHash = result.data;
 					console.log({imageHash})
 					
-					const cdnLogoLink = await uploadOnCloudfare(logodata, imageHash);
+					const cdnLogoLink = await uploadOnCloudfare(logoFile, imageHash);
 					console.log({cdnLogoLink})
 
 					// const result = await axios({
@@ -475,7 +480,7 @@ const AddCollection = () => {
 				}
 			});
 		};
-		img.src = logo;
+		img.src = logoIMG;
 	};
 
 	const uploadOnIPFS = async (_file) => {
@@ -563,9 +568,9 @@ const AddCollection = () => {
 				<div className={styles.inputGroup}>
 					<div className={styles.inputWrapper}>
 						<div className={styles.logoUploadBox}>
-							{logo ? (
+							{logoIMG ? (
 								<>
-									<img src={logo} alt='Collection Logo' />
+									<img src={logoIMG} alt='Collection Logo' />
 									<div className={styles.removeOverlay}>
 										<div className={styles.removeIcon} onClick={removeImage}>
 											<img src={closeIcon} alt='CloseIcon' />
