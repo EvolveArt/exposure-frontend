@@ -217,7 +217,7 @@ const AddCollection = () => {
 				console.log({arweaveHash});
 
 				const count = await getLatestDropID();
-				const cdnID = count + "-" + id;
+				const cdnID = (count+1) + "-" + id;
 				console.log({cdnID});
 				const cdnLink = await uploadOnCloudfare(photo.file, cdnID);
 				console.log({cdnLink});
