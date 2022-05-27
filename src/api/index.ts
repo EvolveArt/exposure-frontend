@@ -222,6 +222,19 @@ export const useApi = () => {
 		return res.data;
 	};
 
+	const getLatestDropID = async () => {
+		const res = await axios({
+			method: "GET",
+			url: `${apiUrl}/collection/getLatestDropID`,
+			headers: {
+				"Content-Type": "application/json",
+				...corsHeader,
+			},
+		});
+
+		return res.data;
+	};
+
 	const getArtistInfo = async (address: string) => {
 		const res = await axios({
 			method: "POST",
@@ -297,6 +310,7 @@ export const useApi = () => {
 		updateAccountDetails,
 		publishDrop,
 		getDisplayedSeason,
+		getLatestDropID,
 		// getIsModerator,
 	};
 };
