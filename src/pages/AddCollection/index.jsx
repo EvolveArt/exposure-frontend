@@ -58,7 +58,7 @@ const AddCollection = () => {
 	);
 	const [now, setNow] = useState(new Date());
 
-	const { getAllArtists, apiUrl, getNonce, getAllArtistSeasons } = useApi();
+	const { getAllArtists, apiUrl, getNonce, getAllArtistSeasons, getLatestDropID } = useApi();
 	const { createDrop, setDropIPFS } = useExposureContract();
 	const { setAuction, createSale } = useSalesContract();
 
@@ -216,7 +216,10 @@ const AddCollection = () => {
 				const arweaveHash = await uploadOnIPFS(photo.file);
 				console.log({arweaveHash});
 
-				const cdnLink = await uploadOnCloudfare(photo.file, arweaveHash + "/" + id);
+				const count = await getLatestDropID();
+				const cdnID = count + "-" + id;
+				console.log({cdnID});
+				const cdnLink = await uploadOnCloudfare(photo.file, cdnID);
 				console.log({cdnLink});
 
 				const metadata = await generateMetadata(
@@ -229,6 +232,7 @@ const AddCollection = () => {
 					arweaveHash
 				);
 				metadatas.push(metadata);
+				id++;
 			}
 
 			// Upload JSON Metadata on Arweave

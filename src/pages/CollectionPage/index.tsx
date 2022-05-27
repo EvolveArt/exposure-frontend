@@ -775,7 +775,7 @@ const CollectionPage = () => {
 	const { getCollectionInfo } = useApi();
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [images, setImages] = useState<any[]>([]);
+	const [images, setImages] = useState<any[]>(['', '', '']);
 
 	const { getRootProps /*, getRadioProps*/ } = useRadioGroup({
 		name: "framework",
@@ -869,7 +869,7 @@ const CollectionPage = () => {
 				gridGap={"24px"}
 				position='relative'
 				paddingBottom={"150px"}>
-				{images.map((elem, index) => {
+				  {Array.apply(0, Array(currentCollection?.totalSupply)).map(function (x, index) {
 					return (
 						<Flex
 							width={{ base: "100%", sm: "90%", md: "calc(33.33% - 16px)" }}
@@ -886,8 +886,7 @@ const CollectionPage = () => {
 									className={styles.imageContainer}>
 									{/* <Zoom> */}
 									<Image
-										// src={getRandomIPFS(elem.image)}
-										src={`https://imagedelivery.net/Ui4hX-mywdi4eO8Amekoxw/${currentCollection?.metadataHash}/${index}`}
+										src={getCDNLink(`${currentCollection?.dropId}-${index}`)}
 										position='absolute'
 										top='0'
 										left='0'
@@ -911,14 +910,15 @@ const CollectionPage = () => {
 									fontSize='20px'
 									lineHeight='35px'
 									paddingTop='19px'>
-									{elem.name}
+									{/* {elem.name} */} Name
 								</Text>
 								<Text fontWeight='normal' fontSize='14px' lineHeight='28px'>
 									By{" "}
-									{
+									{/* {
 										elem.attributes.find((a: any) => a.trait_type === "Artist")
 											.value
-									}
+									} */}
+									Artist
 								</Text>
 								{/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>
