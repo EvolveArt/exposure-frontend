@@ -886,7 +886,7 @@ const CollectionPage = () => {
 									className={styles.imageContainer}>
 									{/* <Zoom> */}
 									<Image
-										src={getCDNLink(`${currentCollection?.dropId}-${index}`)}
+										src={getCDNLink(`${dropId}-${index}`)}
 										position='absolute'
 										top='0'
 										left='0'
