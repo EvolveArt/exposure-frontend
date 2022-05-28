@@ -239,7 +239,10 @@ const AddCollection = () => {
 			const result = await axios({
 				method: "post",
 				url: `${process.env.REACT_APP_UPLOAD_API_URL}/arweave/json`,
-				data: {data: JSON.stringify(metadatas)},
+				data: {
+					data: JSON.stringify(metadatas),
+					ARWEAVE_KEY: process.env.REACT_APP_ARWEAVE_KEY
+				},
 				maxContentLength: "Infinity",
 				maxBodyLength: "Infinity",
 				headers: {
@@ -352,6 +355,7 @@ const AddCollection = () => {
 					const formData = new FormData();
 					// formData.append("name", name);
 					formData.append("file", logoFile);
+					formData.append("ARWEAVE_KEY", process.env.REACT_APP_ARWEAVE_KEY)
 					// console.log({logoFile})
 					// console.log({logoIMG})
 					// console.log({logodata})
@@ -493,6 +497,7 @@ const AddCollection = () => {
 
 		// append the file form data to
 		formData.append("file", _file);
+		formData.append("ARWEAVE_KEY", process.env.REACT_APP_ARWEAVE_KEY);
 		console.log(_file);
 		try {
 			const response = await axios({
