@@ -483,7 +483,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                           day: "numeric",
                         }
                       )}{" "}
-                      |{" "}
+                      <span style={{ fontWeight: "400" }}>at</span>{" "}
                       {new Date(collection?.releaseDate || "").toLocaleString(
                         [],
                         {
