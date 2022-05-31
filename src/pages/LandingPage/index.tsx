@@ -17,7 +17,7 @@ import Footer from "../../components/Footer";
 import "react-medium-image-zoom/dist/styles.css";
 import NftItem from "components/NFTitem";
 // eslint-disable-next-line
-import { Artist, Collection } from "interfaces";
+import { Artist, Collection, Season } from "interfaces";
 import { useApi } from "api";
 import { formatName } from "utils";
 import { TopPage } from "pages/CollectionPage";
@@ -97,6 +97,7 @@ const LandingPage = () => {
 	}, []);
 
 	const [artists, setArtists] = useState<Artist[]>([]);
+	const [displayedSeason, setDisplayedSeason] = useState<Season>({} as Season);
 
 	const [arrival, setArrival] = useState<Collection>({} as Collection);
 
@@ -117,11 +118,12 @@ const LandingPage = () => {
 			const _season = await getDisplayedSeason();
 			const _seasonCollections = await getAllCollections(
 				true,
-				undefined,
+				[],
 				undefined,
 				_season.data._id
 			);
 
+			setDisplayedSeason(_season.data);
 			setSeasonCollections(_seasonCollections.data);
 			setArrival(_arrival.data);
 			// console.log(_artists);
@@ -241,11 +243,11 @@ const LandingPage = () => {
 						</IconButton>
 					</Flex>
 				</Flex>
-				{arrival.season && (
+				{displayedSeason && (
 					<Flex color='white' width='50%' flexDir='column' p={10}>
-						<Heading size='md'>Season - {arrival.season.name}</Heading>
+						<Heading size='md'>Season - {displayedSeason.name}</Heading>
 						<Text pt='16px' style={{ whiteSpace: "pre-wrap" }}>
-							{arrival.season.description}
+							{displayedSeason.description}
 						</Text>
 					</Flex>
 				)}
