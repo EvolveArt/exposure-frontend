@@ -25,7 +25,8 @@ const corsHeader = {
 };
 
 const AddArtist = () => {
-	const [logo, setLogo] = useState(null);
+	const [logoFile, setLogoFile] = useState(null);
+	const [logoIMG, setLogoIMG] = useState(null);
 	const [name, setName] = useState("");
 	const [nameError, setNameError] = useState(null);
 	const [surname, setSurname] = useState("");
@@ -56,7 +57,7 @@ const AddArtist = () => {
 	}, [account, authToken]);
 
 	const removeImage = () => {
-		setLogo(null);
+		setLogoIMG(null);
 	};
 	const inputRef = useRef(null);
 
@@ -67,7 +68,8 @@ const AddArtist = () => {
 			const reader = new FileReader();
 
 			reader.onload = function(e) {
-				setLogo(e.target.result);
+				setLogoFile(file);
+				setLogoIMG(e.target.result);
 			};
 
 			reader.readAsDataURL(file);
@@ -123,7 +125,7 @@ const AddArtist = () => {
 	};
 
 	const isValid = (() => {
-		if (!logo) return false;
+		if (!logoIMG) return false;
 		if (nameError) return false;
 		if (surnameError) return false;
 		if (descriptionError) return false;
@@ -179,9 +181,10 @@ const AddArtist = () => {
 					}
 
 					const formData = new FormData();
-					formData.append("firstname", name);
-					formData.append("address", wallet);
-					formData.append("file", logodata);
+					// formData.append("firstname", name);
+					// formData.append("address", wallet);
+					formData.append("file", logoFile);
+					formData.append("ARWEAVE_KEY", process.env.REACT_APP_ARWEAVE_KEY);
 
 					const result = await axios({
 						method: "post",
@@ -209,6 +212,10 @@ const AddArtist = () => {
 
 					const imageHash = result.data;
 					console.log({ imageHash });
+
+					const cdnLogoLink = await uploadOnCloudfare(logoFile, imageHash);
+					console.log({cdnLogoLink})
+
 					const data = {
 						address: wallet,
 						firstname: name,
@@ -248,8 +255,35 @@ const AddArtist = () => {
 				}
 			});
 		};
-		img.src = logo;
+		img.src = logoIMG;
 	};
+
+
+	const uploadOnCloudfare = async (_file, id) => {
+		const formData = new FormData();
+		formData.append("file", _file);
+		formData.append("id", id);
+
+		try {
+			const response = await axios({
+				method: "post",
+				url: `${process.env.REACT_APP_UPLOAD_API_URL}/cdn/image`,
+				data: formData,
+				maxContentLength: "Infinity",
+				maxBodyLength: "Infinity",
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}); 
+
+			const cdnLink = response.data;
+			return cdnLink;
+		} catch (error) {
+			console.log({error})
+		}
+		
+	}
+
 
 	return (
 		<>
@@ -268,9 +302,9 @@ const AddArtist = () => {
 				<div className={styles.inputGroup}>
 					<div className={styles.inputWrapper}>
 						<div className={styles.logoUploadBox}>
-							{logo ? (
+							{logoIMG ? (
 								<>
-									<img src={logo} alt='ArtistImage' />
+									<img src={logoIMG} alt='ArtistImage' />
 									<div className={styles.removeOverlay}>
 										<div className={styles.removeIcon} onClick={removeImage}>
 											<img src={closeIcon} alt='CloseIcon' />
