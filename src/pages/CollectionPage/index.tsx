@@ -315,13 +315,25 @@ export const TopPage = (collection: Collection, extend: boolean) => {
               paddingTop="50px"
             >
               <Box paddingBottom="50px">
+                {collection?.season && (
+                  <Flex flexDirection={"row"} gridGap="9px">
+                    <Text
+                      fontFamily="Inter"
+                      fontStyle="normal"
+                      fontWeight="800"
+                      fontSize="16px"
+                      lineHeight="28px"
+                    >
+                      Season - {collection.season.name}{" "}
+                    </Text>
+                  </Flex>
+                )}
                 <Text
                   fontFamily="Inter"
                   fontStyle="normal"
                   fontWeight="800"
                   fontSize="30px"
                   lineHeight="56px"
-                  paddingBottom={"4px"}
                 >
                   {collection?.collectionName}
                 </Text>
@@ -367,23 +379,6 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                 ) : (
                   <></>
                 )}
-                {collection?.season && (
-                  <Flex flexDirection={"row"} gridGap="9px" mt={2}>
-                    <Text
-                      fontFamily="Inter"
-                      fontStyle="normal"
-                      fontWeight="normal"
-                      fontSize="16px"
-                      lineHeight="28px"
-                      paddingBottom={"17px"}
-                    >
-                      Season -{" "}
-                      <span style={{ fontWeight: "800" }}>
-                        {collection.season.name}{" "}
-                      </span>
-                    </Text>
-                  </Flex>
-                )}
                 <Flex flexDirection={"row"} gridGap="9px">
                   <Image src={mintType} width="29px" height="29px" />
                   <Text
@@ -392,7 +387,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                     fontWeight="normal"
                     fontSize="16px"
                     lineHeight="28px"
-                    paddingBottom={"17px"}
+                    paddingBottom={"8px"}
                   >
                     {collection?.mintMode === "0"
                       ? "Dutch Auction"
@@ -407,7 +402,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                     fontWeight="normal"
                     fontSize="16px"
                     lineHeight="28px"
-                    paddingBottom={"17px"}
+                    paddingBottom={"8px"}
                   >
                     Mint price -{" "}
                     {updating ? (
@@ -430,7 +425,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                     fontWeight="normal"
                     fontSize="16px"
                     lineHeight="28px"
-                    paddingBottom={"17px"}
+                    paddingBottom={"8px"}
                   >
                     Mint available -{" "}
                     <span style={{ fontWeight: "800" }}>
@@ -449,7 +444,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                       fontWeight="normal"
                       fontSize="16px"
                       lineHeight="28px"
-                      paddingBottom={"17px"}
+                      paddingBottom={"8px"}
                     >
                       Licence -{" "}
                       <span style={{ fontWeight: "800" }}>
