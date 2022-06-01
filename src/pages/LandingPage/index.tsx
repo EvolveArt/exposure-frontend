@@ -189,10 +189,19 @@ const LandingPage = () => {
           </Text>
         </Flex>
       </Box>
-      <Flex bg="black" width="100vw" height="700px" p={"100px"}>
-        <Flex width="50%" flexDir="column">
+      <Flex
+        bg="black"
+        width="100vw"
+        minHeight="700px"
+        p={{ base: "20px", md: "100px" }}
+        flexDir={{ base: "column", md: "row" }}
+      >
+        <Flex
+          width={{ base: "100%", md: "50%" }}
+          flexDir="column"
+          maxH={"600px"}
+        >
           <Box position={"relative"} width={"full"} overflow={"hidden"}>
-            {/* CSS files for react-slick */}
             <link
               rel="stylesheet"
               type="text/css"
@@ -204,7 +213,6 @@ const LandingPage = () => {
               type="text/css"
               href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
             />
-
             {/* Slider */}
             <Slider {...settings} ref={(slider) => setSlider(slider)}>
               {seasonCollections?.map((collection: Collection, index) => (
@@ -234,7 +242,7 @@ const LandingPage = () => {
               <BiLeftArrowAlt />
             </IconButton>
             <Text color="white">
-              {currentSlide}/{seasonCollections?.length}
+              {currentSlide + 1}/{seasonCollections?.length}
             </Text>
             {/* Right Icon */}
             <IconButton
@@ -250,7 +258,12 @@ const LandingPage = () => {
           </Flex>
         </Flex>
         {displayedSeason && (
-          <Flex color="white" width="50%" flexDir="column" p={10}>
+          <Flex
+            color="white"
+            width={{ base: "100%", md: "50%" }}
+            flexDir="column"
+            p={10}
+          >
             <Heading size="md">Season - {displayedSeason.name}</Heading>
             <Text pt="16px" style={{ whiteSpace: "pre-wrap" }}>
               {displayedSeason.description}

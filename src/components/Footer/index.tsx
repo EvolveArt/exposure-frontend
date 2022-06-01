@@ -246,7 +246,10 @@ export default function LargeWithNewsletter() {
             {emailError.length > 0 && <Text color="red">{emailError}</Text>}
           </Stack>
         </SimpleGrid>
-        <Flex pb={{ base: "50px", md: "0px" }} pt={{ base: "0px", md: "40px" }}>
+        <Flex
+          pb={{ base: "70px", sm: "50px", md: "0px" }}
+          pt={{ base: "0px", md: "40px" }}
+        >
           <Stack direction="row" pt={"20px"} spacing="16px">
             <Link
               as={ReactRouterLink}
@@ -298,6 +301,7 @@ export default function LargeWithNewsletter() {
             left="0"
             right="0"
             width={"fit-content"}
+            textAlign="center"
           >
             © 2022 Rhapsody Curated. All rights reserved
           </Text>
