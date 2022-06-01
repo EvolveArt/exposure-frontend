@@ -193,7 +193,7 @@ const LandingPage = () => {
         bg="black"
         width="100vw"
         minHeight="700px"
-        p={{ base: "20px", md: "100px" }}
+        padding={{ base: "30px", md: "100px" }}
         flexDir={{ base: "column", md: "row" }}
       >
         <Flex
@@ -262,7 +262,7 @@ const LandingPage = () => {
             color="white"
             width={{ base: "100%", md: "50%" }}
             flexDir="column"
-            p={10}
+            pt={{ base: "30px", md: "unset" }}
           >
             <Heading size="md">Season - {displayedSeason.name}</Heading>
             <Text pt="16px" style={{ whiteSpace: "pre-wrap" }}>
@@ -402,7 +402,7 @@ const LandingPage = () => {
           alignItems="center"
           textAlign="center"
           m={5}
-          w="300px"
+          maxWidth="300px"
           gap="8px"
         >
           <Image src="/images/icon-landscape.png" w="40px" h="40px" />
@@ -419,7 +419,7 @@ const LandingPage = () => {
           alignItems="center"
           textAlign="center"
           m={5}
-          w="300px"
+          maxWidth="300px"
           gap="8px"
         >
           <Image src="/images/icon-people.png" w="40px" h="40px" />
@@ -435,7 +435,7 @@ const LandingPage = () => {
           alignItems="center"
           textAlign="center"
           m={5}
-          w="300px"
+          maxWidth="300px"
           gap="8px"
         >
           <Image src="/images/icon-school.png" w="40px" h="40px" />
