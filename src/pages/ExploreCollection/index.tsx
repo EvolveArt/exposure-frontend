@@ -121,7 +121,7 @@ const ExploreCollection = () => {
               <div className={styles.titleFilter}>Availability</div>
               <Checkbox
                 paddingTop={"8px"}
-                onChange={(e) => handleAvailable(e, true)}
+                onChange={(e: any) => handleAvailable(e, true)}
                 css={`
                   > span:first-of-type {
                     box-shadow: unset;
@@ -133,7 +133,7 @@ const ExploreCollection = () => {
               <Checkbox
                 paddingBottom={"8px"}
                 paddingTop={"8px"}
-                onChange={(e) => handleAvailable(e, false)}
+                onChange={(e: any) => handleAvailable(e, false)}
                 css={`
                   > span:first-of-type {
                     box-shadow: unset;
@@ -159,7 +159,7 @@ const ExploreCollection = () => {
                           box-shadow: unset;
                         }
                       `}
-                      onChange={(e) => handleChangeArtists(artist)}
+                      onChange={(e: any) => handleChangeArtists(artist)}
                     >
                       <span className={styles.check}>{formatName(artist)}</span>
                     </Checkbox>
@@ -236,7 +236,10 @@ const ExploreCollection = () => {
                           <div className={styles.titleFilter}>Availability</div>
                           <Checkbox
                             paddingTop={"8px"}
-                            onChange={(e) => handleAvailable(e, true)}
+                            isChecked={
+                              isAvailable === null ? false : isAvailable
+                            }
+                            onChange={(e: any) => handleAvailable(e, true)}
                             css={`
                               > span:first-of-type {
                                 box-shadow: unset;
@@ -248,7 +251,10 @@ const ExploreCollection = () => {
                           <Checkbox
                             paddingBottom={"8px"}
                             paddingTop={"8px"}
-                            onChange={(e) => handleAvailable(e, false)}
+                            isChecked={
+                              isAvailable === null ? false : !isAvailable
+                            }
+                            onChange={(e: any) => handleAvailable(e, false)}
                             css={`
                               > span:first-of-type {
                                 box-shadow: unset;
@@ -274,7 +280,14 @@ const ExploreCollection = () => {
                                       box-shadow: unset;
                                     }
                                   `}
-                                  onChange={(e) => handleChangeArtists(artist)}
+                                  isChecked={
+                                    selected.find(
+                                      (a: Artist) => a._id === artist._id
+                                    ) !== undefined
+                                  }
+                                  onChange={(e: any) =>
+                                    handleChangeArtists(artist)
+                                  }
                                 >
                                   <span className={styles.check}>
                                     {formatName(artist)}
