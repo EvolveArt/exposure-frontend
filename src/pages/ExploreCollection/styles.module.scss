@@ -406,6 +406,10 @@
   overflow: auto;
 }
 
+.isMobile{
+  display: flex;
+}
+
 .titleFilter {
   font-family: "Inter";
   font-style: normal;
@@ -537,6 +541,9 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .isMobile{
+    display: none;
+  }
   .container {
     flex-direction: column;
 
