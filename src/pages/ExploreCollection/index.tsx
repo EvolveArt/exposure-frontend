@@ -7,15 +7,31 @@ import cx from "classnames";
 import Header from "components/Header";
 import { useApi } from "api";
 import NftItem from "components/NFTitem";
+import { CloseIcon } from "@chakra-ui/icons";
 // eslint-disable-next-line
 import { Artist, Collection } from "interfaces";
-import { Box, Checkbox, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  Image,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { formatName } from "utils";
 import Footer from "../../components/Footer";
+import filter from "../../assets/imgs/filter.png";
 
 import { useWeb3React } from "@web3-react/core";
 
 const ExploreCollection = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const conRef: any = useRef();
   const [collapsed, setCollapsed] = useState(false);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
@@ -84,7 +100,13 @@ const ExploreCollection = () => {
         className={styles.container}
         // onScroll={width <= 600 ? handleScroll : null}
       >
-        <div className={cx(styles.sidebar, collapsed && styles.collapsed)}>
+        <div
+          className={cx(
+            styles.sidebar,
+            collapsed && styles.collapsed,
+            styles.isMobile
+          )}
+        >
           <div className={styles.sidebarHeader}>
             {!collapsed && <div className={styles.sidebarTitle}>Filter</div>}
             <img
@@ -99,7 +121,7 @@ const ExploreCollection = () => {
               <div className={styles.titleFilter}>Availability</div>
               <Checkbox
                 paddingTop={"8px"}
-                onChange={(e) => handleAvailable(e, true)}
+                onChange={(e: any) => handleAvailable(e, true)}
                 css={`
                   > span:first-of-type {
                     box-shadow: unset;
@@ -111,7 +133,7 @@ const ExploreCollection = () => {
               <Checkbox
                 paddingBottom={"8px"}
                 paddingTop={"8px"}
-                onChange={(e) => handleAvailable(e, false)}
+                onChange={(e: any) => handleAvailable(e, false)}
                 css={`
                   > span:first-of-type {
                     box-shadow: unset;
@@ -137,7 +159,7 @@ const ExploreCollection = () => {
                           box-shadow: unset;
                         }
                       `}
-                      onChange={(e) => handleChangeArtists(artist)}
+                      onChange={(e: any) => handleChangeArtists(artist)}
                     >
                       <span className={styles.check}>{formatName(artist)}</span>
                     </Checkbox>
@@ -159,25 +181,126 @@ const ExploreCollection = () => {
                 marginRight={"auto"}
                 width={{ base: "88vw", lg: "80vw" }}
               >
-                {/* <Image
-									src={artistWrapper}
-									position='absolute'
-									transform='translate3d(-1px,3px,0px)'
-									height='50px'
-									width={"190px"}
-									zIndex='100'
-								/> */}
                 <Text
                   fontFamily="Inter"
                   fontStyle="normal"
                   fontWeight="bold"
-                  fontSize="30px"
+                  fontSize={{ base: "20px", md: "30px" }}
                   lineHeight="56px"
-                  paddingBottom={"10px"}
                   marginLeft="10px"
                 >
-                  Collections
+                  Series
                 </Text>
+                <Button
+                  onClick={onOpen}
+                  leftIcon={<Image src={filter} width="15px" />}
+                  border="unset"
+                  bg={"unset"}
+                  display={{ base: "unset", md: "none" }}
+                  my="auto"
+                  ml={"auto"}
+                  _focus={{ outline: "none !important" }}
+                  _hover={{ background: "#fff" }}
+                >
+                  Filter
+                </Button>
+                <Drawer placement={"bottom"} onClose={onClose} isOpen={isOpen}>
+                  <DrawerOverlay />
+                  <DrawerContent height={"100vh"}>
+                    <DrawerHeader
+                      borderBottomWidth="1px"
+                      display={"flex"}
+                      flexDir={"row"}
+                    >
+                      <Text
+                        fontFamily="Inter"
+                        fontWeight="600"
+                        fontSize="20px"
+                        pt={"6px"}
+                      >
+                        Filter
+                      </Text>
+                      <Button
+                        leftIcon={<CloseIcon />}
+                        ml="auto"
+                        onClick={onClose}
+                        bg="unset"
+                        border={"unset"}
+                        _focus={{ outline: "none !important" }}
+                        _hover={{ background: "#fff" }}
+                      />
+                    </DrawerHeader>
+                    <DrawerBody padding="unset">
+                      <div className={styles.filterList}>
+                        <div className={styles.filterList}>
+                          <div className={styles.titleFilter}>Availability</div>
+                          <Checkbox
+                            paddingTop={"8px"}
+                            isChecked={
+                              isAvailable === null ? false : isAvailable
+                            }
+                            onChange={(e: any) => handleAvailable(e, true)}
+                            css={`
+                              > span:first-of-type {
+                                box-shadow: unset;
+                              }
+                            `}
+                          >
+                            <span className={styles.check}>Available</span>
+                          </Checkbox>
+                          <Checkbox
+                            paddingBottom={"8px"}
+                            paddingTop={"8px"}
+                            isChecked={
+                              isAvailable === null ? false : !isAvailable
+                            }
+                            onChange={(e: any) => handleAvailable(e, false)}
+                            css={`
+                              > span:first-of-type {
+                                box-shadow: unset;
+                              }
+                            `}
+                          >
+                            <span className={styles.check}>Sold Out</span>
+                          </Checkbox>
+                        </div>
+                        <div className={styles.filterList}>
+                          <div
+                            className={styles.titleFilter}
+                            style={{ paddingBottom: "8px" }}
+                          >
+                            Photographer
+                          </div>
+                          <div className={styles.filterLists}>
+                            {artists.map((artist: Artist) => {
+                              return (
+                                <Checkbox
+                                  css={`
+                                    > span:first-of-type {
+                                      box-shadow: unset;
+                                    }
+                                  `}
+                                  isChecked={
+                                    selected.find(
+                                      (a: Artist) => a._id === artist._id
+                                    ) !== undefined
+                                  }
+                                  onChange={(e: any) =>
+                                    handleChangeArtists(artist)
+                                  }
+                                >
+                                  <span className={styles.check}>
+                                    {formatName(artist)}
+                                  </span>
+                                </Checkbox>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </DrawerBody>
+                  </DrawerContent>
+                </Drawer>
               </Flex>
             </Box>
             {collections.map((collection: Collection) => {
