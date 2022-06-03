@@ -135,7 +135,7 @@ export const useApi = () => {
 		return res.data;
 	};
 
-	const getAllArtistSeasons = async (address: string) => {
+	const getAllArtistSeasons = async (address: string | null) => {
 		const res = await axios({
 			method: "GET",
 			url: `${apiUrl}/season/getArtistSeasons?address=${address}`,
