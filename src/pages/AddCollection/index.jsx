@@ -58,7 +58,13 @@ const AddCollection = () => {
 	);
 	const [now, setNow] = useState(new Date());
 
-	const { getAllArtists, apiUrl, getNonce, getAllArtistSeasons, getLatestDropID } = useApi();
+	const {
+		getAllArtists,
+		apiUrl,
+		getNonce,
+		getAllArtistSeasons,
+		getLatestDropID,
+	} = useApi();
 	const { createDrop, setDropIPFS } = useExposureContract();
 	const { setAuction, createSale } = useSalesContract();
 
@@ -94,7 +100,7 @@ const AddCollection = () => {
 	) => {
 		// Upload image on ipfs
 		// let ipfsHash = await uploadOnIPFS(_image);
-		
+
 		let tempMetadata = {
 			name: _name,
 			description: _description,
@@ -104,7 +110,7 @@ const AddCollection = () => {
 				{ trait_type: "Artist", value: _artist },
 				{ trait_type: "Collection", value: _collection },
 				{ trait_type: "Season", value: _season },
-			]
+			],
 		};
 
 		return tempMetadata;
@@ -134,12 +140,12 @@ const AddCollection = () => {
 
 	useEffect(() => {
 		async function fetchData() {
-			const _seasons = await getAllArtistSeasons(account);
+			const _seasons = await getAllArtistSeasons();
 			setSeasonList(_seasons.data);
 		}
 		fetchData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [account]);
+	}, [selected]);
 
 	useEffect(() => {
 		if (account && authToken) {
@@ -211,16 +217,15 @@ const AddCollection = () => {
 		try {
 			let metadatas = [];
 			let id = 0;
-			for (const {photo, description: photoDescription} of photos) {
-
+			for (const { photo, description: photoDescription } of photos) {
 				const arweaveHash = await uploadOnIPFS(photo.file);
-				console.log({arweaveHash});
+				console.log({ arweaveHash });
 
 				const count = await getLatestDropID();
-				const cdnID = (count+1) + "-" + id;
-				console.log({cdnID});
+				const cdnID = count + 1 + "-" + id;
+				console.log({ cdnID });
 				const cdnLink = await uploadOnCloudfare(photo.file, cdnID);
-				console.log({cdnLink});
+				console.log({ cdnLink });
 
 				const metadata = await generateMetadata(
 					photo.name,
@@ -241,15 +246,15 @@ const AddCollection = () => {
 				url: `${process.env.REACT_APP_UPLOAD_API_URL}/arweave/json`,
 				data: {
 					data: JSON.stringify(metadatas),
-					ARWEAVE_KEY: process.env.REACT_APP_ARWEAVE_KEY
+					ARWEAVE_KEY: process.env.REACT_APP_ARWEAVE_KEY,
 				},
 				maxContentLength: "Infinity",
 				maxBodyLength: "Infinity",
 				headers: {
 					"Content-Type": "application/json",
-					...corsHeader
+					...corsHeader,
 				},
-			}); 
+			});
 			const _metadataHash = result.data;
 			// const result = await axios({
 			// 	method: "post",
@@ -262,8 +267,8 @@ const AddCollection = () => {
 			// 	},
 			// });
 			// const imageHash = result.data.data;
-			console.log({result})
-			console.log({_metadataHash})
+			console.log({ result });
+			console.log({ _metadataHash });
 			setMetadataHash(_metadataHash);
 
 			setUploading(false);
@@ -355,7 +360,7 @@ const AddCollection = () => {
 					const formData = new FormData();
 					// formData.append("name", name);
 					formData.append("file", logoFile);
-					formData.append("ARWEAVE_KEY", process.env.REACT_APP_ARWEAVE_KEY)
+					formData.append("ARWEAVE_KEY", process.env.REACT_APP_ARWEAVE_KEY);
 					// console.log({logoFile})
 					// console.log({logoIMG})
 					// console.log({logodata})
@@ -367,15 +372,15 @@ const AddCollection = () => {
 						maxBodyLength: "Infinity",
 						headers: {
 							"Content-Type": "multipart/form-data",
-							...corsHeader
+							...corsHeader,
 						},
-					}); 
+					});
 
 					const imageHash = result.data;
-					console.log({imageHash})
-					
+					console.log({ imageHash });
+
 					const cdnLogoLink = await uploadOnCloudfare(logoFile, imageHash);
-					console.log({cdnLogoLink})
+					console.log({ cdnLogoLink });
 
 					// const result = await axios({
 					// 	method: "post",
@@ -510,14 +515,14 @@ const AddCollection = () => {
 				maxBodyLength: "Infinity",
 				headers: {
 					"Content-Type": "multipart/form-data",
-					...corsHeader
+					...corsHeader,
 				},
-			}); 
+			});
 			return response.data;
 		} catch (error) {
-			console.log({error})
+			console.log({ error });
 		}
-	
+
 		// call the keys from .env
 		// const API_KEY = process.env.REACT_APP_PINATA_API_KEY;
 		// const API_SECRET = process.env.REACT_APP_PINATA_SECRET_API_KEY;
@@ -534,7 +539,6 @@ const AddCollection = () => {
 		// 		...corsHeader
 		// 	},
 		// });
-
 	};
 
 	const uploadOnCloudfare = async (_file, id) => {
@@ -552,15 +556,14 @@ const AddCollection = () => {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},
-			}); 
+			});
 
 			const cdnLink = response.data;
 			return cdnLink;
 		} catch (error) {
-			console.log({error})
+			console.log({ error });
 		}
-		
-	}
+	};
 
 	return (
 		<>

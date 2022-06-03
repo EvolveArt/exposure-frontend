@@ -135,10 +135,10 @@ export const useApi = () => {
 		return res.data;
 	};
 
-	const getAllArtistSeasons = async (address: string) => {
+	const getAllArtistSeasons = async () => {
 		const res = await axios({
 			method: "GET",
-			url: `${apiUrl}/season/getArtistSeasons?address=${address}`,
+			url: `${apiUrl}/season/getArtistSeasons`,
 			headers: {
 				"Content-Type": "application/json",
 				...corsHeader,
