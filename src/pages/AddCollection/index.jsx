@@ -765,7 +765,8 @@ const AddCollection = () => {
 								values?.length > 0 ? (
 									<div className={styles.collection}>
 										<img
-											src={`https://cloudflare-ipfs.com/ipfs/${values[0].imageHash}`}
+											// src={`https://cloudflare-ipfs.com/ipfs/${values[0].imageHash}`}
+											src={getCDNLink(values[0].imageHash)}
 											className={styles.collectionLogo}
 											alt='artist-img'
 										/>
