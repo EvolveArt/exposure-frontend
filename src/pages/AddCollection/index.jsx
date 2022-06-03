@@ -5,7 +5,7 @@ import cx from "classnames";
 import Header from "components/Header";
 import { Button, Flex, useToast } from "@chakra-ui/react";
 // import addImage from "../../assets/imgs/addImage.png";
-import { addImage } from "../../constants/cdn.constants";
+import { addImage, getCDNLink } from "../../constants/cdn.constants";
 import closeIcon from "assets/svgs/close.svg";
 import Select from "react-dropdown-select";
 import Datetime from "react-datetime";
@@ -454,7 +454,7 @@ const AddCollection = () => {
 							};
 
 							console.log({data})
-							await axios({
+							const collectionResponse = await axios({
 								method: "post",
 								url: `${apiUrl}/collection/collectionDetails`,
 								data: JSON.stringify(data),
@@ -464,6 +464,8 @@ const AddCollection = () => {
 									...corsHeader,
 								},
 							});
+
+							console.log({collectionResponse})
 
 							toast({
 								status: "success",
@@ -745,7 +747,8 @@ const AddCollection = () => {
 										methods.addItem(item);
 									}}>
 									<img
-										src={`https://cloudflare-ipfs.com/ipfs/${item.imageHash}`}
+										// src={`https://cloudflare-ipfs.com/ipfs/${item.imageHash}`}
+										src={getCDNLink(item.imageHash)}
 										alt='artist-img'
 										className={styles.collectionLogo}
 									/>
