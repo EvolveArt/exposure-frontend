@@ -140,7 +140,7 @@ const AddCollection = () => {
 
 	useEffect(() => {
 		async function fetchData() {
-			const _seasons = await getAllArtistSeasons(null);
+			const _seasons = await getAllArtistSeasons();
 			setSeasonList(_seasons.data);
 		}
 		fetchData();
