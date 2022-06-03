@@ -36,7 +36,13 @@ import { shortenAddress } from "utils";
 // import down from "../../assets/imgs/down.png";
 // import disc from "../../assets/imgs/disconnect.png";
 // import profile from "../../assets/imgs/account.png";
-import { logo, wallet, down, disc, profile } from "../../constants/cdn.constants";
+import {
+	logo,
+	wallet,
+	down,
+	disc,
+	profile,
+} from "../../constants/cdn.constants";
 import { ADMIN_ADDRESSES } from "constants/index";
 import { useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -311,7 +317,7 @@ const DesktopNav = () => {
 	return (
 		<Stack direction={"row"} spacing={"40px"} margin='auto'>
 			{NAV_ITEMS.map((navItem) => (
-				<Box key={navItem.label}>
+				<Box key={navItem.label} width={"max-content"}>
 					<Link
 						className={styles.link}
 						paddingBottom='6px'
@@ -585,11 +591,11 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
 	{
-		label: "Artists",
+		label: "Photographers",
 		href: "/artists",
 	},
 	{
-		label: "Collections",
+		label: "Series",
 		href: "/exploreCollection",
 	},
 	{
@@ -599,5 +605,9 @@ const NAV_ITEMS: Array<NavItem> = [
 	{
 		label: "Search",
 		href: "/search",
+	},
+	{
+		label: "Contact Us",
+		href: "/contact",
 	},
 ];

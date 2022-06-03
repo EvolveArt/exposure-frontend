@@ -614,7 +614,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                           transform: "translate3d(4px,4px,0px)",
                         }}
                         as={RouterLink}
-                        to={`/collection/${collection.dropId}`}
+                        to={`/collection/${collection?.dropId}`}
                         _focus={{ outline: "none !important" }}
                       >
                         Full Details
