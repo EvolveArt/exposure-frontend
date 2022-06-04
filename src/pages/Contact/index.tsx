@@ -11,12 +11,10 @@ import {
 	FormLabel,
 	Input,
 	InputGroup,
-	InputLeftElement,
 	Textarea,
 	useToast,
 	FormErrorMessage,
 } from "@chakra-ui/react";
-import { MdOutlineEmail } from "react-icons/md";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import axios from "axios";
