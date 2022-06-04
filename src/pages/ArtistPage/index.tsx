@@ -47,19 +47,35 @@ const TopPage = (artist: Artist) => {
 						// src={getRandomIPFS(`ipfs://${artist?.imageHash}`)}
 						src={getCDNLink(artist?.imageHash)}
 						width={{ base: "90%", sm: "80%", md: "70%" }}></Image>
-					<Flex justifyContent='center' alignItems='center' mt={5} gap='20px'>
-						<Link
-							href={`https://instagram.com/${artist.instagram}/`}
-							target='_blank'
-							_focus={{ outline: "none" }}>
-							<Image src={instagram} filter='invert(1)' height={"27px"} />
-						</Link>
-						<Link
-							href={`https://twitter.com/${artist.twitter}/`}
-							target='_blank'
-							_focus={{ outline: "none" }}>
-							<Image src={twitter} filter='invert(1)' height={"27px"} />
-						</Link>
+					<Flex
+						justifyContent='center'
+						alignItems='flex-start'
+						width={"100%"}
+						mt={5}
+						gap='20px'
+						flexDir='column'>
+						<div>
+							<Link
+								href={`https://instagram.com/${artist.instagram}/`}
+								target='_blank'
+								_focus={{ outline: "none" }}>
+								<Flex gap={5}>
+									<Image src={instagram} filter='invert(1)' height={"27px"} />
+									{artist.instagram}
+								</Flex>
+							</Link>
+						</div>
+						<div>
+							<Link
+								href={`https://twitter.com/${artist.twitter}/`}
+								target='_blank'
+								_focus={{ outline: "none" }}>
+								<Flex gap={5}>
+									<Image src={twitter} filter='invert(1)' height={"27px"} />
+									{artist.twitter}
+								</Flex>
+							</Link>
+						</div>
 					</Flex>
 				</Flex>
 				<Flex
@@ -139,7 +155,7 @@ const ArtistPage = () => {
 					fontSize='16px'
 					lineHeight='28px'
 					letterSpacing='1px'>
-					Collections
+					Series
 				</Text>
 				<Flex flexWrap={"wrap"} width='100%'>
 					{collections?.map((collection: Collection) => {

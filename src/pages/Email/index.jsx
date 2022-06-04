@@ -9,15 +9,7 @@ import Header from "../../components/Header/index";
 // import bordermr from "../../assets/imgs/bordermr.png";
 // import bordertl from "../../assets/imgs/bordertl.png";
 // import bordertr from "../../assets/imgs/bordertr.png";
-import {
-	borderbl,
-	borderbr,
-	borderml,
-	bordermr,
-	bordertl,
-	bordertr,
-	arrow,
-} from "../../constants/cdn.constants";
+import { arrow } from "../../constants/cdn.constants";
 import styles from "./styles.module.scss";
 import { useApi } from "api";
 import { useWeb3React } from "@web3-react/core";
@@ -110,35 +102,22 @@ const Email = () => {
 				zIndex='1'
 				paddingBottom={"100px"}
 				position='relative'>
-				<Flex flexDir={"column"} maxWidth='548px' margin={"auto"}>
-					<Flex
-						position={"relative"}
-						width='fit-content'
-						padding='10px'
-						marginLeft={"auto"}
-						marginRight='auto'>
-						<Image src={bordertl} position='absolute' top={"0"} left='0' />
-						<Image src={borderbl} position='absolute' bottom={"0"} left='0' />
-						<Image src={bordertr} position='absolute' top={"0"} right='0' />
-						<Image src={borderbr} position='absolute' bottom={"0"} right='0' />
-						<Image src={borderml} position='absolute' bottom={"45%"} left='0' />
-						<Image
-							src={bordermr}
-							position='absolute'
-							bottom={"45%"}
-							right='0'
-						/>
-						<Text
-							fontFamily='Inter'
-							fontStyle='normal'
-							fontWeight='800'
-							fontSize={{ base: "30px", md: "40px" }}
-							lineHeight='53px'
-							color={"#000"}
-							textAlign='center'>
-							Welcome to Rhapsody!
-						</Text>
-					</Flex>
+				<Text
+					fontFamily='Inter'
+					fontStyle='normal'
+					fontWeight='800'
+					fontSize={{ base: "30px", md: "40px" }}
+					lineHeight='53px'
+					color={"#000"}
+					paddingTop={"85px"}
+					textAlign='center'>
+					Welcome to Rhapsody Curated
+				</Text>
+				<Flex
+					flexDir={"column"}
+					maxWidth='600px'
+					margin={"auto"}
+					justifyContent='center'>
 					<Text
 						fontFamily='Inter'
 						fontStyle='normal'
@@ -152,8 +131,8 @@ const Email = () => {
 						paddingTop={"80px"}
 						paddingBottom='35px'
 						width={"100%"}>
-						Enter your Email to be notified of futur drops on the Rhapsody
-						plateform
+						Subscribe to our mailing list to be notified of future drops on
+						Rhapsody Curated.
 					</Text>
 					<input
 						className={styles.input}
