@@ -19,7 +19,7 @@ import { shortenAddress } from "utils";
 // import dropWrapper from "../../assets/imgs/dropWrapper.png";
 // import largeGrid from "../../assets/imgs/largegrid.png";
 // import smallGrid from "../../assets/imgs/smallgrid.png";
-import { dropWrapper, largeGrid, smallGrid } from "../../constants/cdn.constants";
+import { largeGrid, smallGrid } from "../../constants/cdn.constants";
 import axios from "axios";
 import { Contracts } from "constants/networks";
 import SuspenseImg from "components/SuspenseImg";
@@ -100,13 +100,6 @@ const Profile = () => {
 					paddingTop='80px'
 					gridGap={{ base: "20px", md: "40px" }}>
 					<>
-						<Image
-							src={dropWrapper}
-							position='absolute'
-							transform='translateX(-6px)'
-							zIndex={"-1"}
-							height='54px'
-						/>
 						<Text
 							fontFamily='Inter'
 							fontStyle='normal'

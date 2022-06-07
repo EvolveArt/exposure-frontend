@@ -6,12 +6,9 @@ import {
 	AccordionPanel,
 	Box,
 	Flex,
-	Image,
 	Text,
 } from "@chakra-ui/react";
 import styles from "./styles.module.scss";
-// import dropWrapper from "../../assets/imgs/dropWrapper.png";
-import { dropWrapper } from "../../constants/cdn.constants";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import React from "react";
@@ -154,14 +151,6 @@ const QA = () => {
 					marginRight={"auto"}
 					width={{ base: "88vw", lg: "80vw" }}
 					marginTop={"100px"}>
-					<Image
-						src={dropWrapper}
-						position='absolute'
-						transform='translate3d(-2px,3px,0px)'
-						zIndex={"-1"}
-						height='55px'
-						width={"180px"}
-					/>
 					<Text
 						fontFamily='Inter'
 						fontStyle='normal'
@@ -175,7 +164,6 @@ const QA = () => {
 				<Text
 					fontFamily='Inter'
 					fontStyle='normal'
-					fontWeight='bold'
 					// textAlign="center"
 					// fontSize="27px"
 					// lineHeight="56px"

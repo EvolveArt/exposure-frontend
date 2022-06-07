@@ -11,12 +11,10 @@ import {
 	FormLabel,
 	Input,
 	InputGroup,
-	InputLeftElement,
 	Textarea,
 	useToast,
 	FormErrorMessage,
 } from "@chakra-ui/react";
-import { MdOutlineEmail } from "react-icons/md";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import axios from "axios";
@@ -82,21 +80,26 @@ const ContactPage = () => {
 						m={{ sm: 4, md: 16, lg: 10 }}
 						p={{ sm: 5, md: 5, lg: 16 }}>
 						<Box p={4}>
-							<Heading>Contact</Heading>
-							<Text mt={{ sm: 3, md: 3, lg: 5 }} color='gray.500'>
-								Fill up the form below to contact us
+							<Heading textAlign='center'>Contact Us</Heading>
+							<Text
+								mt={{ sm: 3, md: 3, lg: 5 }}
+								color='black'
+								textAlign='center'>
+								Don’t hesitate to reach out using the contact form below.{"\n"}
+								<br />
+								We’ll get back to you as soon as possible.
 							</Text>
 
 							<Box bg='white' borderRadius='0'>
 								<Box mt={5} color='#0B0E3F'>
 									<VStack spacing={5}>
 										<FormControl id='mail' isInvalid={emailError.length > 0}>
-											<FormLabel>Mail</FormLabel>
+											<FormLabel>Your email address*</FormLabel>
 											<InputGroup borderColor='black'>
-												<InputLeftElement
+												{/* <InputLeftElement
 													pointerEvents='none'
 													children={<MdOutlineEmail color='gray.800' />}
-												/>
+												/> */}
 												<Input
 													borderRadius='0'
 													type='text'
@@ -104,6 +107,7 @@ const ContactPage = () => {
 													value={mail}
 													onChange={(event) => setMail(event.target.value)}
 													onBlur={validateEmail}
+													placeholder='Enter your email'
 												/>
 											</InputGroup>
 											{emailError.length > 0 && (
@@ -111,13 +115,14 @@ const ContactPage = () => {
 											)}
 										</FormControl>
 										<FormControl id='message'>
-											<FormLabel>Message</FormLabel>
+											<FormLabel>Your message*</FormLabel>
 											<Textarea
 												value={message}
 												onChange={(event) => setMessage(event.target.value)}
 												borderColor='black'
 												borderRadius='0'
-												placeholder='Your message'
+												placeholder='Type here'
+												height={"162px"}
 											/>
 										</FormControl>
 										<FormControl float='right'>
@@ -143,7 +148,7 @@ const ContactPage = () => {
 													saving
 												}
 												onClick={onSave}>
-												{saving ? "Sending..." : "Send Message"}
+												{saving ? "Sending..." : "Send message"}
 											</Button>
 										</FormControl>
 									</VStack>

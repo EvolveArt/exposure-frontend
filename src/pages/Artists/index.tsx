@@ -58,7 +58,7 @@ const Artists = () => {
 						lineHeight='56px'
 						paddingBottom={"32px"}
 						marginLeft='10px'>
-						Artists
+						Photographers
 					</Text>
 				</Flex>
 				<Box overflow={"hidden"} width='fit-content'>
