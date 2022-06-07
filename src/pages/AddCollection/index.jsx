@@ -253,7 +253,7 @@ const AddCollection = () => {
 				maxBodyLength: "Infinity",
 				headers: {
 					"Content-Type": "application/json",
-					...corsHeader,
+					// ...corsHeader,
 				},
 			});
 			const _metadataHash = result.data;
@@ -373,7 +373,7 @@ const AddCollection = () => {
 						maxBodyLength: "Infinity",
 						headers: {
 							"Content-Type": "multipart/form-data",
-							...corsHeader,
+							// ...corsHeader,
 						},
 					});
 
@@ -516,7 +516,7 @@ const AddCollection = () => {
 				maxBodyLength: "Infinity",
 				headers: {
 					"Content-Type": "multipart/form-data",
-					...corsHeader,
+					// ...corsHeader,
 				},
 			});
 			return response.data;
