@@ -833,7 +833,6 @@ const CollectionPage = () => {
             isMainnet ? 1 : 4
           ].ExposureMain.toLowerCase()}`,
         });
-        console.log(response)
   			setImages((prevState: any) => [...prevState, response.data]);
   			// images.push(_metadata.data);
   			// console.log(_metadata.data);
