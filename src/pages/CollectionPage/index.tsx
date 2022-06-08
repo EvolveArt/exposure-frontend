@@ -819,11 +819,12 @@ const CollectionPage = () => {
   }, [dropId]);
   
   const apiKey = process.env.REACT_APP_ALCHEMY_KEY;
-  const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
+  const baseURL = `https://eth-rinkeby.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadAvailablePhotographs = async () => {
   	const _totalSupply = currentCollection?.totalSupply || 0;
   	// const images = [];
+    setImages([])
   	for (let index = 0; index < _totalSupply; index++) {
   		try {
   			const response = await axios({
@@ -832,6 +833,7 @@ const CollectionPage = () => {
             isMainnet ? 1 : 4
           ].ExposureMain.toLowerCase()}`,
         });
+        console.log(response)
   			setImages((prevState: any) => [...prevState, response.data]);
   			// images.push(_metadata.data);
   			// console.log(_metadata.data);
@@ -839,7 +841,7 @@ const CollectionPage = () => {
   			console.log(error);
   		}
   	}
-
+    
   	// setImages(images);
   };
   //QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
@@ -847,6 +849,10 @@ const CollectionPage = () => {
   	loadAvailablePhotographs();
   	// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCollection]);
+  useEffect(() => {
+  	console.log(images)
+  	// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [images]);
 
   // const _isAdmin = useMemo(
   // 	() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
@@ -945,12 +951,12 @@ const CollectionPage = () => {
                   lineHeight="35px"
                   paddingTop="19px"
                 >
-                  {images[index].metadata.name} 
+                  {images[index]?.metadata?.name} 
                 </Text>
                 <Text fontWeight="normal" fontSize="14px" lineHeight="28px">
                   By{" "}
                   {
-										images[index].metadata.attributes.find((a: any) => a.trait_type === "Artist")
+										images[index]?.metadata?.attributes.find((a: any) => a.trait_type === "Artist")
 											.value
 									}
                   
