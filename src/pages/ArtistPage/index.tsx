@@ -110,7 +110,7 @@ const TopPage = (artist: Artist) => {
           justifyContent="start"
           position="relative"
           paddingBottom={{ base: "50px", md: "unset" }}
-          paddingTop={{ base: "10px", md: "50px" }}
+          paddingTop={{ base: "10px", md: "30px" }}
         >
           <Text
             fontFamily="Inter"
