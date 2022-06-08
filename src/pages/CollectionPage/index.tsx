@@ -58,6 +58,8 @@ import { useIsOverflow } from "hooks/useIsOverflow";
 import SeeMoreModal from "components/SeeMoreModal";
 import MintModal from "components/MintModal";
 import LicensesModal from "components/LicensesModal";
+import axios from "axios";
+import { Contracts } from "constants/networks";
 
 interface DropInfo {
   artist: string;
@@ -781,6 +783,8 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 //   );
 // }
 
+const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
+
 const CollectionPage = () => {
   const [currentCollection, setCurrentCollection] = useState<Collection | null>(
     null
@@ -813,39 +817,42 @@ const CollectionPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dropId]);
-
+  
+  const apiKey = process.env.REACT_APP_ALCHEMY_KEY;
+  const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const loadAvailablePhotographs = async () => {
-  // 	const _totalSupply = currentCollection?.totalSupply || 0;
-  // 	// const images = [];
-  // 	for (let index = 0; index < _totalSupply; index++) {
-  // 		try {
-  // 			const _metadata = await axios.get(
-  // 				getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
-  // 			);
-  // 			console.log(`ipfs://${currentCollection?.metadataHash}/${index}`);
-  // 			console.log({ currentCollection });
-  // 			console.log({ _metadata });
-  // 			setImages((prevState: any) => [...prevState, _metadata.data]);
-  // 			// images.push(_metadata.data);
-  // 			// console.log(_metadata.data);
-  // 		} catch (error) {
-  // 			console.log(error);
-  // 		}
-  // 	}
+  const loadAvailablePhotographs = async () => {
+  	const _totalSupply = currentCollection?.totalSupply || 0;
+  	// const images = [];
+  	for (let index = 0; index < _totalSupply; index++) {
+  		try {
+  			const response = await axios({
+          method: "get",
+          url: `${baseURL}?tokenId=${index}&contractAddress=${Contracts[
+            isMainnet ? 1 : 4
+          ].ExposureMain.toLowerCase()}`,
+        });
+  			setImages((prevState: any) => [...prevState, response.data]);
+  			// images.push(_metadata.data);
+  			// console.log(_metadata.data);
+  		} catch (error) {
+  			console.log(error);
+  		}
+  	}
 
-  // 	// setImages(images);
-  // };
+  	// setImages(images);
+  };
   //QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
-  // useEffect(() => {
-  // 	loadAvailablePhotographs();
-  // 	// eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentCollection]);
+  useEffect(() => {
+  	loadAvailablePhotographs();
+  	// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCollection]);
 
   // const _isAdmin = useMemo(
   // 	() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
   // 	[account]
   // );
+
 
   const group = getRootProps();
   return (
@@ -938,15 +945,15 @@ const CollectionPage = () => {
                   lineHeight="35px"
                   paddingTop="19px"
                 >
-                  {/* {elem.name} */} Name
+                  {images[index].metadata.name} 
                 </Text>
                 <Text fontWeight="normal" fontSize="14px" lineHeight="28px">
                   By{" "}
-                  {/* {
-										elem.attributes.find((a: any) => a.trait_type === "Artist")
+                  {
+										images[index].metadata.attributes.find((a: any) => a.trait_type === "Artist")
 											.value
-									} */}
-                  Artist
+									}
+                  
                 </Text>
                 {/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>
