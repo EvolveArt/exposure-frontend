@@ -475,22 +475,9 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                   >
                     Release date -{" "}
                     <span style={{ fontWeight: "800" }}>
-                      {new Date(collection?.releaseDate || "").toLocaleString(
-                        [],
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}{" "}
+                      {new Date(collection?.releaseDate || "").toUTCString()}{" "}
                       <span style={{ fontWeight: "400" }}>at</span>{" "}
-                      {new Date(collection?.releaseDate || "").toLocaleString(
-                        [],
-                        {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        }
-                      )}
+                      {new Date(collection?.releaseDate || "").toUTCString()}
                     </span>{" "}
                     {/* at{" "}
 							<span style={{ fontWeight: "800" }}>
