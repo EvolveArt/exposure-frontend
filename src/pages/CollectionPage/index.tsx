@@ -437,7 +437,13 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                 </Flex>
                 {collection?.copyRights && (
                   <Flex flexDirection={"row"} gridGap="9px">
-                    <Image src={copyRights} width="29px" height="29px" />
+                    <Image
+                      src={copyRights}
+                      width="27px"
+                      height="27px"
+                      mt={"6px"}
+                      ml="1px"
+                    />
                     <Text
                       fontFamily="Inter"
                       fontStyle="normal"
@@ -445,6 +451,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                       fontSize="16px"
                       lineHeight="28px"
                       paddingBottom={"8px"}
+                      ml="1px"
                     >
                       Licence -{" "}
                       <span style={{ fontWeight: "800" }}>
