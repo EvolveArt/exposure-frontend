@@ -879,7 +879,7 @@ const CollectionPage = () => {
           paddingBottom={"32px"}
           marginLeft="10px"
         >
-          Available photographs
+          Available photographs ({currentCollection?.totalSupply})
         </Text>
 
         <HStack
