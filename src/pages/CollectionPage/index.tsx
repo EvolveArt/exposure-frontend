@@ -59,7 +59,7 @@ import SeeMoreModal from "components/SeeMoreModal";
 import MintModal from "components/MintModal";
 import LicensesModal from "components/LicensesModal";
 import axios from "axios";
-import { Contracts } from "constants/networks";
+// import { Contracts } from "constants/networks";
 import question from "../../assets/imgs/question.png";
 
 interface DropInfo {
@@ -787,7 +787,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 //   );
 // }
 
-const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
+// const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
 
 const CollectionPage = () => {
   const [currentCollection, setCurrentCollection] = useState<Collection | null>(
@@ -822,21 +822,16 @@ const CollectionPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dropId]);
 
-  const apiKey = process.env.REACT_APP_ALCHEMY_KEY;
-  const baseURL = `https://eth-rinkeby.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadAvailablePhotographs = async () => {
   	const _totalSupply = currentCollection?.totalSupply || 0;
-  	const dropId = currentCollection?.dropId || 0;
   	// const images = [];
     setImages([])
   	for (let index = 0; index < _totalSupply; index++) {
   		try {
   			const response = await axios({
           method: "get",
-          url: `${baseURL}?tokenId=${dropId > 0 ? index + (dropId * 10000) : index}&contractAddress=${Contracts[
-            isMainnet ? 1 : 4
-          ].ExposureMain.toLowerCase()}`,
+          url: `https://arweave.net/${currentCollection?.metadataHash}/${index}`
         });
         console.log(response.data)
   			setImages((prevState: any) => [...prevState, response.data]);
@@ -884,7 +879,7 @@ const CollectionPage = () => {
           paddingBottom={"32px"}
           marginLeft="10px"
         >
-          Available photographs
+          Available photographs ({currentCollection?.totalSupply})
         </Text>
 
         <HStack
@@ -955,15 +950,10 @@ const CollectionPage = () => {
                   lineHeight="35px"
                   paddingTop="19px"
                 >
-                  {images[index]?.metadata?.name}
+                  {images[index]?.name}
                 </Text>
                 <Text fontWeight="normal" fontSize="14px" lineHeight="28px">
-                  By{" "}
-                  {
-                    images[index]?.metadata?.attributes.find(
-                      (a: any) => a.trait_type === "Artist"
-                    ).value
-                  }
+                  #{index}
                 </Text>
                 {/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>
