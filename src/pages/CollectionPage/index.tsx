@@ -51,7 +51,7 @@ import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
 import { BsTextLeft } from "react-icons/bs";
-import { CalendarIcon, QuestionIcon } from "@chakra-ui/icons";
+import { CalendarIcon } from "@chakra-ui/icons";
 import ModalActions from "actions/modal.actions";
 import RemindModal from "components/RemindModal";
 import { useIsOverflow } from "hooks/useIsOverflow";
@@ -60,6 +60,7 @@ import MintModal from "components/MintModal";
 import LicensesModal from "components/LicensesModal";
 import axios from "axios";
 import { Contracts } from "constants/networks";
+import question from "../../assets/imgs/question.png";
 
 interface DropInfo {
   artist: string;
@@ -441,9 +442,9 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                   <Flex flexDirection={"row"} gridGap="9px">
                     <Image
                       src={copyRights}
-                      width="27px"
-                      height="27px"
-                      mt={"6px"}
+                      width="23px"
+                      height="23px"
+                      mt={"8px"}
                       ml="1px"
                     />
                     <Text
@@ -453,7 +454,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                       fontSize="16px"
                       lineHeight="28px"
                       paddingBottom={"8px"}
-                      ml="1px"
+                      ml="4px"
                     >
                       Licence -{" "}
                       <span style={{ fontWeight: "800" }}>
@@ -461,10 +462,13 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                       </span>{" "}
                       <IconButton
                         aria-label="licenses-modal"
+                        mb={"2px"}
                         bg="transparent"
                         _focus={{ border: "none", bg: "transparent" }}
                         _hover={{ border: "none", bg: "transparent" }}
-                        icon={<QuestionIcon />}
+                        icon={
+                          <Image src={question} width="24px" height={"24px"} />
+                        }
                         onClick={() =>
                           dispatch(ModalActions.showLicensesModal())
                         }
@@ -817,47 +821,46 @@ const CollectionPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dropId]);
-  
+
   const apiKey = process.env.REACT_APP_ALCHEMY_KEY;
   const baseURL = `https://eth-rinkeby.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadAvailablePhotographs = async () => {
-  	const _totalSupply = currentCollection?.totalSupply || 0;
-  	// const images = [];
-    setImages([])
-  	for (let index = 0; index < _totalSupply; index++) {
-  		try {
-  			const response = await axios({
+    const _totalSupply = currentCollection?.totalSupply || 0;
+    // const images = [];
+    setImages([]);
+    for (let index = 0; index < _totalSupply; index++) {
+      try {
+        const response = await axios({
           method: "get",
           url: `${baseURL}?tokenId=${index}&contractAddress=${Contracts[
             isMainnet ? 1 : 4
           ].ExposureMain.toLowerCase()}`,
         });
-  			setImages((prevState: any) => [...prevState, response.data]);
-  			// images.push(_metadata.data);
-  			// console.log(_metadata.data);
-  		} catch (error) {
-  			console.log(error);
-  		}
-  	}
-    
-  	// setImages(images);
+        setImages((prevState: any) => [...prevState, response.data]);
+        // images.push(_metadata.data);
+        // console.log(_metadata.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    // setImages(images);
   };
   //QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
   useEffect(() => {
-  	loadAvailablePhotographs();
-  	// eslint-disable-next-line react-hooks/exhaustive-deps
+    loadAvailablePhotographs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCollection]);
   useEffect(() => {
-  	console.log(images)
-  	// eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log(images);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
   // const _isAdmin = useMemo(
   // 	() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
   // 	[account]
   // );
-
 
   const group = getRootProps();
   return (
@@ -950,15 +953,15 @@ const CollectionPage = () => {
                   lineHeight="35px"
                   paddingTop="19px"
                 >
-                  {images[index]?.metadata?.name} 
+                  {images[index]?.metadata?.name}
                 </Text>
                 <Text fontWeight="normal" fontSize="14px" lineHeight="28px">
                   By{" "}
                   {
-										images[index]?.metadata?.attributes.find((a: any) => a.trait_type === "Artist")
-											.value
-									}
-                  
+                    images[index]?.metadata?.attributes.find(
+                      (a: any) => a.trait_type === "Artist"
+                    ).value
+                  }
                 </Text>
                 {/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>
