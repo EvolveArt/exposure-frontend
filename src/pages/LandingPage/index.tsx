@@ -232,7 +232,6 @@ const LandingPage = () => {
                 >
                   <Image
                     src={`${getCDNLink(collection?.logoImageHash)}`}
-                    width="100%"
                     maxHeight={{
                       base: "250px",
                       sm: "400px",
@@ -240,6 +239,7 @@ const LandingPage = () => {
                       lg: "350px",
                       xl: "450px",
                     }}
+                    mx="auto"
                   />
                   <Text
                     fontFamily="Inter"
@@ -465,7 +465,6 @@ const LandingPage = () => {
           alignItems="center"
           textAlign="center"
           m={5}
-
           maxWidth="300px"
           gap="8px"
         >
