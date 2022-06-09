@@ -823,16 +823,18 @@ const CollectionPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadAvailablePhotographs = async () => {
   	const _totalSupply = currentCollection?.totalSupply || 0;
+  	const dropId = currentCollection?.dropId || 0;
   	// const images = [];
     setImages([])
   	for (let index = 0; index < _totalSupply; index++) {
   		try {
   			const response = await axios({
           method: "get",
-          url: `${baseURL}?tokenId=${index}&contractAddress=${Contracts[
+          url: `${baseURL}?tokenId=${dropId > 0 ? index + (dropId * 10000) : index}&contractAddress=${Contracts[
             isMainnet ? 1 : 4
           ].ExposureMain.toLowerCase()}`,
         });
+        console.log(response.data)
   			setImages((prevState: any) => [...prevState, response.data]);
   			// images.push(_metadata.data);
   			// console.log(_metadata.data);
