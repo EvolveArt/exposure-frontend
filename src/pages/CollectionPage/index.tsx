@@ -59,7 +59,7 @@ import SeeMoreModal from "components/SeeMoreModal";
 import MintModal from "components/MintModal";
 import LicensesModal from "components/LicensesModal";
 import axios from "axios";
-import { Contracts } from "constants/networks";
+// import { Contracts } from "constants/networks";
 import question from "../../assets/imgs/question.png";
 
 interface DropInfo {
@@ -787,7 +787,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 //   );
 // }
 
-const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
+// const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
 
 const CollectionPage = () => {
   const [currentCollection, setCurrentCollection] = useState<Collection | null>(
