@@ -29,6 +29,7 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
 import arrow from "../../assets/imgs/arrow.png";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
 
 // import ArtistCard from "components/ArtistCard";
 
@@ -137,6 +138,7 @@ const LandingPage = () => {
 
   return (
     <div>
+      <Box className="top" />
       <Header />
       {TopPage(arrival, false)}
       <Flex
@@ -392,6 +394,22 @@ const LandingPage = () => {
           View all photographers
         </Link>
       </Flex>
+      <a
+        href={"#top"}
+        style={{
+          position: "fixed",
+          bottom: "40px",
+          right: " 40px",
+          width: "40px",
+          zIndex: "10",
+        }}
+      >
+        <Image
+          src={arrowButton}
+          boxShadow="0px 8px 16px rgba(0, 0, 0, 0.12)"
+          borderRadius={"full"}
+        />
+      </a>
       <Box
         position={"relative"}
         width={{ base: "90%", lg: "80%" }}
