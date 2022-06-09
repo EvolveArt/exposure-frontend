@@ -462,24 +462,40 @@ const LandingPage = () => {
       </Box>
       <Flex
         bg="#F8F8F8"
-        p={10}
-        pb={20}
-        flexDir={["column", "row"]}
-        justifyContent="space-between"
+        px={{ base: "30px", md: "40px", lg: "110px" }}
+        py={"60px"}
+        flexDir={{ base: "column", md: "row" }}
+        justifyContent={{ base: "center", md: "space-between" }}
+        alignItems={"center"}
       >
         <Flex
           flexDir="column"
           alignItems="center"
           textAlign="center"
           m={5}
-          maxWidth="300px"
+          maxWidth="320px"
           gap="8px"
         >
           <Image src="/images/icon-landscape.png" w="40px" h="40px" />
-          <Text fontWeight="bold" mt="30px">
+          <Text
+            fontFamily="Inter"
+            fontWeight="700"
+            fontSize="16px"
+            lineHeight="28px"
+            textAlign="center"
+            letterSpacing="1px"
+            mt="20px"
+          >
             Tight Curation
           </Text>
-          <Text fontWeight="light">
+          <Text
+            fontFamily="Inter"
+            fontSize="14px"
+            lineHeight="28px"
+            textAlign="center"
+            letterSpacing="1px"
+            color="#000000"
+          >
             A rigorous curation of renowned and thought-provoking photography
             series.
           </Text>
@@ -489,14 +505,29 @@ const LandingPage = () => {
           alignItems="center"
           textAlign="center"
           m={5}
-          maxWidth="300px"
+          maxWidth="320px"
           gap="8px"
         >
           <Image src="/images/icon-people.png" w="40px" h="40px" />
-          <Text fontWeight="bold" mt="30px">
+          <Text
+            fontFamily="Inter"
+            fontWeight="700"
+            fontSize="16px"
+            lineHeight="28px"
+            textAlign="center"
+            letterSpacing="1px"
+            mt="20px"
+          >
             Experts from both worlds
           </Text>
-          <Text fontWeight="light">
+          <Text
+            fontFamily="Inter"
+            fontSize="14px"
+            lineHeight="28px"
+            textAlign="center"
+            letterSpacing="1px"
+            color="#000000"
+          >
             A team of photography and web3 professionals and enthusiasts.
           </Text>
         </Flex>
@@ -505,14 +536,29 @@ const LandingPage = () => {
           alignItems="center"
           textAlign="center"
           m={5}
-          maxWidth="300px"
+          maxWidth="320px"
           gap="8px"
         >
           <Image src="/images/icon-school.png" w="40px" h="40px" />
-          <Text fontWeight="bold" mt="30px">
+          <Text
+            fontFamily="Inter"
+            fontWeight="700"
+            fontSize="16px"
+            lineHeight="28px"
+            textAlign="center"
+            letterSpacing="1px"
+            mt="20px"
+          >
             Education events
           </Text>
-          <Text fontWeight="light">
+          <Text
+            fontFamily="Inter"
+            fontSize="14px"
+            lineHeight="28px"
+            textAlign="center"
+            letterSpacing="1px"
+            color="#000000"
+          >
             Educating the photography world about NFT technology through talks
             and events.
           </Text>
