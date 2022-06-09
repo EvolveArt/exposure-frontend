@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Heading,
   IconButton,
   Image,
   Text,
@@ -234,6 +233,13 @@ const LandingPage = () => {
                   <Image
                     src={`${getCDNLink(collection?.logoImageHash)}`}
                     width="100%"
+                    maxHeight={{
+                      base: "250px",
+                      sm: "400px",
+                      md: "250px",
+                      lg: "350px",
+                      xl: "450px",
+                    }}
                   />
                   <Text
                     fontFamily="Inter"
@@ -287,8 +293,25 @@ const LandingPage = () => {
             flexDir="column"
             pt={{ base: "30px", md: "unset" }}
           >
-            <Heading size="md">Season - {displayedSeason.name}</Heading>
-            <Text pt="16px" style={{ whiteSpace: "pre-wrap" }}>
+            <Text
+              fontFamily="Inter"
+              fontWeight="700"
+              fontSize="30px"
+              lineHeight="40px"
+              color="#FFFFFF"
+            >
+              Season - {displayedSeason.name}
+            </Text>
+            <Text
+              fontFamily="Inter"
+              fontWeight="600"
+              fontSize="16px"
+              lineHeight="28px"
+              letterSpacing="1px"
+              color="#FFFFFF"
+              pt="16px"
+              style={{ whiteSpace: "pre-wrap" }}
+            >
               {displayedSeason.description}
             </Text>
           </Flex>
