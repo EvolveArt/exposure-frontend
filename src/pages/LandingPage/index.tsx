@@ -415,6 +415,7 @@ const LandingPage = () => {
       <Flex
         bg="#F8F8F8"
         p={10}
+        pb={20}
         flexDir={["column", "row"]}
         justifyContent="space-between"
       >
@@ -423,6 +424,7 @@ const LandingPage = () => {
           alignItems="center"
           textAlign="center"
           m={5}
+
           maxWidth="300px"
           gap="8px"
         >
