@@ -16,10 +16,12 @@ import {
 } from "@chakra-ui/react";
 // eslint-disable-next-line
 import React, { ReactNode, useState } from "react";
-import { FaDiscord, FaInstagram, FaTwitter } from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
 import { Link as ReactRouterLink } from "react-router-dom";
 import axios from "axios";
+import twitter from "../../assets/imgs/twitter.png";
+import discord from "../../assets/imgs/discord.png";
+import instagram from "../../assets/imgs/instagram.png";
 
 const SocialButton = ({
   children,
@@ -232,20 +234,20 @@ export default function LargeWithNewsletter() {
                 label={"Instagram"}
                 href={"https://instagram.com/rhapsodycurated"}
               >
-                <FaInstagram size={25} />
+                <Image src={instagram} height={"29px"} />
               </SocialButton>
               <SocialButton
                 label={"Twitter"}
                 href={"https://twitter.com/rhapsodycurated"}
               >
-                <FaTwitter size={25} />
+                <Image src={twitter} height={"29px"} />
               </SocialButton>
 
               <SocialButton
                 label={"Discord"}
                 href={"https://discord.com/invite/gGfeUXCVWD"}
               >
-                <FaDiscord size={25} />
+                <Image src={discord} height={"29px"} />
               </SocialButton>
             </Flex>
           </Stack>
