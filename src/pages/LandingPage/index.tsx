@@ -221,7 +221,7 @@ const LandingPage = () => {
                   my={"auto"}
                   key={index}
                   height={{
-                    base: "400px",
+                    base: "300px",
                     sm: "450px",
                     md: "300px",
                     lg: "400px",
@@ -233,11 +233,25 @@ const LandingPage = () => {
                     src={`${getCDNLink(collection?.logoImageHash)}`}
                     width="100%"
                   />
+                  <Text
+                    fontFamily="Inter"
+                    fontSize="16px"
+                    lineHeight="28px"
+                    letterSpacing="1px"
+                    color="#FFFFFF"
+                    textAlign={"center"}
+                    paddingTop="24px"
+                  >
+                    <span style={{ fontWeight: "700" }}>
+                      {collection?.collectionName}
+                    </span>{" "}
+                    by {formatName(collection?.artists[0])}
+                  </Text>
                 </Box>
               ))}
             </Slider>
           </Box>
-          <Flex gap="50px" margin="auto" alignItems="center" pt={"10px"}>
+          <Flex gap="50px" margin="auto" alignItems="center" pt={"24px"}>
             <IconButton
               aria-label="left-arrow"
               colorScheme="white"
