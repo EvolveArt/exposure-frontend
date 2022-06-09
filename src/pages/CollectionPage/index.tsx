@@ -61,6 +61,7 @@ import LicensesModal from "components/LicensesModal";
 import axios from "axios";
 // import { Contracts } from "constants/networks";
 import question from "../../assets/imgs/question.png";
+import moment from "moment";
 
 interface DropInfo {
   artist: string;
@@ -488,12 +489,12 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                   >
                     Release date -{" "}
                     <span style={{ fontWeight: "800" }}>
-                      {new Date(collection?.releaseDate || "").toUTCString()}{" "}
+                      {moment(new Date(collection?.releaseDate || "").toUTCString()).format("MMMM Do YYYY")}{" "}
                     </span>{" "}
-                    {/* at{" "}
+                    at{" "}
 							<span style={{ fontWeight: "800" }}>
-								{collection?.releaseDate} GMT
-							</span> */}
+							{moment(new Date(collection?.releaseDate || "").toUTCString()).format("HH:mm")} GMT
+							</span>
                   </Text>
                 </Flex>
                 {extend ? (
@@ -799,7 +800,7 @@ const CollectionPage = () => {
   const { getCollectionInfo } = useApi();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [images, setImages] = useState<any[]>(["", "", ""]);
+  const [images, setImages] = useState<any[]>([]);
 
   const { getRootProps /*, getRadioProps*/ } = useRadioGroup({
     name: "framework",
