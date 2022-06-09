@@ -323,7 +323,7 @@ const LandingPage = () => {
             paddingBottom={"32px"}
             marginLeft="10px"
           >
-            Series
+            Latest Series
           </Text>
           <Link
             style={{
