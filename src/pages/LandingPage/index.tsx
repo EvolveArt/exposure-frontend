@@ -28,6 +28,7 @@ import { getCDNLink } from "../../constants/cdn.constants";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
+import arrow from "../../assets/imgs/arrow.png";
 
 // import ArtistCard from "components/ArtistCard";
 
@@ -138,19 +139,14 @@ const LandingPage = () => {
     <div>
       <Header />
       {TopPage(arrival, false)}
-      {/* <Flex
+      <Flex
         justifyContent={"center"}
         alignItems="center"
-        transform={"translateY(-50px)"}
+        transform={"translateY(-80px)"}
         position="relative"
       >
-        <Image
-          src={arrowContainer}
-          position="absolute"
-          display={{ base: "none", md: "unset" }}
-        />
         <Image src={arrow} display={{ base: "none", md: "unset" }} />
-      </Flex> */}
+      </Flex>
       <Box paddingBottom="112px">
         <Flex
           width={{ base: "90%", lg: "80%" }}
@@ -225,7 +221,7 @@ const LandingPage = () => {
                   my={"auto"}
                   key={index}
                   height={{
-                    base: "400px",
+                    base: "300px",
                     sm: "450px",
                     md: "300px",
                     lg: "400px",
@@ -237,11 +233,25 @@ const LandingPage = () => {
                     src={`${getCDNLink(collection?.logoImageHash)}`}
                     width="100%"
                   />
+                  <Text
+                    fontFamily="Inter"
+                    fontSize="16px"
+                    lineHeight="28px"
+                    letterSpacing="1px"
+                    color="#FFFFFF"
+                    textAlign={"center"}
+                    paddingTop="24px"
+                  >
+                    <span style={{ fontWeight: "700" }}>
+                      {collection?.collectionName}
+                    </span>{" "}
+                    by {formatName(collection?.artists[0])}
+                  </Text>
                 </Box>
               ))}
             </Slider>
           </Box>
-          <Flex gap="50px" margin="auto" alignItems="center" pt={"10px"}>
+          <Flex gap="50px" margin="auto" alignItems="center" pt={"24px"}>
             <IconButton
               aria-label="left-arrow"
               colorScheme="white"
@@ -313,7 +323,7 @@ const LandingPage = () => {
             paddingBottom={"32px"}
             marginLeft="10px"
           >
-            Series
+            Latest Series
           </Text>
           <Link
             style={{
