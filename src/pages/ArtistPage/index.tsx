@@ -46,7 +46,7 @@ const TopPage = (artist: Artist) => {
         >
           <Image
             src={getCDNLink(artist?.imageHash)}
-            width={{ base: "90%", sm: "70%", md: "100%" }}
+            width={{ base: "90%", sm: "70%", md: "90%" }}
             boxShadow="drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.15))"
           />
           <Flex
@@ -55,7 +55,7 @@ const TopPage = (artist: Artist) => {
             mt={5}
             gap="20px"
             flexDir="column"
-            width={{ base: "90%", sm: "70%", md: "100%" }}
+            width={{ base: "90%", sm: "70%", md: "90%" }}
           >
             <div>
               <Link
@@ -183,7 +183,7 @@ const ArtistPage = () => {
         >
           Series
         </Text>
-        <Flex flexWrap={"wrap"} width="100%">
+        <Flex flexWrap={"wrap"} width="100%" gridGap={"30px"}>
           {collections?.map((collection: Collection) => {
             return NftItem(collection);
           })}
