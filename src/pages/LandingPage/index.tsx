@@ -28,6 +28,7 @@ import { getCDNLink } from "../../constants/cdn.constants";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
+import arrow from "../../assets/imgs/arrow.png";
 
 // import ArtistCard from "components/ArtistCard";
 
@@ -138,19 +139,14 @@ const LandingPage = () => {
     <div>
       <Header />
       {TopPage(arrival, false)}
-      {/* <Flex
+      <Flex
         justifyContent={"center"}
         alignItems="center"
-        transform={"translateY(-50px)"}
+        transform={"translateY(-80px)"}
         position="relative"
       >
-        <Image
-          src={arrowContainer}
-          position="absolute"
-          display={{ base: "none", md: "unset" }}
-        />
         <Image src={arrow} display={{ base: "none", md: "unset" }} />
-      </Flex> */}
+      </Flex>
       <Box paddingBottom="112px">
         <Flex
           width={{ base: "90%", lg: "80%" }}
