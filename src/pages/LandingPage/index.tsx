@@ -22,6 +22,7 @@ import { formatName } from "utils";
 import { TopPage } from "pages/CollectionPage";
 import { Link } from "react-router-dom";
 import { getCDNLink } from "../../constants/cdn.constants";
+import ScrollToTop from "react-scroll-to-top";
 
 // Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
@@ -139,6 +140,12 @@ const LandingPage = () => {
     <div>
       <Box className="top" />
       <Header />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
+      />
       {TopPage(arrival, false)}
       <Flex
         justifyContent={"center"}
@@ -417,7 +424,7 @@ const LandingPage = () => {
           View all photographers
         </Link>
       </Flex>
-      <a
+      {/* <a
         href={"#top"}
         style={{
           position: "fixed",
@@ -432,7 +439,7 @@ const LandingPage = () => {
           boxShadow="0px 8px 16px rgba(0, 0, 0, 0.12)"
           borderRadius={"full"}
         />
-      </a>
+      </a> */}
       <Box
         position={"relative"}
         width={{ base: "90%", lg: "80%" }}

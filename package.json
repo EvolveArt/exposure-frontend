@@ -102,6 +102,7 @@
 		"react-resize-detector": "^6.7.4",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "^4.0.2",
+		"react-scroll-to-top": "^1.0.8",
 		"react-slick": "^0.29.0",
 		"react-spinners": "^0.10.6",
 		"react-virtualized": "9.21.2",

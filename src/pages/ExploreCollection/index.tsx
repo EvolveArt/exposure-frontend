@@ -29,6 +29,8 @@ import Footer from "../../components/Footer";
 import filter from "../../assets/imgs/filter.png";
 
 import { useWeb3React } from "@web3-react/core";
+import ScrollToTop from "react-scroll-to-top";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
 
 const ExploreCollection = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -95,6 +97,12 @@ const ExploreCollection = () => {
   return (
     <div>
       <Header />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
+      />
       <div
         ref={conRef}
         className={styles.container}
