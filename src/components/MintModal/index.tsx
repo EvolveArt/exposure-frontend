@@ -71,7 +71,7 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 		} catch (error) {
 			setSuccess(false);
 			console.error(error);
-			toast({ status: "error", title: formatError(error) });
+			toast({ status: "error", title: "Already bought this drop." });
 			setMinting(false);
 		}
 	};
