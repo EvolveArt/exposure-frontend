@@ -13,6 +13,9 @@ import { Artist, Collection } from "interfaces";
 import { formatName } from "utils";
 import { instagram, twitter, getCDNLink } from "../../constants/cdn.constants";
 import NftItem from "components/NFTitem";
+import ScrollToTop from "react-scroll-to-top";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
+
 // import LicensesModal from "components/LicensesModal";
 
 const TopPage = (artist: Artist) => {
@@ -163,6 +166,12 @@ const ArtistPage = () => {
   return (
     <div>
       <Header />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
+      />
       {TopPage(artist)}
       <Flex
         width={{ base: "90%", lg: "80%" }}

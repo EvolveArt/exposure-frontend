@@ -5,11 +5,19 @@ import React from "react";
 import styles from "./styles.module.scss";
 // import Select from "react-dropdown-select";
 import ether from "../../assets/imgs/ether.png";
+import ScrollToTop from "react-scroll-to-top";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
 
 const Dashboard = () => {
   return (
     <div>
       <Header />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
+      />
       <Flex
         width={{ base: "90%", lg: "80%" }}
         minHeight={"80vh"}

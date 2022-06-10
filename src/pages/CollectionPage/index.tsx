@@ -62,6 +62,8 @@ import axios from "axios";
 // import { Contracts } from "constants/networks";
 import question from "../../assets/imgs/question.png";
 import moment from "moment";
+import ScrollToTop from "react-scroll-to-top";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
 
 interface DropInfo {
   artist: string;
@@ -219,6 +221,12 @@ export const TopPage = (collection: Collection, extend: boolean) => {
             : collection?.mintPrice
         }
         onClose={() => dispatch(ModalActions.hideMintModal())}
+      />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
       />
       {collection?.private && !_isAdmin ? (
         <>
@@ -489,12 +497,17 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                   >
                     Release date -{" "}
                     <span style={{ fontWeight: "800" }}>
-                      {moment(new Date(collection?.releaseDate || "").toUTCString()).format("MMMM Do YYYY")}{" "}
+                      {moment(
+                        new Date(collection?.releaseDate || "").toUTCString()
+                      ).format("MMMM Do YYYY")}{" "}
                     </span>{" "}
                     at{" "}
-							<span style={{ fontWeight: "800" }}>
-							{moment(new Date(collection?.releaseDate || "").toUTCString()).format("HH:mm")} GMT
-							</span>
+                    <span style={{ fontWeight: "800" }}>
+                      {moment(
+                        new Date(collection?.releaseDate || "").toUTCString()
+                      ).format("HH:mm")}{" "}
+                      GMT
+                    </span>
                   </Text>
                 </Flex>
                 {extend ? (
@@ -825,25 +838,25 @@ const CollectionPage = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadAvailablePhotographs = async () => {
-  	const _totalSupply = currentCollection?.totalSupply || 0;
-  	// const images = [];
-    setImages([])
-  	for (let index = 0; index < _totalSupply; index++) {
-  		try {
-  			const response = await axios({
+    const _totalSupply = currentCollection?.totalSupply || 0;
+    // const images = [];
+    setImages([]);
+    for (let index = 0; index < _totalSupply; index++) {
+      try {
+        const response = await axios({
           method: "get",
-          url: `https://arweave.net/${currentCollection?.metadataHash}/${index}`
+          url: `https://arweave.net/${currentCollection?.metadataHash}/${index}`,
         });
-        console.log(response.data)
-  			setImages((prevState: any) => [...prevState, response.data]);
-  			// images.push(_metadata.data);
-  			// console.log(_metadata.data);
-  		} catch (error) {
-  			console.log(error);
-  		}
-  	}
-    
-  	// setImages(images);
+        console.log(response.data);
+        setImages((prevState: any) => [...prevState, response.data]);
+        // images.push(_metadata.data);
+        // console.log(_metadata.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    // setImages(images);
   };
   //QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
   useEffect(() => {

@@ -13,10 +13,13 @@ import {
   Textarea,
   useToast,
   FormErrorMessage,
+  Image,
 } from "@chakra-ui/react";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import axios from "axios";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
+import ScrollToTop from "react-scroll-to-top";
 
 const ContactPage = () => {
   const [mail, setMail] = useState("");
@@ -70,6 +73,12 @@ const ContactPage = () => {
   return (
     <>
       <Header />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
+      />
       <Container bg="white" maxW="full" mt={0} centerContent overflow="hidden">
         <Flex>
           <Box
