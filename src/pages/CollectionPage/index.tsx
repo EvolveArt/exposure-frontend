@@ -12,6 +12,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Zoom from "react-medium-image-zoom";
 // import copyRights from "../../assets/imgs/copyright.png";
 // import ticon from "../../assets/imgs/t.png";
@@ -64,6 +65,7 @@ import question from "../../assets/imgs/question.png";
 import moment from "moment";
 import ScrollToTop from "react-scroll-to-top";
 import arrowButton from "../../assets/imgs/ArrowButton.png";
+import reduce from "../../assets/imgs/reduce.png";
 
 interface DropInfo {
   artist: string;
@@ -74,6 +76,7 @@ interface DropInfo {
 }
 
 export const TopPage = (collection: Collection, extend: boolean) => {
+  const handle = useFullScreenHandle();
   const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
   const { getDropInfo, unpauseDrop } = useExposureContract();
   const [minting, setMinting] = useState(false);
@@ -301,16 +304,29 @@ export const TopPage = (collection: Collection, extend: boolean) => {
               justifyContent={{ base: "center", md: "center" }}
               alignItems="center"
               position="relative"
+              maxHeight={"65vh"}
             >
-              <Zoom>
-                <Image
-                  // src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
-                  src={getCDNLink(collection?.logoImageHash)}
-                  boxShadow="0px 8px 16px 0px rgba(0, 0, 0, 0.15)"
-                  width={"100%"}
-                  maxHeight={"65vh"}
-                ></Image>
-              </Zoom>
+              <button onClick={handle.enter}>
+                <FullScreen handle={handle} className={styles.containerr}>
+                  <Image
+                    // src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+                    src={getCDNLink(collection?.logoImageHash)}
+                    boxShadow="0px 8px 16px 0px rgba(0, 0, 0, 0.15)"
+                  ></Image>
+
+                  {handle.active && (
+                    <button onClick={handle.exit} style={{ zIndex: "100" }}>
+                      <Image
+                        src={reduce}
+                        width={"20px"}
+                        position="absolute"
+                        bottom={"20px"}
+                        right="30px"
+                      />
+                    </button>
+                  )}
+                </FullScreen>
+              </button>
             </Flex>
             <Flex
               flexDirection={"column"}
