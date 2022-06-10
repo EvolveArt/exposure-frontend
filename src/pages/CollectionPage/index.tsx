@@ -11,7 +11,13 @@ import {
   Skeleton,
   IconButton,
 } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Zoom from "react-medium-image-zoom";
 // import copyRights from "../../assets/imgs/copyright.png";
@@ -76,7 +82,7 @@ interface DropInfo {
 }
 
 export const TopPage = (collection: Collection, extend: boolean) => {
-  const handle = useFullScreenHandle();
+  const screen1 = useFullScreenHandle();
   const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
   const { getDropInfo, unpauseDrop } = useExposureContract();
   const [minting, setMinting] = useState(false);
@@ -97,6 +103,15 @@ export const TopPage = (collection: Collection, extend: boolean) => {
   const toast = useToast();
   const dispatch = useDispatch();
   // const history = useHistory();
+
+  const reportChange = useCallback(
+    (state, handle) => {
+      if (handle === screen1) {
+        console.log("Screen 1 went to", state, handle);
+      }
+    },
+    [screen1]
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleMint = async () => {
@@ -306,27 +321,37 @@ export const TopPage = (collection: Collection, extend: boolean) => {
               position="relative"
               maxHeight={"65vh"}
             >
-              <button onClick={handle.enter}>
-                <FullScreen handle={handle} className={styles.containerr}>
-                  <Image
-                    // src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
-                    src={getCDNLink(collection?.logoImageHash)}
-                    boxShadow="0px 8px 16px 0px rgba(0, 0, 0, 0.15)"
-                  ></Image>
+              <button
+                onClick={screen1.enter}
+                style={{ position: "absolute", width: "100%", height: "100%" }}
+              ></button>
+              <FullScreen
+                handle={screen1}
+                onChange={reportChange}
+                className={styles.containerr}
+              >
+                <Image
+                  // src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
+                  src={getCDNLink(collection?.logoImageHash)}
+                  boxShadow="0px 8px 16px 0px rgba(0, 0, 0, 0.15)"
+                ></Image>
 
-                  {handle.active && (
-                    <button onClick={handle.exit} style={{ zIndex: "100" }}>
-                      <Image
-                        src={reduce}
-                        width={"20px"}
-                        position="absolute"
-                        bottom={"20px"}
-                        right="30px"
-                      />
-                    </button>
-                  )}
-                </FullScreen>
-              </button>
+                {screen1.active && (
+                  <button
+                    onClick={screen1.exit}
+                    style={{
+                      zIndex: "100",
+                      position: "absolute",
+                      bottom: "20px",
+                      right: "30px",
+                      padding: "10px",
+                    }}
+                    className={styles.buttonClose}
+                  >
+                    <Image src={reduce} width={"20px"} />
+                  </button>
+                )}
+              </FullScreen>
             </Flex>
             <Flex
               flexDirection={"column"}
