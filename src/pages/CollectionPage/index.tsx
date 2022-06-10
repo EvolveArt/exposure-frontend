@@ -954,7 +954,7 @@ const CollectionPage = () => {
                   {images[index]?.name}
                 </Text>
                 <Text fontWeight="normal" fontSize="14px" lineHeight="28px">
-                  #{index}
+                  #{index + 1}
                 </Text>
                 {/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>

@@ -242,7 +242,7 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 									fontWeight='bold'
 									textAlign='right'
 									fontSize={"15px"}>
-									{price ? (Number(price) * amountToMint).toFixed(2) : 0} ETH
+									{price ? (Number(price) * amountToMint).toFixed(5) : 0} ETH
 								</Text>
 							</Flex>
 							<Flex gap='15px' mt={5}>
