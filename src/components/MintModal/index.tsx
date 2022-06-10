@@ -11,7 +11,7 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import Zoom from "react-medium-image-zoom";
-import { formatError, formatName } from "utils";
+import { formatName } from "utils";
 import ether from "../../assets/imgs/ether.png";
 import styles from "./styles.module.scss";
 import { useSalesContract } from "contracts";
