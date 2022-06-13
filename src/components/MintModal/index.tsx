@@ -11,7 +11,7 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import Zoom from "react-medium-image-zoom";
-import { formatError, formatName } from "utils";
+import { formatName } from "utils";
 import ether from "../../assets/imgs/ether.png";
 import styles from "./styles.module.scss";
 import { useSalesContract } from "contracts";
@@ -71,7 +71,7 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 		} catch (error) {
 			setSuccess(false);
 			console.error(error);
-			toast({ status: "error", title: formatError(error) });
+			toast({ status: "error", title: "Already bought this drop." });
 			setMinting(false);
 		}
 	};
@@ -242,7 +242,7 @@ const MintModal = ({ visible, onClose, collection, price }: any) => {
 									fontWeight='bold'
 									textAlign='right'
 									fontSize={"15px"}>
-									{price ? (Number(price) * amountToMint).toFixed(2) : 0} ETH
+									{price ? (Number(price) * amountToMint).toFixed(5) : 0} ETH
 								</Text>
 							</Flex>
 							<Flex gap='15px' mt={5}>

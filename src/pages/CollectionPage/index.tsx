@@ -11,7 +11,14 @@ import {
   Skeleton,
   IconButton,
 } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Zoom from "react-medium-image-zoom";
 // import copyRights from "../../assets/imgs/copyright.png";
 // import ticon from "../../assets/imgs/t.png";
@@ -51,13 +58,20 @@ import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line
 import { RootState } from "stores/reduxStore";
 import { BsTextLeft } from "react-icons/bs";
-import { CalendarIcon, QuestionIcon } from "@chakra-ui/icons";
+import { CalendarIcon } from "@chakra-ui/icons";
 import ModalActions from "actions/modal.actions";
 import RemindModal from "components/RemindModal";
 import { useIsOverflow } from "hooks/useIsOverflow";
 import SeeMoreModal from "components/SeeMoreModal";
 import MintModal from "components/MintModal";
 import LicensesModal from "components/LicensesModal";
+import axios from "axios";
+// import { Contracts } from "constants/networks";
+import question from "../../assets/imgs/question.png";
+import moment from "moment";
+import ScrollToTop from "react-scroll-to-top";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
+import reduce from "../../assets/imgs/reduce.png";
 
 interface DropInfo {
   artist: string;
@@ -68,6 +82,7 @@ interface DropInfo {
 }
 
 export const TopPage = (collection: Collection, extend: boolean) => {
+  const screen1 = useFullScreenHandle();
   const { purchase, purchaseThroughAuction, getPrice } = useSalesContract();
   const { getDropInfo, unpauseDrop } = useExposureContract();
   const [minting, setMinting] = useState(false);
@@ -88,6 +103,15 @@ export const TopPage = (collection: Collection, extend: boolean) => {
   const toast = useToast();
   const dispatch = useDispatch();
   // const history = useHistory();
+
+  const reportChange = useCallback(
+    (state, handle) => {
+      if (handle === screen1) {
+        console.log("Screen 1 went to", state, handle);
+      }
+    },
+    [screen1]
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleMint = async () => {
@@ -216,6 +240,12 @@ export const TopPage = (collection: Collection, extend: boolean) => {
         }
         onClose={() => dispatch(ModalActions.hideMintModal())}
       />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
+      />
       {collection?.private && !_isAdmin ? (
         <>
           <Flex padding={"30px"} display={{ base: "none", md: "unset" }} />
@@ -289,16 +319,39 @@ export const TopPage = (collection: Collection, extend: boolean) => {
               justifyContent={{ base: "center", md: "center" }}
               alignItems="center"
               position="relative"
+              maxHeight={"65vh"}
             >
-              <Zoom>
+              <button
+                onClick={screen1.enter}
+                style={{ position: "absolute", width: "100%", height: "100%" }}
+              ></button>
+              <FullScreen
+                handle={screen1}
+                onChange={reportChange}
+                className={styles.containerr}
+              >
                 <Image
                   // src={getRandomIPFS(`ipfs://${collection?.logoImageHash}`)}
                   src={getCDNLink(collection?.logoImageHash)}
                   boxShadow="0px 8px 16px 0px rgba(0, 0, 0, 0.15)"
-                  width={"100%"}
-                  maxHeight={"65vh"}
                 ></Image>
-              </Zoom>
+
+                {screen1.active && (
+                  <button
+                    onClick={screen1.exit}
+                    style={{
+                      zIndex: "100",
+                      position: "absolute",
+                      bottom: "20px",
+                      right: "30px",
+                      padding: "10px",
+                    }}
+                    className={styles.buttonClose}
+                  >
+                    <Image src={reduce} width={"20px"} />
+                  </button>
+                )}
+              </FullScreen>
             </Flex>
             <Flex
               flexDirection={"column"}
@@ -437,7 +490,13 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                 </Flex>
                 {collection?.copyRights && (
                   <Flex flexDirection={"row"} gridGap="9px">
-                    <Image src={copyRights} width="29px" height="29px" />
+                    <Image
+                      src={copyRights}
+                      width="23px"
+                      height="23px"
+                      mt={"8px"}
+                      ml="1px"
+                    />
                     <Text
                       fontFamily="Inter"
                       fontStyle="normal"
@@ -445,6 +504,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                       fontSize="16px"
                       lineHeight="28px"
                       paddingBottom={"8px"}
+                      ml="4px"
                     >
                       Licence -{" "}
                       <span style={{ fontWeight: "800" }}>
@@ -452,10 +512,13 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                       </span>{" "}
                       <IconButton
                         aria-label="licenses-modal"
+                        mb={"2px"}
                         bg="transparent"
                         _focus={{ border: "none", bg: "transparent" }}
                         _hover={{ border: "none", bg: "transparent" }}
-                        icon={<QuestionIcon />}
+                        icon={
+                          <Image src={question} width="24px" height={"24px"} />
+                        }
                         onClick={() =>
                           dispatch(ModalActions.showLicensesModal())
                         }
@@ -475,27 +538,17 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                   >
                     Release date -{" "}
                     <span style={{ fontWeight: "800" }}>
-                      {new Date(collection?.releaseDate || "").toLocaleString(
-                        [],
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}{" "}
-                      <span style={{ fontWeight: "400" }}>at</span>{" "}
-                      {new Date(collection?.releaseDate || "").toLocaleString(
-                        [],
-                        {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        }
-                      )}
+                      {moment(
+                        new Date(collection?.releaseDate || "").toUTCString()
+                      ).format("MMMM Do YYYY")}{" "}
                     </span>{" "}
-                    {/* at{" "}
-							<span style={{ fontWeight: "800" }}>
-								{collection?.releaseDate} GMT
-							</span> */}
+                    at{" "}
+                    <span style={{ fontWeight: "800" }}>
+                      {moment(
+                        new Date(collection?.releaseDate || "").toUTCString()
+                      ).format("HH:mm")}{" "}
+                      GMT
+                    </span>
                   </Text>
                 </Flex>
                 {extend ? (
@@ -789,6 +842,8 @@ export const TopPage = (collection: Collection, extend: boolean) => {
 //   );
 // }
 
+// const isMainnet = process.env.REACT_APP_ENV === "MAINNET";
+
 const CollectionPage = () => {
   const [currentCollection, setCurrentCollection] = useState<Collection | null>(
     null
@@ -799,7 +854,7 @@ const CollectionPage = () => {
   const { getCollectionInfo } = useApi();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [images, setImages] = useState<any[]>(["", "", ""]);
+  const [images, setImages] = useState<any[]>([]);
 
   const { getRootProps /*, getRadioProps*/ } = useRadioGroup({
     name: "framework",
@@ -823,32 +878,36 @@ const CollectionPage = () => {
   }, [dropId]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const loadAvailablePhotographs = async () => {
-  // 	const _totalSupply = currentCollection?.totalSupply || 0;
-  // 	// const images = [];
-  // 	for (let index = 0; index < _totalSupply; index++) {
-  // 		try {
-  // 			const _metadata = await axios.get(
-  // 				getRandomIPFS(`ipfs://${currentCollection?.metadataHash}/${index}`)
-  // 			);
-  // 			console.log(`ipfs://${currentCollection?.metadataHash}/${index}`);
-  // 			console.log({ currentCollection });
-  // 			console.log({ _metadata });
-  // 			setImages((prevState: any) => [...prevState, _metadata.data]);
-  // 			// images.push(_metadata.data);
-  // 			// console.log(_metadata.data);
-  // 		} catch (error) {
-  // 			console.log(error);
-  // 		}
-  // 	}
+  const loadAvailablePhotographs = async () => {
+    const _totalSupply = currentCollection?.totalSupply || 0;
+    // const images = [];
+    setImages([]);
+    for (let index = 0; index < _totalSupply; index++) {
+      try {
+        const response = await axios({
+          method: "get",
+          url: `https://arweave.net/${currentCollection?.metadataHash}/${index}`,
+        });
+        console.log(response.data);
+        setImages((prevState: any) => [...prevState, response.data]);
+        // images.push(_metadata.data);
+        // console.log(_metadata.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-  // 	// setImages(images);
-  // };
+    // setImages(images);
+  };
   //QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
-  // useEffect(() => {
-  // 	loadAvailablePhotographs();
-  // 	// eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentCollection]);
+  useEffect(() => {
+    loadAvailablePhotographs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCollection]);
+  useEffect(() => {
+    console.log(images);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [images]);
 
   // const _isAdmin = useMemo(
   // 	() => account && ADMIN_ADDRESSES.includes(account.toLowerCase()),
@@ -875,7 +934,7 @@ const CollectionPage = () => {
           paddingBottom={"32px"}
           marginLeft="10px"
         >
-          Available photographs
+          Available photographs ({currentCollection?.totalSupply})
         </Text>
 
         <HStack
@@ -946,15 +1005,10 @@ const CollectionPage = () => {
                   lineHeight="35px"
                   paddingTop="19px"
                 >
-                  {/* {elem.name} */} Name
+                  {images[index]?.name}
                 </Text>
                 <Text fontWeight="normal" fontSize="14px" lineHeight="28px">
-                  By{" "}
-                  {/* {
-										elem.attributes.find((a: any) => a.trait_type === "Artist")
-											.value
-									} */}
-                  Artist
+                  #{index + 1}
                 </Text>
                 {/* <Text fontSize='12px' lineHeight='18px'>
 									<span style={{ fontWeight: "bold" }}>

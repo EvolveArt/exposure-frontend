@@ -1,14 +1,22 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import React from "react";
 import styles from "./styles.module.scss";
 import cx from "classnames";
+import arrowButton from "../../assets/imgs/ArrowButton.png";
+import ScrollToTop from "react-scroll-to-top";
 
 const ListMints = () => {
   return (
     <div>
       <Header />
+      <ScrollToTop
+        smooth
+        color="#000"
+        component={<Image src={arrowButton} />}
+        style={{ background: "unset" }}
+      />
       <Flex
         width={{ base: "90%", lg: "80%" }}
         minHeight={"80vh"}
