@@ -1,7 +1,7 @@
 export const IMAGE_DELIVERY_URL = "https://imagedelivery.net/Ui4hX-mywdi4eO8Amekoxw";
 
 export const getCDNLink = (id: String) => {
-    console.log(`get CDN link: ${IMAGE_DELIVERY_URL}/${id}/public`)
+    // console.log(`get CDN link: ${IMAGE_DELIVERY_URL}/${id}/public`)
     return `${IMAGE_DELIVERY_URL}/${id}/public`;
 }
 
