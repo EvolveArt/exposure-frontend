@@ -848,6 +848,16 @@ const CollectionPage = () => {
   const [currentCollection, setCurrentCollection] = useState<Collection | null>(
     null
   );
+  const screen1 = useFullScreenHandle();
+
+  const reportChange = useCallback(
+    (state, handle) => {
+      if (handle === screen1) {
+        console.log("Screen 1 went to", state, handle);
+      }
+    },
+    [screen1]
+  );
 
   // const { account } = useWeb3React();
 
@@ -855,6 +865,7 @@ const CollectionPage = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [images, setImages] = useState<any[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const { getRootProps /*, getRadioProps*/ } = useRadioGroup({
     name: "framework",
@@ -967,31 +978,76 @@ const CollectionPage = () => {
               borderRadius={"2px"}
               key={index}
               className={styles.dropContainer}
+              position={"relative"}
             >
-              <Zoom>
-                <Flex
-                  width="100%"
-                  position="relative"
-                  paddingBottom="100%"
-                  boxSizing="border-box"
-                  className={styles.imageContainer}
+              <button
+                onClick={() => {
+                  setCurrentIndex(index);
+                  screen1.enter();
+                }}
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  zIndex: "3",
+                }}
+              ></button>
+              <Flex
+                width="100%"
+                position="relative"
+                paddingBottom="100%"
+                boxSizing="border-box"
+                className={styles.imageContainer}
+              >
+                <FullScreen
+                  handle={screen1}
+                  onChange={reportChange}
+                  className={styles.containerr}
                 >
-                  {/* <Zoom> */}
-                  <Image
-                    src={getCDNLink(`${dropId}-${index}`)}
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    width="100%"
-                    height="100%"
-                    backgroundSize="contain"
-                    objectFit="contain"
-                    border="0"
-                    padding="8px"
-                  ></Image>
-                  {/* </Zoom> */}
-                </Flex>
-              </Zoom>
+                  {screen1.active ? (
+                    <Image
+                      src={getCDNLink(`${dropId}-${currentIndex}`)}
+                      position="absolute"
+                      top="0"
+                      left="0"
+                      width="100%"
+                      height="100%"
+                      backgroundSize="contain"
+                      objectFit="contain"
+                      border="0"
+                      padding="8px"
+                    ></Image>
+                  ) : (
+                    <Image
+                      src={getCDNLink(`${dropId}-${index}`)}
+                      position="absolute"
+                      top="0"
+                      left="0"
+                      width="100%"
+                      height="100%"
+                      backgroundSize="contain"
+                      objectFit="contain"
+                      border="0"
+                      padding="8px"
+                    ></Image>
+                  )}
+                  {screen1.active && (
+                    <button
+                      onClick={screen1.exit}
+                      style={{
+                        zIndex: "101",
+                        position: "absolute",
+                        bottom: "20px",
+                        right: "30px",
+                        padding: "10px",
+                      }}
+                      className={styles.buttonClose}
+                    >
+                      <Image src={reduce} width={"20px"} height="20px" />
+                    </button>
+                  )}
+                </FullScreen>
+              </Flex>
               <Flex
                 flexDirection={"column"}
                 paddingLeft="8px"
