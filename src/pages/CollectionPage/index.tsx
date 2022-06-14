@@ -19,7 +19,6 @@ import React, {
   useCallback,
 } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import Zoom from "react-medium-image-zoom";
 // import copyRights from "../../assets/imgs/copyright.png";
 // import ticon from "../../assets/imgs/t.png";
 // import mintType from "../../assets/imgs/mintType.png";
