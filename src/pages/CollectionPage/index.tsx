@@ -412,7 +412,7 @@ export const TopPage = (collection: Collection, extend: boolean) => {
                         fontStyle="normal"
                         fontWeight="normal"
                         fontSize={"16px"}
-                        lineHeight="28px"
+                        paddingBottom={"15px"}
                       >
                         {collection?.description}
                       </Text>
