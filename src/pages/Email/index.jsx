@@ -181,7 +181,8 @@ const Email = () => {
           <Link
             onClick={() => {
               setCookie("skip-email", true, { path: "/", maxAge: 86400 });
-              history.replace("/");
+              window.history.go(-1);
+              return false;
             }}
           >
             <Flex
